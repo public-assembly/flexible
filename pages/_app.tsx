@@ -7,7 +7,7 @@ function ExampleApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <NextHead>
-        <title>public assembly</title>
+        <title>Public Assembly</title>
       </NextHead>
       <AppWrapper>
         <Component {...pageProps} />
