@@ -1,6 +1,7 @@
 import { Seo } from '@/components/Seo';
 import { ManagerProvider,GovernorProvider, ProposalPageGrid } from '@public-assembly/dao-utils';
 import { isServerSide } from 'utils/helpers';
+import * as React from 'react'
 
 function Proposals() {
   const tokenAddress =
