@@ -14,7 +14,7 @@ export function useAuth() {
   const provider = useProvider()
 
   const { data: signer } = useSigner()
-  const { address, isConnecting } = useAccount()
+  const { address, isConnecting, ...rest } = useAccount()
   const { data: ensName } = useEnsName({
     address: address,
   })
@@ -36,5 +36,6 @@ export function useAuth() {
     loading: isConnecting,
     logout: disconnect,
     chain,
+    ...rest,
   }
 }
