@@ -1,10 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import './theme.css';
 
-html {
-  background-color: black;
+@layer base {
+  :root {
+    --header-height: 56px;
+
+    --background: var(--secondary);
+    --base: 0 0% 10%;
+
+    --primary: #121212;
+    --secondary: #F2FDF7;
+    --tertiary: #a7c7d1;
+    --highlight: #c5fc6b;
+    /* todo: convert hex codes from template to modern rgb to be compatible with tailwind config */
+    --color-primary: 18 18 18;
+    --color-secondary: 242 253 247;
+    --color-highlight: 197 252 107;
+    --color-tertiary: 167 199 209;
+    --headline: 24px;
+    --header-height: 120px;
+
+  /* corner radius */
+    --border-radius-button: 32px;
+    --border-radius-object: 8px;
+  
+    /* typography */
+    --headline-font-size:;
+    --headline-letter-spacing: -0.5px;
+    --headline-line-height: 40;
+
+    --body-large-font-size: 18px;
+    --body-large-letter-spacing: 0px;
+    --body-large-line-height: 28;
+    --body-large-weight: 500;
+
+    --body-font-size: 16px;
+    --body-weight: 400;
+
+    --caption-font-size: 16px;
+    --caption-weight: 500;
+    --caption-line-height: 24;
+
+    --body-extra-small-font-size: 12px;
+    --body-extra-small-font-weight: 500;
+    --body-extra-small-line-height: 16;
+
+    --footer-height: 60px;
+    --pa-pink: #ff89de;
+    --border-radius: 5px;
+    /* TYPOGRAPHY */
+    --code-font: 'SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace';
+  }
 }
 
 html,
@@ -12,11 +59,11 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Courier New', Courier, monospace;
-  color: #ffffff;
+  color: var(--primary);
+  background-color: var(--background);
 }
 
 a {
-  color: var(--pa-pink);
   text-decoration: none;
 }
 
@@ -153,5 +200,41 @@ footer a {
 }
 
 .shadow {
-  filter: drop-shadow(10px 10px 4px #4444dd);
+  -webkit-filter: drop-shadow(10px 10px 4px #4444dd);
+          filter: drop-shadow(10px 10px 4px #4444dd);
 }
+
+
+div[data-radix-popper-content-wrapper] {
+    z-index: '999 !important';
+}
+
+div[data-radix-popper-content-wrapper] {
+      transform: 'none !important';
+      top: 'auto !important';
+      bottom: '0 !important';
+      left: '0 !important';
+      width: '100% !important';
+} 
+
+div[data-radix-popper-content-wrapper]  .content-outer .content-inner {
+    width: '100%';
+    max-width: '100%';
+    border-bottom-left-radius: '0px';
+    border-bottom-right-radius: '0px';
+    transform: 'translate3d(0, 100%, 0)';
+
+    padding-top: 24;
+    padding-bottom: 'calc(24 + env(safe-area-inset-bottom))',
+}
+/* div[data-radix-popper-content-wrapper] && [data-state=open]': {
+             [`${ContentInner}`]: {
+               // animation: `${floatingElementKeyframes.longFadeInUp} 500ms $transitions$ease forwards !important`,
+               // animationDelay: '125ms',
+             },
+           },
+           '&[data-state=closed]': {
+             // [`${ContentInner}`]: {
+               // animation: `${floatingElementKeyframes.longFadeInDown} 500ms $transitions$ease forwards !important`,
+             },
+           }, */
