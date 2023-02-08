@@ -1,4 +1,5 @@
 import React from 'react'
+import { IconProps } from './types'
 
 function ArrowRight() {
   return (
@@ -13,4 +14,5 @@ function ArrowRight() {
   )
 }
 
+export declare const ArrowRightIcon: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>>
 export default React.memo(ArrowRight)

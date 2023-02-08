@@ -1,6 +1,7 @@
 import ArrowRight from './ArrowRight'
 import ArrowUp from './ArrowUp'
 import ArrowUpLeft from './ArrowUpLeft'
+import ArrowUpRight from './ArrowUpRight'
 import Check from './Check'
 import ChevronDown from './ChevronDown'
 import ChevronUp from './ChevronUp'
@@ -10,6 +11,7 @@ import Globe from './Globe'
 import HorizontalDots from './HorizontalDots'
 import Menu from './Menu'
 import Minus from './Minus'
+import PlusIcon from './PlusIcon'
 import VerticalDots from './VerticalDots'
 
 export {
@@ -17,6 +19,7 @@ export {
   Minus,
   ArrowUp,
   ArrowRight,
+  ArrowUpRight,
   ArrowUpLeft,
   Check,
   ChevronDown,
@@ -24,6 +27,7 @@ export {
   Copy,
   Globe,
   HorizontalDots,
+  PlusIcon,
   Menu,
   VerticalDots,
 }
