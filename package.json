@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@babel/core": "*",
     "@ethersproject/units": "^5.7.0",
     "@public-assembly/dao-utils": "^0.0.4",
     "@rainbow-me/rainbowkit": "^0.8.1",
