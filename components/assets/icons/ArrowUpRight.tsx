@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ArrowUpRight({ size = 16, className = 'text-primary' }: { size: number; className?: string }) {
+function ArrowUpRight({ size = 16, className = 'text-primary' }: { size?: number; className?: string }) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
