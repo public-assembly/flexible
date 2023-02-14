@@ -1,33 +1,56 @@
+import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { Flex } from './base/Flex'
 
-const pages = [
+type NavLinkProps = {
+  slug: string
+  title: string
+}
+
+const navLinks: NavLinkProps[] = [
   {
-    slug: '/examples',
-    title: 'Examples',
+    slug: '/auction',
+    title: 'Auction',
   },
   {
     slug: '/proposals',
-    title: 'Proposals',
+    title: 'Props',
+  },
+  {
+    slug: '/about',
+    title: 'About',
   },
 ]
 
 export function Navigation() {
-  const router = useRouter()
-
   return (
-    <div className="flex flex-row gap-4">
-      {pages.map((page) => (
-        <Link passHref href={page.slug} key={page.slug}>
-          <a
-            className="sm-font"
-            style={{
-              color: router.asPath === page.slug ? '#ff89de' : '#ff89de',
-            }}>
-            {page.title}
-          </a>
-        </Link>
+    <Flex className='gap-4'>
+      {navLinks.map((page) => (
+        <NavLink key={page.slug} slug={page.slug} title={page.title} />
       ))}
-    </div>
+    </Flex>
+  )
+}
+
+function NavLink({ slug, title }: NavLinkProps) {
+  const router = useRouter()
+  const isCurrentPath = router.asPath === slug
+  return (
+    <Link
+      href={slug}
+      key={slug}
+      className={clsx(
+        'relative flex flex-row items-center gap-2 transition duration-300 group text-primary hover:text-tertiary cursor-pointer'
+      )}
+    >
+      {title}
+      <span
+        className={clsx(
+          isCurrentPath ? 'max-w-full' : 'max-w-0',
+          'block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-highlight'
+        )}
+      />
+    </Link>
   )
 }
