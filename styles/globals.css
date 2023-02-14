@@ -21,6 +21,21 @@
     --headline: 24px;
     --header-height: 120px;
 
+    --font-heading-font-family: 'Courier New', Courier, monospace;
+    --font-heading-font-weight: 400;
+    --font-heading-font-style: normal;
+    --font-heading-line-height: 1.25;
+    --font-heading-font-size: 24px;
+
+    --font-body-font-family: 'Courier New', Courier, monospace;
+    --font-body-font-weight: 400;
+    --font-body-font-style: normal;
+
+    --sidebar-width: 300px;
+    --grid-base: 4px;
+
+
+
   /* corner radius */
     --border-radius-button: 32px;
     --border-radius-object: 8px;
@@ -204,37 +219,28 @@ footer a {
           filter: drop-shadow(10px 10px 4px #4444dd);
 }
 
+div[data-radix-popper-content-wrapper] .content-outer .content-inner {
+    width: 100%;
+    max-width: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    /* transform: translate3d(0, 100%, 0); */
 
-div[data-radix-popper-content-wrapper] {
-    z-index: '999 !important';
+    padding-top: 24px;
+    padding-bottom: 24px;
 }
 
 div[data-radix-popper-content-wrapper] {
-      transform: 'none !important';
-      top: 'auto !important';
-      bottom: '0 !important';
-      left: '0 !important';
-      width: '100% !important';
-} 
-
-div[data-radix-popper-content-wrapper]  .content-outer .content-inner {
-    width: '100%';
-    max-width: '100%';
-    border-bottom-left-radius: '0px';
-    border-bottom-right-radius: '0px';
-    transform: 'translate3d(0, 100%, 0)';
-
-    padding-top: 24;
-    padding-bottom: 'calc(24 + env(safe-area-inset-bottom))',
+  z-index: 999 !important;
 }
-/* div[data-radix-popper-content-wrapper] && [data-state=open]': {
-             [`${ContentInner}`]: {
-               // animation: `${floatingElementKeyframes.longFadeInUp} 500ms $transitions$ease forwards !important`,
-               // animationDelay: '125ms',
-             },
-           },
-           '&[data-state=closed]': {
-             // [`${ContentInner}`]: {
-               // animation: `${floatingElementKeyframes.longFadeInDown} 500ms $transitions$ease forwards !important`,
-             },
-           }, */
+
+/* On screens that are 600px or less, create sheet for dropdown */
+@media screen and (max-width: 768px) {
+  div[data-radix-popper-content-wrapper] {
+    transform: none !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+  }
+}
