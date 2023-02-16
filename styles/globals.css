@@ -21,6 +21,9 @@
     --headline: 24px;
     --header-height: 120px;
 
+    --drop-shadow-spread: 0px;
+    --drop-shadow-color: rgba(0, 0, 0, 0.25);
+
     --font-heading-font-family: 'Courier New', Courier, monospace;
     --font-heading-font-weight: 400;
     --font-heading-font-style: normal;
@@ -30,10 +33,9 @@
     --font-body-font-family: 'Courier New', Courier, monospace;
     --font-body-font-weight: 400;
     --font-body-font-style: normal;
-
+    
     --sidebar-width: 300px;
     --grid-base: 4px;
-
 
 
   /* corner radius */
@@ -234,7 +236,7 @@ div[data-radix-popper-content-wrapper] {
   z-index: 999 !important;
 }
 
-/* On screens that are 600px or less, create sheet for dropdown */
+/* On screens that are 768px or less, create sheet for dropdown */
 @media screen and (max-width: 768px) {
   div[data-radix-popper-content-wrapper] {
     transform: none !important;
