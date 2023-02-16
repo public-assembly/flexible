@@ -18,17 +18,27 @@ module.exports = {
         'object': 'var(--border-radius-object)',
         'button': 'var(--border-radius-button)',
       },
+      data: {
+        open: 'state="open"',
+        closed: 'state="closed"',
+        bottom: 'side="bottom"',
+        top: 'side="top"',
+      },
       animation: {
+        // Dropdown menu
+      "scale-in": "scale-in 0.2s ease-in-out",
+      "slide-down": "slide-down 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important",
+      "slide-up": "slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important",
       fakeFade: 'fakeAnimation 300ms cubic-bezier(0.23, 1, 0.32, 1)',
       fadeOut: 'fadeOut 300ms cubic-bezier(0.23, 1, 0.32, 1)',
-      fadeOutUp: 'fadeOutUp 300ms cubic-bezier(0.23, 1, 0.32, 1)',
+      fadeOutUp: 'fadeOutUp 300ms cubic-bezier(0.23, 1, 0.32, 1) !important',
       fadeIn: 'fadeIn 300ms cubic-bezier(0.23, 1, 0.32, 1)',
       fadeInUp: 'fadeInUp 300ms cubic-bezier(0.23, 1, 0.32, 1)',
-      fadeInDown: 'fadeInDown 300ms cubic-bezier(0.23, 1, 0.32, 1)',
-      fadeOutDown: 'fadeOutDown 300ms cubic-bezier(0.23, 1, 0.32, 1)',
-      longFadeInDown: 'longFadeInDown 500ms cubic-bezier(0.23, 1, 0.32, 1) forwards !important',
-      longFadeInUp: 'longFadeInUp 500ms cubic-bezier(0.23, 1, 0.32, 1) forwards !important',
-      longFadeInUp: 'longFadeInUp 500ms cubic-bezier(0.23, 1, 0.32, 1) forwards !important',
+      fadeInDown: 'fadeInDown 300ms cubic-bezier(0.23, 1, 0.32, 1) !important',
+      fadeOutDown: 'fadeOutDown 300ms cubic-bezier(0.23, 1, 0.32, 1) !important',
+      longFadeInDown: 'longFadeInDown 500ms cubic-bezier(0.23, 1, 0.32, 1) forwards ',
+      longFadeInUp: 'longFadeInUp 500ms cubic-bezier(0.23, 1, 0.32, 1) forwards ',
+      longFadeInUp: 'longFadeInUp 500ms cubic-bezier(0.23, 1, 0.32, 1) forwards ',
       },
       keyframes: {
         fadeInDown: {
@@ -41,6 +51,19 @@ module.exports = {
             'transform': 'translateY(0)',
           }
         },
+         // Dropdown menu
+        "scale-in": {
+          "0%": { opacity: 0, transform: "scale(0)" },
+          "100%": { opacity: 1, transform: "scale(1)" },
+        },
+        "slide-down": {
+          "0%": { opacity: 0, transform: "translateY(-10px)" },
+          "100%": { opacity: 1, transform: "translateY(0)" },
+        },
+        "slide-up": {
+          "0%": { opacity: 0, transform: "translateY(10px)" },
+          "100%": { opacity: 1, transform: "translateY(0)" },
+        },
         fadeInUp: {
           from: {
             opacity: '0',
@@ -50,6 +73,23 @@ module.exports = {
             opacity: '1',
             transform: 'translateY(0)',
           }
+        },
+        // Drawer
+        "enter-from-right": {
+          "0%": { transform: "translateX(200px)", opacity: 0 },
+          "100%": { transform: "translateX(0)", opacity: 1 },
+        },
+        "enter-from-left": {
+          "0%": { transform: "translateX(-200px)", opacity: 0 },
+          "100%": { transform: "translateX(0)", opacity: 1 },
+        },
+        "exit-to-right": {
+          "0%": { transform: "translateX(0)", opacity: 1 },
+          "100%": { transform: "translateX(200px)", opacity: 0 },
+        },
+        "exit-to-left": {
+          "0%": { transform: "translateX(0)", opacity: 1 },
+          "100%": { transform: "translateX(-200px)", opacity: 0 },
         },
         fadeOutUp: {
           from: {
