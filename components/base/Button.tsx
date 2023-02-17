@@ -20,8 +20,6 @@ const buttonVariants = cva(
           'first:[&>svg]:mr-[6px] last:[&>svg]:ml-[6px] [&>svg]:w-auto [&>svg]:h-4',
         ],
         tertiary: 'bg-tertiary hover:bg-tertiary/50 active:bg-tertiary dark:bg-tertiary dark:text-tertiary',
-        ghost:
-          'bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-slate-100 dark:hover:text-slate-100 data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent',
         link: 'bg-transparent underline-offset-4 hover:underline text-slate-900 dark:text-slate-100 hover:bg-transparent dark:hover:bg-transparent',
         burger:
           'data-[state=open]:bg-primary bg-transparent hover:bg-primary/50 data-[state=open]:text-secondary focus:ring-2 active:ring-primary focus:ring-primary',
@@ -42,7 +40,7 @@ const buttonVariants = cva(
       // Button with icon in size 'sm'
       {
         variant: 'secondary',
-        icon: 'standalone',
+        icon: true,
         size: 'md',
         // apply the following classes to the svg icon
         // todo: debug why these styles aren't applying
