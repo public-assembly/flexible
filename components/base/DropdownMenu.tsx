@@ -16,7 +16,7 @@ const Overlay: FC<PropsWithChildren> = ({ children }) => {
       className={cn(
         'overlay',
         'fixed bottom-0 left-0 w-screen h-screen pointer-events-none',
-        'backdrop-blur-sm bg-black/60 filter md:hidden',
+        'backdrop-blur-[24px] bg-black/60 filter md:hidden',
         'group-radix-state-closed:animate-fadeOut group-radix-state-open:animate-fadeIn',
         'data-closed:animate-fadeOut data-open:animate-fadeIn data-[side=top]:data-[state=open]:animate-fadeIn data-[side=top]:data-[state=closed]:animate-fadeOut'
       )}
