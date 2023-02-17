@@ -29,7 +29,7 @@ const cardBase = cva(['card', 'border-solid', 'border-slate-300', 'rounded'], {
     },
   },
 })
-W
+
 export interface CardProps extends BoxProps, CardBaseProps {}
 export const card = ({ margin, padding, shadow }: CardProps = {}) =>
   twMerge(box({ margin, padding }), cardBase({ shadow }))
