@@ -12,7 +12,7 @@
     "@babel/core": "*",
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/units": "^5.7.0",
-    "@public-assembly/dao-utils": "^0.0.3",
+    "@public-assembly/dao-utils": "^0.0.4",
     "@radix-ui/react-alert-dialog": "^1.0.2",
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-dropdown-menu": "^2.0.2",

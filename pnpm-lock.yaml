@@ -4,7 +4,7 @@ specifiers:
   '@babel/core': '*'
   '@ethersproject/bytes': ^5.7.0
   '@ethersproject/units': ^5.7.0
-  '@public-assembly/dao-utils': ^0.0.3
+  '@public-assembly/dao-utils': ^0.0.4
   '@radix-ui/react-alert-dialog': ^1.0.2
   '@radix-ui/react-dialog': ^1.0.2
   '@radix-ui/react-dropdown-menu': ^2.0.2
@@ -47,7 +47,7 @@ dependencies:
   '@babel/core': 7.20.12
   '@ethersproject/bytes': 5.7.0
   '@ethersproject/units': 5.7.0
-  '@public-assembly/dao-utils': 0.0.3_bhmzrnpowc43rfny5eex2gujoe
+  '@public-assembly/dao-utils': 0.0.4_bhmzrnpowc43rfny5eex2gujoe
   '@radix-ui/react-alert-dialog': 1.0.2_5ndqzdd6t4rivxsukjv3i3ak2q
   '@radix-ui/react-dialog': 1.0.2_5ndqzdd6t4rivxsukjv3i3ak2q
   '@radix-ui/react-dropdown-menu': 2.0.2_5ndqzdd6t4rivxsukjv3i3ak2q
@@ -1063,8 +1063,8 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /@public-assembly/dao-utils/0.0.3_bhmzrnpowc43rfny5eex2gujoe:
-    resolution: {integrity: sha512-dGU0raaCT3e2rZC4nxqStrC6soZYLgNkHBcrmRGrHRFBMBAg1LXQZgw8rD6lObYDLKZy4jcA3XUrI83VNV82fQ==}
+  /@public-assembly/dao-utils/0.0.4_bhmzrnpowc43rfny5eex2gujoe:
+    resolution: {integrity: sha512-KQegBeQm9boabk5YhbIyEsbZFK6sQXu9ANFQQ4JOwSX+zq8yZnOBDwKkUbf99fQD/VOII58fGy6df5Zp6ZvL7A==}
     peerDependencies:
       '@ethersproject/units': ^5.7.0
       '@rainbow-me/rainbowkit': ^0.8.1
