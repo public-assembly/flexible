@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button } from '../Button'
 import EmptyState from '../EmptyState'
 
 import { ArrowUpRight } from '@/components/assets/icons'
 
 import { buildCreateProposalUrl } from 'utils/helpers'
+import Button from '@/components/base/Button'
 
 const ProposalEmptyState = () => {
   return (
@@ -17,8 +17,8 @@ const ProposalEmptyState = () => {
           href={buildCreateProposalUrl(process.env.NEXT_PUBLIC_DAO_ADDRESS!)}
           className='focus:outline-none'
         >
-          <Button>
-            Submit a proposal <ArrowUpRight />
+          <Button variant='secondary' size='md' icon>
+            Submit a proposal <ArrowUpRight className='text-tertiary' />
           </Button>
         </a>
       }
