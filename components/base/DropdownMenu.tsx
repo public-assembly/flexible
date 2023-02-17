@@ -51,9 +51,7 @@ const ContentOuter = withClassName(
   cn('content-outer', 'group', 'radix-state-closed:animate-fakeFade origin-radix-dropdown-menu')
 )
 
-type ContentProps = React.ComponentProps<typeof DropdownPrimitive.Content> & {
-  // minWidth?: CSS['minWidth']
-}
+type ContentProps = React.ComponentProps<typeof DropdownPrimitive.Content>
 
 const Content = forwardRef(function Content(
   props: ContentProps,
@@ -94,7 +92,7 @@ const sharedBaseStyles = cva([
   'no-underline',
   'focus:outline-none',
   'focus:bg-primary/10',
-  'hover:bg-black/5',
+  // 'hover:bg-black/5',
   'disabled:text-black/50',
   'disabled:bg-transparent!',
 ])
@@ -102,7 +100,7 @@ const sharedBaseStyles = cva([
 type BaseItemLinkProps = {
   className?: string
   children: React.ReactNode
-}
+} & React.ComponentPropsWithoutRef<'a'>
 
 const BaseItemLink = React.forwardRef<HTMLAnchorElement, BaseItemLinkProps>(
   (props, forwardedRef: React.Ref<HTMLAnchorElement>) => {
