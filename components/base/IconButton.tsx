@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button } from '../Button'
-import NextLinks from './NextLinks'
+import NextLink from 'next/link'
+import Button from '@/components/base/Button'
 
 type IconButtonProps = {
   icon: React.ReactNode
@@ -11,11 +11,9 @@ type IconButtonProps = {
 
 const IconButton = (props: IconButtonProps) => {
   return (
-    <Button size='icon' shape='circle' intent='primary' className='w-fit'>
-      <NextLinks href={props.href} tooltip={props.tooltip}>
-        {props.icon}
-      </NextLinks>
-    </Button>
+    <NextLink href={props.href}>
+      <Button>{props.icon}</Button>
+    </NextLink>
   )
 }
 
