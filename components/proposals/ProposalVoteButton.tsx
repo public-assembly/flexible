@@ -8,9 +8,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../base/Dialog'
-import { Button } from '@/components/base/Button'
 import { Check, Minus } from '../assets/icons'
 import { Stack } from '../base/Stack'
+import { Button } from '../base/Button'
 
 const ProposalVoteButton = () => {
   // todo pull in total vote count
@@ -18,13 +18,13 @@ const ProposalVoteButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='outline'>Submit vote</Button>
+        <Button variant='tertiary'>Submit vote</Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
           <DialogTitle>Voting</DialogTitle>
           <DialogDescription>
-            Votes are permanent and you can't change votes after its submitted onchain. (will finalize).
+            Votes are permanent and you can&apos;t change votes after its submitted onchain. (will finalize).
           </DialogDescription>
         </DialogHeader>
         <Stack className='grid gap-4 py-6'>
