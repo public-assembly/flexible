@@ -14,13 +14,15 @@ import { ENV } from 'utils/env'
 
 export function Header() {
   return (
-    <header className='flex flex-row items-center justify-between w-full px-4 bg-transparent lg:sticky lg:top-0'>
+    <header className='flex flex-row items-center justify-between w-full px-4 bg-transparent pt-4 lg:sticky lg:top-0'>
       <Link href='/' className=''>
         {/* TODO: Dao Name from token contract */}
         {ENV.SITE_TITLE}
       </Link>
-      <Navigation />
-      <MobileDropdown />
+      <Flex className='gap-6'>
+        <Navigation />
+        <MobileDropdown />
+      </Flex>
     </header>
   )
 }

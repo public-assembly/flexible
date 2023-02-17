@@ -26,7 +26,7 @@ const navLinks: NavLinkProps[] = [
 
 export function Navigation() {
   return (
-    <Flex className='gap-4'>
+    <Flex className='gap-6'>
       {navLinks.map((page) => (
         <NavLink key={page.slug} slug={page.slug} title={page.title} />
       ))}
