@@ -4,20 +4,21 @@ import { getDefaultWallets, RainbowKitProvider, lightTheme } from '@rainbow-me/r
 import { createClient, configureChains, WagmiConfig } from 'wagmi'
 import { mainnet, goerli } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
-import { infuraProvider } from 'wagmi/providers/infura'
+// import { infuraProvider } from 'wagmi/providers/infura'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { ENV } from 'utils/env'
 
 // Choose which chains you'd like to show
 const chains = [mainnet, goerli]
 
 const { provider, webSocketProvider } = configureChains(chains, [
   publicProvider(),
-  alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY! }),
-  infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_KEY! }),
+  alchemyProvider({ apiKey: ENV.ALCHEMY_KEY }),
+  // infuraProvider({ apiKey: ENV.INFURA_KEY! }),
 ])
 
 const { connectors } = getDefaultWallets({
-  appName: process.env.NEXT_PUBLIC_SITE_TITLE!,
+  appName: ENV.SITE_TITLE!,
   chains,
 })
 

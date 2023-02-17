@@ -9,13 +9,15 @@ import Link from 'next/link'
 import { Flex } from '@/components/base/Flex'
 import { Stack } from './base/Stack'
 import { Headline } from './base/Typography'
-import { Button } from '@/components/base/Button'
+import Button from '@/components/base/Button'
+import { ENV } from 'utils/env'
 
 export function Header() {
   return (
     <header className='flex flex-row items-center justify-between w-full px-4 bg-transparent lg:sticky lg:top-0'>
       <Link href='/' className=''>
-        {process.env.NEXT_PUBLIC_SITE_TITLE}
+        {/* TODO: Dao Name from token contract */}
+        {ENV.SITE_TITLE}
       </Link>
       <Navigation />
       <MobileDropdown />
