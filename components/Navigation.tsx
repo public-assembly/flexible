@@ -1,7 +1,9 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { cn } from 'utils/cn'
 import { Flex } from './base/Flex'
+import { Headline } from './base/Typography'
 
 type NavLinkProps = {
   slug: string
@@ -40,17 +42,16 @@ function NavLink({ slug, title }: NavLinkProps) {
     <Link
       href={slug}
       key={slug}
-      className={clsx(
-        'relative flex flex-row items-center gap-2 transition duration-300 group text-primary hover:text-tertiary cursor-pointer'
-      )}
+      className={clsx('relative flex flex-row items-center gap-2 transition duration-300 group cursor-pointer')}
     >
-      {title}
-      <span
-        className={clsx(
-          isCurrentPath ? 'max-w-full' : 'max-w-0',
-          'block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-highlight'
+      <Headline
+        className={cn(
+          isCurrentPath ? 'link-underline--active' : '',
+          'text-primary group-hover:text-tertiary duration-300 transition link-underline'
         )}
-      />
+      >
+        {title}
+      </Headline>
     </Link>
   )
 }

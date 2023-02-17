@@ -63,6 +63,8 @@
     --body-extra-small-font-weight: 500;
     --body-extra-small-line-height: 16;
 
+    --link-gradient: linear-gradient(var(--highlight), var(--highlight));
+
     --footer-height: 60px;
     --pa-pink: #ff89de;
     --border-radius: 5px;
@@ -246,3 +248,18 @@ div[data-radix-popper-content-wrapper] {
     width: 100% !important;
   }
 }
+
+	.link-underline {
+		border-bottom-width: 0;
+		background-image: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
+		background-size: 0 2px;
+		background-position: 0 100%;
+		background-repeat: no-repeat;
+		transition: background-size .5s ease-in-out;
+	}
+
+  .link-underline--active {
+    background-image: linear-gradient(transparent, transparent), var(--link-gradient);
+    background-size: 100% 2px;
+    background-position: 0 100%
+  }
