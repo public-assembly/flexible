@@ -22,7 +22,7 @@ const navLinks: NavLinkProps[] = [
     slug: '/about',
     title: 'About',
   },
-]
+];
 
 export function Navigation() {
   return (
