@@ -1,38 +1,49 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { cn } from 'utils/cn'
+import { Flex } from './base/Flex'
+import { Headline } from './base/Typography'
 
-const pages = [
+type NavLinkProps = {
+  slug: string
+  title: string
+}
+
+const navLinks: NavLinkProps[] = [
   {
-    slug: '/examples',
-    title: 'Examples',
+    slug: '/auction',
+    title: 'Auction',
   },
   {
     slug: '/proposals',
-    title: 'Proposals',
+    title: 'Props',
   },
   {
-    slug: '/providers',
-    title: 'Providers',
+    slug: '/about',
+    title: 'About',
   },
 ];
 
 export function Navigation() {
-  const router = useRouter();
-
   return (
-    <div className='flex flex-row gap-4'>
-      {pages.map((page) => (
-        <Link passHref href={page.slug} key={page.slug}>
-          <a
-            className='sm-font'
-            style={{
-              color: router.asPath === page.slug ? '#ff89de' : '#ff89de',
-            }}
-          >
-            {page.title}
-          </a>
-        </Link>
+    <Flex className='gap-6'>
+      {navLinks.map((page) => (
+        <NavLink key={page.slug} slug={page.slug} title={page.title} />
       ))}
-    </div>
-  );
+    </Flex>
+  )
+}
+
+function NavLink({ slug, title }: NavLinkProps) {
+  const router = useRouter()
+  const isCurrentPath = router.asPath === slug
+  return (
+    <Link href={slug} key={slug} className={cn('relative flex flex-row transition duration-300 group cursor-pointer')}>
+      <Headline
+        className={cn(isCurrentPath ? 'link-underline--active' : '', 'group-hover:text-tertiary link-underline')}
+      >
+        {title}
+      </Headline>
+    </Link>
+  )
 }

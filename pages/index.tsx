@@ -2,7 +2,7 @@ import { Seo } from '@/components/Seo'
 
 function Home() {
   return (
-    <section id="index">
+    <section id='index' className='h-full'>
       <Seo />
     </section>
   )

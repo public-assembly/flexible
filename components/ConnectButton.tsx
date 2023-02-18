@@ -1,41 +1,34 @@
+import { useAuth } from '@/hooks/useAuth'
 import { ConnectButton as RKConnectButton } from '@rainbow-me/rainbowkit'
-import { Avatar } from './Avatar'
+import { Zorb } from './base/Zorb'
+import { Button } from '@/components/base/Button'
 
 export default function ConnectButton({ ...props }) {
+  const { ensName, address } = useAuth()
   return (
-    <div
-      className="connect-button-wrapper relative flex items-center overflow-hidden rounded-2xl bg-gray-800 py-1.5 pr-3 pl-3"
-      {...props}>
-      <RKConnectButton.Custom>
-        {({ account, chain, openAccountModal, openConnectModal, mounted }) => {
-          return (
-            <>
-              {(() => {
-                if (!mounted || !account || !chain) {
-                  return (
-                    <button onClick={openConnectModal} className="text-sm">
-                      Connect Wallet
-                    </button>
-                  )
-                }
-                if (chain.unsupported) {
-                  return (
-                    <div className="text-sm text-red-400">&#x26A0; Wrong Network</div>
-                  )
-                }
-                return (
-                  <button onClick={openAccountModal}>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Avatar />
-                      {account.displayName}
-                    </div>
-                  </button>
-                )
-              })()}
-            </>
-          )
-        }}
-      </RKConnectButton.Custom>
-    </div>
+    <RKConnectButton.Custom>
+      {({ account, chain, openAccountModal, openConnectModal, mounted }) => {
+        return (
+          <>
+            {(() => {
+              if (!mounted || !account || !chain) {
+                return <Button onClick={openConnectModal}>Connect Wallet</Button>
+              }
+              if (chain.unsupported) {
+                return <div className='text-sm text-red-400'>&#x26A0; Wrong Network</div>
+              }
+              return (
+                <Button onClick={openAccountModal}>
+                  <div className='flex items-center gap-2 text-sm'>
+                    <Zorb address={account.address} size={24} radius={999} />
+                    {ensName ? ensName : account.displayName}
+                  </div>
+                </Button>
+              )
+            })()}
+          </>
+        )
+      }}
+    </RKConnectButton.Custom>
   )
 }
