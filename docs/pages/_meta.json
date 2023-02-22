@@ -1,11 +1,14 @@
 {
-  "index": "Home",
-  "getting_started": "Getting Started",
-  "dependencies": "Dependencies",
-  "architecture": "Architecture",
-  "theming": "Theming",
-  "advanced": "Advanced",
-  "changelog": "Changelog",
+  "index": {
+    "type": "page",
+    "title": "Flexible",
+    "display": "hidden"
+  },
+
+  "docs": {
+    "type": "page",
+    "title": "Documentation"
+  },
 
   "about": {
     "title": "About",
