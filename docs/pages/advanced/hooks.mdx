@@ -1,0 +1,284 @@
+import { Callout, Tab, Tabs } from "nextra-theme-docs";
+
+<Callout type="warning" emoji="⚠️">
+  This page is under construction.
+</Callout>
+ 
+<Callout type="info" emoji="ℹ️">
+  Retrieve and transform information into auctions, token, and metadata objects.
+</Callout>
+
+
+## useActiveAuction
+
+Fetches data and provides functionality for users to bid on an NFT in an active auction.
+
+```ts copy
+import { useActiveAuction } from "@public-assembly/dao-utils";
+```
+
+  <Tabs items={["Usage", "Return Values", "Configuration"]} storageKey="selected-pkg-manager" defaultIndex="0">
+    <Tab>
+      ```ts copy
+      import { useActiveAuction } from "@public-assembly/dao-utils";
+      
+      function App() {
+        const tokenAddress = '0x123456...';
+        const {
+          auctionData,
+          totalSupply,
+          createBid,
+          createBidSuccess,
+          createBidLoading,
+          createBidError,
+          createBidTx,
+          bidAmount,
+          updateBidAmount,
+          isValidBid
+        } = useActiveAuction(tokenAddress);
+      ```
+    </Tab>
+    <Tab>
+      ```
+      | Return | Type | Description
+      | -- | -- | -- |
+      | auctionData | Object | Containing data of the active auction such as tokenId, address, metadata, duration, endTime, highestBidder, highestBidPrice, minBidIncrement, minBidAmount, and reservePrice.
+      | totalSupply | Number | The total supply of the NFT Contract.
+      | isValidBid | Boolean | Indicating if the bid amount is valid.
+      | createBidLoading| Boolean | Indicating if creating a bid is in
+      ```
+    </Tab>
+    <Tab>
+      ```sh copy
+      lorem
+      ```
+    </Tab>
+  </Tabs>
+
+## useBidder
+Returns a bidder's ENS name or shortened address, using wagmi's "useEnsName" and a "shortenAddress" function.
+
+```ts copy
+import { useBidder } from '@public-assembly/dao-utils'
+````
+
+<Tabs items={["Usage", "Return Values", "Configuration"]} storageKey="selected-pkg-manager" defaultIndex="0">
+    <Tab>
+      ```ts copy
+      import { useBidder } from "@public-assembly/dao-utils";
+      
+      function App() {
+        const tokenAddress = '0x123456...';
+        const {
+          auctionData,
+          totalSupply,
+          createBid,
+          createBidSuccess,
+          createBidLoading,
+          createBidError,
+          createBidTx,
+          bidAmount,
+          updateBidAmount,
+          isValidBid
+        } = useActiveAuction(tokenAddress);
+      ```
+    </Tab>
+    <Tab>
+      ```
+      | Return | Type | Description
+      | -- | -- | -- |
+      | auctionData | Object | Containing data of the active auction such as tokenId, address, metadata, duration, endTime, highestBidder, highestBidPrice, minBidIncrement, minBidAmount, and reservePrice.
+      | totalSupply | Number | The total supply of the NFT Contract.
+      | isValidBid | Boolean | Indicating if the bid amount is valid.
+      | createBidLoading| Boolean | Indicating if creating a bid is in
+      ```
+    </Tab>
+    <Tab>
+      ```sh copy
+      lorem
+      ```
+    </Tab>
+  </Tabs>
+
+## useCountdown
+
+Tracks and returns a countdown string, updated every second, for a given end time in Unix timestamp format.
+
+```ts copy
+import { useCountdown } from "@public-assembly/dao-utils";
+```
+<Tabs items={["Usage", "Return Values", "Configuration"]} storageKey="selected-pkg-manager" defaultIndex="0">
+    <Tab>
+      ```ts copy
+      import { useCountdown } from "@public-assembly/dao-utils";
+      
+      function App() {
+        const tokenAddress = '0x123456...';
+        const {
+          auctionData,
+          totalSupply,
+          createBid,
+          createBidSuccess,
+          createBidLoading,
+          createBidError,
+          createBidTx,
+          bidAmount,
+          updateBidAmount,
+          isValidBid
+        } = useActiveAuction(tokenAddress);
+      ```
+    </Tab>
+    <Tab>
+      ```
+      | Return | Type | Description
+      | -- | -- | -- |
+      | auctionData | Object | Containing data of the active auction such as tokenId, address, metadata, duration, endTime, highestBidder, highestBidPrice, minBidIncrement, minBidAmount, and reservePrice.
+      | totalSupply | Number | The total supply of the NFT Contract.
+      | isValidBid | Boolean | Indicating if the bid amount is valid.
+      | createBidLoading| Boolean | Indicating if creating a bid is in
+      ```
+    </Tab>
+    <Tab>
+      ```sh copy
+      lorem
+      ```
+    </Tab>
+  </Tabs>
+
+## useDaoAuctionQuery
+
+Fetches and returns query data of an active auction for a given DAO token address.
+
+```ts copy
+import { useDaoAuctionQuery } from "@public-assembly/dao-utils";
+```
+
+<Tabs items={["Usage", "Return Values", "Configuration"]} storageKey="selected-pkg-manager" defaultIndex="0">
+    <Tab>
+      ```ts copy
+      import { useDaoAuctionQuery } from "@public-assembly/dao-utils";
+      
+      function App() {
+        const tokenAddress = '0x123456...';
+        const {
+          auctionData,
+          totalSupply,
+          createBid,
+          createBidSuccess,
+          createBidLoading,
+          createBidError,
+          createBidTx,
+          bidAmount,
+          updateBidAmount,
+          isValidBid
+        } = useActiveAuction(tokenAddress);
+      ```
+    </Tab>
+    <Tab>
+      ```
+      | Return | Type | Description
+      | -- | -- | -- |
+      | auctionData | Object | Containing data of the active auction such as tokenId, address, metadata, duration, endTime, highestBidder, highestBidPrice, minBidIncrement, minBidAmount, and reservePrice.
+      | totalSupply | Number | The total supply of the NFT Contract.
+      | isValidBid | Boolean | Indicating if the bid amount is valid.
+      | createBidLoading| Boolean | Indicating if creating a bid is in
+      ```
+    </Tab>
+    <Tab>
+      ```sh copy
+      lorem
+      ```
+    </Tab>
+  </Tabs>
+
+## useDaoToken
+
+Fetches off-chain metadata with given token address and token ID.
+
+```ts copy
+import { useDaoToken } from "@public-assembly/dao-utils";
+```
+
+<Tabs items={["Usage", "Return Values", "Configuration"]} storageKey="selected-pkg-manager" defaultIndex="0">
+    <Tab>
+      ```ts copy
+      import { useDaoToken } from "@public-assembly/dao-utils";
+      
+      function App() {
+        const tokenAddress = '0x123456...';
+        const {
+          auctionData,
+          totalSupply,
+          createBid,
+          createBidSuccess,
+          createBidLoading,
+          createBidError,
+          createBidTx,
+          bidAmount,
+          updateBidAmount,
+          isValidBid
+        } = useActiveAuction(tokenAddress);
+      ```
+    </Tab>
+    <Tab>
+      ```
+      | Return | Type | Description
+      | -- | -- | -- |
+      | auctionData | Object | Containing data of the active auction such as tokenId, address, metadata, duration, endTime, highestBidder, highestBidPrice, minBidIncrement, minBidAmount, and reservePrice.
+      | totalSupply | Number | The total supply of the NFT Contract.
+      | isValidBid | Boolean | Indicating if the bid amount is valid.
+      | createBidLoading| Boolean | Indicating if creating a bid is in
+      ```
+    </Tab>
+    <Tab>
+      ```sh copy
+      lorem
+      ```
+    </Tab>
+  </Tabs>
+
+## useNounsProtocol
+
+Fetches data from the Zora Nouns Protocol to create instances of the Auction, Token, and MetadataRenderer contracts. It sets these contract instances, making it possible to interact with them using the returned objects.
+
+```ts copy
+import { useNounsProtocol } from "@public-assembly/dao-utils";
+```
+
+<Tabs items={["Usage", "Return Values", "Configuration"]} storageKey="selected-pkg-manager" defaultIndex="0">
+    <Tab>
+      ```ts copy
+      import { useNounsProtocol } from "@public-assembly/dao-utils";
+      
+      function App() {
+        const tokenAddress = '0x123456...';
+        const {
+          auctionData,
+          totalSupply,
+          createBid,
+          createBidSuccess,
+          createBidLoading,
+          createBidError,
+          createBidTx,
+          bidAmount,
+          updateBidAmount,
+          isValidBid
+        } = useActiveAuction(tokenAddress);
+      ```
+    </Tab>
+    <Tab>
+      ```
+      | Return | Type | Description
+      | -- | -- | -- |
+      | auctionData | Object | Containing data of the active auction such as tokenId, address, metadata, duration, endTime, highestBidder, highestBidPrice, minBidIncrement, minBidAmount, and reservePrice.
+      | totalSupply | Number | The total supply of the NFT Contract.
+      | isValidBid | Boolean | Indicating if the bid amount is valid.
+      | createBidLoading| Boolean | Indicating if creating a bid is in
+      ```
+    </Tab>
+    <Tab>
+      ```sh copy
+      npm i @public-assembly/dao-utils
+      ```
+    </Tab>
+  </Tabs>

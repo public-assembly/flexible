@@ -1,0 +1,129 @@
+# Upgrading Dependencies
+
+import { Callout, Tab, Tabs } from "nextra-theme-docs";
+
+<Callout type="warning" emoji="⚠️">
+  This page is under construction.
+</Callout>
+
+### Adding Peer Dependencies:
+
+From the root directory, navigate to the package
+
+```sh copy
+cd packages/dao-utils
+```
+Add the package as a peer dependency
+{" "}
+<Tabs
+  items={["yarn", "npm", "pnpm"]}
+  storageKey="selected-pkg-manager"
+  defaultIndex="0"
+>
+  <Tab>
+  ```sh copy 
+  yarn add <package-name> --save-peer
+  ```
+ 
+  ```sh copy
+  yard add @ethersproject/units --save-peer
+  yarn add @rainbow-me/rainbowkit --save-peer
+  yarn add @zoralabs/nft-hooks --save-peer
+  yarn add @zoralabs/nouns-protocol --save-peer
+  yarn add @zoralabs/zdk --save-peer
+  yarn add bignumber.js --save-peer
+  yarn add date-fns --save-peer
+  yarn add ethers --save-peer
+  yarn add graphql --save-peer
+  yarn add graphql-request --save-peer
+  yarn add graphql-tag --save-peer
+  yarn add swr --save-peeryarn add wagmi --save-peer
+  ```
+  </Tab>
+  <Tab>
+  ```sh copy 
+  npm i <package-name> --save-peer 
+  ```
+  ```sh copy
+  npm i @ethersproject/units --save-peer
+  npm i @rainbow-me/rainbowkit --save-peer
+  npm i @zoralabs/nft-hooks --save-peer
+  npm i @zoralabs/nouns-protocol --save-peer
+  npm i @zoralabs/zdk --save-peer
+  npm i bignumber.js --save-peer
+  npm i date-fns --save-peer
+  npm i thers --save-peer
+  npm i graphql --save-peer
+  npm i graphql-request --save-peer
+  npm i graphql-tag --save-peer
+  npm i swr --save-peeryarn add wagmi --save-peer
+  ```
+  </Tab>
+  <Tab>
+  ```sh copy 
+  pnpm add <package-name> --save-peer
+  ```
+   ```sh copy
+  pnpm add @ethersproject/units --save-peer
+  pnpm add @rainbow-me/rainbowkit --save-peer
+  pnpm add @zoralabs/nft-hooks --save-peer
+  pnpm add @zoralabs/nouns-protocol --save-peer
+  pnpm add @zoralabs/zdk --save-peer
+  pnpm add bignumber.js --save-peer
+  pnpm add date-fns --save-peer
+  pnpm add thers --save-peer
+  pnpm add graphql --save-peer
+  pnpm add graphql-request --save-peer
+  pnpm add graphql-tag --save-peer
+  pnpm add swr --save-peeryarn add wagmi --save-peer
+  ```
+  </Tab>
+</Tabs>
+
+### Peer Dependencies
+
+```json
+"@ethersproject/units": "^5.7.0",
+"@rainbow-me/rainbowkit": "^0.6.0",
+"@zoralabs/nouns-protocol": "^1.0.1",
+"@zoralabs/zdk": "^2.1.8",
+"bignumber.js": "^9.1.1",
+"date-fns": "^2.29.3",
+"ethers": "^5.7.1",
+"graphql": "^16.6.0",
+"graphql-request": "^5.0.0",
+"graphql-tag": "^2.12.6",
+"react": "^18.2.0",
+"react-dom": "^18.2.0",
+"swr": "^1.3.0",
+"wagmi": "^0.6.6"
+```
+
+
+### Available Exports:
+
+```json
+export {
+  /**
+   * Components
+   */
+  CurrentAuction,
+  TokenExplorer,
+  AuthCheck,
+  /**
+   * Hooks
+   */
+  useCountdown,
+  useDaoAuctionQuery,
+  useDaoToken,
+  useBidder,
+  useActiveAuction,
+  useNounsProtocol,
+  /**
+   * Utility Functions
+   */
+  etherscanLink,
+  shortenAddress,
+  zoraApiFetcher,
+}
+```

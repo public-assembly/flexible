@@ -1,0 +1,165 @@
+---
+import "./styles.css"
+---
+
+# Quickstart
+import { Callout, Tab, Tabs, Steps} from "nextra-theme-docs";
+
+<Callout type="warning" emoji="⚠️">
+  This page is under construction.
+</Callout>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+## Deploy to Vercel
+
+Here we outline the process of forking the Flexible DAO Interfaces template and creating your own DAO site powered by your newly deployed onchain theming contract.
+
+<Steps>
+### Start 
+Begin by clicking the button below and connecting to Vercel via GitHub.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world)
+
+<Callout>
+  If you don’t have a GitHub account, follow our Getting Started with GitHub tutorial.
+</Callout>
+
+### Create your new repository 
+Create your new repository which will automatically be titled identically to [your DAO Name?]. 
+> Make the repository public so we and others can see what you’re building!
+
+### Configure environment variables
+Supply the requested environment variables as described below.
+
+| Name                 | Value                                                                                   |
+| -------------------- | -------------------------------------------------------------------------------------------------|
+| NEXT_PUBLIC_CHAIN_ID | The chain identifier of the network your DAO is deployed to. Enter 5 for the Göerli test network.|
+| NEXT_PUBLIC_DAO_ADDRESS | -|
+| NEXT_PUBLIC_ACCESS_TOKEN | The access token for website maintainers within the DAO. |
+| NEXT_PUBLIC_ONCHAIN_THEMING_CONTRACT | The address of your onchain theming contract that you deployed in the site should currently be copied to your clipboard. If it is not, return to Göerli Etherscan to retrieve it!|
+| NEXT_PUBLIC_ALCHEMY_KEY_GOERLI | The API key from your Alchemy dashboard. |
+
+<Callout>
+  For detailed instructions on how to retrieve an Alchemy API Key, click here.
+</Callout>
+
+### Build
+Following the configuration of your environment variables, you’re ready to deploy your project to Vercel! When your project finishes building, you’ll be redirected to a success screen and prompted to continue to your Vercel dashboard.
+</Steps>
+
+
+## Fork the Template
+
+You can also manually fork the template repository.
+[GitHub Link]
+
+---
+
+## Add to Existing Project
+### Install
+
+To install this package, you have to run one of the commands below in the root file of your directory.
+
+{" "}
+<Tabs
+  items={["yarn", "npm", "pnpm"]}
+  storageKey="selected-pkg-manager"
+  defaultIndex="0"
+>
+  <Tab>
+  ```sh copy 
+  yarn add @public-assembly/dao-utils 
+  ```
+  </Tab>
+  <Tab>
+  ```sh copy 
+  npm i @public-assembly/dao-utils 
+  ```
+  </Tab>
+  <Tab>
+  ```sh copy 
+  pnpm add @public-assembly/dao-utils 
+  ```
+  </Tab>
+</Tabs>
+
+### Adding Peer Dependencies:
+
+From the root directory, navigate to the package.
+
+```sh copy
+cd packages/dao-utils
+```
+Add the package as a peer dependency.
+{" "}
+<Tabs
+  items={["yarn", "npm", "pnpm"]}
+  storageKey="selected-pkg-manager"
+  defaultIndex="0"
+>
+  <Tab>
+  ```sh copy 
+  yarn add <package-name> --save-peer
+  ```
+  </Tab>
+  <Tab>
+  ```sh copy 
+  npm i <package-name> --save-peer 
+  ```
+  </Tab>
+  <Tab>
+  ```sh copy 
+  pnpm add <package-name> --save-peer
+  ```
+  </Tab>
+</Tabs>
+
+#### Peer Dependencies
+
+```
+"@ethersproject/units": "^5.7.0",
+"@rainbow-me/rainbowkit": "^0.6.0",
+"@zoralabs/nouns-protocol": "^1.0.1",
+"@zoralabs/zdk": "^2.1.8",
+"bignumber.js": "^9.1.1",
+"date-fns": "^2.29.3",
+"ethers": "^5.7.1",
+"graphql": "^16.6.0",
+"graphql-request": "^5.0.0",
+"graphql-tag": "^2.12.6",
+"react": "^18.2.0",
+"react-dom": "^18.2.0",
+"swr": "^1.3.0",
+"wagmi": "^0.6.6"
+```
+
+### Adding TokenExplorer to your site
+
+```ts copy
+import React from "react";
+import { TokenExplorer } from "@public-assembly/dao-utils";
+
+export default function ReactExample() {
+  return (
+    <TokenExplorer tokenAddress="0xdf9b7d26c8fc806b1ae6273684556761ff02d422" />
+  );
+}
+```
+
+### Configuration
+ Edit live
+### Wrap providers
+
+## Add your Own Functionality
+
+For more detail, view
+
+- Zora Labs Docs
+- Ethers Docs
+- Wagmi Docs
+- Rainbow Kit Docs
+
+### Local Development
+git clone https://github.com/public-assembly/flexible-dao-interfaces.git
+cd

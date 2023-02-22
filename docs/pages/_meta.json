@@ -1,0 +1,19 @@
+{
+  "index": "Home",
+  "getting_started": "Getting Started",
+  "dependencies": "Dependencies",
+  "architecture": "Architecture",
+  "theming": "Theming",
+  "advanced": "Advanced",
+  "changelog": "Changelog",
+
+  "about": {
+    "title": "About",
+    "type": "page"
+  },
+
+  "examples": {
+    "title": "Examples",
+    "type": "page"
+  }
+}
