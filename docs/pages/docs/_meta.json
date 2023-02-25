@@ -1,8 +1,18 @@
 {
   "getting_started": "Getting Started",
-  "dependencies": "Dependencies",
-  "architecture": "Architecture",
-  "theming": "Theming",
+  "dependencies": {
+    "title":"Dependencies",
+    "display":"hidden"
+  },
+  "architecture": {
+    "title": "Architecture",
+    "display":"hidden"
+  },
+  "theming": {
+    "title": "Theming",
+    "display":"hidden"
+  },
   "advanced": "Advanced",
   "changelog": "Changelog"
 }
+
