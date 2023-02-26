@@ -1,0 +1,13 @@
+.container {
+    mask-image: linear-gradient(
+        to right,
+        #ffffff 0.8em,
+        #ffffff 1.5em,
+        #ffffff calc(100% - 1.5em),
+        #ffffff calc(100% - 0.8em)
+    );
+}
+
+.container::-webkit-scrollbar {
+    appearance: none;
+}
