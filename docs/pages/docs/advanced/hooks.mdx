@@ -1,9 +1,6 @@
 import { Callout, Tab, Tabs } from "nextra-theme-docs";
+import { OptionTable } from 'components/table'
 
-<Callout type="warning" emoji="⚠️">
-  This page is under construction.
-</Callout>
- 
 <Callout type="info" emoji="ℹ️">
   Retrieve and transform information into auctions, token, and metadata objects.
 </Callout>
@@ -11,13 +8,13 @@ import { Callout, Tab, Tabs } from "nextra-theme-docs";
 
 ## useActiveAuction
 
-Fetches data and provides functionality for users to bid on an NFT in an active auction.
+Fetches data related to a specific DAO address and provides functionality for users to bid on an NFT in an active auction by using the `useDaoAuctionQuery`, `useBidder`, and `useNounsProtocol` hooks. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/hooks/useActiveAuction.ts)
 
-```ts copy
+```ts
 import { useActiveAuction } from "@public-assembly/dao-utils";
 ```
 
-  <Tabs items={["Usage", "Return Values", "Configuration"]} storageKey="selected-pkg-manager" defaultIndex="0">
+  <Tabs items={["Example 1", "Example 2", "Properties", "Return Values"]} storageKey="selected-pkg-manager" defaultIndex="0">
     <Tab>
       ```ts copy
       import { useActiveAuction } from "@public-assembly/dao-utils";
@@ -40,253 +37,404 @@ import { useActiveAuction } from "@public-assembly/dao-utils";
     </Tab>
     <Tab>
       ```
-      | Return | Type | Description
-      | -- | -- | -- |
-      | auctionData | Object | Containing data of the active auction such as tokenId, address, metadata, duration, endTime, highestBidder, highestBidPrice, minBidIncrement, minBidAmount, and reservePrice.
-      | totalSupply | Number | The total supply of the NFT Contract.
-      | isValidBid | Boolean | Indicating if the bid amount is valid.
-      | createBidLoading| Boolean | Indicating if creating a bid is in
+
+      <OptionTable options={[
+       ['docsRepositoryBase', 'string', 'URL of the documentation repository.']
+      ]}/>
+
       ```
     </Tab>
     <Tab>
-      ```sh copy
-      lorem
-      ```
+      
+      <OptionTable options={[
+       ['1', 'string', 'Description']
+      ]}/>
+      
+    </Tab>
+    <Tab>
+      
+      <OptionTable options={[
+       ['1', 'string', 'Description']
+      ]}/>
+      
     </Tab>
   </Tabs>
 
 ## useBidder
-Returns a bidder's ENS name or shortened address, using wagmi's "useEnsName" and a "shortenAddress" function.
+
+Returns a bidder's ENS name or shortened address, using wagmi's "useEnsName" and a "shortenAddress" function. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/hooks/useBidder.ts)
 
 ```ts copy
 import { useBidder } from '@public-assembly/dao-utils'
 ````
 
-<Tabs items={["Usage", "Return Values", "Configuration"]} storageKey="selected-pkg-manager" defaultIndex="0">
+<Tabs items={["Example 1", "Example 2", "Properties", "Return Values"]} storageKey="selected-pkg-manager" defaultIndex="0">
     <Tab>
       ```ts copy
       import { useBidder } from "@public-assembly/dao-utils";
       
-      function App() {
-        const tokenAddress = '0x123456...';
-        const {
-          auctionData,
-          totalSupply,
-          createBid,
-          createBidSuccess,
-          createBidLoading,
-          createBidError,
-          createBidTx,
-          bidAmount,
-          updateBidAmount,
-          isValidBid
-        } = useActiveAuction(tokenAddress);
+      function MyComponent(props) {
+        const { bidder } = useBidder(props.address)
+
+        return (
+          <div>
+            <p>Bidder: {bidder}</p>
+          </div>
+        )
+      }
       ```
     </Tab>
     <Tab>
       ```
-      | Return | Type | Description
-      | -- | -- | -- |
-      | auctionData | Object | Containing data of the active auction such as tokenId, address, metadata, duration, endTime, highestBidder, highestBidPrice, minBidIncrement, minBidAmount, and reservePrice.
-      | totalSupply | Number | The total supply of the NFT Contract.
-      | isValidBid | Boolean | Indicating if the bid amount is valid.
-      | createBidLoading| Boolean | Indicating if creating a bid is in
       ```
     </Tab>
     <Tab>
-      ```sh copy
-      lorem
       ```
+      ```
+    </Tab>
+    <Tab>
+      
+      <OptionTable options={[
+       ['1', 'string', 'Description']
+      ]}/>
+      
     </Tab>
   </Tabs>
 
 ## useCountdown
 
-Tracks and returns a countdown string, updated every second, for a given end time in Unix timestamp format.
+Tracks and returns an object with two properties: `isEnded` and `countdownString` for a given end time in Unix timestamp format. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/hooks/useCountdown.ts)
 
 ```ts copy
 import { useCountdown } from "@public-assembly/dao-utils";
 ```
-<Tabs items={["Usage", "Return Values", "Configuration"]} storageKey="selected-pkg-manager" defaultIndex="0">
+<Tabs items={["Example 1", "Example 2", "Properties", "Return Values"]} storageKey="selected-pkg-manager" defaultIndex="0">
     <Tab>
       ```ts copy
       import { useCountdown } from "@public-assembly/dao-utils";
+
+      function CountdownTimer({ endTime }) {
+        const { isEnded, countdownString } = useCountdown(endTime)
+
+        return (
+          <div>
+            {isEnded ? (
+              <p>Countdown ended!</p>
+            ) : (
+              <p>Time left: {countdownString}</p>
+            )}
+          </div>
+        )
+      }
+      ```
+    </Tab>
+    <Tab>
+      ```
+      endTime: Unix timestamp of the end time of the countdown
+      ```
+    </Tab>
+    <Tab>
+      ```
+      isEnded property: boolean indicating whether the countdown has ended or not
+      countdownString property: string, represents the difference between the current time and the end time of the countdown in days, hours, minutes, and seconds.
+      ```
+    </Tab>
+    <Tab>
       
-      function App() {
-        const tokenAddress = '0x123456...';
-        const {
-          auctionData,
-          totalSupply,
-          createBid,
-          createBidSuccess,
-          createBidLoading,
-          createBidError,
-          createBidTx,
-          bidAmount,
-          updateBidAmount,
-          isValidBid
-        } = useActiveAuction(tokenAddress);
-      ```
-    </Tab>
-    <Tab>
-      ```
-      | Return | Type | Description
-      | -- | -- | -- |
-      | auctionData | Object | Containing data of the active auction such as tokenId, address, metadata, duration, endTime, highestBidder, highestBidPrice, minBidIncrement, minBidAmount, and reservePrice.
-      | totalSupply | Number | The total supply of the NFT Contract.
-      | isValidBid | Boolean | Indicating if the bid amount is valid.
-      | createBidLoading| Boolean | Indicating if creating a bid is in
-      ```
-    </Tab>
-    <Tab>
-      ```sh copy
-      lorem
-      ```
+      <OptionTable options={[
+       ['1', 'string', 'Description']
+      ]}/>
+      
     </Tab>
   </Tabs>
 
 ## useDaoAuctionQuery
 
-Fetches and returns query data of an active auction for a given DAO token address.
+Fetches and returns query data for an active auction, based on a given DAO address, from the Zora API endpoint. Updates it in real-time when the data changes. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/hooks/useDaoAuctionQuery.ts)
 
 ```ts copy
 import { useDaoAuctionQuery } from "@public-assembly/dao-utils";
 ```
 
-<Tabs items={["Usage", "Return Values", "Configuration"]} storageKey="selected-pkg-manager" defaultIndex="0">
+<Tabs items={["Example 1", "Example 2", "Properties", "Return Values"]} storageKey="selected-pkg-manager" defaultIndex="0">
     <Tab>
       ```ts copy
       import { useDaoAuctionQuery } from "@public-assembly/dao-utils";
       
       function App() {
-        const tokenAddress = '0x123456...';
-        const {
-          auctionData,
-          totalSupply,
-          createBid,
-          createBidSuccess,
-          createBidLoading,
-          createBidError,
-          createBidTx,
-          bidAmount,
-          updateBidAmount,
-          isValidBid
-        } = useActiveAuction(tokenAddress);
+        useActiveAuction(tokenAddress);
+        }
       ```
     </Tab>
     <Tab>
       ```
-      | Return | Type | Description
-      | -- | -- | -- |
-      | auctionData | Object | Containing data of the active auction such as tokenId, address, metadata, duration, endTime, highestBidder, highestBidPrice, minBidIncrement, minBidAmount, and reservePrice.
-      | totalSupply | Number | The total supply of the NFT Contract.
-      | isValidBid | Boolean | Indicating if the bid amount is valid.
-      | createBidLoading| Boolean | Indicating if creating a bid is in
+      The hook takes an object with a collectionAddress property as its argument. 
       ```
     </Tab>
     <Tab>
-      ```sh copy
-      lorem
       ```
+      ```
+    </Tab>
+    <Tab>
+      
+      <OptionTable options={[
+       ['1', 'string', 'Description']
+      ]}/>
+      
     </Tab>
   </Tabs>
 
 ## useDaoProposalQuery
 
-## useDaoToken
-
-Fetches off-chain metadata with given token address and token ID.
-
-```ts copy
-import { useDaoToken } from "@public-assembly/dao-utils";
-```
-
-<Tabs items={["Usage", "Return Values", "Configuration"]} storageKey="selected-pkg-manager" defaultIndex="0">
-    <Tab>
-      ```ts copy
-      import { useDaoToken } from "@public-assembly/dao-utils";
-      
-      function App() {
-        const tokenAddress = '0x123456...';
-        const {
-          auctionData,
-          totalSupply,
-          createBid,
-          createBidSuccess,
-          createBidLoading,
-          createBidError,
-          createBidTx,
-          bidAmount,
-          updateBidAmount,
-          isValidBid
-        } = useActiveAuction(tokenAddress);
-      ```
-    </Tab>
-    <Tab>
-      ```
-      | Return | Type | Description
-      | -- | -- | -- |
-      | auctionData | Object | Containing data of the active auction such as tokenId, address, metadata, duration, endTime, highestBidder, highestBidPrice, minBidIncrement, minBidAmount, and reservePrice.
-      | totalSupply | Number | The total supply of the NFT Contract.
-      | isValidBid | Boolean | Indicating if the bid amount is valid.
-      | createBidLoading| Boolean | Indicating if creating a bid is in
-      ```
-    </Tab>
-    <Tab>
-      ```sh copy
-      lorem
-      ```
-    </Tab>
-  </Tabs>
-
-## useInterval 
-
-## useNounsProtocol
-
-Fetches data from the Zora Nouns Protocol to create instances of the Auction, Token, and MetadataRenderer contracts. It sets these contract instances, making it possible to interact with them using the returned objects.
+Fetches and returns query data related to proposals from a given DAO address from the Zora API endpoint. Updates it in real-time when the data changes. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/hooks/useDaoProposalQuery.ts)
 
 ```ts copy
 import { useNounsProtocol } from "@public-assembly/dao-utils";
 ```
 
-<Tabs items={["Usage", "Return Values", "Configuration"]} storageKey="selected-pkg-manager" defaultIndex="0">
+<Tabs items={["Example 1", "Example 2", "Properties", "Return Values"]} storageKey="selected-pkg-manager" defaultIndex="0">
     <Tab>
       ```ts copy
-      import { useNounsProtocol } from "@public-assembly/dao-utils";
+      import { useDaoProposalQuery } from "@public-assembly/dao-utils";
       
-      function App() {
-        const tokenAddress = '0x123456...';
-        const {
-          auctionData,
-          totalSupply,
-          createBid,
-          createBidSuccess,
-          createBidLoading,
-          createBidError,
-          createBidTx,
-          bidAmount,
-          updateBidAmount,
-          isValidBid
-        } = useActiveAuction(tokenAddress);
+      function DaoProposals({ tokenAddress }) {
+        const { proposals, error } = useDaoProposalQuery({ tokenAddress })
+
+        if (error) return <div>Error loading proposals</div>
+        if (!proposals) return <div>Loading proposals...</div>
+
+        return (
+          <div>
+            <h2>DAO Proposals</h2>
+            <ul>
+              {proposals.map(proposal => (
+                <li key={proposal.id}>
+                  <h3>{proposal.title}</h3>
+                  <p>{proposal.description}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
       ```
     </Tab>
     <Tab>
       ```
-      | Return | Type | Description
-      | -- | -- | -- |
-      | auctionData | Object | Containing data of the active auction such as tokenId, address, metadata, duration, endTime, highestBidder, highestBidPrice, minBidIncrement, minBidAmount, and reservePrice.
-      | totalSupply | Number | The total supply of the NFT Contract.
-      | isValidBid | Boolean | Indicating if the bid amount is valid.
-      | createBidLoading| Boolean | Indicating if creating a bid is in
+      The useDaoProposalQuery function takes an object as an argument with an optional tokenAddress property that represents the Ethereum address of the token that the DAO proposals are related to.
       ```
     </Tab>
     <Tab>
-      ```sh copy
-      npm i @public-assembly/dao-utils
       ```
+      The function returns an object with two properties:
+      proposals: an array of DAO proposals, represented as nodes, that are related to the specified tokenAddress. If there is no tokenAddress specified, the proposals property is undefined.
+      error: an error object returned by useSWR if the API request fails. Otherwise, it is undefined.
+      ```
+    </Tab>
+    <Tab>
+      
+      <OptionTable options={[
+       ['1', 'string', 'Description']
+      ]}/>
+      
+    </Tab>
+  </Tabs>
+
+## useDaoToken 
+
+Fetches off-chain metadata, using the useSWR hook from the swr library, with given token address and optional tokenID. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/hooks/useDaoToken.ts)
+
+```ts copy
+import { useDaoToken } from "@public-assembly/dao-utils";
+```
+
+<Tabs items={["Example 1", "Example 2", "Properties", "Return Values"]} storageKey="selected-pkg-manager" defaultIndex="0">
+    <Tab>
+      ```
+
+      ```
+    </Tab>
+    <Tab>
+      ```
+      ```
+    </Tab>
+    <Tab>
+      ```
+      Returns an object with two properties, `tokenData` and `error`
+      `tokenData` fetched from the API with `zoraApiFetcher`, type `TokenData`, contains the owner's wallet address, metadata, and minting information. `error` is any error that occurs during the API call.
+      ```
+    </Tab>
+    <Tab>
+      
+      <OptionTable options={[
+       ['1', 'string', 'Description']
+      ]}/>
+      
+    </Tab>
+  </Tabs>
+
+  > Note: The `refreshInterval` refetches data every 5 seconds. The `zoraApiFetcher` function is imported from the `zoraApiFetcher` module, and the `DAO_TOKEN_QUERY` constant is imported from the `daoTokenQuery` module.
+
+## useInterval 
+
+Runs a callback function repeatedly at a specified time interval. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/hooks/useInterval.ts)
+
+```ts copy
+import { useInterval } from "@public-assembly/dao-utils";
+```
+
+<Tabs items={["Example 1", "Example 2", "Properties", "Return Values"]} storageKey="selected-pkg-manager" defaultIndex="0">
+    <Tab>
+      ```ts copy
+      import { useInterval } from "@public-assembly/dao-utils";
+      
+      function Counter() {
+        const [count, setCount] = useState(0);
+
+        // Run the callback function every second to increment the count
+        useInterval(() => {
+          setCount(count + 1);
+        }, 1000);
+
+        return (
+          <div>
+            <h1>Count: {count}</h1>
+          </div>
+        );
+      }
+      ```
+    </Tab>
+    <Tab>
+      ```
+      The hook takes two arguments:
+      callback (function): The function that you want to run repeatedly at the specified time interval.
+      delay (number | null): The time interval (in milliseconds) at which you want the callback to be invoked repeatedly. If delay is set to null, the interval is cleared and the callback will not be invoked.
+      ```
+    </Tab>
+    <Tab>
+      ```
+      The useInterval hook returns nothing. 
+      ```
+    </Tab>
+    <Tab>
+      
+      <OptionTable options={[
+       ['1', 'string', 'Description']
+      ]}/>
+      
+    </Tab>
+  </Tabs>
+
+## useNounsProtocol
+
+Fetches data from the Zora Nouns Protocol to create instances of the `Auction`, `Token`, and `MetadataRenderer` contracts that update within time intervals, making it possible to interact with them using the returned objects.  [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/hooks/useNounsProtocol.ts)
+
+```ts copy
+import { useNounsProtocol } from "@public-assembly/dao-utils";
+```
+
+<Tabs items={["Example 1", "Example 2", "Properties", "Return Values"]} storageKey="selected-pkg-manager" defaultIndex="0">
+    <Tab>
+      ```ts copy
+      import { useVote } from "@public-assembly/dao-utils";
+      
+      interface Props {
+        addresses: NounsProtocolAddresses;
+      }
+
+      export const MyComponent: React.FC<Props> = ({ addresses }) => {
+        const { auctionContract, tokenContract, metadataContract } = useNounsProtocol(addresses);
+
+        // use the contract objects to interact with the contracts on the Ethereum network
+        // for example:
+        const tokenName = await tokenContract.name();
+        const auctionAddress = await metadataContract.auction();
+
+        return (
+          <div>
+            <p>{`Token name: ${tokenName}`}</p>
+            <p>{`Auction address: ${auctionAddress}`}</p>
+          </div>
+        );
+      };
+      ```
+    </Tab>
+    <Tab>
+      ```
+      ```
+    </Tab>
+    <Tab>
+      ```
+      ```
+    </Tab>
+    <Tab>
+      
+      <OptionTable options={[
+       ['1', 'string', 'Description']
+      ]}/>
+      
     </Tab>
   </Tabs>
 
 
 ## useVote
 
+Fetches data related to a specific DAO address and provides functionality for users to cast votes on active proposals. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/hooks/useVote.ts)
+
+```ts copy
+import { useVote } from "@public-assembly/dao-utils";
+```
+
+<Tabs items={["Example 1", "Example 2", "Properties", "Return Values"]} storageKey="selected-pkg-manager" defaultIndex="0">
+    <Tab>
+      ```tsx copy {2, 14-15, 29}
+      import React, { useState } from 'react'
+      import { useVote } from "@public-assembly/dao-utils";
+
+      interface Vote {
+        proposalId: string
+      }
+      
+      export const VoteForm: React.FC<Vote> = ({ proposalId }) => {
+        const [support, setSupport] = useState<number | undefined>(undefined)
+        const [reason, setReason] = useState<string>('')
+
+        {/* ... */}
+
+        const { castVote, castVoteWithReason, castVoteError, castVoteWithReasonError } =
+          useVote({ support, reason })
+
+        return (
+          <form
+             onSubmit={(event) => {
+               event.preventDefault()
+              if (support === undefined) {
+                alert('Please select a vote option')
+                 return
+              }
+              if (support === 0 && reason === '') {
+                alert('Please provide a reason for your vote')
+                 return
+              }
+              (support === 0 ? castVoteWithReason : castVote)?.().then(() =>
+              
+              {/* rest of the code */}
+      ```
+    </Tab>
+    <Tab>
+      ```
+      ```
+    </Tab>
+    <Tab>
+      ```
+      The useVote hook returns an object of type VotingFunctions that includes four properties: castVote, castVoteWithReason, castVoteError, and castVoteWithReasonError. castVote and castVoteWithReason are functions that can be called to cast votes on a proposal, and castVoteError and castVoteWithReasonError are errors that may occur while attempting to cast votes.
+      ```
+    </Tab>
+    <Tab>
+      
+      <OptionTable options={[
+       ['1', 'string', 'Description']
+      ]}/>
+      
+    </Tab>
+  </Tabs>
