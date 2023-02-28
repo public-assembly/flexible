@@ -1,6 +1,9 @@
 ---
 import "./styles.css"
 ---
+import { OptionTable } from "components/table";
+import { CustomOptionTable } from "components/CustomOptionsTable";
+
 
 <Callout emoji="🚨">
  This page is a under construction. Help us expand it by contributing!
@@ -11,14 +14,14 @@ import { Callout, Tab, Tabs, Steps } from "nextra-theme-docs";
 
 Here, we outline the process of forking the Flexible DAO Interfaces template and creating your own DAO site powered by an onchain theming contract.
 
-To get started, you will need to go to the Flexible DAO Interfaces website and copy template. Once you have done this, you can customize your site by using the built-in theme editor. This will enable you to have full control over the appearance and functionality of your site.
+Go to the Flexible DAO Interfaces website and copy the template. Once you have done this, you can customize your site by using the built-in theme editor. This will enable you to have full control over the appearance and functionality of your site.
 
 ## Quickstart 
 
 <Steps>
 ### Start 
 
-Clicking on the dash in the top right corner of the navigation bar will open a dropdown menu that gives you the option to connect your wallet or copy our template.
+Click on the dash in the top right corner of the navigation bar will open a dropdown menu that gives you the option to connect your wallet or copy our template.
 
 If you click on "Copy our template," you will be redirected to Vercel.
 
@@ -28,22 +31,24 @@ In case you encounter difficulties with the interface, you can click the button 
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world)
 
-> If you don’t have a GitHub account, follow our Getting Started with GitHub tutorial. 
+> If you don’t have a GitHub account, follow our [Getting Started with GitHub](https://www.loom.com/share/b39dcc47d5724dbb937270191fc016a9) and [Vercel Setup](https://www.loom.com/share/457c57d0fbdc4801a5f4cede65faf167) tutorial. 
 
 Create your new repository and make sure to name it the same as your DAO website name.
 
 Once you've completed that step, the deploy process will prompt you to provide the requested environment variables, which are described below.
 
-| Name                 | Value      |
-| -------------------- | ---------------------------------------|
-| NEXT_PUBLIC_DAO_ADDRESS | The Address of your Nouns Build DAO |
-| NEXT_PUBLIC_ALCHEMY_KEY_GOERLI | The API key from your Alchemy dashboard.
-| NEXT_PUBLIC_PLATFORM_INDEX | |
+<OptionTable options={[
+       ['NEXT_PUBLIC_DAO_ADDRESS', 'The Address of your Nouns Build DAO'],
+       ['NEXT_PUBLIC_DAO_ADDRESS', 'The API key from your Alchemy dashboard.'],
+       ['NEXT_PUBLIC_PLATFORM_INDEX', 'The index value of your platform theme contract']
+      ]}/>
 
-> For detailed instructions on how to retrieve an Alchemy API Key, click here.
+
+> [Follow these detailed instructions on how to retrieve an Alchemy API Key](https://www.youtube.com/watch?v=tfggWxfG9o0).
 
 ### Build
-Following the configuration of your environment variables, you’re ready to deploy your project to Vercel! 
+
+With your environment variables configured, you're now all set to deploy your project to Vercel.
 
 When your project finishes building, you’ll be redirected to a success screen and prompted to continue to your Vercel dashboard. 
 
@@ -58,26 +63,26 @@ After deploying your new site, click on the dash located in the top right corner
 
 After connecting your wallet, you will see a button labeled "Edit Theme."
 
-> To access this, admin privileges are required. In case you haven't assigned any admins for your site, you can follow the new platformIndex setup guide by clicking here.
+> To access this, admin privileges are required. In case you haven't assigned any admins for your site, you can follow the new `platformIndex` setup guide.
 
 ### Theme Editor
-This modal enables you to update your DAO website by utilizing data from an on-chain registry. You can reference a theming configuration for any address or contract owned by another address.
+This modal enables you to update your DAO website by utilizing data from an [onchain registry](/docs/theming/). You can reference a theming configuration for any address or contract owned by another address.
 
 #### Presets 
-There are 5 themes available from the registry: Default, Light, Midori, Nouns, Obscura, and Slime. If you're interested in learning more about the contracts that power this site, you can read about them here.
+There are 5 themes available from the registry: `Default`, `Light`, `Midori`, `Nouns`, `Obscura`, and `Slime`.
 
 #### Advanced 
 
-For more advanced customizations, you can create new themes and update the DAO site without needing any coding skills. You have the option to change colors of the text and background, modify buttons, borders, and border size, select fonts, and overall form unique branding for your DAO site. After editing the theme, you can to revert it back to default, or save your changes.
+For more advanced customizations, you can create new themes and update the DAO site without needing any coding skills. You have the option to change colors of the text and background, modify buttons, borders, and border size, select fonts, and overall form unique branding for your DAO site. After editing the theme, you can to revert it back to default, or save changes.
 
 **Saving changes to your theme**
 
-If you wish to save your design, you will be updating the theme in the themeRegistry. As an admin this happens through a signed transaction that builds a new reference for the metadata your site relies on.  Upon signing a brand new tokenURI is initialized as a `newTheme` with the signer serving as the `themeAdmin`. Admins can assign additional managers for the site who are also able to make updates to the site's overall layout.
+If you wish to save your design, you will be updating the theme in the `themeRegistry`. As an admin this happens through a signed transaction that builds a new reference for the metadata your site relies on.  Upon signing a brand new `tokenURI` is initialized as a `newTheme` with the signer serving as the `themeAdmin`. Admins can assign additional managers for the site who are also able to make updates to the site's overall layout.
 </Steps>
 
 ## Fork the Template
 
-You can also manually fork the template repository. 
+You can also manually [fork the template](https://github.com/public-assembly/flexible) repository. 
 
 ---
 
@@ -143,9 +148,9 @@ Add the package as a peer dependency.
   </Tab>
 </Tabs>
 
-> View all peer dependencies 
+> [View all peer dependencies](/docs/dependencies)
 
-### Adding TokenExplorer to your site
+### Adding [`TokenExplorer`](/docs/advanced/components#tokenexplorer) to your site
 
 ```ts copy
 import React from "react";
@@ -157,3 +162,4 @@ export default function ReactExample() {
   );
 }
 ```
+

@@ -17,7 +17,7 @@ Displays a two-column div element that shows DAO Art and settled auction informa
 
 ![TokenRenderer](public/TokenRenderer.png)
 
-<Tabs items={["Example 1", "Example 2"]} storageKey="selected-pkg-manager" defaultIndex="0">
+<Tabs items={["Example 1", "Example 2", "Properties"]} storageKey="selected-pkg-manager" defaultIndex="0">
 
     <Tab>
       ```tsx copy
@@ -49,15 +49,16 @@ Displays a two-column div element that shows DAO Art and settled auction informa
       }
       ```
     </Tab>
+    <Tab>
+    <CustomOptionTable
+      options={[
+        ["tokenAddress", "0xstring", "Yes", "The token's contract address."],
+        ["tokenId", "string", "Yes", "The token's ID."],
+      ]}
+    />
+    </Tab>
 
   </Tabs>
-
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address."],
-    ["tokenId", "string", "Yes", "The token's ID."],
-  ]}
-/>
 
 ## CurrentAuction
 
@@ -65,7 +66,7 @@ Displays information about a token auction, such as the current highest bid, rem
 
 ![CurrentAuction](public/currentAuction.png)
 
-<Tabs items={["Example 1", "Example 2"]} storageKey="selected-pkg-manager" defaultIndex="0">
+<Tabs items={["Example 1", "Example 2", "Properties"]} storageKey="selected-pkg-manager" defaultIndex="0">
     <Tab>
       ```tsx copy
       import React from "react";
@@ -99,15 +100,16 @@ Displays information about a token auction, such as the current highest bid, rem
       }
       ```
     </Tab>
-
+    <Tab>
+    <CustomOptionTable
+        options={[
+          ["tokenAddress", "0xstring", "Yes", "The address of the NFT token contract for which to display auction information."],
+          ["...props", "HTMLDivElement", "No", "Additional HTML props to apply to the component's root div element. "],
+        ]}
+      />
+    </Tab>
   </Tabs>
 
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The address of the NFT token contract for which to display auction information."],
-    ["...props", "HTMLDivElement", "No", "Additional HTML props to apply to the component's root div element. "],
-  ]}
-/>
 
 ## TokenExplorer
 
@@ -115,7 +117,7 @@ Displays either the `CurrentAuction` or `TokenRenderer` component based on the s
 
 ![TokenExplorer](public/TokenExplorer.gif)
 
-<Tabs items={["Example 1 ", "Example 2"]} storageKey="selected-pkg-manager" defaultIndex="0">
+<Tabs items={["Example 1 ", "Example 2", "Properties"]} storageKey="selected-pkg-manager" defaultIndex="0">
     <Tab>
       ```tsx copy
       import React from "react";
@@ -129,7 +131,7 @@ Displays either the `CurrentAuction` or `TokenRenderer` component based on the s
       ```
     </Tab>
     <Tab>
-    > Note: Try changing the color of your TokenExplorer!
+    > Note: Try changing the color of your `TokenExplorer`!
     ```tsx copy
     import React from "react";
     import { TokenExplorer } from "@public-assembly/dao-utils";
@@ -143,14 +145,16 @@ Displays either the `CurrentAuction` or `TokenRenderer` component based on the s
     }
     ```
     </Tab>
-
+    <Tab>
+    <CustomOptionTable
+      options={[
+        ["tokenAddress", "0xstring", "Yes", "The address of the NFT token contract for which to display auction information."],
+      ]}
+    />
+    </Tab>
   </Tabs>
 
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The address of the NFT token contract for which to display auction information."],
-  ]}
-/>
+
 
 ## TokenTitle
 
@@ -158,7 +162,7 @@ Displays token title using the [`useDaoToken`](/docs/advanced/hooks#usedaotoken)
 
 ![TokenTitle](public/TokenTitle.png)
 
-<Tabs items={["Example 1", "Example 2"]} storageKey="selected-pkg-manager" defaultIndex="0">
+<Tabs items={["Example 1", "Example 2", "Properties"]} storageKey="selected-pkg-manager" defaultIndex="0">
     <Tab>
      ```tsx copy
      import React from "react";
@@ -172,7 +176,7 @@ Displays token title using the [`useDaoToken`](/docs/advanced/hooks#usedaotoken)
       ```
     </Tab>
     <Tab>
-    > Note: Try using the useActiveAuction hook for more data to build your Token Title!
+    > Note: Try using the `useActiveAuction` hook for more data to build your `TokenTitle`!
       ```tsx copy
       import React from "react";
       import { TokenTitle, useActiveAuction  } from "@public-assembly/dao-utils";
@@ -190,13 +194,15 @@ Displays token title using the [`useDaoToken`](/docs/advanced/hooks#usedaotoken)
       }
       ```
     </Tab>
+    <Tab>
+    <CustomOptionTable
+      options={[
+        ["tokenAddress", "0xstring", "Yes", "The token's contract address."],
+      ]}
+    />
+    </Tab>
   </Tabs>
 
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address."],
-  ]}
-/>
 
 ## TokenThumbnail
 
@@ -204,7 +210,7 @@ Displays an image by using the [`useDaoToken`](/docs/advanced/hooks#usedaotoken)
 
 ![TokenThumbnail](public/TokenThumbnail.png)
 
-<Tabs items={["Example 1", "Example 2"]} storageKey="selected-pkg-manager" defaultIndex="0">
+<Tabs items={["Example 1", "Example 2", "Properties"]} storageKey="selected-pkg-manager" defaultIndex="0">
     <Tab>
       ```tsx copy
       import React from "react";
@@ -218,7 +224,7 @@ Displays an image by using the [`useDaoToken`](/docs/advanced/hooks#usedaotoken)
       ```
     </Tab>
     <Tab>
-       > Note: TokenThumbnail was used on the Flexible auction page within the TokenExplorer component, but you also use TokenThumbnail to represent an individual DAO member based on a specific token id. This is how you would set a profile picture for token #12
+       > Note: `TokenThumbnail` was used on the Flexible auction page within the TokenExplorer component, but you can also use `TokenThumbnail` to represent an individual DAO member based on a specific `tokenId`. This is how you would set a profile picture for token #12
 
       ```tsx copy
       import React from "react";
@@ -240,19 +246,22 @@ Displays an image by using the [`useDaoToken`](/docs/advanced/hooks#usedaotoken)
       export default DaoMemberAvatar;
       ```
     </Tab>
+    <Tab>
+    <CustomOptionTable
+        options={[
+          ["tokenAddress", "0xstring", "Yes", "The address of the NFT token contract for which to display auction information."],
+          ["tokenId", "string", "Yes", "The token's ID."],
+        ]}
+      />
+    </Tab>
 
   </Tabs>
 
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The address of the NFT token contract for which to display auction information."],
-    ["...props", "HTMLDivElement", "No", "Additional HTML props to apply to the component's root div element. "]
-  ]}
-/>
+
 
 ## TokenHolder
 
-Displays the Ethereum address or ENS name of the holder of a DAO token using the [`useDaoToken`](/docs/advanced/hooks#usedaotoken) hook and the output is hyperlinked to Etherscan. The specified token is based on the given DAO address and tokenID. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/TokenHolder.tsx)
+Displays the Ethereum address or ENS name of the holder of a DAO token using the [`useDaoToken`](/docs/advanced/hooks#usedaotoken) hook and the output is hyperlinked to Etherscan. The specified token is based on the given DAO address and `tokenID`. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/TokenHolder.tsx)
 
 ![TokenHolder](public/TokenHolder.png)
 
@@ -273,22 +282,25 @@ Displays the Ethereum address or ENS name of the holder of a DAO token using the
         }
       ```
     </Tab>
+    <Tab>
+    <CustomOptionTable
+        options={[
+          ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
+          ["tokenId", "string", "Yes", "The token's ID."],
+        ]}
+      />
+    </Tab>
   </Tabs>
 
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["...props", "HTMLDivElement", "No", "The token's ID."  ]
-  ]}
-/>
+
 
 ## TokenWinningBid
 
-Displays the ETH price of the winning bid and transaction link for a specific token in an auction. It fetches auction data and token data using the [`useDaoToken`](/docs/advanced/hooks#usedaotoken), `useNounsProtocol`, and `useActiveAuction` hooks, and queries the auction events using the `queryFilter` from the ethers.js library. Displays the details of the last event, which is assumed to be the winning bid. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/TokenWinningBid.tsx)
+Displays the ETH price of the winning bid and transaction link for a specific token in an auction. It fetches auction data and token data using the [`useDaoToken`](/docs/advanced/hooks#usedaotoken), [`useNounsProtocol`](/docs/advanced/hooks#usenounsprotocol), and [`useActiveAuction`](/docs/advanced/hooks#useactiveauction) hooks, and queries the auction events using the `queryFilter` from the ethers.js library. Displays the details of the last event, which is assumed to be the winning bid. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/TokenWinningBid.tsx)
 
 ![TokenWinningBid](public/WinningBid.png)
 
-<Tabs items={["Example"]} storageKey="selected-pkg-manager" defaultIndex="0">
+<Tabs items={["Example", "Properties"]} storageKey="selected-pkg-manager" defaultIndex="0">
     <Tab>
      > View how it's used in the `TokenRenderer` component.
 
@@ -305,22 +317,25 @@ Displays the ETH price of the winning bid and transaction link for a specific to
       }
       ```
     </Tab>
+    <Tab>
+    <CustomOptionTable
+        options={[
+          ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
+          ["tokenId", "string", "Yes", "The token's ID."  ]
+        ]}
+      />
+    </Tab>
   </Tabs>     
 
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
+
 
 ## AuctionCountdown
 
-Displays a countdown timer until a given end time, in Unix timestamp format, by using the `useCountdown` hook. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/AuctionCountdown.tsx)
+Displays a countdown timer until a given end time, in Unix timestamp format, by using the [`useCountdown`](/docs/advanced/hooks#usecountdown) hook. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/AuctionCountdown.tsx)
 
 ![AuctionCountdown](public/auctionCountdown.png)
 
-<Tabs items={["Example"]} storageKey="selected-pkg-manager" defaultIndex="0">
+<Tabs items={["Example", "Properties"]} storageKey="selected-pkg-manager" defaultIndex="0">
     <Tab>
     > View how it's used in the `CurrentAuction` component!
 
@@ -354,21 +369,23 @@ Displays a countdown timer until a given end time, in Unix timestamp format, by 
       );
       ```
     </Tab>
+    <Tab>
+    <CustomOptionTable
+        options={[
+          ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
+          ["tokenId", "string", "Yes", "The token's ID."  ]
+        ]}
+      />
+    </Tab>
   </Tabs>
 
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
 
 ## ProposalPage
 
-UI for proposal cards. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalPage.tsx)
+User interface for proposal cards. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalPage.tsx)
 
 <Tabs
-  items={["Example 1", "Example 2"]}
+  items={["Example 1", "Properties"]}
   storageKey="selected-pkg-manager"
   defaultIndex="0"
 >
@@ -377,23 +394,22 @@ UI for proposal cards. [View Source.](https://github.com/public-assembly/dao-uti
     function App() {}
     ```
   </Tab>
-  <Tab>```sh copy lorem ```</Tab>
+  <Tab>
+  <CustomOptionTable
+      options={[
+        ["" , ""]
+      ]}
+    />
+  </Tab>
 </Tabs>
-
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
 
 
 ## ProposalPageGrid
 
-Renders a grid of proposals by using the 'useGovernorContext' hook and rendering 'ProposalPage' components for each proposal. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalPageGrid.tsx)
+Renders a grid of proposals by using the `useGovernorContext` hook and rendering `ProposalPage` components for each proposal. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalPageGrid.tsx)
 
 <Tabs
-  items={["Example 1", "Example 2"]}
+  items={["Example 1", "Properties"]}
   storageKey="selected-pkg-manager"
   defaultIndex="0"
 >
@@ -402,23 +418,21 @@ Renders a grid of proposals by using the 'useGovernorContext' hook and rendering
     function App() {}
     ```
   </Tab>
-  <Tab>```sh copy lorem ```</Tab>
+  <Tab>
+  <CustomOptionTable
+      options={[
+        ["" , ""]
+      ]}
+    />
+  </Tab>
 </Tabs>
-
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
-
 
 ## ProposalCard
 
-Displays proposal's title, status, timestamp, and proposer in a card form. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalCard.tsx)
+Displays proposal's title, status, timestamp, and Proposer in a card form. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalCard.tsx)
 
 <Tabs
-  items={["Example 1", "Example 2"]}
+  items={["Example 1", "Properties"]}
   storageKey="selected-pkg-manager"
   defaultIndex="0"
 >
@@ -427,23 +441,21 @@ Displays proposal's title, status, timestamp, and proposer in a card form. [View
     function App() {}
     ```
   </Tab>
-  <Tab>```sh copy lorem ```</Tab>
+  <Tab>
+  <CustomOptionTable
+      options={[
+        ["" , ""]
+      ]}
+    />
+  </Tab>
 </Tabs>
-
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
-
 
 ## ProposalCardGrid
 
-Displays grid of proposal cards fetched from the Governor provider. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalCardGrid.tsx)
+Displays grid of proposal cards fetched from the Nouns Governor provider. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalCardGrid.tsx)
 
 <Tabs
-  items={["Example 1", "Example 2"]}
+  items={["Example 1", "Properties"]}
   storageKey="selected-pkg-manager"
   defaultIndex="0"
 >
@@ -452,23 +464,21 @@ Displays grid of proposal cards fetched from the Governor provider. [View Source
     function App() {}
     ```
   </Tab>
-  <Tab>```sh copy lorem ```</Tab>
+  <Tab>
+  <CustomOptionTable
+      options={[
+        ["" , ""]
+      ]}
+    />
+  </Tab>
 </Tabs>
-
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
-
 
 ## ProposalTitle
 
-Displays ProposalTitle title using `useNounsProtocol` hook. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalTitle.tsx)
+Displays ProposalTitle title using [`useNounsProtocol`](/docs/advanced/hooks#usenounsprotocol) hook. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalTitle.tsx)
 
 <Tabs
-  items={["Example 1", "Example 2"]}
+  items={["Example 1", "Properties"]}
   storageKey="selected-pkg-manager"
   defaultIndex="0"
 >
@@ -477,22 +487,21 @@ Displays ProposalTitle title using `useNounsProtocol` hook. [View Source.](https
     function App() {}
     ```
   </Tab>
-  <Tab>```sh copy lorem ```</Tab>
+  <Tab>
+  <CustomOptionTable
+      options={[
+        ["" , ""]
+      ]}
+    />
+  </Tab>
 </Tabs>
-
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
 
 ## ProposalDescription
 
-Displays ProposalDescription title using `useNounsProtocol` hook. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalDescription.tsx)
+Displays ProposalDescription title using [`useNounsProtocol`](/docs/advanced/hooks#usenounsprotocol) hook. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalDescription.tsx)
 
 <Tabs
-  items={["Example 1", "Example 2"]}
+  items={["Example 1", "Properties"]}
   storageKey="selected-pkg-manager"
   defaultIndex="0"
 >
@@ -501,15 +510,14 @@ Displays ProposalDescription title using `useNounsProtocol` hook. [View Source.]
     function App() {}
     ```
   </Tab>
-  <Tab>```sh copy lorem ```</Tab>
+  <Tab>
+  <CustomOptionTable
+      options={[
+        ["" , ""]
+      ]}
+    />
+  </Tab>
 </Tabs>
-
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
 
 
 ## Proposer
@@ -517,7 +525,7 @@ Displays ProposalDescription title using `useNounsProtocol` hook. [View Source.]
 Displays a proposer's name using ENS or shortened address. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/Proposer.tsx)
 
 <Tabs
-  items={["Example 1", "Example 2"]}
+  items={["Example 1", "Properties"]}
   storageKey="selected-pkg-manager"
   defaultIndex="0"
 >
@@ -526,22 +534,21 @@ Displays a proposer's name using ENS or shortened address. [View Source.](https:
     function App() {}
     ```
   </Tab>
-  <Tab>```sh copy lorem ```</Tab>
+  <Tab>
+  <CustomOptionTable
+      options={[
+        ["" , ""]
+      ]}
+    />
+  </Tab>
 </Tabs>
-
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
 
 ## ProposalStatus
 
 Displays proposal status. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalStatus.tsx)
 
 <Tabs
-  items={["Example 1", "Example 2"]}
+  items={["Example 1", "Properties"]}
   storageKey="selected-pkg-manager"
   defaultIndex="0"
 >
@@ -550,22 +557,22 @@ Displays proposal status. [View Source.](https://github.com/public-assembly/dao-
     function App() {}
     ```
   </Tab>
-  <Tab>```tsx copy lorem ```</Tab>
-</Tabs>
-
-<CustomOptionTable
+  <Tab>
+  <CustomOptionTable
   options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
+
   ]}
 />
+</Tab>
+</Tabs>
+
 
 ## ProposalTimestamp
 
 Displays proposal timestamp. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalTimestamp.tsx)
 
 <Tabs
-  items={["Example 1", "Example 2"]}
+  items={["Example 1", "Properties"]}
   storageKey="selected-pkg-manager"
   defaultIndex="0"
 >
@@ -574,22 +581,20 @@ Displays proposal timestamp. [View Source.](https://github.com/public-assembly/d
     function App() {}
     ```
   </Tab>
-  <Tab>```tsx copy lorem ```</Tab>
+  <Tab><CustomOptionTable
+  options={[
+  ]}
+/></Tab>
 </Tabs>
 
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
+
 
 ## ProposalVoting
 
-UI for voting on proposals. Displays proposal voting data by using the useVote hook. If proposal is active then voting is rendered. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalVoting.tsx)
+UI for voting on proposals. Displays proposal voting data by using the [`useVote`](/docs/advanced/hooks#usevote) hook. If proposal is active then voting is rendered. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/ProposalVoting.tsx)
 
 <Tabs
-  items={["Example 1", "Example 2"]}
+  items={["Example 1", "Properties"]}
   storageKey="selected-pkg-manager"
   defaultIndex="0"
 >
@@ -598,22 +603,21 @@ UI for voting on proposals. Displays proposal voting data by using the useVote h
     function App() {}
     ```
   </Tab>
-  <Tab>```sh copy lorem ```</Tab>
+  <Tab>
+  <CustomOptionTable
+      options={[
+        ["" , ""]
+      ]}
+    />
+  </Tab>
 </Tabs>
-
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
 
 ## VoteTally
 
-Displays Vote Tally. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/VoteTally.tsx)
+Displays number count of the 'For', 'Against', and 'Abstained', votes within a proposal. [View Source.](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/VoteTally.tsx)
 
 <Tabs
-  items={["Example 1", "Example 2"]}
+  items={["Example 1", "Properties"]}
   storageKey="selected-pkg-manager"
   defaultIndex="0"
 >
@@ -622,15 +626,14 @@ Displays Vote Tally. [View Source.](https://github.com/public-assembly/dao-utils
     function App() {}
     ```
   </Tab>
-  <Tab>```sh copy lorem ```</Tab>
+  <Tab>
+  <CustomOptionTable
+      options={[
+        ["" , ""]
+      ]}
+    />
+  </Tab>
 </Tabs>
-
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
 
 ## AuthCheck
 
@@ -656,12 +659,6 @@ Uses the `useAccount` hook from the `wagmi` library to determine the connection 
       }
       ```
     </Tab>
-
   </Tabs>
 
-<CustomOptionTable
-  options={[
-    ["tokenAddress", "0xstring", "Yes", "The token's contract address" ],
-    ["tokenId", "string", "Yes", "The token's ID."  ]
-  ]}
-/>
+
