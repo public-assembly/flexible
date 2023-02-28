@@ -2,9 +2,9 @@ import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
-  logo: <span>DAO Utils</span>,
+  logo: <span>Flexible</span>,
   project: {
-    link: "https://github.com/public-assembly/dao-utils",
+    link: "https://github.com/public-assembly/flexible",
   },
   chat: {
     link: "https://forum.public---assembly.com/",
@@ -18,14 +18,14 @@ const config: DocsThemeConfig = {
     ),
   },
   docsRepositoryBase:
-    "https://github.com/public-assembly/flexible-dao-interfaces-docs/blob/main/",
+    "https://github.com/public-assembly/flexible-docs/blob/main/",
   footer: {
     text: "Built by PA",
   },
 
   useNextSeoProps() {
     return {
-      titleTemplate: "%s – DAO Utils",
+      titleTemplate: "%s",
     };
   },
 
