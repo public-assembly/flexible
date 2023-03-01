@@ -1,6 +1,7 @@
 import React from 'react'
+import { IconProps } from './types'
 
-function Globe({ className }: { className?: string }) {
+function Globe({ className }: IconProps) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

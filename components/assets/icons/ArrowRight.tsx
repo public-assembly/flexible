@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconProps } from './types'
 
-function ArrowRight({ className }: { className?: string }) {
+function ArrowRight({ className }: IconProps) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

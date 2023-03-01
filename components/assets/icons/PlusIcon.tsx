@@ -1,6 +1,7 @@
 import React from 'react'
+import { IconProps } from './types'
 
-function PlusIcon({ className }: { className?: string }) {
+function PlusIcon({ className }: IconProps) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
