@@ -1,10 +1,10 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import NextHead from 'next/head'
-import { AppWrapper } from '../components'
-import Web3Provider from '@/components/Web3Provider'
-import { ManagerProvider, GovernorProvider } from '@public-assembly/dao-utils'
-import { ENV } from 'utils/env'
+import '../styles/globals.css';
+import type { AppProps } from 'next/app';
+import NextHead from 'next/head';
+import { AppWrapper } from '../components';
+import Web3Provider from '@/components/Web3Provider';
+import { ManagerProvider, GovernorProvider } from '@public-assembly/dao-utils';
+import { ENV } from 'utils/env';
 
 function ExampleApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,7 +14,7 @@ function ExampleApp({ Component, pageProps }: AppProps) {
       </NextHead>
       <Web3Provider>
         <AppWrapper>
-          {/* <ManagerProvider tokenAddress={ENV.DAO_ADDRESS}> */}
+          {/* <ManagerProvider tokenAddress={ENV.DAO_ADDRESS as `0x${string}`}> */}
           {/* <GovernorProvider> */}
           <Component {...pageProps} />
           {/* </GovernorProvider> */}
@@ -22,6 +22,6 @@ function ExampleApp({ Component, pageProps }: AppProps) {
         </AppWrapper>
       </Web3Provider>
     </>
-  )
+  );
 }
-export default ExampleApp
+export default ExampleApp;
