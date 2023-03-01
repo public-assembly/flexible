@@ -1,20 +1,23 @@
-import DropdownMenu from './base/DropdownMenu'
-import { Navigation } from './Navigation'
-import ConnectButton from './ConnectButton'
-import { Copy, Exit, Minus } from './assets/icons'
-import { useAuth } from '../hooks/useAuth'
-import { Zorb } from './base/Zorb'
+import { useState } from 'react'
+import DropdownMenu from '../base/DropdownMenu'
+import { Navigation } from '../Navigation'
+import ConnectButton from '../ConnectButton'
+import { Copy, Exit, Minus, PlusIcon } from '../assets/icons'
+import { useAuth } from '../../hooks/useAuth'
+import { Zorb } from '../base/Zorb'
 import Link from 'next/link'
+import styles from './Header.module.css'
 
 import { Flex } from '@/components/base/Flex'
-import { Stack } from './base/Stack'
-import { Headline } from './base/Typography'
+import { Stack } from '../base/Stack'
+import { Headline } from '../base/Typography'
 import Button from '@/components/base/Button'
 import { ENV } from 'utils/env'
+import { cn } from 'utils/cn'
 
 export function Header() {
   return (
-    <header className='flex flex-row items-center justify-between w-full px-4 bg-transparent pt-4 lg:sticky lg:top-0'>
+    <header className='flex flex-row items-center justify-between w-full px-4 pt-4 bg-transparent lg:sticky lg:top-0'>
       <Link href='/' className=''>
         {/* TODO: Dao Name from token contract */}
         {ENV.SITE_TITLE}
@@ -39,8 +42,14 @@ function MobileDropdown(props: MobileDropdownProps) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <Button size='icon' variant='burger'>
-          <Minus />
+        <Button size='icon' className='group' variant='burger'>
+          {/* Icon is styled with module css and animates using data attributes from radix */}
+          <div
+            className={cn(
+              styles.icon,
+              'group-radix-state-open:after:rotate-180 group-radix-state-open:before:rotate-90'
+            )}
+          />
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content sideOffset={4} className='min-w-[328px]'>

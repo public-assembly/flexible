@@ -1,0 +1,29 @@
+
+.icon {
+	 position: relative;
+	 width: 24px;
+	 height: 24px;
+  }
+  .icon:before, .icon:after {
+	 content: "";
+	 position: absolute;
+	 background-color: currentColor;
+	 transition: transform 0.25s ease-out;
+}
+
+/* Vertical Line  */
+ .icon:before {
+	 top: 0;
+	 left: 50%;
+	 width: 2px;
+	 height: 100%;
+	 margin-left: -1px;
+}
+/* Horizontal Line */
+ .icon:after {
+	 top: 50%;
+	 left: 0;
+	 width: 100%;
+	 height: 2px;
+	 margin-top: -1px;
+}

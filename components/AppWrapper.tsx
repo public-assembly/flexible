@@ -1,6 +1,5 @@
 import { SWRConfig } from 'swr'
 import { Header } from './Header'
-import { Footer } from './Footer'
 import { TopProgressBar } from './TopProgressBar'
 
 export function AppWrapper({ children }: { children: JSX.Element }) {
