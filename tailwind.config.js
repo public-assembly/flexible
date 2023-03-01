@@ -154,6 +154,9 @@ module.exports = {
             opacity: 1,
           }
         },
+      },
+      backgroundImage: {
+        'default-auction': "url('/default-auction.svg')"
       }
     },
   },
