@@ -22,7 +22,7 @@ export function Header() {
     <header className='flex flex-row items-center justify-between w-full px-4 pt-4 bg-transparent lg:sticky lg:top-0'>
       <Link href='/' className=''>
         {/* TODO: Dao Name from token contract */}
-        {ENV.SITE_TITLE}
+        <Headline>{ENV.SITE_TITLE}</Headline>
       </Link>
       <Flex className='gap-6'>
         {!isMobile ? <Navigation /> : null}
