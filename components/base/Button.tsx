@@ -17,15 +17,25 @@ const buttonVariants = cva(
           'active:bg-primary active:text-white',
           'disabled:border-tertiary disabled:text-tertiary',
           'focus:ring-primary focus:ring-offset-1',
-          'first:[&>svg]:mr-[6px] last:[&>svg]:ml-[6px] [&>svg]:w-auto [&>svg]:h-4',
+          // I want to select and style the first <svg> child element of every button
+          '[&>svg]:w-auto [&>svg]:h-4',
         ],
-        tertiary: 'bg-tertiary hover:bg-tertiary/50 active:bg-tertiary dark:bg-tertiary dark:text-tertiary',
+        tertiary: [
+          'bg-secondary border border-primary/50 rounded-button',
+          'hover:bg-primary hover:text-secondary',
+          'active:border-primary active:text-primary active:bg-secondary',
+          'dark:bg-tertiary dark:text-tertiary',
+          'focus:ring-primary focus:ring-offset-1',
+          'disabled:text-primary/50 disabled:border-primary/50',
+        ],
         link: 'bg-transparent underline-offset-4 hover:underline text-slate-900 dark:text-slate-100 hover:bg-transparent dark:hover:bg-transparent',
         burger:
           'data-[state=open]:bg-primary bg-transparent hover:bg-primary/50 data-[state=open]:text-secondary focus:ring-2 active:ring-primary focus:ring-primary',
       },
       icon: {
         true: '',
+        left: '[&>svg]:mr-[6px]',
+        right: '[&>svg]:ml-[6px]',
         standalone: '',
       },
       size: {
@@ -53,14 +63,23 @@ const buttonVariants = cva(
     },
   }
 )
+export type ButtonProps = {
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
+} & VariantProps<typeof buttonVariants> &
+  React.ButtonHTMLAttributes<HTMLButtonElement>
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
-
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, variant, size, ...props }, ref) => {
-  return <button className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
-})
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, prefix, suffix, ...props }, ref) => {
+    return (
+      <button className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props}>
+        {!!prefix ? prefix : null}
+        {props.children}
+        {!!suffix ? suffix : null}
+      </button>
+    )
+  }
+)
 
 Button.displayName = 'Button'
 
