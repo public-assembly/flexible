@@ -62,7 +62,7 @@ function MobileDropdown(props: MobileDropdownProps) {
                 <Zorb address={address} size={32} radius={999} />
                 <Headline>{ensName ? ensName : address}</Headline>
               </Flex>
-              <DropdownMenu.Item onClick={() => console.log('open theme')}>
+              <DropdownMenu.Item type='button' onClick={() => console.log('open theme')}>
                 <Button>Edit theme</Button>
               </DropdownMenu.Item>
             </>
@@ -73,14 +73,14 @@ function MobileDropdown(props: MobileDropdownProps) {
         <DropdownMenu.Separator />
         <Stack>
           <DropdownMenu.Item type='external-link' href='https://github.com/public-assembly/flexible'>
-            <Flex className='items-center gap-4 py-4 hover:bg-tertiary/50 rounded-object'>
+            <Flex className='items-center w-full gap-4 py-4 hover:bg-tertiary/10 rounded-object'>
               <Copy />
               Copy our template
             </Flex>
           </DropdownMenu.Item>
           {isConnected && (
-            <DropdownMenu.Item onClick={logout}>
-              <Flex className='items-center gap-4 py-4 text-black rounded-object hover:cursor-pointer hover:bg-tertiary/50'>
+            <DropdownMenu.Item type='button' onClick={logout}>
+              <Flex className='items-center gap-4 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none'>
                 <Exit />
                 Disconnect
               </Flex>
