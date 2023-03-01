@@ -228,9 +228,6 @@ footer a {
 div[data-radix-popper-content-wrapper] .content-outer .content-inner {
     width: 100%;
     max-width: 100%;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    /* transform: translate3d(0, 100%, 0); */
 
     padding-top: 24px;
     padding-bottom: 24px;
@@ -248,6 +245,12 @@ div[data-radix-popper-content-wrapper] {
     bottom: 0 !important;
     left: 0 !important;
     width: 100% !important;
+  }
+
+  /* Bottom sheet border radius */
+  div[data-radix-popper-content-wrapper] .content-outer .content-inner {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 }
 
