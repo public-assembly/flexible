@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import DropdownMenu from '../base/DropdownMenu'
-import { Navigation } from '../Navigation'
 import ConnectButton from '../ConnectButton'
 import { Copy, Exit, Minus, PlusIcon } from '../assets/icons'
 import { useAuth } from '../../hooks/useAuth'
@@ -14,8 +13,11 @@ import { Headline } from '../base/Typography'
 import Button from '@/components/base/Button'
 import { ENV } from 'utils/env'
 import { cn } from 'utils/cn'
+import { useIsMobile } from '../../hooks/useIsMobile'
+import { Navigation } from './Navigation'
 
 export function Header() {
+  const { isMobile } = useIsMobile()
   return (
     <header className='flex flex-row items-center justify-between w-full px-4 pt-4 bg-transparent lg:sticky lg:top-0'>
       <Link href='/' className=''>
@@ -23,7 +25,7 @@ export function Header() {
         {ENV.SITE_TITLE}
       </Link>
       <Flex className='gap-6'>
-        <Navigation />
+        {!isMobile ? <Navigation /> : null}
         <MobileDropdown />
       </Flex>
     </header>
