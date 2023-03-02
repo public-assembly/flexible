@@ -11,7 +11,7 @@ export function AppWrapper({ children }: { children: JSX.Element }) {
     >
       <TopProgressBar />
       <Header />
-      <main>{children}</main>
+      {children}
     </SWRConfig>
   )
 }
