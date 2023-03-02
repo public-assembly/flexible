@@ -1,18 +1,19 @@
-import { SWRConfig } from 'swr'
-import { Header } from './Header'
-import { Footer } from './Footer'
-import { TopProgressBar } from './TopProgressBar'
+import { SWRConfig } from 'swr';
+import { Header } from './Header';
+import { Footer } from './Footer';
+import { TopProgressBar } from './TopProgressBar';
 
 export function AppWrapper({ children }: { children: JSX.Element }) {
   return (
     <SWRConfig
       value={{
-        fetcher: (resource, init) => fetch(resource, init).then((res) => res.json()),
+        fetcher: (resource, init) =>
+          fetch(resource, init).then((res) => res.json()),
       }}
     >
       <TopProgressBar />
       <Header />
-      <main>{children}</main>
+      {children}
     </SWRConfig>
-  )
+  );
 }
