@@ -12,6 +12,7 @@
     "@babel/core": "*",
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/units": "^5.7.0",
+    "@ianvs/prettier-plugin-sort-imports": "^3.7.1",
     "@public-assembly/dao-utils": "^0.0.7",
     "@radix-ui/react-alert-dialog": "^1.0.2",
     "@radix-ui/react-dialog": "^1.0.2",
