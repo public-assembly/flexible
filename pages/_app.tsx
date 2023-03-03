@@ -5,6 +5,9 @@ import Web3Provider from '@/components/Web3Provider'
 import { ENV } from 'utils/env'
 import dynamic from 'next/dynamic'
 import { AppWrapper } from '../components'
+import { GovernorProvider } from '@public-assembly/dao-utils'
+
+import { Provider } from 'react-wrap-balancer'
 
 type ManagerProviderProps = {
   tokenAddress: `0x${string}`
@@ -30,11 +33,13 @@ function ExampleApp({ Component, pageProps }: AppProps) {
       </NextHead>
       <Web3Provider>
         <AppWrapper>
-          <DynamicManagerProvider tokenAddress={ENV.TOKEN_ADDRESS as `0x${string}`}>
-            {/* <GovernorProvider> */}
-            <Component {...pageProps} />
-            {/* </GovernorProvider> */}
-          </DynamicManagerProvider>
+          <Provider>
+            <DynamicManagerProvider tokenAddress={ENV.TOKEN_ADDRESS as `0x${string}`}>
+              <GovernorProvider>
+                <Component {...pageProps} />
+              </GovernorProvider>
+            </DynamicManagerProvider>
+          </Provider>
         </AppWrapper>
       </Web3Provider>
     </>

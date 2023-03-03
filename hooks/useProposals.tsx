@@ -38,7 +38,9 @@ export const useProposals = () => {
     totalProposalCount,
     activeProposals,
     proposals: restProposals,
+    allProposals: proposals,
     isEmpty,
     hasActiveProposals: activeProposalCount > 0,
+    hasProposals: totalProposalCount > 0,
   }
 }

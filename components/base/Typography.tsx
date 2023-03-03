@@ -13,6 +13,9 @@ export function H1Heading({ children, className }: TypographyProps) {
   return <h1 className={cn('text-2xl font-medium leading-10 tracking-[-0.5px] text-primary', className)}>{children}</h1>
 }
 
+/**
+ * Headline or Display Typography
+ */
 export function Headline({ children, className }: TypographyProps) {
   return <p className={cn('text-2xl font-medium leading-10 tracking-[-0.5px] text-primary', className)}>{children}</p>
 }
@@ -21,12 +24,16 @@ export function Caption({ children, className }: TypographyProps) {
   return <span className={cn('text-base font-regular text-primary', className)}>{children}</span>
 }
 
-export function BodySmall({ children, className }: TypographyProps) {
-  return <span className={cn('text-xs font-medium text-primary', className)}>{children}</span>
+export function BodyLarge({ children, className }: TypographyProps) {
+  return <p className={cn('text-[18px] leading-7 font-medium text-primary', className)}>{children}</p>
 }
 
 export function Body({ children, className }: TypographyProps) {
   return <p className={cn('text-base font-medium text-primary', className)}>{children}</p>
+}
+
+export function BodySmall({ children, className }: TypographyProps) {
+  return <p className={cn('text-xs font-medium text-primary', className)}>{children}</p>
 }
 
 export function BodyExtraSmall({ children, className }: TypographyProps) {
