@@ -1,0 +1,15 @@
+
+.linkUnderline {
+  border-bottom-width: 0;
+  background-image: linear-gradient(transparent, transparent), var(--link-gradient);
+  background-size: 0 4px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size .5s ease-in-out;
+}
+
+.linkUnderlineIsActive {
+  background-image: linear-gradient(transparent, transparent), var(--link-gradient);
+  background-size: 100% 4px;
+  background-position: 0 100%
+}
