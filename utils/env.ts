@@ -47,7 +47,7 @@ export const ENV = {
   TWITTER_HANDLE: PROCESS.TWITTER_HANDLE,
   WEBSITE_URL: PROCESS.WEBSITE_URL,
   /** Cast to a string because we throw an error if this is not set */
-  TOKEN_ADDRESS: PROCESS.TOKEN_ADDRESS as string,
+  TOKEN_ADDRESS: PROCESS.TOKEN_ADDRESS as `0x${string}`,
 } as const
 
 
