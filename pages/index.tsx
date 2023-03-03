@@ -3,7 +3,7 @@ import { Seo } from '@/components/Seo'
 
 function HomePage() {
   return (
-    <section className='h-screen pb-4 md:pb-0 md:h-full'>
+    <section className='flex-1 h-full pb-4 md:pb-0 md:h-full'>
       <Seo />
       <Auction />
     </section>

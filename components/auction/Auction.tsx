@@ -78,7 +78,7 @@ const Auction = () => {
             <motion.div className='px-4 py-2 bg-primary text-secondary rounded-object w-fit'>{tokenName}</motion.div>
             <TokenWinningBid tokenAddress={ENV.TOKEN_ADDRESS} tokenId={tokenId} />
           </Stack>
-          <Button variant='tertiary' className='max-w-[133px] uppercase'>
+          <Button variant='tertiary' className='max-w-[133px] uppercase absolute bottom-4 left-4'>
             <ArrowUp className='mr-2' />
             Auction
           </Button>

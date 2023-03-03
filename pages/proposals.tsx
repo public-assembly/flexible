@@ -14,7 +14,7 @@ function Proposals() {
   if (isServerSide()) return null
   if (!loading) return null
   return (
-    <section className='max-w-[1240px] m-auto px-4 gap-8 flex flex-col h-full justify-center items-center'>
+    <section className='max-w-[1240px] m-auto px-4 gap-8 flex flex-col grow min-h-full justify-center items-center'>
       <Seo title='proposals' />
       <Stack className='items-center justify-center h-full'>
         <ProposalEmptyState />

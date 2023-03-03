@@ -16,7 +16,7 @@
     --primary: #121212;
   
     --secondary: #F2FDF7;
-    --tertiary: #a7c7d1;
+    --tertiary: #809AA3;
     --highlight: #c5fc6b;
     /* todo: convert hex codes from template to modern rgb to be compatible with tailwind config */
     --color-primary: 18 18 18;
@@ -78,6 +78,15 @@
   }
 }
 
+* {
+  outline: none;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  /* Makes fonts on FF render similarly to Chrome */
+  -moz-osx-font-smoothing: grayscale;
+}
+
 html,
 body {
   width: 100%;
@@ -91,13 +100,28 @@ body {
   min-height: 100vh;
 }
 
+
+body,
+#__next {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 100vh;
+  width: 100%;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  position: relative;
+}
+
 a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
-}
 
 div[data-radix-popper-content-wrapper] .content-outer .content-inner {
     width: 100%;
@@ -126,4 +150,27 @@ div[data-radix-popper-content-wrapper] {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
+}
+
+
+/* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--tertiary);
+  border-radius: 48px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tertiary);
 }
