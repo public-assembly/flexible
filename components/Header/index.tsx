@@ -19,13 +19,13 @@ import { Navigation } from './Navigation'
 export function Header() {
   const { isMobile } = useIsMobile()
   return (
-    <header className='flex flex-row items-center justify-between w-full px-4 pt-4 bg-transparent lg:sticky lg:top-0'>
+    <header className='absolute flex flex-row items-center justify-between w-full px-4 pt-4 bg-transparent lg:sticky lg:top-0'>
       <Link href='/' className=''>
         {/* TODO: Dao Name from token contract */}
         <Headline>{ENV.SITE_TITLE}</Headline>
       </Link>
       <Flex className='gap-6'>
-        {!isMobile ? <Navigation /> : null}
+        {!isMobile && <Navigation />}
         <MobileDropdown />
       </Flex>
     </header>
