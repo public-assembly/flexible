@@ -13,12 +13,14 @@ import Menu from './Menu'
 import Minus from './Minus'
 import PlusIcon from './PlusIcon'
 import VerticalDots from './VerticalDots'
+import ArrowLeft from './ArrowLeft'
 
 export {
   Exit,
   Minus,
   ArrowUp,
   ArrowRight,
+  ArrowLeft,
   ArrowUpRight,
   ArrowUpLeft,
   Check,
