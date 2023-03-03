@@ -6,17 +6,17 @@ import ProposalLabel from '@/components/proposals/ProposalLabel'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useProposals } from '@/hooks/useProposals'
-import { Headline, BodySmall } from '../../components/base/Typography'
+import { Headline } from '../../components/base/Typography'
 import { RichText } from '@/components/base/Richtext'
 import { ProposalTimestamp, Proposer } from '@/components/proposals/ProposalCard'
 import ProposalVoteButton from '@/components/proposals/ProposalVoteButton'
 import { Divider } from '@/components/base/Divider'
+
 function ProposalDetailPage() {
   const { allProposals } = useProposals()
   const { pid } = useRouter().query
 
   const proposal = allProposals?.find((proposal) => proposal.proposalId === pid)
-  console.log(`🚀 ~ file: [pid].tsx:15 ~ ProposalDetailPage ~ proposal:`, proposal)
 
   return (
     <Stack className='w-full px-10'>
@@ -56,15 +56,3 @@ function ProposalNavigation() {
     </Link>
   )
 }
-
-// const { data } = useContractReads({
-//   enabled: !!token && !!metadata,
-//   contracts: [
-//     { abi: metadataAbi, address: metadata, functionName: 'contractImage' },
-//     { abi: tokenAbi, address: token, functionName: 'name' },
-//   ],
-// })
-
-// const handleNavigation = () => {
-//   handleBack ? handleBack() : router.back()
-// }
