@@ -28,3 +28,7 @@ export function BodySmall({ children, className }: TypographyProps) {
 export function Body({ children, className }: TypographyProps) {
   return <p className={cn('text-base font-medium text-primary', className)}>{children}</p>
 }
+
+export function BodyExtraSmall({ children, className }: TypographyProps) {
+  return <span className={cn('text-xs leading-4 font-medium text-secondary ', className)}>{children}</span>
+}
