@@ -160,6 +160,7 @@ module.exports = {
       },
        boxShadow: ({ theme }) => ({
         glow: '0 0 4px rgb(0 0 0 / 0.1)',
+        dropShadow: 'var(--drop-shadow)',
         // inspired by https://www.joshwcomeau.com/shadow-palette/
         "surface-glass": `
           inset 0.25px 1px 0 0 ${theme("colors.primary / 3%")},
