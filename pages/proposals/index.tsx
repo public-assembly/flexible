@@ -94,7 +94,7 @@ function RestProposals({ proposals }) {
   )
 }
 
-function ActiveProposals({ proposals }) {
+export function ActiveProposals({ proposals }) {
   if (!proposals) return null
   return (
     <>
