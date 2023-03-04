@@ -101,6 +101,8 @@ export const TokenWinningBid = ({
     return function cleanup() {}
   }, [auctionContract, tokenId, tokenData])
 
+  // TODO: Refactor this to be more readable. This is for prev past auctions case
+  // TODO: Add async loading animations for switching between auctions and loading data
   if (!!bidder && !!address)
     return (
       <Flex className="z-10 items-center gap-4 ">
