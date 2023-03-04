@@ -1,30 +1,30 @@
-import { useState } from 'react'
-import DropdownMenu from '../base/DropdownMenu'
-import ConnectButton from '../ConnectButton'
-import { Copy, Exit, Minus, PlusIcon } from '../assets/icons'
-import { useAuth } from '../../hooks/useAuth'
-import { Zorb } from '../base/Zorb'
-import Link from 'next/link'
-import styles from './Header.module.css'
+import Link from "next/link"
+import { cn } from "utils/cn"
+import { ENV } from "utils/env"
 
-import { Flex } from '@/components/base/Flex'
-import { Stack } from '../base/Stack'
-import { Headline } from '../base/Typography'
-import Button from '@/components/base/Button'
-import { ENV } from 'utils/env'
-import { cn } from 'utils/cn'
-import { useIsMobile } from '../../hooks/useIsMobile'
-import { Navigation } from './Navigation'
+import Button from "@/components/base/Button"
+import { Flex } from "@/components/base/Flex"
+import { useAuth } from "../../hooks/useAuth"
+import { useIsMobile } from "../../hooks/useIsMobile"
+import ConnectButton from "../ConnectButton"
+import { Copy, Exit } from "../assets/icons"
+import DropdownMenu from "../base/DropdownMenu"
+import { Stack } from "../base/Stack"
+import { Headline } from "../base/Typography"
+import { Zorb } from "../base/Zorb"
+import styles from "./Header.module.css"
+import { Navigation } from "./Navigation"
 
 export function Header() {
   const { isMobile } = useIsMobile()
   return (
-    <header className='flex flex-row items-center justify-between w-full px-4 py-4 bg-transparent lg:sticky lg:top-0'>
-      <Link href='/' className=''>
-        {/* TODO: Dao Name from token contract */}
+    <header className="flex flex-row items-center justify-between w-full px-4 py-4 bg-transparent">
+      {/* Header Logo */}
+      <Link href="/">
         <Headline>{ENV.SITE_TITLE}</Headline>
       </Link>
-      <Flex className='gap-6'>
+
+      <Flex className="gap-6">
         {!isMobile && <Navigation />}
         <MobileDropdown />
       </Flex>
@@ -44,25 +44,28 @@ function MobileDropdown(props: MobileDropdownProps) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <Button size='icon' className='group' variant='burger'>
+        <Button size="icon" className="group" variant="burger">
           {/* Icon is styled with module css and animates using data attributes from radix */}
           <div
             className={cn(
               styles.icon,
-              'group-radix-state-open:after:rotate-180 group-radix-state-open:before:rotate-90'
+              "group-radix-state-open:after:rotate-180 group-radix-state-open:before:rotate-90"
             )}
           />
         </Button>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content sideOffset={4} className='min-w-[328px]'>
-        <Stack className='flex flex-col gap-6 pb-6'>
+      <DropdownMenu.Content sideOffset={4} className="min-w-[328px]">
+        <Stack className="flex flex-col gap-6 pb-6">
           {isConnected ? (
             <>
-              <Flex className='items-center gap-4'>
+              <Flex className="items-center gap-4">
                 <Zorb address={address} size={32} radius={999} />
                 <Headline>{ensName ? ensName : address}</Headline>
               </Flex>
-              <DropdownMenu.Item type='button' onClick={() => console.log('open theme')}>
+              <DropdownMenu.Item
+                type="button"
+                onClick={() => console.log("open theme")}
+              >
                 <Button>Edit theme</Button>
               </DropdownMenu.Item>
             </>
@@ -72,15 +75,18 @@ function MobileDropdown(props: MobileDropdownProps) {
         </Stack>
         <DropdownMenu.Separator />
         <Stack>
-          <DropdownMenu.Item type='external-link' href='https://github.com/public-assembly/flexible'>
-            <Flex className='items-center w-full gap-4 py-4 hover:bg-tertiary/10 rounded-object'>
+          <DropdownMenu.Item
+            type="external-link"
+            href="https://github.com/public-assembly/flexible"
+          >
+            <Flex className="items-center w-full gap-4 py-4 hover:bg-tertiary/10 rounded-object">
               <Copy />
               Copy our template
             </Flex>
           </DropdownMenu.Item>
           {isConnected && (
-            <DropdownMenu.Item type='button' onClick={logout}>
-              <Flex className='items-center gap-4 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none'>
+            <DropdownMenu.Item type="button" onClick={logout}>
+              <Flex className="items-center gap-4 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none">
                 <Exit />
                 Disconnect
               </Flex>
