@@ -57,11 +57,11 @@ export default function CountingNumbers({
         }
       }, interval)
     }
-  }, [isInView])
+  }, [increment, interval, isInView, number, reverse, value])
 
   return (
-    <p className={className} ref={ref}>
+    <span className={className} ref={ref}>
       {Intl.NumberFormat().format(number)}
-    </p>
+    </span>
   )
 }
