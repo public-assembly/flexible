@@ -1,8 +1,11 @@
-import { useGovernorContext } from '@public-assembly/dao-utils'
-import { useState, useEffect } from 'react'
-import _ from 'lodash'
-import { NOUNS_PROPOSAL_STATUS } from '../types/index'
+import { useEffect, useState } from "react"
 
+import { useGovernorContext } from "@public-assembly/dao-utils"
+import _ from "lodash"
+
+import { NOUNS_PROPOSAL_STATUS } from "../types/index"
+
+// TODO: Fix the refresh of proposal stats and setup zustand
 export const useProposals = () => {
   const { proposals } = useGovernorContext()
 
@@ -20,7 +23,10 @@ export const useProposals = () => {
     }
 
     // Split proposals into active and rest of proposals
-    const splitProposals = _.partition(proposals, (proposal) => proposal.status === NOUNS_PROPOSAL_STATUS.EXECUTED)
+    const splitProposals = _.partition(
+      proposals,
+      (proposal) => proposal.status === NOUNS_PROPOSAL_STATUS.EXECUTED
+    )
 
     setTotalProposalCount(proposals.length)
     setActiveProposalCount(splitProposals[0].length)
