@@ -4,10 +4,7 @@ import { VariantProps, cva } from "cva"
 import { cn } from "utils/cn"
 
 const labelVariants = cva(
-  [
-    "border-[.5px] rounded-[2px] w-fit px-1 py-[2px] h-fit items-center box-border",
-    "text-xs leading-4 font-medium",
-  ],
+  ["border-[.5px] rounded-[2px] w-fit px-1 py-[2px] ", "text-xs  font-medium"],
   {
     variants: {
       variant: {
