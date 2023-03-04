@@ -1,7 +1,7 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import './fonts.css';
 @import './markdown.css';
 
 @layer base {
@@ -38,6 +38,10 @@
     --font-body-font-family: 'Satoshi', 'Courier New', Courier, monospace;
     --font-body-font-weight: 400;
     --font-body-font-style: normal;
+
+    --font-caption-font-family: 'Space Mono', 'Courier New', Courier, monospace;
+    --font-caption-font-weight: 400;
+    --font-caption-font-style: normal;
     
     --sidebar-width: 300px;
     --grid-base: 4px;

@@ -40,9 +40,14 @@ export function Headline({ children, className }: TypographyProps) {
 
 export function Caption({ children, className }: TypographyProps) {
   return (
-    <span className={cn("text-base font-regular text-primary", className)}>
+    <p
+      className={cn(
+        "text-base font-regular font-caption text-primary",
+        className
+      )}
+    >
       {children}
-    </span>
+    </p>
   )
 }
 

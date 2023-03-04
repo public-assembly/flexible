@@ -1,8 +1,14 @@
+const { fontFamily } = require('tailwindcss/defaultTheme')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-satoshi)', 'var(--font-space-mono)', ...fontFamily.sans],
+        caption: ['var(--font-space-mono)','var(--font-satoshi)', ...fontFamily.sans],
+      },
       colors: {
         current: 'currentColor',
         transparent: 'transparent',
