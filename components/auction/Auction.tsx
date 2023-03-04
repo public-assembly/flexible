@@ -11,6 +11,8 @@ import { ENV } from "utils/env"
 import { BlurImage } from "@/components/BlurImage"
 // Icons
 import { ArrowLeft, ArrowRight, ArrowUp } from "@/components/assets/icons"
+import { DesktopAuctionSheet } from "@/components/auction/DesktopAuctionSheet"
+import { MobileAuctionSheet } from "@/components/auction/MobileAuctionSheet"
 import { TokenWinningBid } from "@/components/auction/TokenWinningBid"
 // Components
 import Button from "@/components/base/Button"
@@ -84,15 +86,7 @@ const Auction = () => {
         </Stack>
 
         {/* Desktop/Tablet Auction button */}
-        {isMobile ? null : (
-          <Button
-            variant="tertiary"
-            className="max-w-[133px] uppercase absolute  right-0 top-10"
-          >
-            <ArrowLeft className="mr-2" />
-            Auction
-          </Button>
-        )}
+        {isMobile ? null : <DesktopAuctionSheet />}
       </Flex>
 
       {/* Mobile auction button */}
@@ -107,13 +101,7 @@ const Auction = () => {
               tokenId={tokenId}
             />
           </Stack>
-          <Button
-            variant="tertiary"
-            className="max-w-[133px] uppercase absolute bottom-4 left-4"
-          >
-            <ArrowUp className="mr-2" />
-            Auction
-          </Button>
+          <MobileAuctionSheet />
         </Stack>
       ) : null}
     </Stack>
