@@ -5,7 +5,7 @@ import { cn } from "utils/cn"
 
 const labelVariants = cva(
   [
-    "border-[.5px] rounded-[2px] w-fit px-1 py-[2px]  h-5 inline-flex items-center box-border",
+    "border-[.5px] rounded-[2px] w-fit px-1 py-[2px] h-fit items-center box-border",
     "text-xs leading-4 font-medium",
   ],
   {
@@ -14,13 +14,17 @@ const labelVariants = cva(
         primary: ["bg-primary text-secondary"],
         secondary: ["bg-secondary text-primary"],
         tertiary: ["border-tertiary text-primary/50 bg-tertiary/50"],
+        badge: ["px-6 py-4 "],
       },
-      titleCase: {
-        true: "",
+      textTransform: {
+        titleCase: "lowercase first-letter:capitalize",
+        uppercase: "uppercase",
+        lowercase: "lowercase",
       },
     },
     defaultVariants: {
       variant: "primary",
+      textTransform: "titleCase",
     },
   }
 )
@@ -31,19 +35,14 @@ export type LabelProps = {
 } & VariantProps<typeof labelVariants>
 
 const ProposalLabel = forwardRef<HTMLDivElement, LabelProps>(
-  ({ className, titleCase, variant, children, ...props }, ref) => {
+  ({ className, textTransform, variant, children, ...props }, ref) => {
     return (
       <div
-        className={cn(className, labelVariants({ variant, titleCase }))}
+        className={cn(className, labelVariants({ variant, textTransform }))}
         ref={ref}
         {...props}
       >
-        {/* I need to wrap in a span for some reason the styles for titlecase won't apply otherwise */}
-        {titleCase ? (
-          <span className="lowercase first-letter:capitalize">{children}</span>
-        ) : (
-          children
-        )}
+        {children}
       </div>
     )
   }
