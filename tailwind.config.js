@@ -45,6 +45,13 @@ module.exports = {
       longFadeInDown: 'longFadeInDown 500ms cubic-bezier(0.23, 1, 0.32, 1) forwards ',
       longFadeInUp: 'longFadeInUp 500ms cubic-bezier(0.23, 1, 0.32, 1) forwards ',
       longFadeInUp: 'longFadeInUp 500ms cubic-bezier(0.23, 1, 0.32, 1) forwards ',
+      slideInFromRight: 'enter-from-right 500ms cubic-bezier(0.23, 1, 0.32, 1) forwards ',
+      slideOutToRight: 'enter-to-right 500ms cubic-bezier(0.23, 1, 0.32, 1) forwards ',
+      // Navigation menu
+      "enter-from-right": "enter-from-right 0.25s ease",
+      "enter-from-left": "enter-from-left 0.25s ease",
+      "exit-to-right": "exit-to-right 0.25s ease",
+      "exit-to-left": "exit-to-left 0.25s ease",
       },
       keyframes: {
         fadeInDown: {
@@ -190,6 +197,11 @@ module.exports = {
           5px 10px 12.6px -2.5px rgba(3, 2, 2, 0.1)`,
         slider: "0 0 0 5px rgba(0, 0, 0, 0.3)",
       }),
+      zIndex: {
+        "sheet-0": 999,
+        "sheet-1": 1000,
+        "sheet-2": 1001,
+      }
     },
   },
   content: [
