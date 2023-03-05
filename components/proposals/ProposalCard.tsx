@@ -33,38 +33,43 @@ export default function ProposalCard({ proposal }) {
   }, [address, proposal.votes])
 
   return (
-    <Link href={`proposals/${proposal.proposalId}`}>
-      <Stack
-        className={cn(
-          "h-full gap-6 px-4 py-4 text-primary transition duration-300 border border-tertiary bg-secondary rounded-object shadow-surface-elevation-low",
-          "hover:shadow-surface-elevation-medium hover:border-primary ",
-          "active:shadow-surface-elevation-low"
-        )}
+    <>
+      <Link
+        href={`proposals/${proposal.proposalId}`}
+        className="transition-opacity duration-300 group-hover:opacity-50 hover:!opacity-100"
       >
-        {/* Statuses */}
-        <Flex className="flex-wrap items-center self-stretch justify-between gap-2">
-          <Flex className="gap-2">
-            <ProposalLabel>{proposal.status}</ProposalLabel>
-            {needsAction ? <ProposalLabel>Needs vote</ProposalLabel> : null}
+        <Stack
+          className={cn(
+            "h-full gap-6 px-4 py-4 text-primary transition duration-300 border border-tertiary bg-secondary rounded-object shadow-surface-elevation-low",
+            "hover:shadow-surface-elevation-medium hover:border-primary ",
+            "active:shadow-surface-elevation-low"
+          )}
+        >
+          {/* Statuses */}
+          <Flex className="flex-wrap items-center self-stretch justify-between gap-2">
+            <Flex className="gap-2">
+              <ProposalLabel>{proposal.status}</ProposalLabel>
+              {needsAction ? <ProposalLabel>Needs vote</ProposalLabel> : null}
+            </Flex>
+            <ProposalTimestamp voteStart={proposal.voteStart} size="xs" />
           </Flex>
-          <ProposalTimestamp voteStart={proposal.voteStart} size="xs" />
-        </Flex>
 
-        <Stack className="h-full gap-2 ">
-          <ProposalTitle title={proposal.title} />
+          <Stack className="h-full gap-2 ">
+            <ProposalTitle title={proposal.title} />
 
-          <span className="text-xs font-medium text-primary/50">
-            by <Proposer proposer={proposal.proposer} />
-          </span>
+            <span className="text-xs font-medium text-primary/50">
+              by <Proposer proposer={proposal.proposer} />
+            </span>
+          </Stack>
+
+          <ProposalCardVotes
+            forVotes={proposal.forVotes}
+            againstVotes={proposal.againstVotes}
+            abstainVotes={proposal.abstainVotes}
+          />
         </Stack>
-
-        <ProposalCardVotes
-          forVotes={proposal.forVotes}
-          againstVotes={proposal.againstVotes}
-          abstainVotes={proposal.abstainVotes}
-        />
-      </Stack>
-    </Link>
+      </Link>
+    </>
   )
 }
 

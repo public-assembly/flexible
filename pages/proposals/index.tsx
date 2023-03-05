@@ -10,9 +10,8 @@ import { Divider } from "@/components/base/Divider"
 import { Flex } from "@/components/base/Flex"
 import { Stack } from "@/components/base/Stack"
 import { Caption } from "@/components/base/Typography"
-import { ActiveProposalList } from "@/components/proposals/ActiveProposalList"
-import { NotActiveProposalList } from "@/components/proposals/NotActiveProposalList"
 import ProposalEmptyState from "@/components/proposals/ProposalEmptyState"
+import { ProposalList } from "@/components/proposals/ProposalList"
 
 function ProposalsPage() {
   const {
@@ -47,12 +46,14 @@ function ProposalsPage() {
 
         {hasActiveProposals ? (
           <>
-            <ActiveProposalList proposals={activeProposals} />
+            <ProposalList proposals={activeProposals} type="active" />
             <Divider />
           </>
         ) : null}
 
-        {hasProposals && <NotActiveProposalList proposals={proposals} />}
+        {hasProposals && (
+          <ProposalList proposals={proposals} type="not-active" />
+        )}
       </Stack>
     </motion.section>
   )
