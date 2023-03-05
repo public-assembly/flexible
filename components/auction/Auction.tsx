@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react"
-
 import { useAuction } from "@/hooks/useAuction"
 // Hooks
 import { useIsMobile } from "@/hooks/useIsMobile"
@@ -11,6 +9,7 @@ import { ENV } from "utils/env"
 import { BlurImage } from "@/components/BlurImage"
 // Icons
 import { ArrowLeft, ArrowRight, ArrowUp } from "@/components/assets/icons"
+import { AuctionSheet } from "@/components/auction/AuctionSheet"
 import { DesktopAuctionSheet } from "@/components/auction/DesktopAuctionSheet"
 import { MobileAuctionSheet } from "@/components/auction/MobileAuctionSheet"
 import { TokenWinningBid } from "@/components/auction/TokenWinningBid"
@@ -34,7 +33,7 @@ const Auction = () => {
 
   if (!totalSupply) return null
   return (
-    <Stack className="h-full gap-4 px-4 pt-20 ">
+    <Stack className="h-full gap-4 px-4 pt-20 overflow-x-hidden ">
       <Flex className="relative justify-center w-full">
         <Stack className="relative justify-between max-h-[690px]  max-w-[690px] w-full h-full p-4 bg-cover border aspect-square rounded-object border-primary bg-default-auction">
           <div className="absolute inset-0 z-0 w-full aspect-square rounded-object">
@@ -86,7 +85,7 @@ const Auction = () => {
         </Stack>
 
         {/* Desktop/Tablet Auction button */}
-        {isMobile ? null : <DesktopAuctionSheet />}
+        <AuctionSheet tokenId={tokenId} />
       </Flex>
 
       {/* Mobile auction button */}
@@ -101,7 +100,6 @@ const Auction = () => {
               tokenId={tokenId}
             />
           </Stack>
-          <MobileAuctionSheet />
         </Stack>
       ) : null}
     </Stack>

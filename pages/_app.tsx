@@ -15,14 +15,14 @@ import { TopProgressBar } from "@/components/TopProgressBar"
 import Web3Provider from "@/components/Web3Provider"
 
 /** Import both default fonts from Figma. This resolves the FOUT (flash of unstyled text): https://nextjs.org/docs/basic-features/font-optimization*/
-const spaceMono = Space_Mono({
+export const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
   style: ["normal"],
   weight: ["400", "700"],
   subsets: ["latin"],
-  variable: "--font-space-mono",
 })
 
-const satoshi = localFont({
+export const satoshi = localFont({
   variable: "--font-satoshi",
   src: [
     {

@@ -65,7 +65,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
-  "fixed z-50 scale-100 gap-4 bg-white p-6 opacity-100 dark:bg-slate-900",
+  "fixed z-50 scale-100 gap-4 bg-secondary p-6 opacity-100 border-tertiary border rounded-object",
   {
     variants: {
       position: {
@@ -73,7 +73,8 @@ const sheetVariants = cva(
         bottom:
           "data-[state=open]:animate-longFadeInUp data-[state=open]:delay-500  data-[state=closed]:animate-longFadeInDown w-full",
         left: "animate-in slide-in-from-left h-full duration-300",
-        right: "animate-in slide-in-from-right h-full duration-300",
+        right:
+          "animate-in data-[state=open]:animate-slideInFromRight data-[state=open]:delay-500 data-[state=closed]:animate-slideOutToRight h-full duration-300",
       },
       size: {
         content: "",
@@ -82,6 +83,7 @@ const sheetVariants = cva(
         lg: "",
         xl: "",
         full: "",
+        auction: "",
       },
     },
     compoundVariants: [
@@ -145,6 +147,11 @@ const sheetVariants = cva(
         size: "full",
         class: "w-screen",
       },
+      {
+        position: ["right", "left"],
+        size: "auction",
+        class: "h-[709px] top-[15%]",
+      },
     ],
     defaultVariants: {
       position: "right",
@@ -161,7 +168,7 @@ const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   DialogContentProps
 >(({ position, size, className, children, ...props }, ref) => (
-  <SheetPortal position={position}>
+  <SheetPortal position={position} forceMount>
     <SheetOverlay />
     <SheetPrimitive.Content
       ref={ref}
@@ -188,13 +195,7 @@ const SheetHeader = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      "flex flex-col space-y-2 text-center sm:text-left",
-      className
-    )}
-    {...props}
-  />
+  <div className={cn("flex flex-col space-y-4", className)} {...props} />
 )
 SheetHeader.displayName = "SheetHeader"
 
