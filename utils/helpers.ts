@@ -17,3 +17,9 @@ export const hexToRgb = (hex: string) => {
 export const buildEtherscanAddressLink = (address: string) => {
   return new URL(`/address/${address}`, ETHERSCAN_BASE_URL).toString()
 }
+
+type EtherscanLinkType = 'address' | 'tx' | 'contract'
+
+export function buildEtherscanLink(type: EtherscanLinkType, hash?: string) {
+  return new URL(`/${type}/${hash}`, ETHERSCAN_BASE_URL).toString()
+}

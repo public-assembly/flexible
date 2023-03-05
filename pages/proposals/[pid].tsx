@@ -1,9 +1,12 @@
+import { useEffect, useState } from "react"
+
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { useAuth } from "@/hooks/useAuth"
 import { useProposals } from "@/hooks/useProposals"
 import Balancer from "react-wrap-balancer"
 
-import { ArrowLeft, Check } from "@/components/assets/icons"
+import { ArrowLeft, Check, Exit, Minus } from "@/components/assets/icons"
 import { Divider } from "@/components/base/Divider"
 import { Flex } from "@/components/base/Flex"
 import Label from "@/components/base/Label"
@@ -19,8 +22,9 @@ import ProposalLabel from "@/components/proposals/ProposalLabel"
 import ProposalVoteButton from "@/components/proposals/ProposalVoteButton"
 import { Proposer } from "@/components/proposals/Proposer"
 import { BodyLarge, Headline } from "../../components/base/Typography"
+import { NOUNS_PROPOSAL_SUPPORT, PROPOSAL_SUPPORT } from "../../types/index"
+import { buildEtherscanLink } from "../../utils/helpers"
 
-// TODO; maybe fetch the token image for the proposer
 function ProposalDetailPage() {
   const { allProposals } = useProposals()
   const { pid } = useRouter().query
@@ -53,15 +57,7 @@ function ProposalDetailPage() {
             </Stack>
 
             <div className="pt-2">
-              <Label
-                showIcon
-                iconLeft={<Check />}
-                showExternalLinkIcon
-                externalLink=""
-              >
-                You voted against this proposal
-              </Label>
-              <ProposalVoteButton />
+              <ProposalVoteStatus proposal={proposal} />
             </div>
 
             {/* Mobile Proposal Votes section */}
@@ -120,5 +116,76 @@ function ProposalNavigation() {
         <Body>Back to proposals</Body>
       </Flex>
     </Link>
+  )
+}
+
+function ProposalVoteStatus({ proposal }) {
+  const { address } = useAuth()
+
+  const [needsAction, setNeedsAction] = useState(false)
+  const [voteSupport, setVoteSupport] = useState<PROPOSAL_SUPPORT | null>(null)
+  const [txHash, setTxHash] = useState<string | undefined>(undefined)
+
+  useEffect(() => {
+    if (!address) return
+    const proposalVotes = proposal.votes
+
+    const vote = proposalVotes.find((vote) => vote.voter === address)
+
+    const hash = vote?.transactionInfo?.transactionHash
+
+    if (hash) setTxHash(hash)
+
+    // Check if the current address has voted on this proposal.
+    const hasVoted = proposalVotes.some((vote) => vote.voter === address)
+
+    if (hasVoted) setVoteSupport(vote.support)
+    setNeedsAction(hasVoted)
+  }, [address, proposal.votes])
+
+  return (
+    <>
+      {needsAction ? <ProposalVoteButton /> : null}
+
+      {(() => {
+        switch (voteSupport) {
+          case NOUNS_PROPOSAL_SUPPORT.ABSTAIN:
+            return (
+              <Label
+                showIcon
+                iconLeft={<Exit />}
+                showExternalLinkIcon
+                externalLink={buildEtherscanLink("tx", txHash)}
+              >
+                You voted against this proposal
+              </Label>
+            )
+          case NOUNS_PROPOSAL_SUPPORT.FOR:
+            return (
+              <Label
+                showIcon
+                iconLeft={<Check />}
+                showExternalLinkIcon
+                externalLink={buildEtherscanLink("tx", txHash)}
+              >
+                You voted for this proposal
+              </Label>
+            )
+          case NOUNS_PROPOSAL_SUPPORT.AGAINST:
+            return (
+              <Label
+                showIcon
+                iconLeft={<Minus />}
+                showExternalLinkIcon
+                externalLink={buildEtherscanLink("tx", txHash)}
+              >
+                You voted abstained from voting
+              </Label>
+            )
+          default:
+            return null
+        }
+      })()}
+    </>
   )
 }
