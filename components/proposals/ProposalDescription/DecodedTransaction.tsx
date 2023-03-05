@@ -7,6 +7,7 @@ import useSWR from "swr"
 
 import { Flex } from "@/components/base/Flex"
 import { Stack } from "@/components/base/Stack"
+import { Body } from "@/components/base/Typography"
 import { shortenAddress } from "../../../utils/shortenAddress"
 
 interface DecodedTransactionProps {
@@ -123,8 +124,13 @@ export const DecodedTransactions: React.FC<DecodedTransactionProps> = ({
                         Object?.values(decoded?.transaction?.args).map(
                           (arg: any) => (
                             // if verified contract and arguments object {name, value}
-                            <Flex key={arg?.name}>
+                            <Flex
+                              key={arg?.name}
+                              className="flex-wrap w-full pl-4 overflow-hidden"
+                            >
+                              {/* <Body> */}
                               {arg?.name}: {arg?.value}
+                              {/* </Body> */}
                             </Flex>
                           )
                         )) ||
