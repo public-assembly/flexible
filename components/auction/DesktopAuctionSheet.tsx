@@ -1,3 +1,6 @@
+import { useAuction } from "@/hooks/useAuction"
+import { motion } from "framer-motion"
+
 import { ArrowLeft } from "@/components/assets/icons"
 import Button from "@/components/base/Button"
 import {
@@ -9,7 +12,10 @@ import {
   SheetTrigger,
 } from "@/components/base/Sheet"
 
+// import Sheet from "@/components/base/SheetTest"
+
 export function DesktopAuctionSheet() {
+  const { tokenName } = useAuction()
   return (
     <Sheet>
       <SheetTrigger>
@@ -23,11 +29,12 @@ export function DesktopAuctionSheet() {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Are you sure absolutely sure?</SheetTitle>
-          <SheetDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </SheetDescription>
+          <SheetTitle>
+            <motion.div className="py-2 text-primary rounded-object w-fit">
+              {tokenName}
+            </motion.div>
+          </SheetTitle>
+          <SheetDescription></SheetDescription>
         </SheetHeader>
       </SheetContent>
     </Sheet>
