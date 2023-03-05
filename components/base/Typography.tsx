@@ -29,7 +29,7 @@ export function Headline({ children, className }: TypographyProps) {
   return (
     <p
       className={cn(
-        "text-2xl font-medium leading-10 tracking-[-0.5px] text-primary",
+        "text-[1.5rem] font-medium leading-10 tracking-[-0.5px] text-primary",
         className
       )}
     >
@@ -40,12 +40,7 @@ export function Headline({ children, className }: TypographyProps) {
 
 export function Caption({ children, className }: TypographyProps) {
   return (
-    <p
-      className={cn(
-        "text-base font-regular font-caption text-primary",
-        className
-      )}
-    >
+    <p className={cn("text-base font-caption text-primary", className)}>
       {children}
     </p>
   )
@@ -74,7 +69,7 @@ export function Body({ children, className }: TypographyProps) {
 
 export function BodySmall({ children, className }: TypographyProps) {
   return (
-    <p className={cn(className, "text-sm font-normal text-primary")}>
+    <p className={cn("text-sm font-normal text-primary", className)}>
       {children}
     </p>
   )
