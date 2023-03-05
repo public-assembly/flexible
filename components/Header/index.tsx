@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Variants, motion } from "framer-motion"
 import { cn } from "utils/cn"
 import { ENV } from "utils/env"
 
@@ -15,10 +16,39 @@ import { Zorb } from "../base/Zorb"
 import styles from "./Header.module.css"
 import { Navigation } from "./Navigation"
 
+const fadeIn: Variants = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+}
+
+const container: Variants = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+}
+
 export function Header() {
   const { isMobile } = useIsMobile()
   return (
-    <header className="flex flex-row items-center justify-between w-full px-4 py-4 bg-transparent">
+    <motion.header
+      variants={container}
+      initial={{
+        opacity: 0,
+        y: -20,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{
+        ease: "easeInOut",
+        duration: 0.8,
+        delay: 0.5,
+        easings: [0.44, 0, 0.56, 1],
+      }}
+      className="flex flex-row items-center justify-between w-full px-4 py-4 bg-transparent"
+    >
       {/* Header Logo */}
       <Link href="/">
         <Headline>{ENV.SITE_TITLE}</Headline>
@@ -28,7 +58,7 @@ export function Header() {
         {!isMobile && <Navigation />}
         <MobileDropdown />
       </Flex>
-    </header>
+    </motion.header>
   )
 }
 
