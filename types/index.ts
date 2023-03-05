@@ -17,3 +17,10 @@ export type PROPOSAL_STATUS = typeof NOUNS_PROPOSAL_STATUS[keyof typeof NOUNS_PR
 
 export type Hash = `0x${string}`
 
+export const NOUNS_PROPOSAL_SUPPORT = {
+  FOR: 'FOR',
+  AGAINST: 'AGAINST',
+  ABSTAIN: 'ABSTAIN',
+} as const
+
+export type PROPOSAL_SUPPORT = typeof NOUNS_PROPOSAL_SUPPORT[keyof typeof NOUNS_PROPOSAL_SUPPORT]
