@@ -25,7 +25,7 @@ export const useProposals = () => {
     // Split proposals into active and rest of proposals
     const splitProposals = _.partition(
       proposals,
-      (proposal) => proposal.status === NOUNS_PROPOSAL_STATUS.EXECUTED
+      (proposal) => proposal.status === NOUNS_PROPOSAL_STATUS.ACTIVE
     )
 
     setTotalProposalCount(proposals.length)
