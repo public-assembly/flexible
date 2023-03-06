@@ -33,7 +33,7 @@ function ProposalsPage() {
   if (!loading) return null
 
   return (
-    <motion.section className="flex flex-col items-center justify-center min-h-full gap-8 px-4 m-auto max-w-7xl grow">
+    <motion.section className="flex flex-col items-center justify-center min-h-full gap-8 px-4 pb-10 m-auto max-w-7xl grow">
       <Seo title="proposals" />
 
       <ProposalListStats
