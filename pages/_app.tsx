@@ -10,9 +10,9 @@ import { SWRConfig } from "swr"
 import { cn } from "utils/cn"
 import { ENV } from "utils/env"
 
-import { Header } from "@/components/Header"
 import { TopProgressBar } from "@/components/TopProgressBar"
 import Web3Provider from "@/components/Web3Provider"
+import { Header } from "@/components/header"
 
 /** Import both default fonts from Figma. This resolves the FOUT (flash of unstyled text): https://nextjs.org/docs/basic-features/font-optimization*/
 export const spaceMono = Space_Mono({
@@ -81,6 +81,14 @@ const DynamicManagerProvider = dynamic(
 export default function ExampleApp({ Component, pageProps }: AppProps) {
   return (
     <>
+      <style jsx global>
+        {`
+          html {
+            font-family: ${satoshi.style.fontFamily},
+              ${spaceMono.style.fontFamily}, font-sans;
+          }
+        `}
+      </style>
       <NextHead>
         <title>Public Assembly</title>
       </NextHead>
@@ -97,16 +105,9 @@ export default function ExampleApp({ Component, pageProps }: AppProps) {
             >
               <GovernorProvider>
                 <TopProgressBar />
-                <main
-                  className={cn(
-                    satoshi.variable,
-                    spaceMono.variable,
-                    "font-sans"
-                  )}
-                >
-                  <Header />
-                  <Component {...pageProps} />
-                </main>
+
+                <Header />
+                <Component {...pageProps} />
               </GovernorProvider>
             </DynamicManagerProvider>
           </Provider>
