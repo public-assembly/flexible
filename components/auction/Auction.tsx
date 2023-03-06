@@ -8,10 +8,8 @@ import { ENV } from "utils/env"
 
 import { BlurImage } from "@/components/BlurImage"
 // Icons
-import { ArrowLeft, ArrowRight, ArrowUp } from "@/components/assets/icons"
+import { ArrowLeft, ArrowRight } from "@/components/assets/icons"
 import { AuctionSheet } from "@/components/auction/AuctionSheet"
-import { DesktopAuctionSheet } from "@/components/auction/DesktopAuctionSheet"
-import { MobileAuctionSheet } from "@/components/auction/MobileAuctionSheet"
 import { TokenWinningBid } from "@/components/auction/TokenWinningBid"
 // Components
 import Button from "@/components/base/Button"
