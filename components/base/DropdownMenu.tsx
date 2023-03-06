@@ -80,7 +80,7 @@ const sharedBaseStyles = cva([
   'flex',
   'items-center',
   'py-1',
-  'text-black100',
+  'text-primary',
   'cursor-pointer',
   'transition-colors',
   'transition-color-1-ease',
@@ -88,12 +88,10 @@ const sharedBaseStyles = cva([
   'text-3',
   'font-body',
   'leading-2',
-  'font-semibold',
   'no-underline',
   'focus:outline-none',
   'focus:bg-primary/10',
-  // 'hover:bg-black/5',
-  'disabled:text-black/50',
+  'disabled:text-primary/50',
   'disabled:bg-transparent!',
 ])
 

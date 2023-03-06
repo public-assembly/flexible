@@ -3,7 +3,7 @@ import ArrowUpRight from '@/components/assets/icons/ArrowUpRight'
 import { Flex } from '@/components/base/Flex'
 import IconButton from '@/components/base/IconButton'
 import { Stack } from '@/components/base/Stack'
-import { H2Heading } from '@/components/base/Typography'
+import { Body, H2Heading } from '@/components/base/Typography'
 import clsx from 'clsx'
 import { PropsWithChildren } from 'react'
 
@@ -11,12 +11,12 @@ export default function AboutPage() {
   return (
     <Stack className='gap-10 px-4 pt-10 lg:px-10'>
       <IconButton icon={<Globe />} tooltip='website' href={''} />
-      <p>
+      <Body className='max-w-xl'>
         In contrast to the physical world, only one degree of separation lies between everyone on the internet. This
         heightened connectivity allows for new models of coordination + creation that are native to the digital realm.
         Public Assembly will test the best practices for leveraging the unique physics of the internet to create what’s
         missing as fast as possible.
-      </p>
+      </Body>
       <Flex className='gap-6'>
         <Card className='px-6 py-4'>
           <Stack>

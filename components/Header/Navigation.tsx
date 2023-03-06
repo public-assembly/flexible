@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { cn } from 'utils/cn'
-import { Flex } from './base/Flex'
-import { Headline } from './base/Typography'
+import { Flex } from '../base/Flex'
+import { Headline } from '../base/Typography'
+import styles from './Navigation.module.css'
 
 type NavLinkProps = {
   slug: string
@@ -11,7 +12,7 @@ type NavLinkProps = {
 
 const navLinks: NavLinkProps[] = [
   {
-    slug: '/auction',
+    slug: '/',
     title: 'Auction',
   },
   {
@@ -22,11 +23,11 @@ const navLinks: NavLinkProps[] = [
     slug: '/about',
     title: 'About',
   },
-];
+]
 
 export function Navigation() {
   return (
-    <Flex className='gap-6'>
+    <Flex className='hidden gap-6 md:flex'>
       {navLinks.map((page) => (
         <NavLink key={page.slug} slug={page.slug} title={page.title} />
       ))}
@@ -40,7 +41,11 @@ function NavLink({ slug, title }: NavLinkProps) {
   return (
     <Link href={slug} key={slug} className={cn('relative flex flex-row transition duration-300 group cursor-pointer')}>
       <Headline
-        className={cn(isCurrentPath ? 'link-underline--active' : '', 'group-hover:text-tertiary link-underline')}
+        className={cn(
+          isCurrentPath ? styles.linkUnderlineIsActive : '',
+          'group-hover:text-tertiary',
+          styles.linkUnderline
+        )}
       >
         {title}
       </Headline>

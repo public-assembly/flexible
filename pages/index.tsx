@@ -1,11 +1,13 @@
+import Auction from '@/components/auction/Auction'
 import { Seo } from '@/components/Seo'
 
-function Home() {
+function HomePage() {
   return (
-    <section id='index' className='h-full'>
+    <section className='flex-1 h-full pb-4 md:pb-0 md:h-full'>
       <Seo />
+      <Auction />
     </section>
   )
 }
 
-export default Home
+export default HomePage

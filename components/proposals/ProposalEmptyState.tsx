@@ -17,8 +17,8 @@ const ProposalEmptyState = () => {
           href={buildCreateProposalUrl(process.env.NEXT_PUBLIC_DAO_ADDRESS!)}
           className='focus:outline-none'
         >
-          <Button variant='secondary' size='md' icon>
-            Submit a proposal <ArrowUpRight className='text-tertiary' />
+          <Button variant='secondary' size='md' suffix={<ArrowUpRight className='text-tertiary ml-[6px]' />}>
+            Submit a proposal
           </Button>
         </a>
       }

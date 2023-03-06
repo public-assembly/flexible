@@ -13,7 +13,7 @@ const PROCESS = {
   WEBSITE_URL: process.env.NEXT_PUBLIC_WEBSITE_URL,
   NETWORK_URL: process.env.NEXT_PUBLIC_NETWORK_URL,
   INFURA_KEY: process.env.NEXT_PUBLIC_INFURA_KEY,
-  DAO_ADDRESS: process.env.NEXT_PUBLIC_DAO_ADDRESS,
+  TOKEN_ADDRESS: process.env.NEXT_PUBLIC_TOKEN_ADDRESS,
 }
 
 // Checks that run in all environments
@@ -23,8 +23,8 @@ if (PROCESS.CHAIN !== 1 && PROCESS.CHAIN !== 5) {
 if (!PROCESS.ALCHEMY_KEY) {
   throw new Error('PROCESS.ALCHEMY_KEY is not set')
 }
-if (!PROCESS.DAO_ADDRESS) {
-  throw new Error('PROCESS.DAO_ADDRESS is not set')
+if (!PROCESS.TOKEN_ADDRESS) {
+  throw new Error('PROCESS.TOKEN_ADDRESS is not set')
 }
 
 type VercelEnv = 'production' | 'preview' | 'development'
@@ -47,7 +47,7 @@ export const ENV = {
   TWITTER_HANDLE: PROCESS.TWITTER_HANDLE,
   WEBSITE_URL: PROCESS.WEBSITE_URL,
   /** Cast to a string because we throw an error if this is not set */
-  DAO_ADDRESS: PROCESS.DAO_ADDRESS as string,
+  TOKEN_ADDRESS: PROCESS.TOKEN_ADDRESS as `0x${string}`,
 } as const
 
 
