@@ -65,16 +65,26 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
-  "fixed z-50 scale-100 gap-4 bg-secondary p-6 opacity-100 border-tertiary border rounded-object",
+  "fixed z-50 scale-100 gap-4 bg-secondary p-6 opacity-100 border-primary shadow-elevation-small border",
   {
     variants: {
       position: {
-        top: "animate-in slide-in-from-top w-full duration-300",
-        bottom:
+        top: [
+          "animate-in slide-in-from-top w-full duration-300",
+          "rounded-bl-object rounded-br-object",
+        ],
+        bottom: [
+          "rounded-tl-object rounded-tr-object",
           "data-[state=open]:animate-longFadeInUp data-[state=open]:delay-500  data-[state=closed]:animate-longFadeInDown w-full",
-        left: "animate-in slide-in-from-left h-full duration-300",
-        right:
+        ],
+        left: [
+          "animate-in slide-in-from-left h-full duration-300",
+          "rounded-tr-object rounded-br-object",
+        ],
+        right: [
+          "rounded-tl-object rounded-bl-object",
           "animate-in data-[state=open]:animate-slideInFromRight data-[state=open]:delay-500 data-[state=closed]:animate-slideOutToRight h-full duration-300",
+        ],
       },
       size: {
         content: "",
