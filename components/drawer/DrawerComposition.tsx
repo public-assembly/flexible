@@ -1,9 +1,9 @@
-import { useCallback } from "react"
 import { useDrawer } from "./useDrawer"
 import { DrawerPortal } from "./DrawerPortal"
 import { DrawerOverlay } from "./DrawerOverlay"
 import { DrawerCompositionProps } from "./drawerTypes"
 import { motion, AnimatePresence } from "framer-motion"
+import { Headline } from "../base/Typography"
 
 export function DrawerComposition({
   drawerName,
@@ -11,7 +11,7 @@ export function DrawerComposition({
   trigger,
   closeTrigger,
   drawerWidth = "500px",
-  bgColor = "#F7F9F7",
+  bgColor = "#F2FDF7",
   ...props
 }: DrawerCompositionProps) {
   const { drawerType, requestClose } = useDrawer()
@@ -43,11 +43,7 @@ export function DrawerComposition({
                 }}
               >
                 <div className="flex justify-between items-center p-6 ">
-                  <div>
-                    <span className="text-2xl cursor-default">
-                      Theme Editor
-                    </span>
-                  </div>
+                  <Headline>Theme Editor</Headline>
                   <button onClick={requestClose}>
                     {closeTrigger ? closeTrigger : `Close`}
                   </button>

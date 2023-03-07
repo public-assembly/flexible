@@ -41,8 +41,8 @@ export function Palette() {
   return (
     <div className="space-y-6">
       {/* Background */}
-      <div className="flex flex-col gap-y-4 border-2 py-4 px-6 rounded-xl">
-        <div className="flex justify-between items-center gap-x-32 text-lg">
+      <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
+        <div className="flex justify-between items-center gap-x-32">
           <label>Upload image</label>
           <input
             id="image"
@@ -52,7 +52,7 @@ export function Palette() {
             onChange={(e) => setImage(e.target.value)}
           />
         </div>
-        <div className="flex justify-between items-center gap-x-32 text-lg">
+        <div className="flex justify-between items-center gap-x-32">
           <label>Color</label>
           <input
             id="backgroundColor"
@@ -64,8 +64,8 @@ export function Palette() {
         </div>
       </div>
       {/* Colors */}
-      <div className="flex flex-col gap-y-4 border-2 py-4 px-6 rounded-xl">
-        <div className="flex justify-between items-center gap-x-4 text-lg">
+      <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
+        <div className="flex justify-between items-center gap-x-4">
           <label>Primary</label>
           <input
             id="text"
@@ -75,7 +75,7 @@ export function Palette() {
             onChange={(e) => setPrimary(e.target.value)}
           />
         </div>
-        <div className="flex justify-between items-center gap-x-4 text-lg">
+        <div className="flex justify-between items-center gap-x-4">
           <label>Secondary</label>
           <input
             id="secondary"
@@ -85,7 +85,7 @@ export function Palette() {
             onChange={(e) => setSecondary(e.target.value)}
           />
         </div>
-        <div className="flex justify-between items-center gap-x-4 text-lg">
+        <div className="flex justify-between items-center gap-x-4">
           <label>Tertiary</label>
           <input
             id="tertiary"
@@ -95,7 +95,7 @@ export function Palette() {
             onChange={(e) => setTertiary(e.target.value)}
           />
         </div>
-        <div className="flex justify-between items-center gap-x-4 text-lg">
+        <div className="flex justify-between items-center gap-x-4">
           <label>Highlight</label>
           <input
             id="highlight"
@@ -107,8 +107,8 @@ export function Palette() {
         </div>
       </div>
       {/* Fonts */}
-      <div className="flex flex-col gap-y-4 border-2 py-4 px-6 rounded-xl">
-        <div className="flex justify-between items-center gap-x-4 text-lg">
+      <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
+        <div className="flex justify-between items-center gap-x-4">
           <select
             className="theming-test__dropdown "
             id="headline"
