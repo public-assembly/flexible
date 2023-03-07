@@ -7,12 +7,11 @@ import NextHead from "next/head"
 import { GovernorProvider } from "@public-assembly/dao-utils"
 import { Provider } from "react-wrap-balancer"
 import { SWRConfig } from "swr"
-import { cn } from "utils/cn"
 import { ENV } from "utils/env"
 
 import { TopProgressBar } from "@/components/TopProgressBar"
 import Web3Provider from "@/components/Web3Provider"
-import { Header } from "@/components/header"
+import { Header } from "@/components/header/Header"
 
 /** Import both default fonts from Figma. This resolves the FOUT (flash of unstyled text): https://nextjs.org/docs/basic-features/font-optimization*/
 export const spaceMono = Space_Mono({

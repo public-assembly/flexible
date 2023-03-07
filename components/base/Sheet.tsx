@@ -13,7 +13,7 @@ const Sheet = SheetPrimitive.Root
 
 const SheetTrigger = SheetPrimitive.Trigger
 
-const portalVariants = cva("fixed inset-0 z-50 flex group", {
+const portalVariants = cva("fixed inset-0 z-sheet-0 flex group", {
   variants: {
     position: {
       top: "items-start",
@@ -50,7 +50,7 @@ const SheetOverlay = React.forwardRef<
       [
         "overlay",
         "fixed inset-0 pointer-events-none",
-        "z-50",
+        "-z-sheet-1",
         "md:hidden",
         "backdrop-blur-[24px] bg-black/60 filter",
         "group-radix-state-closed:animate-fadeOut group-radix-state-open:animate-fadeIn",
@@ -65,7 +65,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
-  "fixed z-50 scale-100 gap-4 bg-secondary p-6 opacity-100 border-primary shadow-elevation-small border",
+  "fixed z-sheet-1 scale-100 gap-4 bg-secondary p-6 opacity-100 border-primary shadow-elevation-small border",
   {
     variants: {
       position: {
