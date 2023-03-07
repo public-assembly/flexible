@@ -9,9 +9,9 @@ import { Provider } from "react-wrap-balancer"
 import { SWRConfig } from "swr"
 import { ENV } from "utils/env"
 
+import { Header } from "@/components/Header"
 import { TopProgressBar } from "@/components/TopProgressBar"
 import Web3Provider from "@/components/Web3Provider"
-import Header from "@/components/header"
 
 /** Import both default fonts from Figma. This resolves the FOUT (flash of unstyled text): https://nextjs.org/docs/basic-features/font-optimization*/
 export const spaceMono = Space_Mono({
