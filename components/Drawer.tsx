@@ -1,12 +1,13 @@
 import { DrawerComposition } from './drawer/DrawerComposition';
 import { Palette } from './Palette';
 import { SaveChanges } from './SaveChanges';
-// import { ThemingButton } from './ThemingButton';
+import { useDrawer } from './drawer/useDrawer';
 
 export function Drawer() {
+  // const { requestOpen } = useDrawer()
   return (
     <DrawerComposition
-      // trigger={<SaveChanges />}
+      // trigger={requestOpen}
       closeTrigger={
         <button>
           <span className='text-sm text-[#ACB1B9]'>Close</span>

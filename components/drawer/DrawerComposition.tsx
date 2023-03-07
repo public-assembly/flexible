@@ -23,9 +23,10 @@ export function DrawerComposition({
   return (
     <>
       <div {...props}>
-        <button onClick={drawerHandler}>
+        {/* <button onClick={drawerHandler}>
           {trigger ? trigger : `Open ${drawerName}`}
-        </button>
+        </button> */}
+        {/* <div>{requestOpen}</div> */}
       </div>
       <DrawerPortal>
         <AnimatePresence>

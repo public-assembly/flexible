@@ -22,7 +22,7 @@ export interface DrawerCompositionProps {
   // Content housed inside of the drawer
   content: JSX.Element;
   // Unstyled button element to open the drawer
-  trigger?: JSX.Element;
+  trigger?: any
   // Unstyled button element to close the drawer
   closeTrigger?: JSX.Element;
   // Max width of the drawer window
