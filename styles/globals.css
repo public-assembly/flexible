@@ -1,22 +1,21 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import './markdown.css';
+@import "./markdown.css";
 
 @layer base {
   :root {
     --header-height: 56px;
 
     /* TODO: This has it's own var in the theme editor. */
-    --background: #E7F3EC;
+    --background: #e7f3ec;
     --background-color: var(--secondary);
     --base: 0 0% 10%;
 
     --primary: #121212;
-  
-    --secondary: #F2FDF7;
-    --tertiary: #809AA3;
+
+    --secondary: #f2fdf7;
+    --tertiary: #809aa3;
     --highlight: #c5fc6b;
     /* todo: convert hex codes from template to modern rgb to be compatible with tailwind config */
     --color-primary: 18 18 18;
@@ -29,29 +28,31 @@
     --drop-shadow-spread: 0px;
     --drop-shadow-color: rgba(0, 0, 0, 0.25);
 
-    --font-heading-font-family: var(--font-satoshi),'Courier New', Courier, monospace;
+    --font-heading-font-family: var(--font-satoshi), "Courier New", Courier,
+      monospace;
     --font-heading-font-weight: 400;
     --font-heading-font-style: normal;
     --font-heading-line-height: 1.25;
     --font-heading-font-size: 24px;
 
-    --font-body-font-family: 'Satoshi', var(--font-satoshi), var(--font-space-mono) 'Courier New', Courier, monospace;
+    --font-body-font-family: "Satoshi", var(--font-satoshi),
+      var(--font-space-mono) "Courier New", Courier, monospace;
     --font-body-font-weight: 400;
     --font-body-font-style: normal;
 
-    --font-caption-font-family: var(--font-space-mono), 'Courier New', Courier, monospace;
+    --font-caption-font-family: var(--font-space-mono), "Courier New", Courier,
+      monospace;
     --font-caption-font-weight: 400;
     --font-caption-font-style: normal;
-    
+
     --sidebar-width: 300px;
     --grid-base: 4px;
 
-
-  /* corner radius */
+    /* corner radius */
     --border-radius-button: 32px;
     --border-radius-object: 8px;
     /* typography */
-    --headline-font-size:;
+    /* --headline-font-size:; */
     --headline-letter-spacing: -0.5px;
     --headline-line-height: 40;
 
@@ -77,7 +78,7 @@
     --pa-pink: #ff89de;
     --border-radius: 5px;
     /* TYPOGRAPHY */
-    --code-font: 'SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace';
+    --code-font: "SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace";
   }
 }
 
@@ -99,10 +100,8 @@ body {
   font-family: var(--font-body-font-family);
   color: var(--primary);
   background-color: var(--background);
-
   min-height: 100vh;
 }
-
 
 body,
 #__next {
@@ -112,7 +111,6 @@ body,
   min-height: 100vh;
   width: 100%;
 }
-
 
 body {
   margin: 0;
@@ -125,13 +123,46 @@ a {
   text-decoration: none;
 }
 
+.color-picker {
+  appearance: none;
+  --webkit-appearance: none;
+  --moz-appearance: none;
+  width: 40px;
+  height: 42px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.color-picker::-webkit-color-swatch {
+  border: solid 1px #f6f6f6;
+  border-radius: 8px;
+}
+
+.dropdown {
+  all: unset;
+  width: 100%;
+}
+
+.image-picker {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border: solid 1.5px #C9D2D2;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
+}
 
 div[data-radix-popper-content-wrapper] .content-outer .content-inner {
-    width: 100%;
-    max-width: 100%;
+  width: 100%;
+  max-width: 100%;
 
-    padding-top: 24px;
-    padding-bottom: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 div[data-radix-popper-content-wrapper] {
@@ -154,7 +185,6 @@ div[data-radix-popper-content-wrapper] {
     border-bottom-right-radius: 0;
   }
 }
-
 
 /* Scrollbar */
 /* width */

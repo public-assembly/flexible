@@ -43,21 +43,23 @@ export function Palette() {
       {/* Background */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
         <div className="flex justify-between items-center gap-x-32">
-          <label>Upload image</label>
-          <input
-            id="image"
-            type="file"
-            className="theming-test__color-picker"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
+          <span>Upload image</span>
+          <label className="image-picker">
+            Upload File
+            <input
+              id="image"
+              type="file"
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+            />
+          </label>
         </div>
         <div className="flex justify-between items-center gap-x-32">
           <label>Color</label>
           <input
             id="backgroundColor"
             type="color"
-            className="theming-test__color-picker"
+            className="color-picker"
             value={backgroundColor}
             onChange={(e) => setBackgroundColor(e.target.value)}
           />
@@ -70,7 +72,7 @@ export function Palette() {
           <input
             id="text"
             type="color"
-            className="theming-test__color-picker"
+            className="color-picker"
             value={primary}
             onChange={(e) => setPrimary(e.target.value)}
           />
@@ -80,7 +82,7 @@ export function Palette() {
           <input
             id="secondary"
             type="color"
-            className="theming-test__color-picker"
+            className="color-picker"
             value={secondary}
             onChange={(e) => setSecondary(e.target.value)}
           />
@@ -90,7 +92,7 @@ export function Palette() {
           <input
             id="tertiary"
             type="color"
-            className="theming-test__color-picker"
+            className="color-picker"
             value={tertiary}
             onChange={(e) => setTertiary(e.target.value)}
           />
@@ -100,7 +102,7 @@ export function Palette() {
           <input
             id="highlight"
             type="color"
-            className="theming-test__color-picker"
+            className="color-picker"
             value={highlight}
             onChange={(e) => setHighlight(e.target.value)}
           />
@@ -110,7 +112,7 @@ export function Palette() {
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
         <div className="flex justify-between items-center gap-x-4">
           <select
-            className="theming-test__dropdown "
+            className="dropdown "
             id="headline"
             value={headline}
             onChange={(e) => handleFontChange(e)}
