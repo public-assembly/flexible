@@ -22,18 +22,35 @@ import {
   const ThemeContext = createContext({
     themeCID: '',
     newMetadata: '',
-    background: '',
-    setBackground: (background: string) => {},
-    text: '',
-    setText: (text: string) => {},
-    accent: '',
-    setAccent: (accent: string) => {},
-    accentText: '',
-    setAccentText: (accentText: string) => {},
-    border: '',
-    setBorder: (border: string) => {},
-    fontFamily: '',
-    setFontFamily: (fontFamily: string) => {},
+    /**
+     * Configurable properties
+     */
+    image: '',
+    setImage: (image: string) => {},
+    backgroundColor: '',
+    setBackgroundColor: (backgroundColor: string) => {},
+    primary: '',
+    setPrimary: (primary: string) => {},
+    secondary: '',
+    setSecondary: (secondary: string) => {},
+    tertiary: '',
+    setTertiary: (tertiary: string) => {},
+    highlight: '',
+    setHighlight: (highlight: string) => {},
+    headline: '',
+    setHeadline: (headline: string) => {},
+    body: '',
+    setBody: (body: string) => {},
+    caption: '',
+    setCaption:(caption: string) => {},
+    shadowColor: '',
+    setShadowColor: (shadowColor: string) => {},
+    shadowSpread: '',
+    setShadowSpread: (shadowSpread: string) => {},
+    objectRadius: '',
+    setObjectRadius: (objectRadius: string) => {},
+    buttonRadius: '',
+    setButtonRadius: (buttonRadius: string) => {},
   });
   
   export const ThemeProvider = memo(function ThemeProvider({
@@ -52,12 +69,19 @@ import {
     /**
      * Set state variables for the parameters derived from the theme content object
      */
-    const [background, setBackground] = useState<string>('');
-    const [text, setText] = useState<string>('');
-    const [accent, setAccent] = useState<string>('');
-    const [accentText, setAccentText] = useState<string>('');
-    const [border, setBorder] = useState<string>('');
-    const [fontFamily, setFontFamily] = useState<string>('');
+    const [image, setImage] = useState<string>('');
+const [backgroundColor, setBackgroundColor] = useState<string>('');
+const [primary, setPrimary] = useState<string>('');
+const [secondary, setSecondary] = useState<string>('');
+const [tertiary, setTertiary] = useState<string>('');
+const [highlight, setHighlight] = useState<string>('');
+const [headline, setHeadline] = useState<string>('');
+const [body, setBody] = useState<string>('');
+const [caption, setCaption] = useState<string>('');
+const [shadowColor, setShadowColor] = useState<string>('');
+const [shadowSpread, setShadowSpread] = useState<string>('');
+const [objectRadius, setObjectRadius] = useState<string>('');
+const [buttonRadius, setButtonRadius] = useState<string>('');
     /**
      * Read the desired ipfs string from the registry contract
      */
@@ -83,29 +107,46 @@ import {
     useEffect(() => {
       if (unpackedMetadata) {
         const parsedMetadata = JSON.parse(unpackedMetadata);
-        setBackground(parsedMetadata.theme?.color.background);
-        setText(parsedMetadata.theme?.color.text);
-        setAccent(parsedMetadata.theme?.color.accent);
-        setAccentText(parsedMetadata.theme?.color.accentText);
-        setBorder(parsedMetadata.theme.color?.border);
-        setFontFamily(parsedMetadata.theme.font?.heading.fontFamily);
+        setImage(parsedMetadata.theme.theme?.background.image)
+        setBackgroundColor(parsedMetadata.theme?.background.backgroundColor);
+        setPrimary(parsedMetadata.theme?.color.primary)
+        setSecondary(parsedMetadata.theme?.color.secondary)
+        setTertiary(parsedMetadata.theme?.color.tertiary)
+        setHighlight(parsedMetadata.theme?.color.highlight)
+        setHeadline(parsedMetadata.theme?.fonts.headline)
+        setBody(parsedMetadata.theme?.fonts.body)
+        setCaption(parsedMetadata.theme?.fonts.caption)
+        setShadowColor(parsedMetadata.theme?.dropshadow.shadowColor)
+        setShadowSpread(parsedMetadata.theme?.dropshadow.shadowSpread)
+        setObjectRadius(parsedMetadata.theme?.cornerRadius.objectRadius)
+        setButtonRadius(parsedMetadata.theme?.cornerRadius.buttonRadius)
       }
     }, [unpackedMetadata]);
     /**
      * Set the variables in the local stylesheet to their corresponding values
      */
-    document.documentElement.style.setProperty('--background', background);
-    document.documentElement.style.setProperty('--text', text);
-    document.documentElement.style.setProperty('--accent', accent);
-    document.documentElement.style.setProperty('--accentText', accentText);
-    document.documentElement.style.setProperty('--border', border);
-    document.documentElement.style.setProperty('--fontFamily', fontFamily);
+    document.documentElement.style.setProperty('--image', image)
+    document.documentElement.style.setProperty('--backgroundColor', backgroundColor);
+    document.documentElement.style.setProperty('--primary', primary);
+    document.documentElement.style.setProperty('--secondary', secondary);
+    document.documentElement.style.setProperty('--tertiary', tertiary);
+    document.documentElement.style.setProperty('--highlight', highlight);
+    document.documentElement.style.setProperty('--headline', headline);
+    document.documentElement.style.setProperty('--body', body)
+    document.documentElement.style.setProperty('--caption', caption);
+    document.documentElement.style.setProperty('--shadowColor', shadowColor);
+    document.documentElement.style.setProperty('--shadowSpread', shadowSpread);
+    document.documentElement.style.setProperty('--objectRadius', objectRadius);
+    document.documentElement.style.setProperty('--buttonRadius', buttonRadius);
   
     const newMetadata = JSON.stringify(
       {
         theme: {
-          color: { background, text, accent, accentText, border },
-          font: { heading: { fontFamily } },
+          background: { image, backgroundColor },
+          colors: { primary, secondary, tertiary, highlight },
+          fonts: { headline, body, caption },
+          dropshadow: { shadowColor, shadowSpread},
+          cornerRadius: { objectRadius, buttonRadius}
         },
       },
       null,
@@ -113,9 +154,9 @@ import {
     );
   
     // prettier-ignore
-    const fontUrl = 'https://dweb.link/ipfs/bafybeih3dpotmeewpv543kzbwhxykm6pqtcw46i6lymcjhvblg6sv455se/' + fontFamily + '.ttf';
+    const fontUrl = 'https://dweb.link/ipfs/bafybeih3dpotmeewpv543kzbwhxykm6pqtcw46i6lymcjhvblg6sv455se/' + headline + '.ttf';
     const rule = `@font-face {
-    font-family: '${fontFamily}';
+    font-family: '${headline}';
     src: url('${fontUrl}') format('woff2');
     }`;
   
@@ -128,18 +169,35 @@ import {
         value={{
           themeCID,
           newMetadata,
-          background,
-          setBackground,
-          text,
-          setText,
-          accent,
-          setAccent,
-          accentText,
-          setAccentText,
-          border,
-          setBorder,
-          fontFamily,
-          setFontFamily,
+          /**
+     * Configurable properties
+     */
+          image,
+          setImage,
+          backgroundColor,
+          setBackgroundColor,
+          primary,
+          setPrimary,
+          secondary,
+          setSecondary,
+          tertiary,
+          setTertiary,
+          highlight,
+          setHighlight,
+          headline,
+          setHeadline,
+          body,
+          setBody,
+          caption,
+          setCaption,
+          shadowColor,
+          setShadowColor,
+          shadowSpread,
+          setShadowSpread,
+          objectRadius,
+          setObjectRadius,
+          buttonRadius,
+          setButtonRadius
         }}
       >
         {children}

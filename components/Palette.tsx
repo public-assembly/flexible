@@ -6,87 +6,112 @@ export function Palette() {
    * Grab the state variables and setter functions from the ThemeProvider
    */
   const {
-    background,
-    setBackground,
-    text,
-    setText,
-    accent,
-    setAccent,
-    accentText,
-    setAccentText,
-    border,
-    setBorder,
-    fontFamily,
-    setFontFamily,
+    image,
+          setImage,
+          backgroundColor,
+          setBackgroundColor,
+          primary,
+          setPrimary,
+          secondary,
+          setSecondary,
+          tertiary,
+          setTertiary,
+          highlight,
+          setHighlight,
+          headline,
+          setHeadline,
+          body,
+          setBody,
+          caption,
+          setCaption,
+          shadowColor,
+          setShadowColor,
+          shadowSpread,
+          setShadowSpread,
+          objectRadius,
+          setObjectRadius,
+          buttonRadius,
+          setButtonRadius
   } = useThemeContext();
 
   function handleFontChange(e: any) {
     const selectedFont = document.getElementById('fontFamily');
     // @ts-ignore
     setFontFamily(selectedFont.value);
-    console.log(fontFamily);
+    console.log(headline);
   }
 
   return (
     <div className='space-y-4'>
       <div className='flex flex-col gap-y-4 border-2 border-[#f6f6f6] py-4 px-6 rounded-xl'>
-        <div className='flex justify-between items-center gap-x-32 text-lg'>
-          <label>Background</label>
+      <div className='flex justify-between items-center gap-x-32 text-lg'>
+          <label>Upload image</label>
           <input
-            id='background'
+            id='image'
+            type='file'
+            className='theming-test__color-picker'
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+          />
+        </div>
+        <div className='flex justify-between items-center gap-x-32 text-lg'>
+          <label>Color</label>
+          <input
+            id='backgroundColor'
             type='color'
             className='theming-test__color-picker'
-            value={background}
-            onChange={(e) => setBackground(e.target.value)}
+            value={backgroundColor}
+            onChange={(e) => setBackgroundColor(e.target.value)}
           />
         </div>
         <div className='flex justify-between items-center gap-x-4 text-lg'>
-          <label>Text</label>
+          <label>Primary</label>
           <input
             id='text'
             type='color'
             className='theming-test__color-picker'
-            value={text}
-            onChange={(e) => setText(e.target.value)}
+            value={primary}
+            onChange={(e) => setPrimary(e.target.value)}
           />
         </div>
         <div className='flex justify-between items-center gap-x-4 text-lg'>
-          <label>Border</label>
+          <label>Secondary</label>
           <input
-            id='border'
+            id='secondary'
             type='color'
             className='theming-test__color-picker'
-            value={border}
-            onChange={(e) => setBorder(e.target.value)}
+            value={secondary}
+            onChange={(e) => setSecondary(e.target.value)}
           />
         </div>
         <div className='flex justify-between items-center gap-x-4 text-lg'>
-          <label>Accent</label>
+          <label>Tertiary</label>
           <input
-            id='accent'
+            id='tertiary'
             type='color'
             className='theming-test__color-picker'
-            value={accent}
-            onChange={(e) => setAccent(e.target.value)}
+            value={tertiary}
+            onChange={(e) => setTertiary(e.target.value)}
           />
         </div>
         <div className='flex justify-between items-center gap-x-4 text-lg'>
-          <label>Accent text</label>
+          <label>Highlight</label>
           <input
-            id='accentText'
+            id='highlight'
             type='color'
             className='theming-test__color-picker'
-            value={accentText}
-            onChange={(e) => setAccentText(e.target.value)}
+            value={highlight}
+            onChange={(e) => setHighlight(e.target.value)}
           />
         </div>
+        
       </div>
       <div className='flex flex-col gap-y-4 border-2 border-[#f6f6f6] py-4 px-6 rounded-xl'>
         <div className='flex justify-between items-center gap-x-4 text-lg'>
           <select
             className='theming-test__dropdown '
-            id='fontFamily'
-            value={fontFamily}
+            id='headline'
+            value={headline}
             onChange={(e) => handleFontChange(e)}
           >
             <option value='antonio'>Antonio</option>

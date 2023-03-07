@@ -98,7 +98,6 @@ function MobileDropdown(props: MobileDropdownProps) {
                 type="button"
                 onClick={() => console.log("open theme")}
               >
-                {/* <Button>Edit theme</Button> */}
                 <EditTheme />
               </DropdownMenu.Item>
             </>

@@ -53,7 +53,7 @@ export function DrawerComposition({
               >
                 <div className='flex justify-between items-center p-6 '>
                   <div>
-                    <span className='text-2xl cursor-default'>Edit theme</span>
+                    <span className='text-2xl cursor-default'>Theme Editor</span>
                   </div>
                   <button onClick={requestClose}>
                     {closeTrigger ? closeTrigger : `Close`}
