@@ -16,6 +16,9 @@ import { Stack } from "./base/Stack"
 import { Headline } from "./base/Typography"
 import { Zorb } from "./base/Zorb"
 
+import { useDrawer } from "./drawer/useDrawer"
+import { useCallback } from "react"
+
 const fadeIn: Variants = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
@@ -71,6 +74,12 @@ function MobileDropdown(props: MobileDropdownProps) {
   const { logout, isConnected } = useAuth()
   const { address, ensName } = useAuth()
 
+  const { requestOpen } = useDrawer()
+
+  const drawerHandler = useCallback(() => {
+    requestOpen('palette');
+  }, []);
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
@@ -96,7 +105,7 @@ function MobileDropdown(props: MobileDropdownProps) {
                 type="button"
                 onClick={() => console.log("open theme")}
               >
-                <Button>Edit theme</Button>
+                <Button onClick={() => drawerHandler()}>Edit theme</Button>
               </DropdownMenu.Item>
             </>
           ) : (

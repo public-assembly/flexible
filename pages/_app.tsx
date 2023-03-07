@@ -12,7 +12,7 @@ import { ENV } from "utils/env"
 import { Header } from "@/components/Header"
 import { TopProgressBar } from "@/components/TopProgressBar"
 import Web3Provider from "@/components/Web3Provider"
-import { DrawerContextProvider } from "@/components/drawer/"
+import { DrawerContextProvider } from "@/components/drawer/DrawerProvider"
 import { ThemeProvider } from "@/context/ThemeProvider"
 
 /** Import both default fonts from Figma. This resolves the FOUT (flash of unstyled text): https://nextjs.org/docs/basic-features/font-optimization*/
@@ -106,9 +106,8 @@ export default function ExampleApp({ Component, pageProps }: AppProps) {
             >
               <GovernorProvider>
                 <ThemeProvider platformIndex={ENV.PLATFORM_INDEX}>
-                  <DrawerContextProvider>
                 <TopProgressBar />
-
+                <DrawerContextProvider>
                 <Header />
                 <Component {...pageProps} />
                 </DrawerContextProvider>
