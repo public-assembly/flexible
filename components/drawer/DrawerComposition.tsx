@@ -42,7 +42,7 @@ export function DrawerComposition({
                   overflowY: "scroll",
                 }}
               >
-                <div className="flex justify-between items-center p-6 ">
+                <div className="flex justify-between items-center p-6">
                   <Headline>Theme Editor</Headline>
                   <button onClick={requestClose}>
                     {closeTrigger ? closeTrigger : `Close`}

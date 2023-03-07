@@ -125,22 +125,31 @@ export const ThemeProvider = memo(function ThemeProvider({
   /**
    * Set the variables in the local stylesheet to their corresponding values
    */
-  document.documentElement.style.setProperty("--image", image)
-  document.documentElement.style.setProperty(
-    "--backgroundColor",
-    backgroundColor
-  )
-  document.documentElement.style.setProperty("--primary", primary)
-  document.documentElement.style.setProperty("--secondary", secondary)
-  document.documentElement.style.setProperty("--tertiary", tertiary)
-  document.documentElement.style.setProperty("--highlight", highlight)
-  document.documentElement.style.setProperty("--headline", headline)
-  document.documentElement.style.setProperty("--body", body)
-  document.documentElement.style.setProperty("--caption", caption)
-  document.documentElement.style.setProperty("--shadowColor", shadowColor)
-  document.documentElement.style.setProperty("--shadowSpread", shadowSpread)
-  document.documentElement.style.setProperty("--objectRadius", objectRadius)
-  document.documentElement.style.setProperty("--buttonRadius", buttonRadius)
+
+  // prettier-ignore
+  document.documentElement.style.setProperty("--background", backgroundColor);
+  // prettier-ignore
+  document.documentElement.style.setProperty("--color-primary", primary);
+  // prettier-ignore
+  document.documentElement.style.setProperty("--color-secondary", secondary);
+  // prettier-ignore
+  document.documentElement.style.setProperty("--color-tertiary", tertiary);
+  // prettier-ignore
+  document.documentElement.style.setProperty("--color-highlight", highlight);
+  // prettier-ignore
+  document.documentElement.style.setProperty("--headline", headline);
+  // prettier-ignore
+  document.documentElement.style.setProperty("--body", body);
+  // prettier-ignore
+  document.documentElement.style.setProperty("--caption", caption);
+  // prettier-ignore
+  document.documentElement.style.setProperty("--drop-shadow", shadowColor);
+  // prettier-ignore
+  // document.documentElement.style.setProperty("--shadowSpread", shadowSpread);
+  // prettier-ignore
+  document.documentElement.style.setProperty("--border-radius-object", objectRadius);
+  // prettier-ignore
+  document.documentElement.style.setProperty("--border-radius-button", buttonRadius);
 
   const newMetadata = JSON.stringify(
     {
