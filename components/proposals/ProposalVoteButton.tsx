@@ -18,7 +18,9 @@ const ProposalVoteButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='tertiary'>Submit vote</Button>
+        <Button className='max-w-[327px]' size='lg'>
+          Submit vote
+        </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>

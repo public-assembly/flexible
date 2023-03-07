@@ -1,7 +1,7 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import './fonts.css';
 @import './markdown.css';
 
 @layer base {
@@ -29,15 +29,19 @@
     --drop-shadow-spread: 0px;
     --drop-shadow-color: rgba(0, 0, 0, 0.25);
 
-    --font-heading-font-family: 'Satoshi','Courier New', Courier, monospace;
+    --font-heading-font-family: var(--font-satoshi),'Courier New', Courier, monospace;
     --font-heading-font-weight: 400;
     --font-heading-font-style: normal;
     --font-heading-line-height: 1.25;
     --font-heading-font-size: 24px;
 
-    --font-body-font-family: 'Satoshi', 'Courier New', Courier, monospace;
+    --font-body-font-family: 'Satoshi', var(--font-satoshi), var(--font-space-mono) 'Courier New', Courier, monospace;
     --font-body-font-weight: 400;
     --font-body-font-style: normal;
+
+    --font-caption-font-family: var(--font-space-mono), 'Courier New', Courier, monospace;
+    --font-caption-font-weight: 400;
+    --font-caption-font-style: normal;
     
     --sidebar-width: 300px;
     --grid-base: 4px;
@@ -46,7 +50,6 @@
   /* corner radius */
     --border-radius-button: 32px;
     --border-radius-object: 8px;
-  
     /* typography */
     --headline-font-size:;
     --headline-letter-spacing: -0.5px;

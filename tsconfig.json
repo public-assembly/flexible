@@ -21,6 +21,7 @@
       "@/context/*": ["context/*"],
       "@/hooks/*": ["hooks/*"],
       "@/lib/*": ["lib/*"],
+      "@/utils/*": ["utils/*"],
       "@/docs/*": ["docs/*"]
     },
     "allowSyntheticDefaultImports": true

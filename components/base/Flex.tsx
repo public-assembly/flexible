@@ -1,12 +1,13 @@
-import clsx from 'clsx'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren } from "react"
+
+import { cn } from "utils/cn"
 
 type FlexProps = PropsWithChildren<{
   className?: string
 }>
 
 export function Flex(props: FlexProps) {
-  return <div className={clsx('flex', props.className)}>{props.children}</div>
+  return <div className={cn("flex", props.className)}>{props.children}</div>
 }
 
-Flex.displayName = 'Flex'
+Flex.displayName = "Flex"

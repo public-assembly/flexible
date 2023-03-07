@@ -33,7 +33,7 @@ export const useAuction = () => {
 
   const { tokenData } = useDaoToken({
     tokenAddress: ENV.TOKEN_ADDRESS,
-    tokenId: tokenId,
+    tokenId: tokenId.toString(),
   })
 
   useEffect(() => {
