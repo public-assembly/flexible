@@ -129,7 +129,7 @@ export const ThemeProvider = memo(function ThemeProvider({
    */
 
   // prettier-ignore
-  document.documentElement.style.setProperty("--background", backgroundColor);
+  document.documentElement.style.setProperty("--color-background", backgroundColor);
   // prettier-ignore
   document.documentElement.style.setProperty("--color-primary", primary);
   // prettier-ignore
@@ -147,7 +147,7 @@ export const ThemeProvider = memo(function ThemeProvider({
   // prettier-ignore
   document.documentElement.style.setProperty("--drop-shadow", shadowColor);
   // prettier-ignore
-  document.documentElement.style.setProperty("--shadowSpread", shadowSpread);
+  document.documentElement.style.setProperty("--shadow-spread", shadowSpread);
   // prettier-ignore
   document.documentElement.style.setProperty("--border-radius-object", objectRadius);
   // prettier-ignore

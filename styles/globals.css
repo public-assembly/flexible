@@ -7,41 +7,22 @@
   /* Define your project's default styles */
   :root {
     --header-height: 56px;
-
-    
-    
-    /* --background-color: var(--secondary); */
     --base: 0 0% 10%;
 
-    /* ORIGINAL HEX CODES */
-    /**
     --background: #e7f3ec;
     --primary: #121212;
     --secondary: #f2fdf7;
     --tertiary: #809aa3;
     --highlight: #c5fc6b;
-    */
-
-    /* Background */
-    --background: 231 243 236;
-    --color-background: var(--background);
 
     /* Colors */
+    --color-background: 231 243 236;
     --color-primary: 18 18 18;
-    /* --color-primary: var(--primary); */
+    --color-secondary: 242 253 247;
+    --color-tertiary: 167 199 209;
+    --color-highlight: 197 252 107;
 
-    --secondary: 242 253 247;
-    --color-secondary: var(--secondary);
-    
-    --tertiary: 167 199 209;
-    --color-tertiary: var(--tertiary);
-
-    --highlight: 197 252 107;
-    --color-highlight: var(--highlight);
-
-
-
-
+    /* Fonts */
     --headline: 24px;
     --header-height: 120px;
 
@@ -92,10 +73,9 @@
     --body-extra-small-font-weight: 500;
     --body-extra-small-line-height: 16;
 
-    --link-gradient: linear-gradient(var(--highlight), var(--highlight));
+    --link-gradient: linear-gradient(var(--color-highlight), var(--color-highlight));
 
     --footer-height: 60px;
-    --pa-pink: #ff89de;
     --border-radius: 5px;
     /* TYPOGRAPHY */
     --code-font: "SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace";
@@ -189,8 +169,42 @@ div[data-radix-popper-content-wrapper] {
   z-index: 999 !important;
 }
 
+/* Define styles for theming */
+
+.bg-background {
+  background-color: var(--color-background);
+}
+
 .bg-primary {
   background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--color-tertiary);
+}
+
+.bg-highlight {
+  background-color: var(--color-highlight);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-tertiary);
+}
+
+.text-highlight {
+  color: var(--color-highlight);
 }
 
 /* On screens that are 768px or less, create sheet for dropdown */
