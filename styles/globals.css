@@ -141,9 +141,33 @@ a {
   border-radius: 8px;
 }
 
-.dropdown {
-  all: unset;
-  width: 100%;
+/* all: unset; */
+
+/* .font-picker {
+  padding: 8px;
+  padding-right: 10px;
+  border: solid 1px #c9d2d2;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%
+} */
+
+.font-picker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 1px solid #ccc;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+}
+
+.font-picker:after {
+  content: '\2304';
+  font-size: 30px;
+  line-height: 23px;
+  padding-right: 2px;
 }
 
 .image-picker {

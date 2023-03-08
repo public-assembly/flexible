@@ -4,7 +4,6 @@ import { useThemeContext } from "../context/ThemeProvider"
 import { usePrepareContractWrite, useContractWrite } from "wagmi"
 import { platformThemeRegistryAbi } from "../abi/platformThemeRegistryAbi"
 import { BigNumber } from "ethers"
-import Button from "./base/Button"
 import { ENV } from "@/utils/env"
 
 function getAccessToken() {
@@ -70,11 +69,11 @@ export function SaveChanges() {
   }
 
   return (
-    <Button
-      className="mt-8 bg-[#121212] hover:bg-[#121212]/50 active:bg-[#121212] dark:bg-[#121212] dark:text-[#121212] text-[#f2fdf7] text-lg py-6 rounded font-['Satoshi']"
+    <button
+      className="mt-8 bg-[#121212] hover:bg-[#121212]/50 active:bg-[#121212] dark:bg-[#121212] dark:text-[#121212] text-[#f2fdf7] text-lg py-3 font-['Satoshi'] rounded"
       onClick={handleClick}
     >
       Save
-    </Button>
+    </button>
   )
 }
