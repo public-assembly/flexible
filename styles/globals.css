@@ -98,8 +98,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: var(--font-body-font-family);
-  /* color: var(--primary); */
-  /* background-color: var(--background); */
+  background-color: var(--color-background);
   min-height: 100vh;
 }
 
@@ -171,9 +170,9 @@ div[data-radix-popper-content-wrapper] {
 
 /* Define styles for theming */
 
-.bg-background {
+/* .bg-background {
   background-color: var(--color-background);
-}
+} */
 
 .bg-primary {
   background-color: var(--color-primary);

@@ -133,11 +133,11 @@ export const ThemeProvider = memo(function ThemeProvider({
   // prettier-ignore
   document.documentElement.style.setProperty("--color-primary", primary);
   // prettier-ignore
-  document.documentElement.style.setProperty("--secondary", secondary);
+  document.documentElement.style.setProperty("--color-secondary", secondary);
   // prettier-ignore
-  document.documentElement.style.setProperty("--tertiary", tertiary);
+  document.documentElement.style.setProperty("--color-tertiary", tertiary);
   // prettier-ignore
-  document.documentElement.style.setProperty("--highlight", highlight);
+  document.documentElement.style.setProperty("--color-highlight", highlight);
   // prettier-ignore
   document.documentElement.style.setProperty("--headline", headline);
   // prettier-ignore
