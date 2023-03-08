@@ -18,6 +18,7 @@
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-dropdown-menu": "^2.0.2",
     "@radix-ui/react-separator": "^1.0.1",
+    "@radix-ui/react-slider": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.0.3",
     "@rainbow-me/rainbowkit": "^0.8.1",
     "@zoralabs/nft-hooks": "^1.2.1",

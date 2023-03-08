@@ -17,6 +17,8 @@ export function Palette() {
     setHighlight,
     headline,
     setHeadline,
+    headlineSize,
+    setHeadlineSize,
     body,
     setBody,
     caption,
@@ -176,6 +178,13 @@ export function Palette() {
               <option value="worksans">Work Sans</option>
             </select>
           </div>
+        </div>
+        {/* Slider */}
+        <div className="headline-slider flex justify-end mr-4">
+          <label>
+            {headlineSize}
+            <input type="range" id="headlineSize" min="16" max="64" step={4} />
+          </label>
         </div>
       </div>
     </div>

@@ -39,6 +39,8 @@ const ThemeContext = createContext({
   setHighlight: (highlight: string) => {},
   headline: "",
   setHeadline: (headline: string) => {},
+  headlineSize: "",
+  setHeadlineSize: (headlineSize: string) => {},
   body: "",
   setBody: (body: string) => {},
   caption: "",
@@ -76,6 +78,7 @@ export const ThemeProvider = memo(function ThemeProvider({
   const [tertiary, setTertiary] = useState<string>("")
   const [highlight, setHighlight] = useState<string>("")
   const [headline, setHeadline] = useState<string>("")
+  const [headlineSize, setHeadlineSize] = useState<string>("")
   const [body, setBody] = useState<string>("")
   const [caption, setCaption] = useState<string>("")
   const [shadowColor, setShadowColor] = useState<string>("")
@@ -109,11 +112,12 @@ export const ThemeProvider = memo(function ThemeProvider({
       const parsedMetadata = JSON.parse(unpackedMetadata)
       setImage(parsedMetadata.theme.background?.image)
       setBackgroundColor(parsedMetadata.theme.background?.backgroundColor)
-      setPrimary(parsedMetadata.theme.color?.primary)
-      setSecondary(parsedMetadata.theme.color?.secondary)
-      setTertiary(parsedMetadata.theme.color?.tertiary)
-      setHighlight(parsedMetadata.theme.color?.highlight)
+      setPrimary(parsedMetadata.theme.colors?.primary)
+      setSecondary(parsedMetadata.theme.colors?.secondary)
+      setTertiary(parsedMetadata.theme.colors?.tertiary)
+      setHighlight(parsedMetadata.theme.colors?.highlight)
       setHeadline(parsedMetadata.theme.fonts?.headline)
+      setHeadlineSize(parsedMetadata.theme.fonts?.headlineSize)
       setBody(parsedMetadata.theme.fonts?.body)
       setCaption(parsedMetadata.theme.fonts?.caption)
       setShadowColor(parsedMetadata.theme.dropshadow?.shadowColor)
@@ -139,6 +143,8 @@ export const ThemeProvider = memo(function ThemeProvider({
   // prettier-ignore
   document.documentElement.style.setProperty("--headline", headline);
   // prettier-ignore
+  document.documentElement.style.setProperty("--headline-size", headlineSize);
+  // prettier-ignore
   document.documentElement.style.setProperty("--body", body);
   // prettier-ignore
   document.documentElement.style.setProperty("--caption", caption);
@@ -154,11 +160,30 @@ export const ThemeProvider = memo(function ThemeProvider({
   const newMetadata = JSON.stringify(
     {
       theme: {
-        background: { image, backgroundColor },
-        colors: { primary, secondary, tertiary, highlight },
-        fonts: { headline, body, caption },
-        dropshadow: { shadowColor, shadowSpread },
-        cornerRadius: { objectRadius, buttonRadius },
+        background: {
+          image: image || "",
+          backgroundColor: backgroundColor || "",
+        },
+        colors: {
+          primary: primary || "",
+          secondary: secondary || "",
+          tertiary: tertiary || "",
+          highlight: highlight || "",
+        },
+        fonts: {
+          headline: headline || "",
+          headlineSize: headlineSize || "",
+          body: body || "",
+          caption: caption || "",
+        },
+        dropshadow: {
+          shadowColor: shadowColor || "",
+          shadowSpread: shadowSpread || "",
+        },
+        cornerRadius: {
+          objectRadius: objectRadius || "",
+          buttonRadius: buttonRadius || "",
+        },
       },
     },
     null,
@@ -198,6 +223,8 @@ export const ThemeProvider = memo(function ThemeProvider({
         setHighlight,
         headline,
         setHeadline,
+        headlineSize,
+        setHeadlineSize,
         body,
         setBody,
         caption,
