@@ -8,27 +8,40 @@
   :root {
     --header-height: 56px;
 
-
-
-    /* TODO: This has it's own var in the theme editor. */
-    --background: #e7f3ec;
+    
+    
     /* --background-color: var(--secondary); */
     --base: 0 0% 10%;
 
-    /* --primary: #121212; */
+    /* ORIGINAL HEX CODES */
+    /**
+    --background: #e7f3ec;
+    --primary: #121212;
     --secondary: #f2fdf7;
     --tertiary: #809aa3;
     --highlight: #c5fc6b;
-    /* TODO: Convert hex codes from template to modern rgb to be compatible with tailwind config */
+    */
 
-    /* For rgb(255 115 179 / <alpha-value>) */
+    /* Background */
+    --background: 231 243 236;
+    --color-background: var(--background);
+
+    /* Colors */
     --color-primary: 18 18 18;
-    /* --color-primary: #121212; */
+    /* --color-primary: var(--primary); */
+
+    --secondary: 242 253 247;
+    --color-secondary: var(--secondary);
+    
+    --tertiary: 167 199 209;
+    --color-tertiary: var(--tertiary);
+
+    --highlight: 197 252 107;
+    --color-highlight: var(--highlight);
 
 
-    --color-secondary: 242 253 247;
-    /* --color-highlight: 197 252 107; */
-    --color-tertiary: 167 199 209;
+
+
     --headline: 24px;
     --header-height: 120px;
 
@@ -105,7 +118,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: var(--font-body-font-family);
-  color: var(--primary);
+  /* color: var(--primary); */
   /* background-color: var(--background); */
   min-height: 100vh;
 }
@@ -176,6 +189,10 @@ div[data-radix-popper-content-wrapper] {
   z-index: 999 !important;
 }
 
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
 /* On screens that are 768px or less, create sheet for dropdown */
 @media screen and (max-width: 768px) {
   div[data-radix-popper-content-wrapper] {
@@ -194,7 +211,8 @@ div[data-radix-popper-content-wrapper] {
 }
 
 /* Scrollbar */
-/* width */
+
+/* Width */
 ::-webkit-scrollbar {
   width: 8px;
 }

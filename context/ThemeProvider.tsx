@@ -10,7 +10,6 @@ import { BigNumber } from "ethers"
 import { useContractRead } from "wagmi"
 import { platformThemeRegistryAbi } from "../abi/platformThemeRegistryAbi"
 import { useWeb3Storage } from "../hooks/useWeb3Storage"
-import tinycolor from "tinycolor2"
 
 type ThemeProviderProps = {
   children?: ReactNode
@@ -83,6 +82,8 @@ export const ThemeProvider = memo(function ThemeProvider({
   const [shadowSpread, setShadowSpread] = useState<string>("")
   const [objectRadius, setObjectRadius] = useState<string>("")
   const [buttonRadius, setButtonRadius] = useState<string>("")
+
+  console.log(primary)
   /**
    * Read the desired ipfs string from the registry contract
    */
@@ -108,38 +109,35 @@ export const ThemeProvider = memo(function ThemeProvider({
   useEffect(() => {
     if (unpackedMetadata) {
       const parsedMetadata = JSON.parse(unpackedMetadata)
-      setImage(parsedMetadata.theme.theme?.background.image)
-      setBackgroundColor(parsedMetadata.theme?.background.backgroundColor)
-      setPrimary(parsedMetadata.theme?.color.primary)
-      setSecondary(parsedMetadata.theme?.color.secondary)
-      setTertiary(parsedMetadata.theme?.color.tertiary)
-      setHighlight(parsedMetadata.theme?.color.highlight)
-      setHeadline(parsedMetadata.theme?.fonts.headline)
-      setBody(parsedMetadata.theme?.fonts.body)
-      setCaption(parsedMetadata.theme?.fonts.caption)
-      setShadowColor(parsedMetadata.theme?.dropshadow.shadowColor)
-      setShadowSpread(parsedMetadata.theme?.dropshadow.shadowSpread)
-      setObjectRadius(parsedMetadata.theme?.cornerRadius.objectRadius)
-      setButtonRadius(parsedMetadata.theme?.cornerRadius.buttonRadius)
+      setImage(parsedMetadata.theme.background?.image)
+      setBackgroundColor(parsedMetadata.theme.background?.backgroundColor)
+      setPrimary(parsedMetadata.theme.color?.primary)
+      setSecondary(parsedMetadata.theme.color?.secondary)
+      setTertiary(parsedMetadata.theme.color?.tertiary)
+      setHighlight(parsedMetadata.theme.color?.highlight)
+      setHeadline(parsedMetadata.theme.fonts?.headline)
+      setBody(parsedMetadata.theme.fonts?.body)
+      setCaption(parsedMetadata.theme.fonts?.caption)
+      setShadowColor(parsedMetadata.theme.dropshadow?.shadowColor)
+      setShadowSpread(parsedMetadata.theme.dropshadow?.shadowSpread)
+      setObjectRadius(parsedMetadata.theme.cornerRadius?.objectRadius)
+      setButtonRadius(parsedMetadata.theme.cornerRadius?.buttonRadius)
     }
   }, [unpackedMetadata])
   /**
    * Set the variables in the local stylesheet to their corresponding values
    */
 
-  const newPrimary = tinycolor(primary)
-  console.log(newPrimary)
-
   // prettier-ignore
   document.documentElement.style.setProperty("--background", backgroundColor);
   // prettier-ignore
-  document.documentElement.style.setProperty("--color-primary", (newPrimary).toRGB);
+  document.documentElement.style.setProperty("--color-primary", primary);
   // prettier-ignore
-  document.documentElement.style.setProperty("--color-secondary", secondary);
+  document.documentElement.style.setProperty("--secondary", secondary);
   // prettier-ignore
-  document.documentElement.style.setProperty("--color-tertiary", tertiary);
+  document.documentElement.style.setProperty("--tertiary", tertiary);
   // prettier-ignore
-  document.documentElement.style.setProperty("--color-highlight", highlight);
+  document.documentElement.style.setProperty("--highlight", highlight);
   // prettier-ignore
   document.documentElement.style.setProperty("--headline", headline);
   // prettier-ignore
@@ -149,7 +147,7 @@ export const ThemeProvider = memo(function ThemeProvider({
   // prettier-ignore
   document.documentElement.style.setProperty("--drop-shadow", shadowColor);
   // prettier-ignore
-  // document.documentElement.style.setProperty("--shadowSpread", shadowSpread);
+  document.documentElement.style.setProperty("--shadowSpread", shadowSpread);
   // prettier-ignore
   document.documentElement.style.setProperty("--border-radius-object", objectRadius);
   // prettier-ignore
