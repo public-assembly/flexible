@@ -5,10 +5,10 @@ import { usePrepareContractWrite, useContractWrite, useAccount } from "wagmi"
 import { platformThemeRegistryAbi } from "../abi/platformThemeRegistryAbi"
 import { BigNumber } from "ethers"
 import Button from "./base/Button"
-import Label from "./base/Label"
+import { ENV } from "@/utils/env"
 
 function getAccessToken() {
-  return process.env.NEXT_PUBLIC_WEB3STORAGE_TOKEN
+  return ENV.WEB3STORAGE_TOKEN
 }
 
 function makeStorageClient() {

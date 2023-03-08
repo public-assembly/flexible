@@ -10,6 +10,7 @@ import { BigNumber } from "ethers"
 import { useContractRead } from "wagmi"
 import { platformThemeRegistryAbi } from "../abi/platformThemeRegistryAbi"
 import { useWeb3Storage } from "../hooks/useWeb3Storage"
+import tinycolor from "tinycolor2"
 
 type ThemeProviderProps = {
   children?: ReactNode
@@ -126,10 +127,13 @@ export const ThemeProvider = memo(function ThemeProvider({
    * Set the variables in the local stylesheet to their corresponding values
    */
 
+  const newPrimary = tinycolor(primary)
+  console.log(newPrimary)
+
   // prettier-ignore
   document.documentElement.style.setProperty("--background", backgroundColor);
   // prettier-ignore
-  document.documentElement.style.setProperty("--color-primary", primary);
+  document.documentElement.style.setProperty("--color-primary", (newPrimary).toRGB);
   // prettier-ignore
   document.documentElement.style.setProperty("--color-secondary", secondary);
   // prettier-ignore

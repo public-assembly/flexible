@@ -23,10 +23,13 @@ module.exports = {
         black: "#000",
         white: "#fff",
         background: "hsl(var(--background) / 1)",
+        // Using modern `rgb`
         primary: "rgb(var(--color-primary) / <alpha-value>)",
+        
         secondary: "rgb(var(--color-secondary) / <alpha-value>)",
-        highlight: "rgb(var(--color-highlight) / <alpha-value>)",
+        // highlight: "rgb(var(--color-highlight) / <alpha-value>)",
         tertiary: "rgb(var(--color-tertiary) / <alpha-value>)",
+        highlight: "hsl(var(--highlight) / 1)",
       },
       borderRadius: {
         object: "var(--border-radius-object)",

@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Web3Storage } from 'web3.storage';
+import { ENV } from '@/utils/env';
 
 export function useWeb3Storage(cid: string) {
   const [unpackedMetadata, setUnpackedMetadata] = React.useState<string>('');
 
   function getAccessToken() {
-    return process.env.NEXT_PUBLIC_WEB3STORAGE_TOKEN;
+    return ENV.WEB3STORAGE_TOKEN;
   }
 
   function makeStorageClient() {

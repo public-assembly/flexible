@@ -4,23 +4,30 @@
 @import "./markdown.css";
 
 @layer base {
+  /* Define your project's default styles */
   :root {
     --header-height: 56px;
 
+
+
     /* TODO: This has it's own var in the theme editor. */
     --background: #e7f3ec;
-    --background-color: var(--secondary);
+    /* --background-color: var(--secondary); */
     --base: 0 0% 10%;
 
-    --primary: #121212;
-
+    /* --primary: #121212; */
     --secondary: #f2fdf7;
     --tertiary: #809aa3;
     --highlight: #c5fc6b;
-    /* todo: convert hex codes from template to modern rgb to be compatible with tailwind config */
+    /* TODO: Convert hex codes from template to modern rgb to be compatible with tailwind config */
+
+    /* For rgb(255 115 179 / <alpha-value>) */
     --color-primary: 18 18 18;
+    /* --color-primary: #121212; */
+
+
     --color-secondary: 242 253 247;
-    --color-highlight: 197 252 107;
+    /* --color-highlight: 197 252 107; */
     --color-tertiary: 167 199 209;
     --headline: 24px;
     --header-height: 120px;
@@ -99,7 +106,7 @@ body {
   margin: 0;
   font-family: var(--font-body-font-family);
   color: var(--primary);
-  background-color: var(--background);
+  /* background-color: var(--background); */
   min-height: 100vh;
 }
 
@@ -148,7 +155,7 @@ a {
   padding-bottom: 6px;
   padding-left: 40px;
   padding-right: 40px;
-  border: solid 1.5px #C9D2D2;
+  border: solid 1.5px #c9d2d2;
   border-radius: 8px;
   cursor: pointer;
 }
