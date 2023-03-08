@@ -23,7 +23,7 @@
     --color-highlight: 197 252 107;
 
     /* Fonts */
-    --headline: 24px;
+    /* --headline: 24px; */
     --header-height: 120px;
 
     --drop-shadow-spread: 0px;
@@ -73,7 +73,10 @@
     --body-extra-small-font-weight: 500;
     --body-extra-small-line-height: 16;
 
-    --link-gradient: linear-gradient(var(--color-highlight), var(--color-highlight));
+    --link-gradient: linear-gradient(
+      var(--color-highlight),
+      var(--color-highlight)
+    );
 
     --footer-height: 60px;
     --border-radius: 5px;
@@ -97,7 +100,8 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  font-family: var(--font-body-font-family);
+  /* font-family: var(--font-body-font-family); */
+  font-family: var(--headline);
   background-color: var(--color-background);
   min-height: 100vh;
 }

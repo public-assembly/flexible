@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Web3Storage } from "web3.storage"
 import { useThemeContext } from "../context/ThemeProvider"
-import { usePrepareContractWrite, useContractWrite, useAccount } from "wagmi"
+import { usePrepareContractWrite, useContractWrite } from "wagmi"
 import { platformThemeRegistryAbi } from "../abi/platformThemeRegistryAbi"
 import { BigNumber } from "ethers"
 import Button from "./base/Button"
@@ -25,7 +25,6 @@ const themeRegistry = process.env.NEXT_PUBLIC_REGISTRY_CONTRACT as `0x${string}`
 const platformIndex = process.env.NEXT_PUBLIC_PLATFORM_INDEX as number
 
 export function SaveChanges() {
-  const { isConnected } = useAccount()
   const { newMetadata } = useThemeContext()
 
   const [uri, setUri] = React.useState<string>("")
@@ -72,7 +71,7 @@ export function SaveChanges() {
 
   return (
     <Button
-      className="mt-8 bg-[#121212] hover:bg-[#121212]/50 active:bg-[#121212] dark:bg-[#121212] dark:text-[#121212] text-[#f2fdf7] text-lg py-6 rounded"
+      className="mt-8 bg-[#121212] hover:bg-[#121212]/50 active:bg-[#121212] dark:bg-[#121212] dark:text-[#121212] text-[#f2fdf7] text-lg py-6 rounded font-['Satoshi']"
       onClick={handleClick}
     >
       Save

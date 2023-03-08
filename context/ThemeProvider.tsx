@@ -82,8 +82,6 @@ export const ThemeProvider = memo(function ThemeProvider({
   const [shadowSpread, setShadowSpread] = useState<string>("")
   const [objectRadius, setObjectRadius] = useState<string>("")
   const [buttonRadius, setButtonRadius] = useState<string>("")
-
-  console.log(primary)
   /**
    * Read the desired ipfs string from the registry contract
    */

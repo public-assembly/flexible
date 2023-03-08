@@ -32,14 +32,13 @@ export function Palette() {
   } = useThemeContext()
 
   function handleFontChange(e: any) {
-    const selectedFont = document.getElementById("fontFamily")
+    const selectedFont = document.getElementById("headline")
     // @ts-ignore
-    setFontFamily(selectedFont.value)
-    console.log(headline)
+    setHeadline(selectedFont.value)
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-['Satoshi']">
       {/* Background */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
         <div className="flex justify-between items-center gap-x-32">

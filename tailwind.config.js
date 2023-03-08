@@ -6,10 +6,14 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        // sans: [
+        //   "var(--font-satoshi)",
+        //   "var(--font-space-mono)",
+        //   ...fontFamily.sans,
+        // ],
         sans: [
-          "var(--font-satoshi)",
-          "var(--font-space-mono)",
-          ...fontFamily.sans,
+          "var(--headline)",
+          ...fontFamily.sans
         ],
         caption: [
           "var(--font-space-mono)",
