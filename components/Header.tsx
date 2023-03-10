@@ -16,7 +16,6 @@ import { Stack } from "./base/Stack"
 import { Headline } from "./base/Typography"
 import { Zorb } from "./base/Zorb"
 import EditTheme from "./EditTheme"
-import { useDrawer } from "./drawer/useDrawer"
 
 const fadeIn: Variants = {
   initial: { opacity: 0 },

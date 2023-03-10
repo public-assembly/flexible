@@ -137,7 +137,7 @@ export const TokenWinningBid = ({
 
   return (
     <Flex className="z-10 items-center gap-4 px-4 py-2 bg-primary text-secondary rounded-object w-fit">
-      <span className="pr-">Winning bid </span>
+      <Caption className="text-secondary">Winning bid </Caption>
 
       <a
         href={winningTx}

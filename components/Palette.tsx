@@ -34,18 +34,23 @@ export function Palette() {
     setButtonRadius,
   } = useThemeContext()
 
-  function handleFontChange(e: any) {
+  function handleHeadlineChange(e: any) {
     const selectedFont = document.getElementById("headline")
     // @ts-ignore
     setHeadline(selectedFont.value)
   }
 
-  // function handleHeadlineSizeChange() {
-  //   (newValue) => setHeadlineSize(String(newValue) + 'px')
-  // }
+  function handleBodyChange(e: any) {
+    const selectedFont = document.getElementById("body")
+    // @ts-ignore
+    setBody(selectedFont.value)
+  }
 
-
-  // console.log(headlineSize)
+  function handleCaptionChange(e: any) {
+    const selectedFont = document.getElementById("caption")
+    // @ts-ignore
+    setCaption(selectedFont.value)
+  }
 
   return (
     <div className="space-y-6 font-['Satoshi']">
@@ -130,7 +135,7 @@ export function Palette() {
               className="font-picker"
               id="headline"
               value={headline}
-              onChange={(e) => handleFontChange(e)}
+              onChange={(e) => handleHeadlineChange(e)}
             >
               <option disabled>Select font</option>
               <option value="antonio">Antonio</option>
@@ -188,12 +193,6 @@ export function Palette() {
           </div>
         </div>
         {/* Slider */}
-        {/* <div className="headline-slider flex justify-end mr-4">
-          <label>
-            {headlineSize}
-            <input type="range" id="headlineSize" min="16" max="64" step={4} />
-          </label>
-        </div> */}
         <div className="flex justify-end">
           <Slider.Root
             className="relative flex items-center select-none touch-none w-[161px] h-5"
@@ -201,7 +200,7 @@ export function Palette() {
             min={16}
             max={64}
             step={4}
-            aria-label="Headline Size"
+            aria-label="Headline Font Size"
             onValueChange={(newValue) => setHeadlineSize(String(newValue))}
           >
             <Slider.Track className="bg-[#C9D2D2] relative grow rounded-full h-[3px]">
@@ -214,6 +213,134 @@ export function Palette() {
           </Slider.Root>
         </div>
         <br></br>
+        <div className="flex justify-between items-center gap-x-4">
+          <span>Body</span>
+          <div>
+            <select
+              className="font-picker"
+              id="body"
+              value={body}
+              onChange={(e) => handleBodyChange(e)}
+            >
+              <option disabled>Select font</option>
+              <option value="antonio">Antonio</option>
+              <option value="archivonarrow">Archivo Narrow</option>
+              <option value="audiowide">Audiowide</option>
+              <option value="ballet">Ballet</option>
+              <option value="biorhyme">BioRhyme</option>
+              <option value="chicle">Chicle</option>
+              <option value="chivomono">Chivo Mono</option>
+              <option value="cinzel">Cinzel</option>
+              <option value="cormorant">Cormorant</option>
+              <option value="domine">Domine</option>
+              <option value="dynapuff">DynaPuff</option>
+              <option value="eczar">Eczar</option>
+              <option value="frankruhllibre">Frank Ruhl Libre</option>
+              <option value="grandstander">Grandstander</option>
+              <option value="hankengrotesk">Hanken Grotesk</option>
+              <option value="ibmplexmono">IBM Plex Mono</option>
+              <option value="ibmplexsans">IBM Plex Sans</option>
+              <option value="ibmplexserif">IBM Plex Serif</option>
+              <option value="inconsolata">Inconsolata</option>
+              <option value="inter">Inter</option>
+              <option value="jura">Jura</option>
+              <option value="kreon">Kreon</option>
+              <option value="literata">Literata</option>
+              <option value="londrinasolid">Londrina Solid</option>
+              <option value="lora">Lora</option>
+              <option value="michroma">Michroma</option>
+              <option value="montserrat">Montserrat</option>
+              <option value="mulish">Mulish</option>
+              <option value="newsreader">Newsreader</option>
+              <option value="nunito">Nunito</option>
+              <option value="opensans">Open Sans</option>
+              <option value="orbitron">Orbitron</option>
+              <option value="outfit">Outfit</option>
+              <option value="oxanium">Oxanium</option>
+              <option value="playfairdisplay">Playfair Display</option>
+              <option value="poppins">Poppins</option>
+              <option value="quicksand">Quicksand</option>
+              <option value="raleway">Raleway</option>
+              <option value="rokkitt">Rokkitt</option>
+              <option value="rubik">Rubik</option>
+              <option value="saira">Saira</option>
+              <option value="sono">Sono</option>
+              <option value="sora">Sora</option>
+              <option value="spacegrotesk">Space Grotesk</option>
+              <option value="spacemono">Space Mono</option>
+              <option value="sticknobills">Stick No Bills</option>
+              <option value="unbounded">Unbounded</option>
+              <option value="unifrakturmaguntia">Unifraktur Maguntia</option>
+              <option value="vollkorn">Vollkorn</option>
+              <option value="wallpoet">Wallpoet</option>
+              <option value="worksans">Work Sans</option>
+            </select>
+          </div>
+        </div>
+        <div className="flex justify-between items-center gap-x-4">
+          <span>Caption</span>
+          <div>
+            <select
+              className="font-picker"
+              id="caption"
+              value={caption}
+              onChange={(e) => handleCaptionChange(e)}
+            >
+              <option disabled>Select font</option>
+              <option value="antonio">Antonio</option>
+              <option value="archivonarrow">Archivo Narrow</option>
+              <option value="audiowide">Audiowide</option>
+              <option value="ballet">Ballet</option>
+              <option value="biorhyme">BioRhyme</option>
+              <option value="chicle">Chicle</option>
+              <option value="chivomono">Chivo Mono</option>
+              <option value="cinzel">Cinzel</option>
+              <option value="cormorant">Cormorant</option>
+              <option value="domine">Domine</option>
+              <option value="dynapuff">DynaPuff</option>
+              <option value="eczar">Eczar</option>
+              <option value="frankruhllibre">Frank Ruhl Libre</option>
+              <option value="grandstander">Grandstander</option>
+              <option value="hankengrotesk">Hanken Grotesk</option>
+              <option value="ibmplexmono">IBM Plex Mono</option>
+              <option value="ibmplexsans">IBM Plex Sans</option>
+              <option value="ibmplexserif">IBM Plex Serif</option>
+              <option value="inconsolata">Inconsolata</option>
+              <option value="inter">Inter</option>
+              <option value="jura">Jura</option>
+              <option value="kreon">Kreon</option>
+              <option value="literata">Literata</option>
+              <option value="londrinasolid">Londrina Solid</option>
+              <option value="lora">Lora</option>
+              <option value="michroma">Michroma</option>
+              <option value="montserrat">Montserrat</option>
+              <option value="mulish">Mulish</option>
+              <option value="newsreader">Newsreader</option>
+              <option value="nunito">Nunito</option>
+              <option value="opensans">Open Sans</option>
+              <option value="orbitron">Orbitron</option>
+              <option value="outfit">Outfit</option>
+              <option value="oxanium">Oxanium</option>
+              <option value="playfairdisplay">Playfair Display</option>
+              <option value="poppins">Poppins</option>
+              <option value="quicksand">Quicksand</option>
+              <option value="raleway">Raleway</option>
+              <option value="rokkitt">Rokkitt</option>
+              <option value="rubik">Rubik</option>
+              <option value="saira">Saira</option>
+              <option value="sono">Sono</option>
+              <option value="sora">Sora</option>
+              <option value="spacegrotesk">Space Grotesk</option>
+              <option value="spacemono">Space Mono</option>
+              <option value="sticknobills">Stick No Bills</option>
+              <option value="unbounded">Unbounded</option>
+              <option value="unifrakturmaguntia">Unifraktur Maguntia</option>
+              <option value="vollkorn">Vollkorn</option>
+              <option value="wallpoet">Wallpoet</option>
+              <option value="worksans">Work Sans</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
   )

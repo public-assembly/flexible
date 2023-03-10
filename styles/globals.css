@@ -23,8 +23,11 @@
     --color-tertiary: 167 199 209;
     --color-highlight: 197 252 107;
 
-    /* Fonts - Pixels */
-    --headline-size: 16px;
+    /* Fonts */
+    --headline: "Satoshi";
+    --headline-size: 24px;
+    --body: "Courier New", Courier, monospace;
+    --caption: "Courier New", Courier, monospace;
 
     /* --header-height: 120px; */
 
@@ -103,7 +106,7 @@ body {
   padding: 0;
   margin: 0;
   /* font-family: var(--font-body-font-family); */
-  font-family: var(--headline);
+  /* font-family: var(--headline); */
   background-color: var(--color-background);
   min-height: 100vh;
 }
@@ -222,10 +225,10 @@ div[data-radix-popper-content-wrapper] {
 
 .text-primary {
   color: var(--color-primary);
-  font-size: var(--headline-size);
 }
 
 .text-secondary {
+  font-family: var(--caption);
   color: var(--color-secondary);
 }
 
@@ -235,6 +238,19 @@ div[data-radix-popper-content-wrapper] {
 
 .text-highlight {
   color: var(--color-highlight);
+}
+
+.headline {
+  font-family: var(--headline);
+  font-size: var(--headline-size);
+}
+
+.body {
+  font-family: var(--body);
+}
+
+.caption {
+  font-family: var(--caption);
 }
 
 /* On screens that are 768px or less, create sheet for dropdown */
