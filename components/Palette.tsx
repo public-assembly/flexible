@@ -1,4 +1,5 @@
 import * as React from "react"
+import * as Slider from "@radix-ui/react-slider"
 import { useThemeContext } from "../context/ThemeProvider"
 
 export function Palette() {
@@ -38,6 +39,13 @@ export function Palette() {
     // @ts-ignore
     setHeadline(selectedFont.value)
   }
+
+  // function handleHeadlineSizeChange() {
+  //   (newValue) => setHeadlineSize(String(newValue) + 'px')
+  // }
+
+
+  // console.log(headlineSize)
 
   return (
     <div className="space-y-6 font-['Satoshi']">
@@ -180,12 +188,32 @@ export function Palette() {
           </div>
         </div>
         {/* Slider */}
-        <div className="headline-slider flex justify-end mr-4">
+        {/* <div className="headline-slider flex justify-end mr-4">
           <label>
             {headlineSize}
             <input type="range" id="headlineSize" min="16" max="64" step={4} />
           </label>
+        </div> */}
+        <div className="flex justify-end">
+          <Slider.Root
+            className="relative flex items-center select-none touch-none w-[161px] h-5"
+            value={[Number(headlineSize)]}
+            min={16}
+            max={64}
+            step={4}
+            aria-label="Headline Size"
+            onValueChange={(newValue) => setHeadlineSize(String(newValue))}
+          >
+            <Slider.Track className="bg-[#C9D2D2] relative grow rounded-full h-[3px]">
+              <Slider.Range className="absolute bg-[#C9D2D2] rounded-full h-full" />
+            </Slider.Track>
+
+            <Slider.Thumb className="block w-5 h-5 bg-[#1E1F22] rounded-[10px]">
+              <div className="pt-6 pr-4">{headlineSize}</div>
+            </Slider.Thumb>
+          </Slider.Root>
         </div>
+        <br></br>
       </div>
     </div>
   )

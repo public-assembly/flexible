@@ -78,6 +78,9 @@ export const ThemeProvider = memo(function ThemeProvider({
   const [tertiary, setTertiary] = useState<string>("")
   const [highlight, setHighlight] = useState<string>("")
   const [headline, setHeadline] = useState<string>("")
+  /**
+   * Set default minimum
+   */
   const [headlineSize, setHeadlineSize] = useState<string>("")
   const [body, setBody] = useState<string>("")
   const [caption, setCaption] = useState<string>("")
@@ -130,6 +133,8 @@ export const ThemeProvider = memo(function ThemeProvider({
    * Set the variables in the local stylesheet to their corresponding values
    */
 
+  console.log(headlineSize)
+
   // prettier-ignore
   document.documentElement.style.setProperty("--color-background", backgroundColor);
   // prettier-ignore
@@ -143,7 +148,7 @@ export const ThemeProvider = memo(function ThemeProvider({
   // prettier-ignore
   document.documentElement.style.setProperty("--headline", headline);
   // prettier-ignore
-  document.documentElement.style.setProperty("--headline-size", headlineSize);
+  document.documentElement.style.setProperty("--headline-size", headlineSize + 'px');
   // prettier-ignore
   document.documentElement.style.setProperty("--body", body);
   // prettier-ignore
