@@ -87,11 +87,11 @@
   font-family: var(--caption);
 }
 
-.button-radius {
+.rounded-button {
   border-radius: var(--border-radius-button);
 }
 
-.object-radius {
+.rounded-object {
   border-radius: var(--border-radius-object);
 }
 

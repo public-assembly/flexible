@@ -392,9 +392,9 @@ export function Palette() {
             <Slider.Root
               className="relative flex items-center select-none touch-none w-[161px] h-5"
               value={[Number(objectRadius)]}
-              min={1}
-              max={24}
-              step={1}
+              min={0}
+              max={32}
+              step={2}
               aria-label="Object Radius"
               onValueChange={(newValue) => setObjectRadius(String(newValue))}
             >
@@ -404,7 +404,7 @@ export function Palette() {
 
               <Slider.Thumb className="block w-5 h-5 bg-[#1E1F22] rounded-[10px]">
                 <div className="pt-6 pr-4">
-                  {objectRadius == "" ? "1px" : `${objectRadius}px`}
+                  {objectRadius == "" ? "0px" : `${objectRadius}px`}
                 </div>
               </Slider.Thumb>
             </Slider.Root>
@@ -416,9 +416,9 @@ export function Palette() {
             <Slider.Root
               className="relative flex items-center select-none touch-none w-[161px] h-5"
               value={[Number(buttonRadius)]}
-              min={1}
-              max={24}
-              step={1}
+              min={0}
+              max={32}
+              step={2}
               aria-label="Button Radius"
               onValueChange={(newValue) => setButtonRadius(String(newValue))}
             >
@@ -428,7 +428,7 @@ export function Palette() {
 
               <Slider.Thumb className="block w-5 h-5 bg-[#1E1F22] rounded-[10px]">
                 <div className="pt-6 pr-4">
-                  {buttonRadius == "" ? "1px" : `${buttonRadius}px`}
+                  {buttonRadius == "" ? "0px" : `${buttonRadius}px`}
                 </div>
               </Slider.Thumb>
             </Slider.Root>

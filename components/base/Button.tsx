@@ -4,9 +4,7 @@ import { VariantProps, cva } from "cva"
 import { cn } from "utils/cn"
 
 const buttonVariants = cva(
-  // "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 border-s dark:hover:bg-slate-800 dark:hover:text-slate-100 disabled:opacity-50 disabled:pointer-events-none dark:focus:ring-offset-slate-900 data-[state=open]:bg-primary/50",
-  // Adjust for theming
-  "inline-flex items-center justify-center button-radius text-sm font-medium transition-colors focus:outline-none focus:ring-2 border-s dark:hover:bg-slate-800 dark:hover:text-slate-100 disabled:opacity-50 disabled:pointer-events-none dark:focus:ring-offset-slate-900 data-[state=open]:bg-primary/50",
+  "inline-flex items-center justify-center text-sm font-medium transition-colors focus:outline-none focus:ring-2 border-s dark:hover:bg-slate-800 dark:hover:text-slate-100 disabled:opacity-50 disabled:pointer-events-none dark:focus:ring-offset-slate-900 data-[state=open]:bg-primary/50",
   {
     variants: {
       variant: {
