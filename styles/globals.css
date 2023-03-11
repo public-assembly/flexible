@@ -4,11 +4,7 @@
 @import "./markdown.css";
 
 @layer base {
-  /* Define your project's default styles */
   :root {
-    --header-height: 56px;
-    --base: 0 0% 10%;
-
     /* Colors - Hex */
     --background: #e7f3ec;
     --primary: #121212;
@@ -29,66 +25,74 @@
     --body: "Courier New", Courier, monospace;
     --caption: "Courier New", Courier, monospace;
 
-    /* Corner Radius */
-    --border-radius-object: 8px;
-    --border-radius-button: 32px;
-
-    /* --header-height: 120px; */
-
+    /* Dropshadow */
     --drop-shadow-spread: 0px;
     --drop-shadow-color: rgba(0, 0, 0, 0.25);
 
-    --font-heading-font-family: var(--font-satoshi), "Courier New", Courier,
-      monospace;
-    --font-heading-font-weight: 400;
-    --font-heading-font-style: normal;
-    --font-heading-line-height: 1.25;
-    --font-heading-font-size: 24px;
-
-    --font-body-font-family: "Satoshi", var(--font-satoshi),
-      var(--font-space-mono) "Courier New", Courier, monospace;
-    --font-body-font-weight: 400;
-    --font-body-font-style: normal;
-
-    --font-caption-font-family: var(--font-space-mono), "Courier New", Courier,
-      monospace;
-    --font-caption-font-weight: 400;
-    --font-caption-font-style: normal;
-
-    --sidebar-width: 300px;
-    --grid-base: 4px;
-
-    /* typography */
-    /* --headline-font-size:; */
-    --headline-letter-spacing: -0.5px;
-    --headline-line-height: 40;
-
-    --body-large-font-size: 18px;
-    --body-large-letter-spacing: 0px;
-    --body-large-line-height: 28;
-    --body-large-weight: 500;
-
-    --body-font-size: 16px;
-    --body-weight: 400;
-
-    --caption-font-size: 16px;
-    --caption-weight: 500;
-    --caption-line-height: 24;
-
-    --body-extra-small-font-size: 12px;
-    --body-extra-small-font-weight: 500;
-    --body-extra-small-line-height: 16;
+    /* Corner Radius */
+    --border-radius-object: 8px;
+    --border-radius-button: 32px;
 
     --link-gradient: linear-gradient(
       var(--color-highlight),
       var(--color-highlight)
     );
-
-    --footer-height: 60px;
-    --border-radius: 5px;
-    /* TYPOGRAPHY */
-    --code-font: "SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace";
   }
+}
+
+/* Apply theming variables to classes */
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--color-tertiary);
+}
+
+.bg-highlight {
+  background-color: var(--color-highlight);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-tertiary);
+}
+
+.text-highlight {
+  color: var(--color-highlight);
+}
+
+.headline {
+  font-family: var(--headline);
+  font-size: var(--headline-size);
+}
+
+.body {
+  font-family: var(--body);
+}
+
+.caption {
+  font-family: var(--caption);
+}
+
+.button-radius {
+  border-radius: var(--border-radius-button);
+}
+
+.object-radius {
+  border-radius: var(--border-radius-object);
 }
 
 * {
@@ -96,7 +100,7 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
-  /* Makes fonts on FF render similarly to Chrome */
+  /* Makes fonts on Firefox render similarly to Chrome */
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -106,10 +110,10 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  /* font-family: var(--font-body-font-family); */
-  /* font-family: var(--headline); */
   background-color: var(--color-background);
   min-height: 100vh;
+  scroll-behavior: smooth;
+  position: relative;
 }
 
 body,
@@ -119,13 +123,6 @@ body,
   flex-grow: 1;
   min-height: 100vh;
   width: 100%;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  scroll-behavior: smooth;
-  position: relative;
 }
 
 a {
@@ -146,17 +143,6 @@ a {
   border: solid 1px #f6f6f6;
   border-radius: 8px;
 }
-
-/* all: unset; */
-
-/* .font-picker {
-  padding: 8px;
-  padding-right: 10px;
-  border: solid 1px #c9d2d2;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%
-} */
 
 .font-picker {
   -webkit-appearance: none;
@@ -204,58 +190,6 @@ div[data-radix-popper-content-wrapper] .content-outer .content-inner {
 
 div[data-radix-popper-content-wrapper] {
   z-index: 999 !important;
-}
-
-/* Define styles for theming */
-
-.bg-primary {
-  background-color: var(--color-primary);
-}
-
-.bg-secondary {
-  background-color: var(--color-secondary);
-}
-
-.bg-tertiary {
-  background-color: var(--color-tertiary);
-}
-
-.bg-highlight {
-  background-color: var(--color-highlight);
-}
-
-.text-primary {
-  color: var(--color-primary);
-}
-
-.text-secondary {
-  font-family: var(--caption);
-  color: var(--color-secondary);
-}
-
-.text-tertiary {
-  color: var(--color-tertiary);
-}
-
-.text-highlight {
-  color: var(--color-highlight);
-}
-
-.headline {
-  font-family: var(--headline);
-  font-size: var(--headline-size);
-}
-
-.body {
-  font-family: var(--body);
-}
-
-.caption {
-  font-family: var(--caption);
-}
-
-.button-radius {
-  border-radius: var(--border-radius-button);
 }
 
 /* On screens that are 768px or less, create sheet for dropdown */
