@@ -23,7 +23,7 @@ const themeRegistry = process.env.NEXT_PUBLIC_REGISTRY_CONTRACT as `0x${string}`
 // @ts-ignore
 const platformIndex = process.env.NEXT_PUBLIC_PLATFORM_INDEX as number
 
-export function SaveChanges() {
+export function Save() {
   const { newMetadata } = useThemeContext()
 
   const [uri, setUri] = React.useState<string>("")
@@ -69,11 +69,13 @@ export function SaveChanges() {
   }
 
   return (
-    <button
-      className="mt-8 bg-[#121212] hover:bg-[#121212]/50 active:bg-[#121212] dark:bg-[#121212] dark:text-[#121212] text-[#f2fdf7] text-lg py-3 font-['Satoshi'] rounded"
-      onClick={handleClick}
-    >
-      Save
-    </button>
+    <div className="flex justify-center bg-white w-full p-4">
+      <button
+        className="bg-[#121212] hover:bg-[#121212]/50 active:bg-[#121212] dark:bg-[#121212] dark:text-[#121212] text-[#f2fdf7] text-lg py-3 font-['Satoshi'] rounded w-full"
+        onClick={handleClick}
+      >
+        Save
+      </button>
+    </div>
   )
 }

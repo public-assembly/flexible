@@ -196,7 +196,7 @@ export function Palette() {
         <div className="flex justify-end">
           <Slider.Root
             className="relative flex items-center select-none touch-none w-[161px] h-5"
-            value={[Number(headlineSize)]}
+            value={Number(headlineSize) > 16 ? [Number(headlineSize)] : [16]}
             min={16}
             max={64}
             step={4}
@@ -208,7 +208,9 @@ export function Palette() {
             </Slider.Track>
 
             <Slider.Thumb className="block w-5 h-5 bg-[#1E1F22] rounded-[10px]">
-              <div className="pt-6 pr-4">{headlineSize}</div>
+              <div className="pt-6 pr-4">
+                {headlineSize == "" ? "16px" : `${headlineSize}px`}
+              </div>
             </Slider.Thumb>
           </Slider.Root>
         </div>
@@ -342,6 +344,99 @@ export function Palette() {
           </div>
         </div>
       </div>
+      {/* Dropshadow */}
+      {/* <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
+        <span className="uppercase font-semibold">Dropshadow</span>
+        <div className="flex justify-between items-center gap-x-32">
+          <label>Color</label>
+          <input
+            id="shadowColor"
+            type="color"
+            className="color-picker"
+            value={shadowColor}
+            onChange={(e) => setShadowColor(e.target.value)}
+          />
+        </div>
+        <div className="flex justify-between items-center gap-x-32">
+          <label>Spread</label>
+          <div className="flex justify-end">
+            <Slider.Root
+              className="relative flex items-center select-none touch-none w-[161px] h-5"
+              value={[Number(shadowSpread)]}
+              min={1}
+              max={24}
+              step={1}
+              aria-label="Dropshadow Spread"
+              onValueChange={(newValue) => setShadowSpread(String(newValue))}
+            >
+              <Slider.Track className="bg-[#C9D2D2] relative grow rounded-full h-[3px]">
+                <Slider.Range className="absolute bg-[#C9D2D2] rounded-full h-full" />
+              </Slider.Track>
+
+              <Slider.Thumb className="block w-5 h-5 bg-[#1E1F22] rounded-[10px]">
+                <div className="pt-6 pr-4">
+                  {shadowSpread == "" ? "1px" : `${shadowSpread}px`}
+                </div>
+              </Slider.Thumb>
+            </Slider.Root>
+          </div>
+        </div>
+        <br></br>
+      </div> */}
+      {/* Corner radius */}
+      <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
+        <span className="uppercase font-semibold">Corner Radius</span>
+        <div className="flex justify-between items-center gap-x-32">
+          <label>Objects</label>
+          <div className="flex justify-end">
+            <Slider.Root
+              className="relative flex items-center select-none touch-none w-[161px] h-5"
+              value={[Number(objectRadius)]}
+              min={1}
+              max={24}
+              step={1}
+              aria-label="Object Radius"
+              onValueChange={(newValue) => setObjectRadius(String(newValue))}
+            >
+              <Slider.Track className="bg-[#C9D2D2] relative grow rounded-full h-[3px]">
+                <Slider.Range className="absolute bg-[#C9D2D2] rounded-full h-full" />
+              </Slider.Track>
+
+              <Slider.Thumb className="block w-5 h-5 bg-[#1E1F22] rounded-[10px]">
+                <div className="pt-6 pr-4">
+                  {objectRadius == "" ? "1px" : `${objectRadius}px`}
+                </div>
+              </Slider.Thumb>
+            </Slider.Root>
+          </div>
+        </div>
+        <div className="flex justify-between items-center gap-x-32 mt-6">
+          <label>Buttons</label>
+          <div className="flex justify-end">
+            <Slider.Root
+              className="relative flex items-center select-none touch-none w-[161px] h-5"
+              value={[Number(buttonRadius)]}
+              min={1}
+              max={24}
+              step={1}
+              aria-label="Button Radius"
+              onValueChange={(newValue) => setButtonRadius(String(newValue))}
+            >
+              <Slider.Track className="bg-[#C9D2D2] relative grow rounded-full h-[3px]">
+                <Slider.Range className="absolute bg-[#C9D2D2] rounded-full h-full" />
+              </Slider.Track>
+
+              <Slider.Thumb className="block w-5 h-5 bg-[#1E1F22] rounded-[10px]">
+                <div className="pt-6 pr-4">
+                  {buttonRadius == "" ? "1px" : `${buttonRadius}px`}
+                </div>
+              </Slider.Thumb>
+            </Slider.Root>
+          </div>
+        </div>
+        <br></br>
+      </div>
+      <br></br>
     </div>
   )
 }

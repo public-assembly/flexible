@@ -29,6 +29,10 @@
     --body: "Courier New", Courier, monospace;
     --caption: "Courier New", Courier, monospace;
 
+    /* Corner Radius */
+    --border-radius-object: 8px;
+    --border-radius-button: 32px;
+
     /* --header-height: 120px; */
 
     --drop-shadow-spread: 0px;
@@ -54,9 +58,6 @@
     --sidebar-width: 300px;
     --grid-base: 4px;
 
-    /* corner radius */
-    --border-radius-button: 32px;
-    --border-radius-object: 8px;
     /* typography */
     /* --headline-font-size:; */
     --headline-letter-spacing: -0.5px;
@@ -135,7 +136,7 @@ a {
   appearance: none;
   --webkit-appearance: none;
   --moz-appearance: none;
-  width: 40px;
+  width: 161px;
   height: 42px;
   background-color: transparent;
   cursor: pointer;
@@ -251,6 +252,10 @@ div[data-radix-popper-content-wrapper] {
 
 .caption {
   font-family: var(--caption);
+}
+
+.button-radius {
+  border-radius: var(--border-radius-button);
 }
 
 /* On screens that are 768px or less, create sheet for dropdown */

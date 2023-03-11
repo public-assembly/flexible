@@ -4,6 +4,7 @@ import { DrawerOverlay } from "./DrawerOverlay"
 import { DrawerCompositionProps } from "./drawerTypes"
 import { motion, AnimatePresence } from "framer-motion"
 import { Headline } from "../base/Typography"
+import { Save } from "../Save"
 
 export function DrawerComposition({
   drawerName,
@@ -51,6 +52,9 @@ export function DrawerComposition({
                   </button>
                 </div>
                 <div className="w-100 h-100">{content}</div>
+                <div className="sticky bottom-0">
+                  <Save />
+                </div>
               </motion.div>
               <DrawerOverlay drawerName={drawerName} />
             </>

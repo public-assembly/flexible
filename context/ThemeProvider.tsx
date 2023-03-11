@@ -158,9 +158,9 @@ export const ThemeProvider = memo(function ThemeProvider({
   // prettier-ignore
   document.documentElement.style.setProperty("--shadow-spread", shadowSpread);
   // prettier-ignore
-  document.documentElement.style.setProperty("--border-radius-object", objectRadius);
+  document.documentElement.style.setProperty("--border-radius-object", objectRadius + 'px');
   // prettier-ignore
-  document.documentElement.style.setProperty("--border-radius-button", buttonRadius);
+  document.documentElement.style.setProperty("--border-radius-button", buttonRadius + 'px');
 
   const newMetadata = JSON.stringify(
     {

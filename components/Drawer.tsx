@@ -1,6 +1,6 @@
 import { DrawerComposition } from "./drawer/DrawerComposition"
 import { Palette } from "./Palette"
-import { SaveChanges } from "./SaveChanges"
+import { Save } from "./Save"
 import { Exit } from "./assets/icons"
 
 export function Drawer() {
@@ -10,7 +10,6 @@ export function Drawer() {
       content={
         <div className="flex flex-col justify-between pl-6 pr-4 pt-4">
           <Palette />
-          <SaveChanges />
         </div>
       }
       drawerName={"palette"}
