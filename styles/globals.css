@@ -6,24 +6,30 @@
 @layer base {
   :root {
     /* Colors - Hex */
-    --background: #e7f3ec;
+    /* --background: #e7f3ec;
     --primary: #121212;
     --secondary: #f2fdf7;
     --tertiary: #809aa3;
-    --highlight: #c5fc6b;
+    --highlight: #c5fc6b; */
+
+    --color-background: #e7f3ec;
+    --color-primary: #121212;
+    --color-secondary: #f2fdf7;
+    --color-tertiary: #809aa3;
+    --color-highlight: #c5fc6b;
 
     /* Colors - RGB */
-    --color-background: 231 243 236;
+    /* --color-background: 231 243 236;
     --color-primary: 18 18 18;
     --color-secondary: 242 253 247;
     --color-tertiary: 167 199 209;
-    --color-highlight: 197 252 107;
+    --color-highlight: 197 252 107; */
 
     /* Fonts */
-    --headline: "Satoshi";
+    --headline: var(--font-satoshi);
     --headline-size: 24px;
-    --body: "Courier New", Courier, monospace;
-    --caption: "Courier New", Courier, monospace;
+    --body: var(--font-space-mono);
+    --caption: var(--font-space-mono);
 
     /* Dropshadow */
     --drop-shadow-spread: 0px;
@@ -76,7 +82,7 @@
 
 .headline {
   font-family: var(--headline);
-  font-size: var(--headline-size);
+  font-size: var(--headline-size, 24px);
 }
 
 .body {

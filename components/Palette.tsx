@@ -52,6 +52,8 @@ export function Palette() {
     setCaption(selectedFont.value)
   }
 
+  console.log("background color", backgroundColor)
+
   return (
     <div className="space-y-6 font-['Satoshi']">
       {/* Background */}

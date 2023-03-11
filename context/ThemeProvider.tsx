@@ -72,22 +72,53 @@ export const ThemeProvider = memo(function ThemeProvider({
    * Set state variables for the parameters derived from the theme content object
    */
   const [image, setImage] = useState<string>("")
-  const [backgroundColor, setBackgroundColor] = useState<string>("")
-  const [primary, setPrimary] = useState<string>("")
-  const [secondary, setSecondary] = useState<string>("")
-  const [tertiary, setTertiary] = useState<string>("")
-  const [highlight, setHighlight] = useState<string>("")
-  const [headline, setHeadline] = useState<string>("")
-  /**
-   * Set default minimum
-   */
-  const [headlineSize, setHeadlineSize] = useState<string>("")
+  const [backgroundColor, setBackgroundColor] = useState<string>(
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--color-background"
+    )
+  )
+  const [primary, setPrimary] = useState<string>(
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--color-primary"
+    )
+  )
+  const [secondary, setSecondary] = useState<string>(
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--color-secondary"
+    )
+  )
+  const [tertiary, setTertiary] = useState<string>(
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--color-tertiary"
+    )
+  )
+  const [highlight, setHighlight] = useState<string>(
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--color-highlight"
+    )
+  )
+  const [headline, setHeadline] = useState<string>(
+    getComputedStyle(document.documentElement).getPropertyValue("--headline")
+  )
+  const [headlineSize, setHeadlineSize] = useState<string>(
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--headline-size")
+      .slice(0, -2)
+  )
   const [body, setBody] = useState<string>("")
   const [caption, setCaption] = useState<string>("")
   const [shadowColor, setShadowColor] = useState<string>("")
   const [shadowSpread, setShadowSpread] = useState<string>("")
-  const [objectRadius, setObjectRadius] = useState<string>("")
-  const [buttonRadius, setButtonRadius] = useState<string>("")
+  const [objectRadius, setObjectRadius] = useState<string>(
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--border-radius-object")
+      .slice(0, -2)
+  )
+  const [buttonRadius, setButtonRadius] = useState<string>(
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--border-radius-button")
+      .slice(0, -2)
+  )
   /**
    * Read the desired ipfs string from the registry contract
    */
@@ -132,8 +163,6 @@ export const ThemeProvider = memo(function ThemeProvider({
   /**
    * Set the variables in the local stylesheet to their corresponding values
    */
-
-  console.log(headlineSize)
 
   // prettier-ignore
   document.documentElement.style.setProperty("--color-background", backgroundColor);
