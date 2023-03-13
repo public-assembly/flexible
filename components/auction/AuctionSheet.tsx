@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react"
-
+import { useState } from "react"
 import { useAuction } from "@/hooks/useAuction"
 import { useIsMobile } from "@/hooks/useIsMobile"
 import { useDaoToken } from "@public-assembly/dao-utils"
 import { AnimatePresence, motion } from "framer-motion"
-
-// import Sheet from "@/components/base/SheetTest"
 import { ENV } from "@/utils/env"
-import { ArrowLeft, ArrowUp } from "@/components/assets/icons"
+import { ArrowLeft, ArrowUp, ArrowUpRight } from "@/components/assets/icons"
 import Button from "@/components/base/Button"
 import { Flex } from "@/components/base/Flex"
 import {
@@ -20,17 +17,19 @@ import {
 import { Stack } from "@/components/base/Stack"
 import { BodySmall, Caption, Headline } from "@/components/base/Typography"
 
+import { TokenTitle } from "@public-assembly/dao-utils"
+
 const MotionButton = motion(Button)
 
 // TODO: use mobile button on ssr if windowWidth < 768
 export function AuctionSheet({ tokenId }: { tokenId: string }) {
   const { isMobile } = useIsMobile()
   const [open, setOpen] = useState<boolean | undefined>()
-  const { tokenName } = useAuction()
   const { tokenData } = useDaoToken({
     tokenAddress: ENV.TOKEN_ADDRESS,
     tokenId: tokenId,
   })
+  const externalLinkBaseURI = "https://nouns.build/dao"
 
   const tokenTitle = tokenData?.metadata?.name
   return (
@@ -77,7 +76,18 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
           <SheetContent position={isMobile ? "bottom" : "right"} size="auction">
             <SheetHeader>
               <SheetTitle>
-                <Headline>{tokenTitle}</Headline>
+                <Headline>
+                  {" "}
+                  <a
+                    href={`${externalLinkBaseURI}/${tokenData?.tokenAddress}/${tokenId}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[24px] hover:underline flex flex-row items-center gap-2"
+                  >
+                    <span>{tokenData?.metadata?.name}</span>
+                    <ArrowUpRight size={24} className="text-tertiary" />
+                  </a>
+                </Headline>
               </SheetTitle>
               <Flex className="gap-10">
                 {/* Auction time */}
