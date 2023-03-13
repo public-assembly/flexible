@@ -50,7 +50,7 @@ function NavLink({ slug, title }: NavLinkProps) {
       <Headline
         className={cn(
           isCurrentPath ? styles.linkUnderlineIsActive : "",
-          "group-hover:text-tertiary",
+          "group-hover:text-tertiary headline",
           styles.linkUnderline
         )}
       >

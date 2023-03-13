@@ -34,26 +34,6 @@ export function Palette() {
     setButtonRadius,
   } = useThemeContext()
 
-  function handleHeadlineChange(e: any) {
-    const selectedFont = document.getElementById("headline")
-    // @ts-ignore
-    setHeadline(selectedFont.value)
-  }
-
-  function handleBodyChange(e: any) {
-    const selectedFont = document.getElementById("body")
-    // @ts-ignore
-    setBody(selectedFont.value)
-  }
-
-  function handleCaptionChange(e: any) {
-    const selectedFont = document.getElementById("caption")
-    // @ts-ignore
-    setCaption(selectedFont.value)
-  }
-
-  console.log("background color", backgroundColor)
-
   return (
     <div className="space-y-6 font-['Satoshi']">
       {/* Background */}
@@ -137,7 +117,7 @@ export function Palette() {
               className="font-picker"
               id="headline"
               value={headline}
-              onChange={(e) => handleHeadlineChange(e)}
+              onChange={(e) => setHeadline(e.target.value)}
             >
               <option disabled>Select font</option>
               <option value="antonio">Antonio</option>
@@ -224,7 +204,7 @@ export function Palette() {
               className="font-picker"
               id="body"
               value={body}
-              onChange={(e) => handleBodyChange(e)}
+              onChange={(e) => setBody(e.target.value)}
             >
               <option disabled>Select font</option>
               <option value="antonio">Antonio</option>
@@ -288,7 +268,7 @@ export function Palette() {
               className="font-picker"
               id="caption"
               value={caption}
-              onChange={(e) => handleCaptionChange(e)}
+              onChange={(e) => setCaption(e.target.value)}
             >
               <option disabled>Select font</option>
               <option value="antonio">Antonio</option>

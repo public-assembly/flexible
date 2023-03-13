@@ -35,7 +35,7 @@ export function VotesSection({
           Voting snapshot <ArrowUpRight className="text-primary/50" />
         </a>
         <Label variant="rowInverse">
-          <Body>Voting threshold</Body>
+          <Body className="body">Voting threshold</Body>
           <Caption>{proposalThreshold}</Caption>
         </Label>
       </Flex>

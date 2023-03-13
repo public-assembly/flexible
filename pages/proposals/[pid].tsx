@@ -87,7 +87,7 @@ function ProposalDetailPage() {
 
       {/* Proposer */}
       <section id="Proposer">
-        <BodyLarge className="py-10">Proposer</BodyLarge>
+        <BodyLarge className="py-10 body">Proposer</BodyLarge>
         <Flex className="items-center">
           <Proposer proposer={proposal.proposer} className="text-primary" />
         </Flex>
@@ -95,7 +95,7 @@ function ProposalDetailPage() {
 
       {/* Proposal transactions */}
       <section id="Proposal Transactions">
-        <BodyLarge className="py-10">Proposed Transactions</BodyLarge>
+        <BodyLarge className="py-10 body">Proposed Transactions</BodyLarge>
         <DecodedTransactions
           calldatas={proposal.calldatas}
           targets={proposal.targets}

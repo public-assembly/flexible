@@ -5,6 +5,12 @@ module.exports = {
   darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     extend: {
+      // Allows the use of the font-sans, font-body, font-caption utility class to apply the font to any element
+      fontFamily: {
+        sans: ['var(--headline)', ...fontFamily.sans],
+        body: ['var(--body)'],
+        caption: ['var(--caption)'],
+      },
       colors: {
         current: "currentColor",
         transparent: "transparent",

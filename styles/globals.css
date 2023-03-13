@@ -21,7 +21,7 @@
     /* Fonts */
     --headline: var(--font-satoshi);
     --headline-size: 24px;
-    --body: var(--font-space-mono);
+    --body: var(--font-satoshi);
     --caption: var(--font-space-mono);
 
     /* Dropshadow */

@@ -105,8 +105,15 @@ export const ThemeProvider = memo(function ThemeProvider({
       .getPropertyValue("--headline-size")
       .slice(0, -2)
   )
-  const [body, setBody] = useState<string>("")
-  const [caption, setCaption] = useState<string>("")
+  const [body, setBody] = useState<string>(
+    getComputedStyle(document.documentElement).getPropertyValue("--body")
+  )
+  const [caption, setCaption] = useState<string>(
+    getComputedStyle(document.documentElement).getPropertyValue("--caption")
+  )
+
+  console.log(caption)
+
   const [shadowColor, setShadowColor] = useState<string>("")
   const [shadowSpread, setShadowSpread] = useState<string>("")
   const [objectRadius, setObjectRadius] = useState<string>(

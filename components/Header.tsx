@@ -52,7 +52,7 @@ export function Header() {
     >
       {/* Header Logo */}
       <Link href="/">
-        <Headline>{ENV.SITE_TITLE}</Headline>
+        <Headline className="headline">{ENV.SITE_TITLE}</Headline>
       </Link>
 
       <Flex className="gap-6">
@@ -98,7 +98,9 @@ function MobileDropdown(props: MobileDropdownProps) {
                 onClick={() => console.log("open theme")}
               >
                 {/* <EditTheme /> */}
-                <Button onClick={() => requestOpen('palette')}>Edit theme</Button>
+                <Button onClick={() => requestOpen("palette")}>
+                  Edit theme
+                </Button>
               </DropdownMenu.Item>
             </>
           ) : (
