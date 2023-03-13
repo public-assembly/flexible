@@ -13,7 +13,7 @@ import { Navigation } from "./Navigation"
 import { Copy, Exit } from "./assets/icons"
 import DropdownMenu from "./base/DropdownMenu"
 import { Stack } from "./base/Stack"
-import { Headline } from "./base/Typography"
+import { Body, Headline } from "./base/Typography"
 import { Zorb } from "./base/Zorb"
 import { useDrawer } from "./drawer/useDrawer"
 
@@ -97,7 +97,6 @@ function MobileDropdown(props: MobileDropdownProps) {
                 type="button"
                 onClick={() => console.log("open theme")}
               >
-                {/* <EditTheme /> */}
                 <Button onClick={() => requestOpen("palette")}>
                   Edit theme
                 </Button>
@@ -115,14 +114,14 @@ function MobileDropdown(props: MobileDropdownProps) {
           >
             <Flex className="items-center w-full gap-4 py-4 hover:bg-tertiary/10 rounded-object">
               <Copy />
-              Copy our template
+              <Body>Copy our template</Body>
             </Flex>
           </DropdownMenu.Item>
           {isConnected && (
             <DropdownMenu.Item type="button" onClick={logout}>
               <Flex className="items-center gap-4 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none">
                 <Exit />
-                Disconnect
+                <Body>Disconnect</Body>
               </Flex>
             </DropdownMenu.Item>
           )}

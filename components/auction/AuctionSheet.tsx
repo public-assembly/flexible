@@ -83,16 +83,18 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                 {/* Auction time */}
                 <Stack>
                   <Caption>January 23, 2023</Caption>
-                  <BodySmall className="text-primary/50 body">
+                  <BodySmall className="text-primary/50">
                     Auction ended
                   </BodySmall>
                 </Stack>
                 {/* Bid */}
                 <Stack>
                   <Caption className="font-bold uppercase text-primary">
-                    {/* Todo: Bids */}Ξ <span className="">0.145</span>
+                    {/* Todo: Bids */}Ξ 0.145
                   </Caption>
-                  <BodySmall className="text-primary/50 body">Winning bid</BodySmall>
+                  <BodySmall className="text-primary/50">
+                    Winning bid
+                  </BodySmall>
                 </Stack>
               </Flex>
             </SheetHeader>

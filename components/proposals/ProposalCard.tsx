@@ -75,7 +75,7 @@ export default function ProposalCard({ proposal }) {
 
 function ProposalTitle({ title }) {
   return (
-    <BodyLarge className="body">
+    <BodyLarge>
       <Balancer>{title}</Balancer>
     </BodyLarge>
   )
@@ -105,11 +105,11 @@ export function ProposalTimestamp({
   return (
     <>
       {size === "sm" ? (
-        <BodySmall className="text-primary/50 body">
+        <BodySmall className="text-primary/50">
           Voting starts {voteStartFormatted}
         </BodySmall>
       ) : (
-        <BodyExtraSmall className="text-primary/50 body">
+        <BodyExtraSmall className="text-primary/50">
           {/* Voting starts {voteStartFormatted} */}
           Starts in 3 hours 24 min
         </BodyExtraSmall>

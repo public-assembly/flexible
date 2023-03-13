@@ -46,7 +46,7 @@ export function BodyLarge({ children, className }: TypographyProps) {
   return (
     <p
       className={cn(
-        "text-[18px] leading-7 font-medium text-primary",
+        "text-[18px] leading-7 font-medium text-primary body",
         className
       )}
     >
@@ -57,7 +57,7 @@ export function BodyLarge({ children, className }: TypographyProps) {
 
 export function Body({ children, className }: TypographyProps) {
   return (
-    <p className={cn("text-base font-normal text-primary", className)}>
+    <p className={cn("text-base font-normal text-primary body", className)}>
       {children}
     </p>
   )
@@ -65,7 +65,7 @@ export function Body({ children, className }: TypographyProps) {
 
 export function BodySmall({ children, className }: TypographyProps) {
   return (
-    <p className={cn("text-sm font-normal text-primary", className)}>
+    <p className={cn("text-sm font-normal text-primary body", className)}>
       {children}
     </p>
   )
@@ -75,7 +75,7 @@ export function BodyExtraSmall({ children, className }: TypographyProps) {
   return (
     <span
       className={cn(
-        "text-xs leading-4 font-medium text-secondary",
+        "text-xs leading-4 font-medium text-secondary body",
         className
       )}
     >

@@ -71,7 +71,7 @@ const Auction = () => {
 
           {isMobile ? null : (
             <Flex className="justify-between">
-              <div className="z-10 px-4 py-2 bg-primary text-secondary rounded-object">
+              <div className="z-10 px-4 py-2 bg-primary text-secondary rounded-object body">
                 <span>{tokenName}</span>
               </div>
               <TokenWinningBid

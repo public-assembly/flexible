@@ -232,15 +232,37 @@ export const ThemeProvider = memo(function ThemeProvider({
   )
 
   // prettier-ignore
-  const fontUrl = 'https://dweb.link/ipfs/bafybeih3dpotmeewpv543kzbwhxykm6pqtcw46i6lymcjhvblg6sv455se/' + headline + '.ttf';
-  const rule = `@font-face {
+  const headlineFontUrl = 'https://dweb.link/ipfs/bafybeih3dpotmeewpv543kzbwhxykm6pqtcw46i6lymcjhvblg6sv455se/' + headline + '.ttf';
+  const headlineRule = `@font-face {
     font-family: '${headline}';
-    src: url('${fontUrl}') format('woff2');
+    src: url('${headlineFontUrl}') format('woff2');
     }`
 
-  const style = document.createElement("style")
-  style.appendChild(document.createTextNode(rule))
-  document.head.appendChild(style)
+  const headlineStyle = document.createElement("style")
+  headlineStyle.appendChild(document.createTextNode(headlineRule))
+  document.head.appendChild(headlineStyle)
+
+  // prettier-ignore
+  const bodyFontUrl = 'https://dweb.link/ipfs/bafybeih3dpotmeewpv543kzbwhxykm6pqtcw46i6lymcjhvblg6sv455se/' + body + '.ttf';
+  const bodyRule = `@font-face {
+    font-family: '${body}';
+    src: url('${bodyFontUrl}') format('woff2');
+    }`
+
+  const bodyStyle = document.createElement("style")
+  bodyStyle.appendChild(document.createTextNode(bodyRule))
+  document.head.appendChild(bodyStyle)
+
+  // prettier-ignore
+  const captionFontUrl = 'https://dweb.link/ipfs/bafybeih3dpotmeewpv543kzbwhxykm6pqtcw46i6lymcjhvblg6sv455se/' + caption + '.ttf';
+  const captionRule = `@font-face {
+    font-family: '${caption}';
+    src: url('${captionFontUrl}') format('woff2');
+    }`
+
+  const captionStyle = document.createElement("style")
+  captionStyle.appendChild(document.createTextNode(captionRule))
+  document.head.appendChild(captionStyle)
 
   return (
     <ThemeContext.Provider
