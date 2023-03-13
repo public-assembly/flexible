@@ -16,7 +16,7 @@ module.exports = {
         transparent: "transparent",
         black: "#000",
         white: "#fff",
-        background: "rgb(var(--color-background) / <alpha-value>",
+        background: "hsl(var(--color-background) / 1",
         primary: "rgb(var(--color-primary) / <alpha-value>)",
         secondary: "rgb(var(--color-secondary) / <alpha-value>)",
         tertiary: "rgb(var(--color-tertiary) / <alpha-value>)",
