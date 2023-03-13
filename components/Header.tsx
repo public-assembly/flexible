@@ -15,7 +15,7 @@ import DropdownMenu from "./base/DropdownMenu"
 import { Stack } from "./base/Stack"
 import { Headline } from "./base/Typography"
 import { Zorb } from "./base/Zorb"
-import EditTheme from "./EditTheme"
+import { useDrawer } from "./drawer/useDrawer"
 
 const fadeIn: Variants = {
   initial: { opacity: 0 },
@@ -69,8 +69,8 @@ type MobileDropdownProps = {
 }
 
 function MobileDropdown(props: MobileDropdownProps) {
-  const { logout, isConnected } = useAuth()
-  const { address, ensName } = useAuth()
+  const { logout, isConnected, address, ensName } = useAuth()
+  const { requestOpen } = useDrawer()
 
   return (
     <DropdownMenu.Root>
@@ -97,7 +97,8 @@ function MobileDropdown(props: MobileDropdownProps) {
                 type="button"
                 onClick={() => console.log("open theme")}
               >
-                <EditTheme />
+                {/* <EditTheme /> */}
+                <Button onClick={() => requestOpen('palette')}>Edit theme</Button>
               </DropdownMenu.Item>
             </>
           ) : (
