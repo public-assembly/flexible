@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 import { Space_Mono } from "next/font/google"
 import localFont from "next/font/local"
 import NextHead from "next/head"
-import { GovernorProvider } from "@public-assembly/dao-utils"
+import { GovernorProvider, AuctionProvider } from "@public-assembly/dao-utils"
 import { Provider } from "react-wrap-balancer"
 import { SWRConfig } from "swr"
 import { ENV } from "utils/env"
@@ -63,8 +63,16 @@ type ManagerProviderProps = {
   children: React.ReactNode
 }
 
+type AuctionProviderProps = {
+  children: React.ReactNode
+}
+
 interface DynamicManagerProviderProps extends ManagerProviderProps {
   // Define any additional props that you want to pass to the ManagerProvider
+}
+
+interface DynamicAuctionProviderProps extends AuctionProviderProps {
+  // Define any additional props that you want to pass to the AuctionProvider
 }
 
 const DynamicManagerProvider = dynamic(
@@ -76,6 +84,16 @@ const DynamicManagerProvider = dynamic(
     ssr: false,
   }
 ) as React.FC<DynamicManagerProviderProps>
+
+const DynamicAuctionProvider = dynamic(
+  () =>
+    import("@public-assembly/dao-utils").then(
+      (module) => module.AuctionProvider
+    ),
+  {
+    ssr: false,
+  }
+) as React.FC<DynamicAuctionProviderProps>
 
 export default function ExampleApp({ Component, pageProps }: AppProps) {
   return (
@@ -103,10 +121,12 @@ export default function ExampleApp({ Component, pageProps }: AppProps) {
               tokenAddress={ENV.TOKEN_ADDRESS as `0x${string}`}
             >
               <GovernorProvider>
-                <TopProgressBar />
+                <DynamicAuctionProvider>
+                  <TopProgressBar />
 
-                <Header />
-                <Component {...pageProps} />
+                  <Header />
+                  <Component {...pageProps} />
+                </DynamicAuctionProvider>
               </GovernorProvider>
             </DynamicManagerProvider>
           </Provider>
