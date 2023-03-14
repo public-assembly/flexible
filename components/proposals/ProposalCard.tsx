@@ -75,7 +75,7 @@ export default function ProposalCard({ proposal }) {
 
 function ProposalTitle({ title }) {
   return (
-    <BodyLarge className="">
+    <BodyLarge>
       <Balancer>{title}</Balancer>
     </BodyLarge>
   )

@@ -14,6 +14,12 @@ const PROCESS = {
   NETWORK_URL: process.env.NEXT_PUBLIC_NETWORK_URL,
   INFURA_KEY: process.env.NEXT_PUBLIC_INFURA_KEY,
   TOKEN_ADDRESS: process.env.NEXT_PUBLIC_TOKEN_ADDRESS,
+  /**
+   * Environment variables necessary for onchain theming
+   */
+  PLATFORM_INDEX: Number(process.env.NEXT_PUBLIC_PLATFORM_INDEX),
+  WEB3STORAGE_TOKEN: process.env.NEXT_PUBLIC_WEB3STORAGE_TOKEN,
+  REGISTRY_CONTRACT: process.env.NEXT_PUBLIC_REGISTRY_CONTRACT
 }
 
 // Checks that run in all environments
@@ -48,6 +54,9 @@ export const ENV = {
   WEBSITE_URL: PROCESS.WEBSITE_URL,
   /** Cast to a string because we throw an error if this is not set */
   TOKEN_ADDRESS: PROCESS.TOKEN_ADDRESS as `0x${string}`,
+  PLATFORM_INDEX: PROCESS.PLATFORM_INDEX,
+  WEB3STORAGE_TOKEN: PROCESS.WEB3STORAGE_TOKEN,
+  REGISTRY_CONTRACT: PROCESS.REGISTRY_CONTRACT
 } as const
 
 

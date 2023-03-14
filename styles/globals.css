@@ -1,84 +1,97 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import './markdown.css';
+@import "./markdown.css";
 
 @layer base {
   :root {
-    --header-height: 56px;
+    /* Colors */
+    --color-background: #e7f3ec;
+    --color-primary: #121212;
+    --color-secondary: #f2fdf7;
+    --color-tertiary: #809aa3;
+    --color-highlight: #c5fc6b;
 
-    /* TODO: This has it's own var in the theme editor. */
-    --background: #E7F3EC;
-    --background-color: var(--secondary);
-    --base: 0 0% 10%;
+    /* --color-background: 231 243 236; */
+    /* --color-primary: 18 18 18; */
+    /* --color-secondary: 242 253 247; */
+    /* --color-tertiary: 167 199 209; */
+    /* --color-highlight: 197 252 107; */
 
-    --primary: #121212;
-  
-    --secondary: #F2FDF7;
-    --tertiary: #809AA3;
-    --highlight: #c5fc6b;
-    /* todo: convert hex codes from template to modern rgb to be compatible with tailwind config */
-    --color-primary: 18 18 18;
-    --color-secondary: 242 253 247;
-    --color-highlight: 197 252 107;
-    --color-tertiary: 167 199 209;
-    --headline: 24px;
-    --header-height: 120px;
+    /* Fonts */
+    --headline: var(--font-satoshi);
+    --headline-size: 24px;
+    --body: var(--font-satoshi);
+    --caption: var(--font-space-mono);
 
+    /* Dropshadow */
     --drop-shadow-spread: 0px;
     --drop-shadow-color: rgba(0, 0, 0, 0.25);
 
-    --font-heading-font-family: var(--font-satoshi),'Courier New', Courier, monospace;
-    --font-heading-font-weight: 400;
-    --font-heading-font-style: normal;
-    --font-heading-line-height: 1.25;
-    --font-heading-font-size: 24px;
-
-    --font-body-font-family: 'Satoshi', var(--font-satoshi), var(--font-space-mono) 'Courier New', Courier, monospace;
-    --font-body-font-weight: 400;
-    --font-body-font-style: normal;
-
-    --font-caption-font-family: var(--font-space-mono), 'Courier New', Courier, monospace;
-    --font-caption-font-weight: 400;
-    --font-caption-font-style: normal;
-    
-    --sidebar-width: 300px;
-    --grid-base: 4px;
-
-
-  /* corner radius */
-    --border-radius-button: 32px;
+    /* Corner Radius */
     --border-radius-object: 8px;
-    /* typography */
-    --headline-font-size:;
-    --headline-letter-spacing: -0.5px;
-    --headline-line-height: 40;
+    --border-radius-button: 32px;
 
-    --body-large-font-size: 18px;
-    --body-large-letter-spacing: 0px;
-    --body-large-line-height: 28;
-    --body-large-weight: 500;
-
-    --body-font-size: 16px;
-    --body-weight: 400;
-
-    --caption-font-size: 16px;
-    --caption-weight: 500;
-    --caption-line-height: 24;
-
-    --body-extra-small-font-size: 12px;
-    --body-extra-small-font-weight: 500;
-    --body-extra-small-line-height: 16;
-
-    --link-gradient: linear-gradient(var(--highlight), var(--highlight));
-
-    --footer-height: 60px;
-    --pa-pink: #ff89de;
-    --border-radius: 5px;
-    /* TYPOGRAPHY */
-    --code-font: 'SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace';
+    --link-gradient: linear-gradient(
+      var(--color-highlight),
+      var(--color-highlight)
+    );
   }
+}
+
+/* Apply theming variables to classes */
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--color-tertiary)
+}
+
+.bg-highlight {
+  background-color: var(--color-highlight);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-tertiary);
+}
+
+.text-highlight {
+  color: var(--color-highlight);
+}
+
+.headline {
+  font-family: var(--headline);
+  font-size: var(--headline-size, 24px);
+}
+
+.body {
+  font-family: var(--body);
+}
+
+.caption {
+  font-family: var(--caption);
+}
+
+.rounded-button {
+  border-radius: var(--border-radius-button);
+}
+
+.rounded-object {
+  border-radius: var(--border-radius-object);
 }
 
 * {
@@ -86,7 +99,7 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
-  /* Makes fonts on FF render similarly to Chrome */
+  /* Makes fonts on Firefox render similarly to Chrome */
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -96,13 +109,11 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  font-family: var(--font-body-font-family);
-  color: var(--primary);
-  background-color: var(--background);
-
+  background-color: var(--color-background);
   min-height: 100vh;
+  scroll-behavior: smooth;
+  position: relative;
 }
-
 
 body,
 #__next {
@@ -113,25 +124,67 @@ body,
   width: 100%;
 }
 
-
-body {
-  margin: 0;
-  padding: 0;
-  scroll-behavior: smooth;
-  position: relative;
-}
-
 a {
   text-decoration: none;
 }
 
+.color-picker {
+  appearance: none;
+  --webkit-appearance: none;
+  --moz-appearance: none;
+  width: 161px;
+  height: 42px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.color-picker::-webkit-color-swatch {
+  border: solid 1px #f6f6f6;
+  border-radius: 8px;
+}
+
+.font-picker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 1px solid #ccc;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+}
+
+.font-picker:after {
+  content: "\2304";
+  font-size: 30px;
+  line-height: 23px;
+  padding-right: 2px;
+}
+
+.image-picker {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border: solid 1.5px #c9d2d2;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+input[type="range"] {
+  display: none;
+}
 
 div[data-radix-popper-content-wrapper] .content-outer .content-inner {
-    width: 100%;
-    max-width: 100%;
+  width: 100%;
+  max-width: 100%;
 
-    padding-top: 24px;
-    padding-bottom: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 div[data-radix-popper-content-wrapper] {
@@ -155,9 +208,9 @@ div[data-radix-popper-content-wrapper] {
   }
 }
 
-
 /* Scrollbar */
-/* width */
+
+/* Width */
 ::-webkit-scrollbar {
   width: 8px;
 }

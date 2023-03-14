@@ -90,9 +90,11 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                 {/* Bid */}
                 <Stack>
                   <Caption className="font-bold uppercase text-primary">
-                    {/* Todo: Bids */}Ξ <span className="">0.145</span>
+                    {/* Todo: Bids */}Ξ 0.145
                   </Caption>
-                  <BodySmall className="text-primary/50">Winning bid</BodySmall>
+                  <BodySmall className="text-primary/50">
+                    Winning bid
+                  </BodySmall>
                 </Stack>
               </Flex>
             </SheetHeader>

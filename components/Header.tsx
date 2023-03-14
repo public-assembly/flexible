@@ -13,8 +13,9 @@ import { Navigation } from "./Navigation"
 import { Copy, Exit } from "./assets/icons"
 import DropdownMenu from "./base/DropdownMenu"
 import { Stack } from "./base/Stack"
-import { Headline } from "./base/Typography"
+import { Body, Headline } from "./base/Typography"
 import { Zorb } from "./base/Zorb"
+import { useDrawer } from "./drawer/useDrawer"
 
 const fadeIn: Variants = {
   initial: { opacity: 0 },
@@ -51,7 +52,7 @@ export function Header() {
     >
       {/* Header Logo */}
       <Link href="/">
-        <Headline>{ENV.SITE_TITLE}</Headline>
+        <Headline className="headline">{ENV.SITE_TITLE}</Headline>
       </Link>
 
       <Flex className="gap-6">
@@ -68,8 +69,8 @@ type MobileDropdownProps = {
 }
 
 function MobileDropdown(props: MobileDropdownProps) {
-  const { logout, isConnected } = useAuth()
-  const { address, ensName } = useAuth()
+  const { logout, isConnected, address, ensName } = useAuth()
+  const { requestOpen } = useDrawer()
 
   return (
     <DropdownMenu.Root>
@@ -96,7 +97,9 @@ function MobileDropdown(props: MobileDropdownProps) {
                 type="button"
                 onClick={() => console.log("open theme")}
               >
-                <Button>Edit theme</Button>
+                <Button onClick={() => requestOpen("palette")}>
+                  Edit theme
+                </Button>
               </DropdownMenu.Item>
             </>
           ) : (
@@ -111,14 +114,14 @@ function MobileDropdown(props: MobileDropdownProps) {
           >
             <Flex className="items-center w-full gap-4 py-4 hover:bg-tertiary/10 rounded-object">
               <Copy />
-              Copy our template
+              <Body>Copy our template</Body>
             </Flex>
           </DropdownMenu.Item>
           {isConnected && (
             <DropdownMenu.Item type="button" onClick={logout}>
               <Flex className="items-center gap-4 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none">
                 <Exit />
-                Disconnect
+                <Body>Disconnect</Body>
               </Flex>
             </DropdownMenu.Item>
           )}

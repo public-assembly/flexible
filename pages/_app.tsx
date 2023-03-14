@@ -12,6 +12,9 @@ import { ENV } from "utils/env"
 import { Header } from "@/components/Header"
 import { TopProgressBar } from "@/components/TopProgressBar"
 import Web3Provider from "@/components/Web3Provider"
+import { DrawerContextProvider } from "@/components/drawer/DrawerProvider"
+import { ThemeProvider } from "@/context/ThemeProvider"
+import { Drawer } from "@/components/Drawer"
 
 /** Import both default fonts from Figma. This resolves the FOUT (flash of unstyled text): https://nextjs.org/docs/basic-features/font-optimization*/
 export const spaceMono = Space_Mono({
@@ -103,10 +106,14 @@ export default function ExampleApp({ Component, pageProps }: AppProps) {
               tokenAddress={ENV.TOKEN_ADDRESS as `0x${string}`}
             >
               <GovernorProvider>
+                <ThemeProvider platformIndex={ENV.PLATFORM_INDEX}>
                 <TopProgressBar />
-
+                <DrawerContextProvider>
                 <Header />
+                <Drawer />
                 <Component {...pageProps} />
+                </DrawerContextProvider>
+                </ThemeProvider>
               </GovernorProvider>
             </DynamicManagerProvider>
           </Provider>

@@ -105,7 +105,7 @@ export const TokenWinningBid = ({
   // TODO: Add async loading animations for switching between auctions and loading data
   if (!!bidder && !!address)
     return (
-      <Flex className="z-10 items-center gap-4 ">
+      <Flex className="z-10 items-center gap-4">
         <div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit">
           <a
             href={winningTx}
@@ -128,7 +128,7 @@ export const TokenWinningBid = ({
             !winningTx && "pointer-events-none"
           }  h-6 inline-flex items-center group`}
         >
-          <div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit">
+          <div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit body">
             {bidder}
           </div>
         </a>
@@ -137,7 +137,7 @@ export const TokenWinningBid = ({
 
   return (
     <Flex className="z-10 items-center gap-4 px-4 py-2 bg-primary text-secondary rounded-object w-fit">
-      <span className="pr-">Winning bid </span>
+      <Caption className="text-secondary">Winning bid </Caption>
 
       <a
         href={winningTx}
