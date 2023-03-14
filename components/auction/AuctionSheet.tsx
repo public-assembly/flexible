@@ -19,6 +19,7 @@ import {
   AuthCheck,
   useActiveAuction,
   useAuctionContext,
+  useCountdown,
 } from "@public-assembly/dao-utils"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import Pending from "../assets/icons/Pending"
@@ -45,6 +46,7 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
   const externalLinkBaseURI = "https://nouns.build/dao"
   const tokenTitle = tokenData?.metadata?.name
   const { auctionState } = useAuctionContext()
+  const { countdownString, isEnded } = useCountdown(auctionState?.endTime)
 
   return (
     <AnimatePresence>
@@ -107,7 +109,7 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                 {/* Auction time */}
                 <Stack>
                   <Caption>
-                    <span>{`${auctionState?.endTime}`}</span>
+                    <span>{`${countdownString}`}</span>
                   </Caption>
                   <BodySmall className="text-primary/50">
                     Auction ends in
