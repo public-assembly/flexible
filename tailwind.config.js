@@ -7,9 +7,9 @@ module.exports = {
     extend: {
       // Allows the use of the font-sans, font-body, font-caption utility class to apply the font to any element
       fontFamily: {
-        sans: ['var(--headline)', ...fontFamily.sans],
-        body: ['var(--body)'],
-        caption: ['var(--caption)'],
+        sans: ["var(--headline)", "var(--font-satoshi)", ...fontFamily.sans],
+        body: ["var(--body)", "var(--font-space-mono)", ...fontFamily.sans],
+        caption: ["var(--caption)", ...fontFamily.mono],
       },
       colors: {
         current: "currentColor",
@@ -19,8 +19,8 @@ module.exports = {
         background: "hsl(var(--color-background) / 1",
         primary: "rgb(var(--color-primary) / <alpha-value>)",
         secondary: "rgb(var(--color-secondary) / <alpha-value>)",
-        tertiary: "rgb(var(--color-tertiary) / <alpha-value>)",
-        highlight: "rgb(var(--color-highlight) / <alpha-value>)",
+        tertiary: ["rgb(var(--color-tertiary) / <alpha-value>)", "#809aa3"],
+        highlight: ["rgb(var(--color-highlight) / <alpha-value>)", "#c5fc6b"],
       },
       borderRadius: {
         object: "var(--border-radius-object)",
