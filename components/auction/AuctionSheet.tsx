@@ -24,6 +24,7 @@ import {
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import Pending from "../assets/icons/Pending"
 import { ethers } from "ethers"
+import { BidHistory } from "./BidHistory"
 
 const MotionButton = motion(Button)
 
@@ -109,9 +110,9 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                 {/* Auction time */}
                 <Stack>
                   <Caption>
-                    <span>{`${countdownString}`}</span>
+                    <span className="uppercase">{`${countdownString}`}</span>
                   </Caption>
-                  <BodySmall className="text-primary/50">
+                  <BodySmall className="text-tertiary">
                     Auction ends in
                   </BodySmall>
                 </Stack>
@@ -123,7 +124,7 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                       auctionState?.highestBid
                     )}`}</span>
                   </Caption>
-                  <BodySmall className="text-primary/50">Highest bid</BodySmall>
+                  <BodySmall className="text-tertiary">Highest bid</BodySmall>
                 </Stack>
               </Flex>
               <AuthCheck
@@ -162,6 +163,8 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                   </div>
                 }
               />
+              {/* Bid History */}
+              <BidHistory auctionState={auctionState} />
             </SheetHeader>
           </SheetContent>
         )}

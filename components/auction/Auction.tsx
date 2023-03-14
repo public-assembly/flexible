@@ -5,16 +5,20 @@ import { motion } from "framer-motion"
 import { cn } from "utils/cn"
 // Utils
 import { ENV } from "utils/env"
+import { ethers } from "ethers"
 
 import { BlurImage } from "@/components/BlurImage"
 // Icons
 import { ArrowLeft, ArrowRight } from "@/components/assets/icons"
 import { AuctionSheet } from "@/components/auction/AuctionSheet"
-import { TokenWinningBid } from "@/components/auction/TokenWinningBid"
 // Components
 import Button from "@/components/base/Button"
+// Layout & Typography
 import { Flex } from "@/components/base/Flex"
 import { Stack } from "@/components/base/Stack"
+import { Caption, Body } from "../base/Typography"
+// Hooks
+import { useAuctionContext } from "@public-assembly/dao-utils"
 
 const Auction = () => {
   const { isMobile } = useIsMobile()
@@ -28,12 +32,13 @@ const Auction = () => {
     thumbnail,
     tokenName,
   } = useAuction()
+  const { auctionState } = useAuctionContext()
 
   if (!totalSupply) return null
   return (
     <Stack className="h-full gap-4 px-4 pt-20 overflow-x-hidden ">
       <Flex className="relative justify-center w-full">
-        <Stack className="relative justify-between max-h-[690px]  max-w-[690px] w-full h-full p-4 bg-cover border aspect-square rounded-object border-primary bg-default-auction">
+        <Stack className="relative justify-between max-h-[690px] max-w-[690px] w-full h-full p-4 bg-cover border aspect-square rounded-object border-primary bg-default-auction">
           <div className="absolute inset-0 z-0 w-full aspect-square rounded-object">
             {thumbnail && (
               <BlurImage
@@ -74,10 +79,12 @@ const Auction = () => {
               <div className="z-10 px-4 py-2 bg-primary text-secondary rounded-object body">
                 <span>{tokenName}</span>
               </div>
-              <TokenWinningBid
-                tokenAddress={ENV.TOKEN_ADDRESS}
-                tokenId={tokenId}
-              />
+              <div className="flex items-center z-10 px-4 py-2 bg-primary text-secondary rounded-object body">
+                <Body className="text-secondary pr-4">Current bid</Body>
+                <Caption className="uppercase text-secondary">
+                  Ξ {`${ethers.utils.formatEther(auctionState?.highestBid)}`}
+                </Caption>
+              </div>
             </Flex>
           )}
         </Stack>
@@ -93,10 +100,12 @@ const Auction = () => {
             <motion.div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit">
               {tokenName}
             </motion.div>
-            <TokenWinningBid
-              tokenAddress={ENV.TOKEN_ADDRESS}
-              tokenId={tokenId}
-            />
+            <div className="flex items-center z-10 px-4 py-2 bg-primary text-secondary rounded-object body max-w-[180px]">
+              <Body className="text-secondary pr-4">Current bid</Body>
+              <Caption className="uppercase text-secondary">
+                Ξ {`${ethers.utils.formatEther(auctionState?.highestBid)}`}
+              </Caption>
+            </div>
           </Stack>
         </Stack>
       ) : null}
