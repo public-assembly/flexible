@@ -1,13 +1,8 @@
-import { useEffect, useState } from "react"
-
-import { useAuction } from "@/hooks/useAuction"
+import { useState } from "react"
 import { useIsMobile } from "@/hooks/useIsMobile"
-import { useDaoToken } from "@public-assembly/dao-utils"
 import { AnimatePresence, motion } from "framer-motion"
-
-// import Sheet from "@/components/base/SheetTest"
 import { ENV } from "@/utils/env"
-import { ArrowLeft, ArrowUp } from "@/components/assets/icons"
+import { ArrowLeft, ArrowUp, ArrowUpRight, Pending } from "@/components/assets/icons"
 import Button from "@/components/base/Button"
 import { Flex } from "@/components/base/Flex"
 import {
@@ -19,6 +14,16 @@ import {
 } from "@/components/base/Sheet"
 import { Stack } from "@/components/base/Stack"
 import { BodySmall, Caption, Headline } from "@/components/base/Typography"
+import {
+  AuthCheck,
+  useActiveAuction,
+  useAuctionContext,
+  useCountdown,
+  useDaoToken
+} from "@public-assembly/dao-utils"
+import { ConnectButton } from "@rainbow-me/rainbowkit"
+import { ethers } from "ethers"
+import { BidHistory } from "./BidHistory"
 
 const MotionButton = motion(Button)
 
@@ -26,13 +31,23 @@ const MotionButton = motion(Button)
 export function AuctionSheet({ tokenId }: { tokenId: string }) {
   const { isMobile } = useIsMobile()
   const [open, setOpen] = useState<boolean | undefined>()
-  const { tokenName } = useAuction()
   const { tokenData } = useDaoToken({
     tokenAddress: ENV.TOKEN_ADDRESS,
     tokenId: tokenId,
   })
-
+  const {
+    auctionData,
+    createBid,
+    updateBidAmount,
+    createBidSuccess,
+    createBidLoading,
+    isValidBid,
+  } = useActiveAuction(ENV.TOKEN_ADDRESS)
+  const externalLinkBaseURI = "https://nouns.build/dao"
   const tokenTitle = tokenData?.metadata?.name
+  const { auctionState } = useAuctionContext()
+  const { countdownString, isEnded } = useCountdown(auctionState?.endTime)
+
   return (
     <AnimatePresence>
       <Sheet open={open} onOpenChange={setOpen}>
@@ -77,26 +92,82 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
           <SheetContent position={isMobile ? "bottom" : "right"} size="auction">
             <SheetHeader>
               <SheetTitle>
-                <Headline>{tokenTitle}</Headline>
+                <Headline>
+                  {" "}
+                  <a
+                    href={`${externalLinkBaseURI}/${tokenData?.tokenAddress}/${tokenId}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[24px] hover:underline flex flex-row items-center gap-2"
+                  >
+                    <span>{tokenTitle}</span>
+                    <ArrowUpRight size={24} className="text-tertiary" />
+                  </a>
+                </Headline>
               </SheetTitle>
               <Flex className="gap-10">
                 {/* Auction time */}
                 <Stack>
-                  <Caption>January 23, 2023</Caption>
-                  <BodySmall className="text-primary/50">
-                    Auction ended
+                  <Caption>
+                    <span className="uppercase">{`${countdownString}`}</span>
+                  </Caption>
+                  <BodySmall className="text-tertiary">
+                    Auction ends in
                   </BodySmall>
                 </Stack>
                 {/* Bid */}
                 <Stack>
-                  <Caption className="font-bold uppercase text-primary">
-                    {/* Todo: Bids */}Ξ 0.145
+                  <Caption className="uppercase text-primary">
+                    Ξ{" "}
+                    <span>{`${ethers.utils.formatEther(
+                      auctionState?.highestBid
+                    )}`}</span>
                   </Caption>
-                  <BodySmall className="text-primary/50">
-                    Winning bid
-                  </BodySmall>
+                  <BodySmall className="text-tertiary">Highest bid</BodySmall>
                 </Stack>
               </Flex>
+              <AuthCheck
+                connectButton={<ConnectButton />}
+                connectCopy={"Connect to bid"}
+                formUI={
+                  <div>
+                    <form
+                      onSubmit={createBid}
+                      className="flex flex-col gap-y-4"
+                    >
+                      <input
+                        className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
+                        type="text"
+                        pattern="[0-9.]*"
+                        placeholder={`Ξ ${auctionData.minBidAmount?.toFixed(
+                          4
+                        )} OR HIGHER`}
+                        onChange={(event: any) =>
+                          updateBidAmount(event.target.value)
+                        }
+                      />
+                      {!createBidLoading && !createBidSuccess ? (
+                        <Button disabled={!isValidBid} className="py-8 lg:py-7">
+                          Enter Bid
+                        </Button>
+                      ) : (
+                        <>
+                          <Button className="py-8 lg:py-7">
+                            <Pending className="animate-spin" />
+                          </Button>
+                          {createBidSuccess && <Caption>Bid placed</Caption>}
+                        </>
+                      )}
+                    </form>
+                  </div>
+                }
+              />
+              {/* Bid History */}
+              <BidHistory
+                auctionState={auctionState}
+                tokenAddress={ENV.TOKEN_ADDRESS}
+                tokenId={tokenId}
+              />
             </SheetHeader>
           </SheetContent>
         )}

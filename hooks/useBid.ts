@@ -1,19 +1,14 @@
 import * as React from "react"
-
 import {
   etherscanLink,
   useActiveAuction,
   useDaoToken,
   useNounsProtocol,
+  useAuctionContext,
 } from "@public-assembly/dao-utils"
 import { ethers } from "ethers"
 import { shortenAddress } from "utils/shortenAddress"
 import { useEnsName } from "wagmi"
-
-import { Flex } from "@/components/base/Flex"
-import { Caption } from "@/components/base/Typography"
-import { buildEtherscanAddressLink } from "../../utils/helpers"
-
 export type AuctionEvent = {
   id: number
   bidder: string
@@ -21,7 +16,7 @@ export type AuctionEvent = {
   transactionHash: string
 }
 
-export const TokenWinningBid = ({
+export const useBid = ({
   tokenId,
   tokenAddress,
 }: {
@@ -43,6 +38,7 @@ export const TokenWinningBid = ({
   const [winningBid, setWinningBid] = React.useState<string | undefined>("N/A")
   const [winningTx, setWinningTx] = React.useState<string | undefined>()
   const [address, setAddress] = React.useState<string | undefined>()
+  const [auctionEvents, setAuctionEvents] = React.useState<AuctionEvent[]>()
 
   const { data: ensName } = useEnsName({
     address: address as `0x${string}` | undefined,
@@ -77,6 +73,8 @@ export const TokenWinningBid = ({
               }
             }) as AuctionEvent[]
 
+            setAuctionEvents(auctionEventsArray)
+
             const tokenEvents = auctionEventsArray?.filter(
               (token) => token?.id === Number(tokenId)
             )
@@ -100,57 +98,5 @@ export const TokenWinningBid = ({
 
     return function cleanup() {}
   }, [auctionContract, tokenId, tokenData])
-
-  // TODO: Refactor this to be more readable. This is for prev past auctions case
-  // TODO: Add async loading animations for switching between auctions and loading data
-  if (!!bidder && !!address)
-    return (
-      <Flex className="z-10 items-center gap-4">
-        <div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit">
-          <a
-            href={winningTx}
-            target="_blank"
-            rel="noreferrer"
-            className={`${
-              !winningTx && "pointer-events-none"
-            }  h-6 inline-flex items-center group`}
-          >
-            <Caption className="uppercase text-secondary">
-              Ξ <span className="group-hover:underline">{winningBid}</span>
-            </Caption>
-          </a>
-        </div>
-        <a
-          href={buildEtherscanAddressLink(address)}
-          target="_blank"
-          rel="noreferrer"
-          className={`${
-            !winningTx && "pointer-events-none"
-          }  h-6 inline-flex items-center group`}
-        >
-          <div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit body">
-            {bidder}
-          </div>
-        </a>
-      </Flex>
-    )
-
-  return (
-    <Flex className="z-10 items-center gap-4 px-4 py-2 bg-primary text-secondary rounded-object w-fit">
-      <Caption className="text-secondary">Winning bid </Caption>
-
-      <a
-        href={winningTx}
-        target="_blank"
-        rel="noreferrer"
-        className={`${
-          !winningTx && "pointer-events-none"
-        }  h-6 inline-flex items-center group`}
-      >
-        <Caption className="uppercase text-secondary">
-          Ξ <span className="group-hover:underline">{winningBid}</span>
-        </Caption>
-      </a>
-    </Flex>
-  )
+  return { winningBid, winningTx, address, auctionEvents }
 }
