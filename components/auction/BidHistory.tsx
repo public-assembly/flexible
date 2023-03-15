@@ -17,13 +17,13 @@ export function BidHistory({
   tokenAddress,
   tokenId,
 }: BidHistoryProps) {
-  const highestBidder = auctionState?.highestBidder
-
   const { auctionEvents } = useBid({ tokenId, tokenAddress })
 
+  const reversedBidEvents = auctionEvents ? [...auctionEvents].reverse() : []
+
   return (
-    <Flex className="flex-col gap-y-2 pt-8 w-[306px]">
-      {auctionEvents?.map((event, index) => {
+    <Flex className="flex-col gap-y-2 pt-8 min-w-[306px] w-full">
+      {reversedBidEvents?.map((event, index) => {
         const isFirstChild = index === 0
         return (
           <Flex
