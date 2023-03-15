@@ -4,7 +4,6 @@ import {
   useActiveAuction,
   useDaoToken,
   useNounsProtocol,
-  useAuctionContext,
 } from "@public-assembly/dao-utils"
 import { ethers } from "ethers"
 import { shortenAddress } from "utils/shortenAddress"

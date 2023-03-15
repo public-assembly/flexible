@@ -2,7 +2,12 @@ import { useState } from "react"
 import { useIsMobile } from "@/hooks/useIsMobile"
 import { AnimatePresence, motion } from "framer-motion"
 import { ENV } from "@/utils/env"
-import { ArrowLeft, ArrowUp, ArrowUpRight, Pending } from "@/components/assets/icons"
+import {
+  ArrowLeft,
+  ArrowUp,
+  ArrowUpRight,
+  Pending,
+} from "@/components/assets/icons"
 import Button from "@/components/base/Button"
 import { Flex } from "@/components/base/Flex"
 import {
@@ -19,11 +24,12 @@ import {
   useActiveAuction,
   useAuctionContext,
   useCountdown,
-  useDaoToken
+  useDaoToken,
 } from "@public-assembly/dao-utils"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { ethers } from "ethers"
 import { BidHistory } from "./BidHistory"
+import { fromUnixTime, format } from "date-fns"
 
 const MotionButton = motion(Button)
 
@@ -106,62 +112,102 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                 </Headline>
               </SheetTitle>
               <Flex className="gap-10">
-                {/* Auction time */}
-                <Stack>
-                  <Caption>
-                    <span className="uppercase">{`${countdownString}`}</span>
-                  </Caption>
-                  <BodySmall className="text-tertiary">
-                    Auction ends in
-                  </BodySmall>
-                </Stack>
-                {/* Bid */}
-                <Stack>
-                  <Caption className="uppercase text-primary">
-                    Ξ{" "}
-                    <span>{`${ethers.utils.formatEther(
-                      auctionState?.highestBid
-                    )}`}</span>
-                  </Caption>
-                  <BodySmall className="text-tertiary">Highest bid</BodySmall>
-                </Stack>
+                {!isEnded ? (
+                  <>
+                    {/* Auction countdown */}
+                    <Stack>
+                      <Caption>
+                        <span className="uppercase">{`${countdownString}`}</span>
+                      </Caption>
+                      <BodySmall className="text-tertiary">
+                        Auction ends in
+                      </BodySmall>
+                    </Stack>
+                    {/* Highest bid */}
+                    <Stack>
+                      <Caption className="uppercase text-primary">
+                        Ξ{" "}
+                        <span>{`${ethers.utils.formatEther(
+                          auctionState?.highestBid
+                        )}`}</span>
+                      </Caption>
+                      <BodySmall className="text-tertiary">
+                        Highest bid
+                      </BodySmall>
+                    </Stack>
+                  </>
+                ) : (
+                  <>
+                    {/* Auction ended */}
+                    <Stack>
+                      <Caption>
+                        <span className="uppercase">{`${format(
+                          fromUnixTime(auctionState?.endTime),
+                          "MMMM d, yyyy"
+                        )}`}</span>
+                      </Caption>
+                      <BodySmall className="text-tertiary">
+                        Auction ended
+                      </BodySmall>
+                    </Stack>
+                    {/* Winning bid */}
+                    <Stack>
+                      <Caption className="uppercase text-primary">
+                        Ξ{" "}
+                        <span>{`${ethers.utils.formatEther(
+                          auctionState?.highestBid
+                        )}`}</span>
+                      </Caption>
+                      <BodySmall className="text-tertiary">
+                        Winning bid
+                      </BodySmall>
+                    </Stack>
+                  </>
+                )}
               </Flex>
-              <AuthCheck
-                connectButton={<ConnectButton />}
-                connectCopy={"Connect to bid"}
-                formUI={
-                  <div>
-                    <form
-                      onSubmit={createBid}
-                      className="flex flex-col gap-y-4"
-                    >
-                      <input
-                        className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
-                        type="text"
-                        pattern="[0-9.]*"
-                        placeholder={`Ξ ${auctionData.minBidAmount?.toFixed(
-                          4
-                        )} OR HIGHER`}
-                        onChange={(event: any) =>
-                          updateBidAmount(event.target.value)
-                        }
-                      />
-                      {!createBidLoading && !createBidSuccess ? (
-                        <Button disabled={!isValidBid} className="py-8 lg:py-7">
-                          Enter Bid
-                        </Button>
-                      ) : (
-                        <>
-                          <Button className="py-8 lg:py-7">
-                            <Pending className="animate-spin" />
+              {!isEnded ? (
+                <AuthCheck
+                  connectButton={<ConnectButton />}
+                  connectCopy={"Connect to bid"}
+                  formUI={
+                    <div>
+                      <form
+                        onSubmit={createBid}
+                        className="flex flex-col gap-y-4"
+                      >
+                        <input
+                          className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
+                          type="text"
+                          pattern="[0-9.]*"
+                          placeholder={`Ξ ${auctionData.minBidAmount?.toFixed(
+                            4
+                          )} OR HIGHER`}
+                          onChange={(event: any) =>
+                            updateBidAmount(event.target.value)
+                          }
+                        />
+                        {!createBidLoading && !createBidSuccess ? (
+                          <Button
+                            disabled={!isValidBid}
+                            className="py-8 lg:py-7"
+                          >
+                            Enter Bid
                           </Button>
-                          {createBidSuccess && <Caption>Bid placed</Caption>}
-                        </>
-                      )}
-                    </form>
-                  </div>
-                }
-              />
+                        ) : (
+                          <>
+                            <Button className="py-8 lg:py-7">
+                              <Pending className="animate-spin" />
+                            </Button>
+                            {createBidSuccess && <Caption>Bid placed</Caption>}
+                          </>
+                        )}
+                      </form>
+                    </div>
+                  }
+                />
+              ) : (
+                <Button className="py-8 lg:py-7">Settle auction</Button>
+              )}
               {/* Bid History */}
               <BidHistory
                 auctionState={auctionState}
