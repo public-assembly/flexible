@@ -1,21 +1,33 @@
 import Button from "../base/Button"
-import { usePrepareContractWrite, useContractWrite } from "wagmi"
-import { ethers } from "ethers"
-import { useAuctionContext } from "@public-assembly/dao-utils"
+import {
+  usePrepareContractWrite,
+  useContractWrite,
+  useWaitForTransaction,
+} from "wagmi"
+import { Pending } from "../assets/icons"
+import { useAuctionContext, auctionAbi } from "@public-assembly/dao-utils"
 
 export function Settle() {
   const { auctionAddress } = useAuctionContext()
 
-  const { config, isLoading, error } = usePrepareContractWrite({
+  const { config } = usePrepareContractWrite({
     address: auctionAddress,
     abi: auctionAbi,
-    functionName: "settle",
+    functionName: "settleCurrentAndCreateNewAuction",
   })
-  const { write: settle } = useContractWrite(config)
+  const { data, write: settle } = useContractWrite(config)
+
+  const { isLoading } = useWaitForTransaction({
+    hash: data?.hash,
+  })
 
   return (
-    <Button onClick={() => settle?.()} className="py-8 lg:py-7">
-      Settle auction
+    <Button
+      disabled={isLoading}
+      onClick={() => settle?.()}
+      className="py-8 lg:py-7"
+    >
+      {!isLoading ? "Settle auction" : <Pending className="animate-spin" />}
     </Button>
   )
 }

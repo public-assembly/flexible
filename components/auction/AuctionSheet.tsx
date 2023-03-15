@@ -30,6 +30,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { ethers } from "ethers"
 import { BidHistory } from "./BidHistory"
 import { fromUnixTime, format } from "date-fns"
+import { Settle } from "./Settle"
 
 const MotionButton = motion(Button)
 
@@ -206,7 +207,7 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                   }
                 />
               ) : (
-                <Button className="py-8 lg:py-7">Settle auction</Button>
+                <Settle />
               )}
               {/* Bid History */}
               <BidHistory
