@@ -1,9 +1,8 @@
 import { useState } from "react"
 import { useIsMobile } from "@/hooks/useIsMobile"
-import { useDaoToken } from "@public-assembly/dao-utils"
 import { AnimatePresence, motion } from "framer-motion"
 import { ENV } from "@/utils/env"
-import { ArrowLeft, ArrowUp, ArrowUpRight } from "@/components/assets/icons"
+import { ArrowLeft, ArrowUp, ArrowUpRight, Pending } from "@/components/assets/icons"
 import Button from "@/components/base/Button"
 import { Flex } from "@/components/base/Flex"
 import {
@@ -20,9 +19,9 @@ import {
   useActiveAuction,
   useAuctionContext,
   useCountdown,
+  useDaoToken
 } from "@public-assembly/dao-utils"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
-import Pending from "../assets/icons/Pending"
 import { ethers } from "ethers"
 import { BidHistory } from "./BidHistory"
 
@@ -140,7 +139,7 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                         className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
                         type="text"
                         pattern="[0-9.]*"
-                        placeholder={`Ξ ${auctionData?.minBidAmount.toFixed(
+                        placeholder={`Ξ ${auctionData.minBidAmount?.toFixed(
                           4
                         )} OR HIGHER`}
                         onChange={(event: any) =>
@@ -164,7 +163,11 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                 }
               />
               {/* Bid History */}
-              <BidHistory auctionState={auctionState} />
+              <BidHistory
+                auctionState={auctionState}
+                tokenAddress={ENV.TOKEN_ADDRESS}
+                tokenId={tokenId}
+              />
             </SheetHeader>
           </SheetContent>
         )}

@@ -82,7 +82,10 @@ const Auction = () => {
               <div className="flex items-center z-10 px-4 py-2 bg-primary text-secondary rounded-object body">
                 <Body className="text-secondary pr-4">Current bid</Body>
                 <Caption className="uppercase text-secondary">
-                  Ξ {`${ethers.utils.formatEther(auctionState?.highestBid)}`}
+                  Ξ{" "}
+                  <span>{`${ethers.utils.formatEther(
+                    auctionState?.highestBid
+                  )}`}</span>
                 </Caption>
               </div>
             </Flex>
@@ -103,7 +106,10 @@ const Auction = () => {
             <div className="flex items-center z-10 px-4 py-2 bg-primary text-secondary rounded-object body max-w-[180px]">
               <Body className="text-secondary pr-4">Current bid</Body>
               <Caption className="uppercase text-secondary">
-                Ξ {`${ethers.utils.formatEther(auctionState?.highestBid)}`}
+                Ξ{" "}
+                <span>{`${ethers.utils.formatEther(
+                  auctionState?.highestBid
+                )}`}</span>
               </Caption>
             </div>
           </Stack>

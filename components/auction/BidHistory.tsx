@@ -1,38 +1,62 @@
-import { useAuctionContext } from "@public-assembly/dao-utils"
-import { useMemo } from "react"
 import { Flex } from "../base/Flex"
 import { Body, Caption } from "../base/Typography"
-import { useEnsName, useAccount } from "wagmi"
 import { shortenAddress } from "@/utils/shortenAddress"
-import { ethers } from "ethers"
 import { Zorb } from "../base/Zorb"
+import { useBid } from "@/hooks/useBid"
+import { Hash } from "types"
+import { ensOrShorten } from "@/utils/ensOrShorten"
 
-export function BidHistory({ auctionState }: { auctionState: any }) {
+interface BidHistoryProps {
+  auctionState: any
+  tokenAddress: `0x${string}`
+  tokenId: string
+}
+
+export function BidHistory({
+  auctionState,
+  tokenAddress,
+  tokenId,
+}: BidHistoryProps) {
   const highestBidder = auctionState?.highestBidder
-  const { data: ensName } = useEnsName({
-    address: highestBidder,
-  })
 
-  const highestBidderPretty = useMemo(
-    () => (ensName ? ensName : shortenAddress(highestBidder)),
-    [ensName, highestBidder]
-  )
+  const { auctionEvents } = useBid({ tokenId, tokenAddress })
 
-  const { address } = useAccount()
   return (
-    <Flex className="pt-8 min-w-[306px]">
-      <Flex className="w-full justify-between items-center bg-primary rounded-lg p-3">
-        <div className="flex nowrap items-center">
-          <span className="pr-2">
-            <Zorb address={address} size={16} radius={999} />
-          </span>
-          <Body className="text-secondary">{highestBidderPretty}</Body>
-        </div>
-        <Caption className="uppercase text-secondary">
-          Ξ{" "}
-          <span>{`${ethers.utils.formatEther(auctionState?.highestBid)}`}</span>
-        </Caption>
-      </Flex>
+    <Flex className="flex-col gap-y-2 pt-8 w-[306px]">
+      {auctionEvents?.map((event, index) => {
+        const isFirstChild = index === 0
+        return (
+          <Flex
+            key={`${event.amount}-${event.bidder}`}
+            className={`w-full justify-between items-center rounded-lg p-3 ${
+              isFirstChild
+                ? "bg-primary text-secondary"
+                : "border border-[bg-tertiary] text-primary"
+            }`}
+          >
+            <div className="flex nowrap items-center">
+              <span className="pr-2">
+                <Zorb address={event.bidder} size={16} radius={999} />
+              </span>
+              <Body
+                className={`${
+                  isFirstChild ? "text-secondary" : "text-primary"
+                }`}
+              >
+                {/* {ensOrShorten(event.bidder as Hash)} */}
+                {shortenAddress(event.bidder)}
+              </Body>
+            </div>
+            <Caption
+              className={`uppercase ${
+                isFirstChild ? "text-secondary" : "text-primary"
+              }`}
+            >
+              Ξ <span>{`${Number(event.amount).toFixed(4)}`}</span>
+            </Caption>
+          </Flex>
+        )
+      })}
     </Flex>
   )
 }
