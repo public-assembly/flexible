@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react"
-
-import { useAuction } from "@/hooks/useAuction"
+import { useState, useEffect } from "react"
 import { useIsMobile } from "@/hooks/useIsMobile"
-import { useDaoToken } from "@public-assembly/dao-utils"
 import { AnimatePresence, motion } from "framer-motion"
-
-// import Sheet from "@/components/base/SheetTest"
 import { ENV } from "@/utils/env"
-import { ArrowLeft, ArrowUp } from "@/components/assets/icons"
+import {
+  ArrowLeft,
+  ArrowUp,
+  ArrowUpRight,
+  Pending,
+} from "@/components/assets/icons"
 import Button from "@/components/base/Button"
 import { Flex } from "@/components/base/Flex"
 import {
@@ -19,20 +19,68 @@ import {
 } from "@/components/base/Sheet"
 import { Stack } from "@/components/base/Stack"
 import { BodySmall, Caption, Headline } from "@/components/base/Typography"
+import {
+  AuthCheck,
+  useActiveAuction,
+  useDaoToken,
+  useCountdown,
+  useAuctionContext,
+} from "@public-assembly/dao-utils"
+import { AuctionCountdown } from "./AuctionCountdown"
+import { ConnectButton } from "@rainbow-me/rainbowkit"
+import { ethers } from "ethers"
+import { BidHistory } from "./BidHistory"
+import { fromUnixTime, format } from "date-fns"
+import { Settle } from "./Settle"
+import { useProvider } from "wagmi"
 
 const MotionButton = motion(Button)
 
+interface AuctionSheetProps {
+  tokenId: string
+  winningBid?: string
+}
+
 // TODO: use mobile button on ssr if windowWidth < 768
-export function AuctionSheet({ tokenId }: { tokenId: string }) {
+export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
   const { isMobile } = useIsMobile()
+
   const [open, setOpen] = useState<boolean | undefined>()
-  const { tokenName } = useAuction()
+
   const { tokenData } = useDaoToken({
     tokenAddress: ENV.TOKEN_ADDRESS,
     tokenId: tokenId,
   })
 
+  const provider = useProvider()
+
+  const {
+    auctionData,
+    createBid,
+    updateBidAmount,
+    createBidSuccess,
+    createBidLoading,
+    isValidBid,
+  } = useActiveAuction(ENV.TOKEN_ADDRESS)
+
+  const [tokenBlock, setTokenBlock] = useState<number>()
+
+  useEffect(() => {
+    async function getTokenBlock() {
+      const block = tokenData?.mintInfo.mintContext.blockNumber
+      const unixBlock = await provider.getBlock(block)
+      setTokenBlock(Number(unixBlock.timestamp))
+    }
+    getTokenBlock()
+  }, [tokenData])
+
+  const { auctionState } = useAuctionContext()
+
+  const externalLinkBaseURI = "https://nouns.build/dao"
+
   const tokenTitle = tokenData?.metadata?.name
+
+  if (!auctionData?.endTime) return <Pending className="animate-spin" />
   return (
     <AnimatePresence>
       <Sheet open={open} onOpenChange={setOpen}>
@@ -77,26 +125,116 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
           <SheetContent position={isMobile ? "bottom" : "right"} size="auction">
             <SheetHeader>
               <SheetTitle>
-                <Headline>{tokenTitle}</Headline>
+                <Headline>
+                  {" "}
+                  <a
+                    href={`${externalLinkBaseURI}/${tokenData?.tokenAddress}/${tokenId}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[24px] hover:underline flex flex-row items-center gap-2"
+                  >
+                    <span>{tokenTitle}</span>
+                    <ArrowUpRight size={24} className="text-tertiary" />
+                  </a>
+                </Headline>
               </SheetTitle>
               <Flex className="gap-10">
-                {/* Auction time */}
-                <Stack>
-                  <Caption>January 23, 2023</Caption>
-                  <BodySmall className="text-primary/50">
-                    Auction ended
-                  </BodySmall>
-                </Stack>
-                {/* Bid */}
-                <Stack>
-                  <Caption className="font-bold uppercase text-primary">
-                    {/* Todo: Bids */}Ξ 0.145
-                  </Caption>
-                  <BodySmall className="text-primary/50">
-                    Winning bid
-                  </BodySmall>
-                </Stack>
+                {auctionState.tokenId == tokenId ? (
+                  <>
+                    {/* Auction countdown */}
+                    <Stack>
+                      <AuctionCountdown auctionData={auctionData} />
+                      <BodySmall className="text-tertiary">
+                        Auction ends in
+                      </BodySmall>
+                    </Stack>
+                    {/* Highest bid */}
+                    <Stack>
+                      <Caption className="uppercase text-primary">
+                        Ξ{" "}
+                        <span>{`${ethers.utils.formatEther(
+                          auctionState?.highestBid
+                        )}`}</span>
+                      </Caption>
+                      <BodySmall className="text-tertiary">
+                        Highest bid
+                      </BodySmall>
+                    </Stack>
+                  </>
+                ) : (
+                  <>
+                    {/* Auction ended */}
+                    <Stack>
+                      <Caption>
+                        <span className="uppercase">{`${format(
+                          fromUnixTime(tokenBlock as number),
+                          "MMMM d, yyyy"
+                        )}`}</span>
+                      </Caption>
+                      <BodySmall className="text-tertiary">
+                        Auction ended
+                      </BodySmall>
+                    </Stack>
+                    {/* Winning bid */}
+                    <Stack>
+                      <Caption className="uppercase text-primary">
+                        {winningBid}
+                      </Caption>
+                      <BodySmall className="text-tertiary">
+                        Winning bid
+                      </BodySmall>
+                    </Stack>
+                  </>
+                )}
               </Flex>
+              {
+                auctionState.tokenId == tokenId ? (
+                  <AuthCheck
+                    connectButton={<ConnectButton />}
+                    connectCopy={"Connect to bid"}
+                    formUI={
+                      <div>
+                        <form
+                          onSubmit={createBid}
+                          className="flex flex-col gap-y-4"
+                        >
+                          <input
+                            className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
+                            type="text"
+                            pattern="[0-9.]*"
+                            placeholder={`Ξ ${auctionData.minBidAmount?.toFixed(
+                              4
+                            )} OR HIGHER`}
+                            onChange={(event: any) =>
+                              updateBidAmount(event.target.value)
+                            }
+                          />
+                          {!createBidLoading && !createBidSuccess ? (
+                            <Button
+                              disabled={!isValidBid}
+                              className="py-8 lg:py-7"
+                            >
+                              Enter Bid
+                            </Button>
+                          ) : (
+                            <>
+                              <Button className="py-8 lg:py-7">
+                                <Pending className="animate-spin" />
+                              </Button>
+                              {createBidSuccess && (
+                                <Caption>Bid placed</Caption>
+                              )}
+                            </>
+                          )}
+                        </form>
+                      </div>
+                    }
+                  />
+                ) : null
+                // <Settle />
+              }
+              {/* Bid History */}
+              <BidHistory tokenId={tokenId} tokenAddress={ENV.TOKEN_ADDRESS} />
             </SheetHeader>
           </SheetContent>
         )}

@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-
 import * as SheetPrimitive from "@radix-ui/react-dialog"
 import { VariantProps, cva } from "cva"
 import { cn } from "utils/cn"
@@ -184,6 +183,11 @@ const SheetContent = React.forwardRef<
       ref={ref}
       className={cn(sheetVariants({ position, size }), className)}
       {...props}
+      /**
+       * Allows events to be called outside the bounds of the component
+       * Should be used in conjunction with modal={false} on the Root component
+       * onInteractOutside={(e) => e.preventDefault()}
+       */
     >
       <SheetPrimitive.Close asChild className={cn("mb-10")}>
         <Button
