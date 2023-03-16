@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { ENV } from 'utils/env';
 
 export const useAuction = () => {
-  const { totalSupply } = useActiveAuction(ENV.TOKEN_ADDRESS)
+  const { totalSupply, auctionData } = useActiveAuction(ENV.TOKEN_ADDRESS)
 
   const [tokenId, setTokenId] = useState(0)
 
@@ -48,6 +48,7 @@ export const useAuction = () => {
   }, [tokenData])
 
   return {
+    auctionData,
     tokenId: tokenId.toString(),
     incrementId,
     decrementId,

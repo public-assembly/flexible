@@ -8,6 +8,7 @@ import { Pending } from "../assets/icons"
 import { useAuctionContext, auctionAbi } from "@public-assembly/dao-utils"
 
 export function Settle() {
+
   const { auctionAddress } = useAuctionContext()
 
   const { config } = usePrepareContractWrite({

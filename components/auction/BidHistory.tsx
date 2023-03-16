@@ -5,24 +5,21 @@ import { Zorb } from "../base/Zorb"
 import { useBid } from "@/hooks/useBid"
 import { Hash } from "types"
 import { ensOrShorten } from "@/utils/ensOrShorten"
+import { useEffect } from "react"
 
 interface BidHistoryProps {
-  auctionState: any
-  tokenAddress: `0x${string}`
   tokenId: string
+  tokenAddress: `0x${string}`
 }
 
-export function BidHistory({
-  auctionState,
-  tokenAddress,
-  tokenId,
-}: BidHistoryProps) {
+export function BidHistory({ tokenId, tokenAddress }: BidHistoryProps) {
+
   const { auctionEvents } = useBid({ tokenId, tokenAddress })
 
   const reversedBidEvents = auctionEvents ? [...auctionEvents].reverse() : []
 
   return (
-    <Flex className="flex-col gap-y-2 pt-8 min-w-[306px] w-full">
+    <Flex className="flex-col gap-y-2 pt-8 min-w-[306px] w-full max-h-[312px] overflow-y-auto">
       {reversedBidEvents?.map((event, index) => {
         const isFirstChild = index === 0
         return (

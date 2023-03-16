@@ -25,8 +25,8 @@ export const useBid = ({
   const { auctionData } = useActiveAuction(tokenAddress)
 
   const { tokenData } = useDaoToken({
-    tokenAddress: tokenAddress,
     tokenId: tokenId,
+    tokenAddress: tokenAddress,
   })
 
   const { auctionContract } = useNounsProtocol({
@@ -38,15 +38,6 @@ export const useBid = ({
   const [winningTx, setWinningTx] = React.useState<string | undefined>()
   const [address, setAddress] = React.useState<string | undefined>()
   const [auctionEvents, setAuctionEvents] = React.useState<AuctionEvent[]>()
-
-  const { data: ensName } = useEnsName({
-    address: address as `0x${string}` | undefined,
-  })
-
-  const bidder = React.useMemo(
-    () => (ensName ? ensName : shortenAddress(address)),
-    [ensName, address]
-  )
 
   React.useEffect(() => {
     async function getBids() {
@@ -96,6 +87,6 @@ export const useBid = ({
     getBids()
 
     return function cleanup() {}
-  }, [auctionContract, tokenId, tokenData])
+  }, [auctionContract, tokenData, tokenId, tokenAddress])
   return { winningBid, winningTx, address, auctionEvents }
 }

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useIsMobile } from "@/hooks/useIsMobile"
 import { AnimatePresence, motion } from "framer-motion"
 import { ENV } from "@/utils/env"
@@ -22,26 +22,37 @@ import { BodySmall, Caption, Headline } from "@/components/base/Typography"
 import {
   AuthCheck,
   useActiveAuction,
-  useAuctionContext,
-  useCountdown,
   useDaoToken,
+  useCountdown,
+  useAuctionContext,
 } from "@public-assembly/dao-utils"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { ethers } from "ethers"
 import { BidHistory } from "./BidHistory"
 import { fromUnixTime, format } from "date-fns"
 import { Settle } from "./Settle"
+import { useProvider } from "wagmi"
 
 const MotionButton = motion(Button)
 
+interface AuctionSheetProps {
+  tokenId: string
+  winningBid?: string
+}
+
 // TODO: use mobile button on ssr if windowWidth < 768
-export function AuctionSheet({ tokenId }: { tokenId: string }) {
+export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
   const { isMobile } = useIsMobile()
+
   const [open, setOpen] = useState<boolean | undefined>()
+
   const { tokenData } = useDaoToken({
     tokenAddress: ENV.TOKEN_ADDRESS,
     tokenId: tokenId,
   })
+
+  const provider = useProvider()
+
   const {
     auctionData,
     createBid,
@@ -50,10 +61,25 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
     createBidLoading,
     isValidBid,
   } = useActiveAuction(ENV.TOKEN_ADDRESS)
-  const externalLinkBaseURI = "https://nouns.build/dao"
-  const tokenTitle = tokenData?.metadata?.name
+
+  const [tokenBlock, setTokenBlock] = useState<number>()
+
+  useEffect(() => {
+    async function getTokenBlock() {
+      const block = tokenData?.mintInfo.mintContext.blockNumber
+      const unixBlock = await provider.getBlock(block)
+      setTokenBlock(Number(unixBlock.timestamp))
+    }
+    getTokenBlock()
+  }, [tokenData])
+
   const { auctionState } = useAuctionContext()
-  const { countdownString, isEnded } = useCountdown(auctionState?.endTime)
+
+  const externalLinkBaseURI = "https://nouns.build/dao"
+
+  const tokenTitle = tokenData?.metadata?.name
+
+  const { countdownString } = useCountdown(Number(auctionData?.endTime))
 
   return (
     <AnimatePresence>
@@ -113,7 +139,7 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                 </Headline>
               </SheetTitle>
               <Flex className="gap-10">
-                {!isEnded ? (
+                {auctionState.tokenId == tokenId ? (
                   <>
                     {/* Auction countdown */}
                     <Stack>
@@ -143,7 +169,7 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                     <Stack>
                       <Caption>
                         <span className="uppercase">{`${format(
-                          fromUnixTime(auctionState?.endTime),
+                          fromUnixTime(tokenBlock as number),
                           "MMMM d, yyyy"
                         )}`}</span>
                       </Caption>
@@ -154,10 +180,7 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                     {/* Winning bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        Ξ{" "}
-                        <span>{`${ethers.utils.formatEther(
-                          auctionState?.highestBid
-                        )}`}</span>
+                        {winningBid}
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Winning bid
@@ -166,55 +189,54 @@ export function AuctionSheet({ tokenId }: { tokenId: string }) {
                   </>
                 )}
               </Flex>
-              {!isEnded ? (
-                <AuthCheck
-                  connectButton={<ConnectButton />}
-                  connectCopy={"Connect to bid"}
-                  formUI={
-                    <div>
-                      <form
-                        onSubmit={createBid}
-                        className="flex flex-col gap-y-4"
-                      >
-                        <input
-                          className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
-                          type="text"
-                          pattern="[0-9.]*"
-                          placeholder={`Ξ ${auctionData.minBidAmount?.toFixed(
-                            4
-                          )} OR HIGHER`}
-                          onChange={(event: any) =>
-                            updateBidAmount(event.target.value)
-                          }
-                        />
-                        {!createBidLoading && !createBidSuccess ? (
-                          <Button
-                            disabled={!isValidBid}
-                            className="py-8 lg:py-7"
-                          >
-                            Enter Bid
-                          </Button>
-                        ) : (
-                          <>
-                            <Button className="py-8 lg:py-7">
-                              <Pending className="animate-spin" />
+              {
+                auctionState.tokenId == tokenId ? (
+                  <AuthCheck
+                    connectButton={<ConnectButton />}
+                    connectCopy={"Connect to bid"}
+                    formUI={
+                      <div>
+                        <form
+                          onSubmit={createBid}
+                          className="flex flex-col gap-y-4"
+                        >
+                          <input
+                            className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
+                            type="text"
+                            pattern="[0-9.]*"
+                            placeholder={`Ξ ${auctionData.minBidAmount?.toFixed(
+                              4
+                            )} OR HIGHER`}
+                            onChange={(event: any) =>
+                              updateBidAmount(event.target.value)
+                            }
+                          />
+                          {!createBidLoading && !createBidSuccess ? (
+                            <Button
+                              disabled={!isValidBid}
+                              className="py-8 lg:py-7"
+                            >
+                              Enter Bid
                             </Button>
-                            {createBidSuccess && <Caption>Bid placed</Caption>}
-                          </>
-                        )}
-                      </form>
-                    </div>
-                  }
-                />
-              ) : (
-                <Settle />
-              )}
+                          ) : (
+                            <>
+                              <Button className="py-8 lg:py-7">
+                                <Pending className="animate-spin" />
+                              </Button>
+                              {createBidSuccess && (
+                                <Caption>Bid placed</Caption>
+                              )}
+                            </>
+                          )}
+                        </form>
+                      </div>
+                    }
+                  />
+                ) : null
+                // <Settle />
+              }
               {/* Bid History */}
-              <BidHistory
-                auctionState={auctionState}
-                tokenAddress={ENV.TOKEN_ADDRESS}
-                tokenId={tokenId}
-              />
+              <BidHistory tokenId={tokenId} tokenAddress={ENV.TOKEN_ADDRESS} />
             </SheetHeader>
           </SheetContent>
         )}

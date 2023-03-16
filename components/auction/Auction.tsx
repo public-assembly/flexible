@@ -1,12 +1,7 @@
-import { useAuction } from "@/hooks/useAuction"
-// Hooks
-import { useIsMobile } from "@/hooks/useIsMobile"
-import { motion } from "framer-motion"
-import { cn } from "utils/cn"
+import React, { useState, useEffect } from "react"
 // Utils
+import { cn } from "utils/cn"
 import { ENV } from "utils/env"
-import { ethers } from "ethers"
-
 import { BlurImage } from "@/components/BlurImage"
 // Icons
 import { ArrowLeft, ArrowRight } from "@/components/assets/icons"
@@ -16,12 +11,23 @@ import Button from "@/components/base/Button"
 // Layout & Typography
 import { Flex } from "@/components/base/Flex"
 import { Stack } from "@/components/base/Stack"
-import { Caption, Body } from "../base/Typography"
+import { Pending } from "@/components/assets/icons"
 // Hooks
-import { useAuctionContext } from "@public-assembly/dao-utils"
+import {
+  useActiveAuction,
+  useAuctionContext,
+  useCountdown,
+} from "@public-assembly/dao-utils"
+import { useBid } from "@/hooks/useBid"
+import { useIsMobile } from "@/hooks/useIsMobile"
+import { useAuction } from "@/hooks/useAuction"
+import { motion } from "framer-motion"
+
+import { Body, Caption } from "../base/Typography"
 
 const Auction = () => {
   const { isMobile } = useIsMobile()
+
   const {
     totalSupply,
     incrementId,
@@ -32,6 +38,12 @@ const Auction = () => {
     thumbnail,
     tokenName,
   } = useAuction()
+
+  const { winningBid, winningTx } = useBid({
+    tokenId,
+    tokenAddress: ENV.TOKEN_ADDRESS,
+  })
+
   const { auctionState } = useAuctionContext()
 
   if (!totalSupply) return null
@@ -73,45 +85,77 @@ const Auction = () => {
               <ArrowRight />
             </Button>
           </Flex>
-
           {isMobile ? null : (
             <Flex className="justify-between">
+              {/* Current token/Historical token badge */}
               <div className="z-10 px-4 py-2 bg-primary text-secondary rounded-object body">
                 <span>{tokenName}</span>
               </div>
-              <div className="flex items-center z-10 px-4 py-2 bg-primary text-secondary rounded-object body">
-                <Body className="text-secondary pr-4">Current bid</Body>
-                <Caption className="uppercase text-secondary">
-                  Ξ{" "}
-                  <span>{`${ethers.utils.formatEther(
-                    auctionState?.highestBid
-                  )}`}</span>
-                </Caption>
-              </div>
+              {/* Current bid/Winning bid badge */}
+              <Flex className="z-10 items-center gap-4">
+                <div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit">
+                  <a
+                    href={winningTx}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`${
+                      !winningTx && "pointer-events-none"
+                    }  h-6 inline-flex items-center group`}
+                  >
+                    <div className="flex gap-x-4">
+                      <Body className="text-secondary">
+                        {auctionState.tokenId == tokenId
+                          ? "Current bid"
+                          : "Winning bid"}
+                      </Body>
+                      <Caption className="text-secondary group-hover:underline">
+                        Ξ {winningBid}
+                      </Caption>
+                    </div>
+                  </a>
+                </div>
+              </Flex>
             </Flex>
           )}
         </Stack>
 
         {/* Desktop/Tablet Auction button */}
-        <AuctionSheet tokenId={tokenId} />
+        <AuctionSheet tokenId={tokenId} winningBid={winningBid} />
       </Flex>
 
       {/* Mobile auction button */}
+
       {isMobile ? (
         <Stack className="justify-between flex-grow w-full h-full">
           <Stack className="gap-2">
+            {/* Current token/Historical token badge */}
             <motion.div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit">
               {tokenName}
             </motion.div>
-            <div className="flex items-center z-10 px-4 py-2 bg-primary text-secondary rounded-object body max-w-[180px]">
-              <Body className="text-secondary pr-4">Current bid</Body>
-              <Caption className="uppercase text-secondary">
-                Ξ{" "}
-                <span>{`${ethers.utils.formatEther(
-                  auctionState?.highestBid
-                )}`}</span>
-              </Caption>
-            </div>
+            {/* Current bid/Winning bid badge */}
+            <Flex className="z-10 items-center gap-4">
+              <div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit">
+                <a
+                  href={winningTx}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`${
+                    !winningTx && "pointer-events-none"
+                  }  h-6 inline-flex items-center group`}
+                >
+                  <div className="flex gap-x-4">
+                    <Body className="text-secondary">
+                      {auctionState.tokenId == tokenId
+                        ? "Current bid"
+                        : "Winning bid"}
+                    </Body>
+                    <Caption className="text-secondary group-hover:underline">
+                      Ξ {winningBid}
+                    </Caption>
+                  </div>
+                </a>
+              </div>
+            </Flex>
           </Stack>
         </Stack>
       ) : null}
