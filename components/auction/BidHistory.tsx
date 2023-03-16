@@ -3,9 +3,7 @@ import { Body, Caption } from "../base/Typography"
 import { shortenAddress } from "@/utils/shortenAddress"
 import { Zorb } from "../base/Zorb"
 import { useBid } from "@/hooks/useBid"
-import { Hash } from "types"
-import { ensOrShorten } from "@/utils/ensOrShorten"
-import { useEffect } from "react"
+// import { ensOrShorten } from "@/utils/ensOrShorten"
 
 interface BidHistoryProps {
   tokenId: string
@@ -14,9 +12,9 @@ interface BidHistoryProps {
 
 export function BidHistory({ tokenId, tokenAddress }: BidHistoryProps) {
 
-  const { auctionEvents } = useBid({ tokenId, tokenAddress })
+  const { tokenEvents } = useBid({ tokenId, tokenAddress })
 
-  const reversedBidEvents = auctionEvents ? [...auctionEvents].reverse() : []
+  const reversedBidEvents = tokenEvents ? [...tokenEvents].reverse() : []
 
   return (
     <Flex className="flex-col gap-y-2 pt-8 min-w-[306px] w-full max-h-[312px] overflow-y-auto">

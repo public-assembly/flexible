@@ -6,8 +6,6 @@ import {
   useNounsProtocol,
 } from "@public-assembly/dao-utils"
 import { ethers } from "ethers"
-import { shortenAddress } from "utils/shortenAddress"
-import { useEnsName } from "wagmi"
 export type AuctionEvent = {
   id: number
   bidder: string
@@ -37,7 +35,7 @@ export const useBid = ({
   const [winningBid, setWinningBid] = React.useState<string | undefined>("N/A")
   const [winningTx, setWinningTx] = React.useState<string | undefined>()
   const [address, setAddress] = React.useState<string | undefined>()
-  const [auctionEvents, setAuctionEvents] = React.useState<AuctionEvent[]>()
+  const [tokenEvents, setTokenEvents] = React.useState<AuctionEvent[]>()
 
   React.useEffect(() => {
     async function getBids() {
@@ -63,11 +61,11 @@ export const useBid = ({
               }
             }) as AuctionEvent[]
 
-            setAuctionEvents(auctionEventsArray)
-
             const tokenEvents = auctionEventsArray?.filter(
               (token) => token?.id === Number(tokenId)
             )
+
+            setTokenEvents(tokenEvents)
 
             if (tokenEvents?.length) {
               const lastTokenEvent = tokenEvents.at(-1)
@@ -88,5 +86,5 @@ export const useBid = ({
 
     return function cleanup() {}
   }, [auctionContract, tokenData, tokenId, tokenAddress])
-  return { winningBid, winningTx, address, auctionEvents }
+  return { winningBid, winningTx, address, tokenEvents }
 }
