@@ -26,6 +26,7 @@ import {
   useCountdown,
   useAuctionContext,
 } from "@public-assembly/dao-utils"
+import { AuctionCountdown } from "./AuctionCountdown"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { ethers } from "ethers"
 import { BidHistory } from "./BidHistory"
@@ -79,8 +80,7 @@ export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
 
   const tokenTitle = tokenData?.metadata?.name
 
-  const { countdownString } = useCountdown(Number(auctionData?.endTime))
-
+  if (!auctionData?.endTime) return <Pending className="animate-spin" />
   return (
     <AnimatePresence>
       <Sheet open={open} onOpenChange={setOpen}>
@@ -143,9 +143,7 @@ export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
                   <>
                     {/* Auction countdown */}
                     <Stack>
-                      <Caption>
-                        <span className="uppercase">{`${countdownString}`}</span>
-                      </Caption>
+                      <AuctionCountdown auctionData={auctionData} />
                       <BodySmall className="text-tertiary">
                         Auction ends in
                       </BodySmall>
