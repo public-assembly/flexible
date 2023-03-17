@@ -1,4 +1,4 @@
-import React from "react"
+import { useState, useMemo } from "react"
 import {
   Dialog,
   DialogContent,
@@ -12,13 +12,26 @@ import { Check, Minus, Exit } from "../assets/icons"
 import { Stack } from "../base/Stack"
 import { Button } from "../base/Button"
 import { useContractRead } from "wagmi"
-import { governorAbi, useGovernorContext } from "@public-assembly/dao-utils"
+import {
+  governorAbi,
+  useGovernorContext,
+  useVote,
+} from "@public-assembly/dao-utils"
 import { useAuth } from "@/hooks/useAuth"
 import { BigNumber } from "ethers"
 
 const ProposalVoteButton = ({ proposal }) => {
+  const [support, setSupport] = useState<0 | 1 | 2 | undefined>()
+  const [reason, setReason] = useState<string | undefined>()
+
+  const { castVote, castVoteWithReason } = useVote({
+    proposal,
+    support,
+    reason,
+  })
   const { address } = useAuth()
   const { governorAddress } = useGovernorContext()
+
   const { data: availableVotes } = useContractRead({
     address: governorAddress,
     abi: governorAbi,
@@ -42,33 +55,59 @@ const ProposalVoteButton = ({ proposal }) => {
           </DialogDescription>
         </DialogHeader>
         <Stack className="grid gap-4 py-6">
-          <Button variant="tertiary" className="items-center w-full gap-x-1">
+          <Button
+            onClick={() => setSupport(1)}
+            variant="tertiary"
+            className="items-center w-full gap-x-1"
+          >
             <Check />
             {availableVotes?.toString()} vote for
           </Button>
-          <Button variant="tertiary" className="items-center w-full gap-x-1">
+          <Button
+            onClick={() => setSupport(0)}
+            variant="tertiary"
+            className="items-center w-full gap-x-1"
+          >
             <Exit />
             {availableVotes?.toString()} vote against
           </Button>
-          <Button variant="tertiary" className="items-center w-full gap-x-1">
+          <Button
+            onClick={() => setSupport(2)}
+            variant="tertiary"
+            className="items-center w-full gap-x-1"
+          >
             <Minus />
             Abstain from voting
           </Button>
         </Stack>
         <Stack>
           <textarea
-            placeholder="Comment(optional)"
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+            placeholder="Comment (optional)"
             className="py-2 px-3 w-full min-h-[167px] text-black"
           ></textarea>
         </Stack>
         <DialogFooter>
-          <Button
-            variant="tertiary"
-            type="submit"
-            className="w-full py-8 lg:py-7"
-          >
-            Submit vote
-          </Button>
+          {reason == "" ? (
+            <Button
+              onClick={() => castVote()}
+              variant="tertiary"
+              type="submit"
+              className="w-full"
+            >
+              Submit vote
+            </Button>
+          ) : (
+            <Button
+              onClick={() => castVoteWithReason()}
+              variant="tertiary"
+              type="submit"
+              className="w-full"
+            >
+              Submit vote with reason
+            </Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
