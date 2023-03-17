@@ -80,7 +80,7 @@ export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
 
   const tokenTitle = tokenData?.metadata?.name
 
-  if (!auctionData?.endTime) return <Pending className="animate-spin" />
+  if (!auctionData?.endTime) return null
   return (
     <AnimatePresence>
       <Sheet open={open} onOpenChange={setOpen}>
@@ -187,52 +187,49 @@ export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
                   </>
                 )}
               </Flex>
-              {
-                auctionState.tokenId == tokenId ? (
-                  <AuthCheck
-                    connectButton={<ConnectButton />}
-                    connectCopy={"Connect to bid"}
-                    formUI={
-                      <div>
-                        <form
-                          onSubmit={createBid}
-                          className="flex flex-col gap-y-4"
-                        >
-                          <input
-                            className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
-                            type="text"
-                            pattern="[0-9.]*"
-                            placeholder={`Ξ ${auctionData.minBidAmount?.toFixed(
-                              4
-                            )} OR HIGHER`}
-                            onChange={(event: any) =>
-                              updateBidAmount(event.target.value)
-                            }
-                          />
-                          {!createBidLoading && !createBidSuccess ? (
-                            <Button
-                              disabled={!isValidBid}
-                              className="py-8 lg:py-7"
-                            >
-                              Enter Bid
+              {auctionState.tokenId == tokenId ? (
+                <AuthCheck
+                  connectButton={<ConnectButton />}
+                  connectCopy={"Connect to bid"}
+                  formUI={
+                    <div>
+                      <form
+                        onSubmit={createBid}
+                        className="flex flex-col gap-y-4"
+                      >
+                        <input
+                          className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
+                          type="text"
+                          pattern="[0-9.]*"
+                          placeholder={`Ξ ${auctionData.minBidAmount?.toFixed(
+                            4
+                          )} OR HIGHER`}
+                          onChange={(event: any) =>
+                            updateBidAmount(event.target.value)
+                          }
+                        />
+                        {!createBidLoading && !createBidSuccess ? (
+                          <Button
+                            disabled={!isValidBid}
+                            className="py-8 lg:py-7"
+                          >
+                            Enter Bid
+                          </Button>
+                        ) : (
+                          <>
+                            <Button className="py-8 lg:py-7">
+                              <Pending className="animate-spin" />
                             </Button>
-                          ) : (
-                            <>
-                              <Button className="py-8 lg:py-7">
-                                <Pending className="animate-spin" />
-                              </Button>
-                              {createBidSuccess && (
-                                <Caption>Bid placed</Caption>
-                              )}
-                            </>
-                          )}
-                        </form>
-                      </div>
-                    }
-                  />
-                ) : null
-                // <Settle />
-              }
+                            {createBidSuccess && <Caption>Bid placed</Caption>}
+                          </>
+                        )}
+                      </form>
+                    </div>
+                  }
+                />
+              ) : (
+                <Settle />
+              )}
               {/* Bid History */}
               <BidHistory tokenId={tokenId} tokenAddress={ENV.TOKEN_ADDRESS} />
             </SheetHeader>
