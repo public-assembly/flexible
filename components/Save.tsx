@@ -13,10 +13,8 @@ function getAccessToken() {
 function makeStorageClient() {
   return new Web3Storage({ token: getAccessToken() as string })
 }
-/**
- * Read the registry contract defined as an environment variable
- */
-const themeRegistry = process.env.NEXT_PUBLIC_REGISTRY_CONTRACT as `0x${string}`
+
+const themeRegistry = "0x9a23AE640040e4d34E9e00E500003000017144F4"
 /**
  * Grab the platform index defined as an environment variable
  */
