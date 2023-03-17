@@ -143,7 +143,7 @@ function ProposalVoteStatus({ proposal }) {
     // If the connected address has voted, set their support to the voteSupport state variable
     if (hasVoted) setVoteSupport(vote.support)
     // Set the needsAction boolean to true if they haven't voted and false if not
-    setNeedsAction(hasVoted)
+    setNeedsAction(!hasVoted)
   }, [address, proposal.votes])
 
   return (
