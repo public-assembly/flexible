@@ -1,12 +1,15 @@
-import '@rainbow-me/rainbowkit/styles.css'
-import { getDefaultWallets, RainbowKitProvider, lightTheme } from '@rainbow-me/rainbowkit'
-
-import { createClient, configureChains, WagmiConfig } from 'wagmi'
-import { mainnet, goerli } from 'wagmi/chains'
-import { publicProvider } from 'wagmi/providers/public'
+import "@rainbow-me/rainbowkit/styles.css"
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+  lightTheme,
+} from "@rainbow-me/rainbowkit"
+import { createClient, configureChains, WagmiConfig } from "wagmi"
+import { mainnet, goerli } from "wagmi/chains"
+import { publicProvider } from "wagmi/providers/public"
 // import { infuraProvider } from 'wagmi/providers/infura'
-import { alchemyProvider } from 'wagmi/providers/alchemy'
-import { ENV } from 'utils/env'
+import { alchemyProvider } from "wagmi/providers/alchemy"
+import { ENV } from "utils/env"
 
 // Choose which chains you'd like to show
 const chains = [mainnet, goerli]
@@ -36,8 +39,8 @@ const Web3Provider = ({ children }) => {
         chains={chains}
         coolMode
         theme={lightTheme({
-          accentColor: 'black',
-          borderRadius: 'large',
+          accentColor: "black",
+          borderRadius: "large",
         })}
       >
         {children}
