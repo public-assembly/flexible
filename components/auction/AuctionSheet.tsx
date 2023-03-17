@@ -30,7 +30,7 @@ import { AuctionCountdown } from "./AuctionCountdown"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { ethers } from "ethers"
 import { BidHistory } from "./BidHistory"
-import { fromUnixTime, format } from "date-fns"
+import { fromUnixTime, format, getUnixTime } from "date-fns"
 import { Settle } from "./Settle"
 import { useProvider } from "wagmi"
 
@@ -65,6 +65,8 @@ export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
 
   const [tokenBlock, setTokenBlock] = useState<number>()
 
+  const [auctionEnded, setAuctionEnded] = useState<boolean>(false)
+
   useEffect(() => {
     async function getTokenBlock() {
       const block = tokenData?.mintInfo.mintContext.blockNumber
@@ -79,6 +81,14 @@ export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
   const externalLinkBaseURI = "https://nouns.build/dao"
 
   const tokenTitle = tokenData?.metadata?.name
+
+  useEffect(() => {
+    if (getUnixTime(Date.now()) >= auctionData?.endTime) {
+      setAuctionEnded(true)
+    }
+  }, [auctionData])
+
+  console.log(auctionEnded)
 
   if (!auctionData?.endTime) return null
   return (
@@ -139,7 +149,7 @@ export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
                 </Headline>
               </SheetTitle>
               <Flex className="gap-10">
-                {auctionState.tokenId == tokenId ? (
+                {!auctionEnded ? (
                   <>
                     {/* Auction countdown */}
                     <Stack>
@@ -187,7 +197,7 @@ export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
                   </>
                 )}
               </Flex>
-              {auctionState.tokenId == tokenId ? (
+              {!auctionEnded ? (
                 <AuthCheck
                   connectButton={<ConnectButton />}
                   connectCopy={"Connect to bid"}
