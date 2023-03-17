@@ -7,7 +7,7 @@ import { ArrowUpRight } from "@/components/assets/icons"
 import CountingNumbers from "@/components/base/CountingNumbers"
 import { BodySmall, Headline } from "@/components/base/Typography"
 
-const labelVariants = cva(["w-fit h-fit flex rounded-object"], {
+const labelVariants = cva(["w-fit h-fit flex rounded-object items-center"], {
   variants: {
     variant: {
       badge: ["flex-col gap-1 px-6 py-4 bg-secondary rounded-object "],
