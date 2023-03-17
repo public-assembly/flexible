@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useActiveAuction, useDaoToken } from '@public-assembly/dao-utils';
-import { useCallback, useEffect, useState } from 'react';
-import { ENV } from 'utils/env';
+import { useActiveAuction, useDaoToken } from "@public-assembly/dao-utils"
+import { useCallback, useEffect, useState } from "react"
+import { ENV } from "utils/env"
 
 export const useAuction = () => {
   const { totalSupply, auctionData } = useActiveAuction(ENV.TOKEN_ADDRESS)
@@ -26,7 +26,6 @@ export const useAuction = () => {
 
   const isFirstToken = tokenId === 0
   const isLastToken = tokenId === totalSupply - 1
-
 
   const [thumbnail, setThumbnail] = useState<undefined | string>()
   const [name, setName] = useState<undefined | string>()
@@ -56,7 +55,6 @@ export const useAuction = () => {
     isFirstToken,
     isLastToken,
     thumbnail,
-    tokenName: name
+    tokenName: name,
   }
-
 }

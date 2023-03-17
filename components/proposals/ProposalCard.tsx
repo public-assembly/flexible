@@ -27,9 +27,9 @@ export default function ProposalCard({ proposal }) {
     const proposalVotes = proposal.votes
 
     // Check if the current address has voted on this proposal.
-    const hasVoted = proposalVotes.some((vote) => vote.voter === address)
+    const hasVoted = proposalVotes.some((vote) => vote.voter === address.toLowerCase)
 
-    setNeedsAction(hasVoted)
+    setNeedsAction(!hasVoted)
   }, [address, proposal.votes])
 
   return (
@@ -56,7 +56,6 @@ export default function ProposalCard({ proposal }) {
 
           <Stack className="h-full gap-2 ">
             <ProposalTitle title={proposal.title} />
-
             <span className="text-xs font-medium text-primary/50">
               by <Proposer proposer={proposal.proposer} />
             </span>

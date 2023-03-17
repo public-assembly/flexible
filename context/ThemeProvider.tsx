@@ -59,11 +59,8 @@ export const ThemeProvider = memo(function ThemeProvider({
   children,
   platformIndex,
 }: ThemeProviderProps) {
-  /**
-   * Read the registry contract defined as an environment variable
-   */
-  const themeRegistry = process.env
-    .NEXT_PUBLIC_REGISTRY_CONTRACT as `0x${string}`
+ 
+  const themeRegistry = "0x9a23AE640040e4d34E9e00E500003000017144F4"
   /**
    * Assign a state variable to the theme content object
    */
