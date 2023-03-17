@@ -83,7 +83,7 @@ const ProposalVoteButton = ({ proposal }) => {
         <Stack>
           <textarea
             value={reason}
-            onInput={(e) => setReason(e.target.value)}
+            onChange={(e) => setReason(e.target.value)}
             placeholder="Comment (optional)"
             className="py-2 px-3 w-full min-h-[167px] text-black"
           ></textarea>
