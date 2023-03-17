@@ -129,7 +129,7 @@ export const ThemeProvider = memo(function ThemeProvider({
   /**
    * Read the desired ipfs string from the registry contract
    */
-  const contractRead = useContractRead({
+  useContractRead({
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     functionName: "getPlatformTheme",
