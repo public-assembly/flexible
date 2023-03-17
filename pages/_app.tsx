@@ -8,7 +8,6 @@ import { GovernorProvider, AuctionProvider } from "@public-assembly/dao-utils"
 import { Provider } from "react-wrap-balancer"
 import { SWRConfig } from "swr"
 import { ENV } from "utils/env"
-
 import { Header } from "@/components/Header"
 import { TopProgressBar } from "@/components/TopProgressBar"
 import Web3Provider from "@/components/Web3Provider"
@@ -110,7 +109,7 @@ export default function ExampleApp({ Component, pageProps }: AppProps) {
         `}
       </style>
       <NextHead>
-        <title>Public Assembly</title>
+        <title>{ENV.SITE_TITLE}</title>
       </NextHead>
       <SWRConfig
         value={{
