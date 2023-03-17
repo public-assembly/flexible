@@ -12,7 +12,6 @@ import { shortenAddress } from '../utils/shortenAddress'
 
 export function useAuth() {
   const provider = useProvider()
-
   const { data: signer } = useSigner()
   const { address, isConnecting, ...rest } = useAccount()
   const { data: ensName } = useEnsName({

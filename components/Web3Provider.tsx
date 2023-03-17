@@ -37,7 +37,7 @@ const Web3Provider = ({ children }) => {
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider
         chains={chains}
-        coolMode
+        modalSize="compact"
         theme={lightTheme({
           accentColor: "black",
           borderRadius: "large",

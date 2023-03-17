@@ -32,6 +32,7 @@ import { ethers } from "ethers"
 import { BidHistory } from "./BidHistory"
 import { fromUnixTime, format, getUnixTime } from "date-fns"
 import { Settle } from "./Settle"
+import { useAuth } from "@/hooks/useAuth"
 import { useProvider } from "wagmi"
 
 const MotionButton = motion(Button)
