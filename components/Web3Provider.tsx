@@ -7,7 +7,6 @@ import {
 import { createClient, configureChains, WagmiConfig } from "wagmi"
 import { mainnet, goerli } from "wagmi/chains"
 import { publicProvider } from "wagmi/providers/public"
-// import { infuraProvider } from 'wagmi/providers/infura'
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { ENV } from "utils/env"
 
@@ -15,9 +14,8 @@ import { ENV } from "utils/env"
 const chains = [mainnet, goerli]
 
 const { provider, webSocketProvider } = configureChains(chains, [
-  publicProvider(),
   alchemyProvider({ apiKey: ENV.ALCHEMY_KEY }),
-  // infuraProvider({ apiKey: ENV.INFURA_KEY! }),
+  publicProvider(),
 ])
 
 const { connectors } = getDefaultWallets({

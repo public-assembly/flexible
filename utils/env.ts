@@ -12,7 +12,6 @@ const PROCESS = {
   TWITTER_HANDLE: process.env.NEXT_PUBLIC_TWITTER_HANDLE,
   WEBSITE_URL: process.env.NEXT_PUBLIC_WEBSITE_URL,
   NETWORK_URL: process.env.NEXT_PUBLIC_NETWORK_URL,
-  INFURA_KEY: process.env.NEXT_PUBLIC_INFURA_KEY,
   TOKEN_ADDRESS: process.env.NEXT_PUBLIC_TOKEN_ADDRESS,
   /**
    * Environment variables necessary for onchain theming
@@ -46,7 +45,6 @@ export const ENV = {
   VERCEL_ENV: VERCEL_ENV,
   /** Cast to a string because we throw an error if this is not set */
   ALCHEMY_KEY: PROCESS.ALCHEMY_KEY as string,
-  INFURA_KEY: PROCESS.INFURA_KEY,
   APP_ID: PROCESS.APP_ID,
   SITE_TITLE: PROCESS.SITE_TITLE,
   SITE_DESCRIPTION: PROCESS.SITE_DESCRIPTION,
