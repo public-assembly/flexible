@@ -32,7 +32,6 @@ function ProposalDetailPage() {
   if (!allProposals) return null
 
   const proposal = allProposals.find((proposal) => proposal.proposalId === pid)
-  console.log({ proposal })
 
   if (!proposal) return null
   return (
@@ -127,20 +126,24 @@ function ProposalVoteStatus({ proposal }) {
   const [txHash, setTxHash] = useState<string | undefined>(undefined)
 
   useEffect(() => {
+    // Exit the useEffect hook on the first render if address is not defined
     if (!address) return
+    // Return all voting instances for this proposal
     const proposalVotes = proposal.votes
-
-    const vote = proposalVotes.find((vote) => vote.voter === address)
-
+    // Return votes conducted by the connected address
+    // prettier-ignore
+    const vote = proposalVotes.find((vote: any) => vote.voter === address.toLowerCase())
+    // Get the hash of the voting instance
     const hash = vote?.transactionInfo?.transactionHash
-
+    // If there is a hash, set it to the txHash state variable
     if (hash) setTxHash(hash)
-
-    // Check if the current address has voted on this proposal.
-    const hasVoted = proposalVotes.some((vote) => vote.voter === address)
-
+    // Check if the connected address has voted on this proposal.
+    // prettier-ignore
+    const hasVoted = proposalVotes.some((vote: any) => vote.voter === address.toLowerCase())
+    // If the connected address has voted, set their support to the voteSupport state variable
     if (hasVoted) setVoteSupport(vote.support)
-    setNeedsAction(hasVoted)
+    // Set the needsAction boolean to true if they haven't voted and false if not
+    setNeedsAction(!hasVoted)
   }, [address, proposal.votes])
 
   return (
@@ -157,7 +160,7 @@ function ProposalVoteStatus({ proposal }) {
                 showExternalLinkIcon
                 externalLink={buildEtherscanLink("tx", txHash)}
               >
-                You voted against this proposal
+                You abstained from voting
               </Label>
             )
           case NOUNS_PROPOSAL_SUPPORT.FOR:
@@ -179,7 +182,7 @@ function ProposalVoteStatus({ proposal }) {
                 showExternalLinkIcon
                 externalLink={buildEtherscanLink("tx", txHash)}
               >
-                You voted abstained from voting
+                You voted against this proposal
               </Label>
             )
           default:
