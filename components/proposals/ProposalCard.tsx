@@ -40,7 +40,7 @@ export default function ProposalCard({ proposal }) {
       >
         <Stack
           className={cn(
-            "h-full gap-6 px-4 py-4 text-primary transition duration-300 border border-tertiary bg-secondary rounded-object shadow-surface-elevation-low",
+            "h-full gap-6 px-4 py-4 text-primary transition duration-300 border border-tertiary bg-secondary rounded-object shadow-surface-elevation-low custom-shadow",
             "hover:shadow-surface-elevation-medium hover:border-primary ",
             "active:shadow-surface-elevation-low"
           )}

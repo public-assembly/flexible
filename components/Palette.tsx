@@ -327,7 +327,7 @@ export function Palette() {
         </div>
       </div>
       {/* Dropshadow */}
-      {/* <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
+      <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
         <span className="uppercase font-semibold">Dropshadow</span>
         <div className="flex justify-between items-center gap-x-32">
           <label>Color</label>
@@ -345,9 +345,9 @@ export function Palette() {
             <Slider.Root
               className="relative flex items-center select-none touch-none w-[161px] h-5"
               value={[Number(shadowSpread)]}
-              min={1}
-              max={24}
-              step={1}
+              min={0}
+              max={32}
+              step={2}
               aria-label="Dropshadow Spread"
               onValueChange={(newValue) => setShadowSpread(String(newValue))}
             >
@@ -364,7 +364,7 @@ export function Palette() {
           </div>
         </div>
         <br></br>
-      </div> */}
+      </div>
       {/* Corner radius */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
         <span className="uppercase font-semibold">Corner Radius</span>

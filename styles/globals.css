@@ -25,8 +25,8 @@
     --caption: var(--font-space-mono);
 
     /* Dropshadow */
-    --drop-shadow-spread: 0px;
-    --drop-shadow-color: rgba(0, 0, 0, 0.25);
+    --color-shadow: rgba(33, 43, 18, 0.25);
+    --shadow-spread: 2px;
 
     /* Corner Radius */
     --border-radius-object: 8px;
@@ -92,6 +92,10 @@
 
 .rounded-object {
   border-radius: var(--border-radius-object);
+}
+
+.custom-shadow {
+  box-shadow: var(--shadow-spread) calc(var(--shadow-spread) * 2) calc(var(--shadow-spread) * 4) 0 var(--color-shadow);
 }
 
 * {

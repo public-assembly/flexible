@@ -33,7 +33,8 @@ const ContentInner: React.FC<React.PropsWithChildren> = ({ children }) => {
         'content-inner',
         'relative p-6 overflow-auto bg-secondary',
         'rounded-object max-w-[80vw]',
-        'origin-radix-dropdown-menu shadow-md',
+        // 'origin-radix-dropdown-menu shadow-md',
+        'origin-radix-dropdown-menu custom-shadow',
         // mobile sheet animations
         'group-radix-state-open:animate-longFadeInUp',
         'group-radix-state-closed:animate-longFadeInDown',
