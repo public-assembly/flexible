@@ -4,7 +4,12 @@ import dynamic from "next/dynamic"
 import { Space_Mono } from "next/font/google"
 import localFont from "next/font/local"
 import NextHead from "next/head"
-import { GovernorProvider, AuctionProvider } from "@public-assembly/dao-utils"
+import {
+  GovernorProvider,
+  AuctionProvider,
+  MetadataProvider,
+  TokenProvider,
+} from "@public-assembly/dao-utils"
 import { Provider } from "react-wrap-balancer"
 import { SWRConfig } from "swr"
 import { ENV } from "utils/env"
@@ -124,14 +129,18 @@ export default function ExampleApp({ Component, pageProps }: AppProps) {
             >
               <GovernorProvider>
                 <DynamicAuctionProvider>
-                  <ThemeProvider platformIndex={ENV.PLATFORM_INDEX}>
-                    <TopProgressBar />
-                    <DrawerContextProvider>
-                      <Header />
-                      <Drawer />
-                      <Component {...pageProps} />
-                    </DrawerContextProvider>
-                  </ThemeProvider>
+                  <MetadataProvider>
+                    <TokenProvider>
+                      <ThemeProvider platformIndex={ENV.PLATFORM_INDEX}>
+                        <TopProgressBar />
+                        <DrawerContextProvider>
+                          <Header />
+                          <Drawer />
+                          <Component {...pageProps} />
+                        </DrawerContextProvider>
+                      </ThemeProvider>
+                    </TokenProvider>
+                  </MetadataProvider>
                 </DynamicAuctionProvider>
               </GovernorProvider>
             </DynamicManagerProvider>

@@ -6,12 +6,11 @@ type IconButtonProps = {
   icon: React.ReactNode
   href: string
   tooltip: string
-  // onClick: () => void
 }
 
 const IconButton = (props: IconButtonProps) => {
   return (
-    <NextLink href={props.href}>
+    <NextLink href={props.href} target="_blank">
       <Button variant='tertiary' className='px-4 py-2 w-fit'>
         {props.icon}
       </Button>

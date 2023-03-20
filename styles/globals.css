@@ -196,6 +196,10 @@ div[data-radix-popper-content-wrapper] {
   z-index: 999 !important;
 }
 
+.new-line {
+  white-space:pre
+ }
+
 /* On screens that are 768px or less, create sheet for dropdown */
 @media screen and (max-width: 768px) {
   div[data-radix-popper-content-wrapper] {
