@@ -76,6 +76,7 @@
 .headline {
   font-family: var(--headline);
   font-size: var(--headline-size, 24px);
+  line-height: 166.67%;;
 }
 
 .body {
