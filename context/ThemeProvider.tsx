@@ -115,6 +115,7 @@ export const ThemeProvider = memo(function ThemeProvider({
     getComputedStyle(document.documentElement).getPropertyValue(
       "--shadow-spread"
     )
+    .slice(0, -2)
   )
   const [objectRadius, setObjectRadius] = useState<string>(
     getComputedStyle(document.documentElement)
@@ -192,7 +193,7 @@ export const ThemeProvider = memo(function ThemeProvider({
   // prettier-ignore
   document.documentElement.style.setProperty("--color-shadow", shadowColor);
   // prettier-ignore
-  document.documentElement.style.setProperty("--shadow-spread", shadowSpread);
+  document.documentElement.style.setProperty("--shadow-spread", shadowSpread + 'px');
   // prettier-ignore
   document.documentElement.style.setProperty("--border-radius-object", objectRadius + 'px');
   // prettier-ignore

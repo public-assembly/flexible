@@ -345,9 +345,9 @@ export function Palette() {
             <Slider.Root
               className="relative flex items-center select-none touch-none w-[161px] h-5"
               value={[Number(shadowSpread)]}
-              min={1}
-              max={24}
-              step={1}
+              min={0}
+              max={32}
+              step={2}
               aria-label="Dropshadow Spread"
               onValueChange={(newValue) => setShadowSpread(String(newValue))}
             >

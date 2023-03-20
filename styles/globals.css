@@ -25,8 +25,8 @@
     --caption: var(--font-space-mono);
 
     /* Dropshadow */
-    --color-shadow: rgba(0, 0, 0, 0.25);
-    --shadow-spread: 0px;
+    --color-shadow: rgba(33, 43, 18, 0.25);
+    --shadow-spread: 2px;
 
     /* Corner Radius */
     --border-radius-object: 8px;
@@ -94,8 +94,8 @@
   border-radius: var(--border-radius-object);
 }
 
-.shadow {
-  box-shadow: var(--shadow-spread) var(--shadow-spread) 0 var(--color-shadow);
+.custom-shadow {
+  box-shadow: var(--shadow-spread) calc(var(--shadow-spread) * 2) calc(var(--shadow-spread) * 4) 0 var(--color-shadow);
 }
 
 * {
