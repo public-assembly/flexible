@@ -59,7 +59,6 @@ export const ThemeProvider = memo(function ThemeProvider({
   children,
   platformIndex,
 }: ThemeProviderProps) {
- 
   const themeRegistry = "0x9a23AE640040e4d34E9e00E500003000017144F4"
   /**
    * Assign a state variable to the theme content object
@@ -109,10 +108,14 @@ export const ThemeProvider = memo(function ThemeProvider({
     getComputedStyle(document.documentElement).getPropertyValue("--caption")
   )
 
-  console.log(caption)
-
-  const [shadowColor, setShadowColor] = useState<string>("")
-  const [shadowSpread, setShadowSpread] = useState<string>("")
+  const [shadowColor, setShadowColor] = useState<string>(
+    getComputedStyle(document.documentElement).getPropertyValue("--color-shadow")
+  )
+  const [shadowSpread, setShadowSpread] = useState<string>(
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--shadow-spread"
+    )
+  )
   const [objectRadius, setObjectRadius] = useState<string>(
     getComputedStyle(document.documentElement)
       .getPropertyValue("--border-radius-object")
@@ -187,7 +190,7 @@ export const ThemeProvider = memo(function ThemeProvider({
   // prettier-ignore
   document.documentElement.style.setProperty("--caption", caption);
   // prettier-ignore
-  document.documentElement.style.setProperty("--drop-shadow", shadowColor);
+  document.documentElement.style.setProperty("--color-shadow", shadowColor);
   // prettier-ignore
   document.documentElement.style.setProperty("--shadow-spread", shadowSpread);
   // prettier-ignore
