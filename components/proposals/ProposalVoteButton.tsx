@@ -19,6 +19,7 @@ import {
 } from "@public-assembly/dao-utils"
 import { useAuth } from "@/hooks/useAuth"
 import { BigNumber } from "ethers"
+import { Hash } from "types"
 
 const ProposalVoteButton = ({ proposal }) => {
   const [support, setSupport] = useState<0 | 1 | 2 | undefined>()
@@ -36,7 +37,7 @@ const ProposalVoteButton = ({ proposal }) => {
     address: governorAddress,
     abi: governorAbi,
     functionName: "getVotes",
-    args: [address as string, BigNumber.from(proposal?.timeCreated)],
+    args: [address as Hash, BigNumber.from(proposal?.timeCreated)],
   })
 
   return (
@@ -91,7 +92,7 @@ const ProposalVoteButton = ({ proposal }) => {
         <DialogFooter>
           {reason == "" ? (
             <Button
-              onClick={() => castVote()}
+              onClick={() => castVote?.()}
               variant="tertiary"
               type="submit"
               className="w-full"
@@ -100,7 +101,7 @@ const ProposalVoteButton = ({ proposal }) => {
             </Button>
           ) : (
             <Button
-              onClick={() => castVoteWithReason()}
+              onClick={() => castVoteWithReason?.()}
               variant="tertiary"
               type="submit"
               className="w-full"

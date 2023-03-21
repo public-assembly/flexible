@@ -63,13 +63,6 @@ const Auction = () => {
     getTokenBlock()
   }, [tokenData])
 
-  console.log(tokenId)
-  console.log(auctionData.tokenId)
-
-  if (auctionData.tokenId == tokenId) {
-    console.log("yeo")
-  }
-
   useEffect(() => {
     if (auctionData.tokenId == tokenId) {
       // If the current tokenId matches the passed tokenId, and the current time is greater than tokenBlock + 24 hours,

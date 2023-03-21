@@ -43,7 +43,13 @@ interface AuctionSheetProps {
 }
 
 // TODO: use mobile button on ssr if windowWidth < 768
-export function AuctionSheet({ tokenId, tokenTitle, tokenBlock, winningBid, auctionEnded }: AuctionSheetProps) {
+export function AuctionSheet({
+  tokenId,
+  tokenTitle,
+  tokenBlock,
+  winningBid,
+  auctionEnded,
+}: AuctionSheetProps) {
   const { isMobile } = useIsMobile()
 
   const [open, setOpen] = useState<boolean | undefined>()
@@ -56,8 +62,6 @@ export function AuctionSheet({ tokenId, tokenTitle, tokenBlock, winningBid, auct
     createBidLoading,
     isValidBid,
   } = useActiveAuction(ENV.TOKEN_ADDRESS)
-
-  const { auctionState } = useAuctionContext()
 
   const externalLinkBaseURI = "https://nouns.build/dao"
 
@@ -134,7 +138,7 @@ export function AuctionSheet({ tokenId, tokenTitle, tokenBlock, winningBid, auct
                       <Caption className="uppercase text-primary">
                         Ξ{" "}
                         <span>{`${ethers.utils.formatEther(
-                          auctionState?.highestBid
+                          Number(auctionData?.highestBidPriceRaw)
                         )}`}</span>
                       </Caption>
                       <BodySmall className="text-tertiary">
