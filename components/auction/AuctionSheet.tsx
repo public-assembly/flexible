@@ -30,7 +30,6 @@ import { ethers } from "ethers"
 import { BidHistory } from "./BidHistory"
 import { fromUnixTime, format, getUnixTime } from "date-fns"
 import { Settle } from "./Settle"
-import { useProvider } from "wagmi"
 
 const MotionButton = motion(Button)
 
@@ -136,10 +135,11 @@ export function AuctionSheet({
                     {/* Highest bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        Ξ{" "}
-                        <span>{`${ethers.utils.formatEther(
-                          Number(auctionData?.highestBidPriceRaw)
-                        )}`}</span>
+                        Ξ
+                        {ethers.utils.formatEther(
+                          // @ts-ignore
+                          auctionData?.highestBidPriceRaw
+                        )}
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Highest bid
@@ -172,49 +172,53 @@ export function AuctionSheet({
                   </>
                 )}
               </Flex>
-              {!auctionEnded ? (
-                <AuthCheck
-                  connectButton={<ConnectButton />}
-                  connectCopy={"Connect to bid"}
-                  formUI={
-                    <div>
-                      <form
-                        onSubmit={createBid}
-                        className="flex flex-col gap-y-4"
-                      >
-                        <input
-                          className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
-                          type="text"
-                          pattern="[0-9.]*"
-                          placeholder={`Ξ ${auctionData.minBidAmount?.toFixed(
-                            4
-                          )} OR HIGHER`}
-                          onChange={(event: any) =>
-                            updateBidAmount(event.target.value)
-                          }
-                        />
-                        {!createBidLoading && !createBidSuccess ? (
-                          <Button
-                            disabled={!isValidBid}
-                            className="py-8 lg:py-7"
-                          >
-                            Enter Bid
-                          </Button>
-                        ) : (
-                          <>
-                            <Button className="py-8 lg:py-7">
-                              <Pending className="animate-spin" />
+              {auctionData.tokenId == tokenId ? (
+                auctionEnded ? (
+                  <Settle />
+                ) : (
+                  <AuthCheck
+                    connectButton={<ConnectButton />}
+                    connectCopy={"Connect to bid"}
+                    formUI={
+                      <div>
+                        <form
+                          onSubmit={createBid}
+                          className="flex flex-col gap-y-4"
+                        >
+                          <input
+                            className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
+                            type="text"
+                            pattern="[0-9.]*"
+                            placeholder={`Ξ ${auctionData.minBidAmount?.toFixed(
+                              4
+                            )} OR HIGHER`}
+                            onChange={(event: any) =>
+                              updateBidAmount(event.target.value)
+                            }
+                          />
+                          {!createBidLoading && !createBidSuccess ? (
+                            <Button
+                              disabled={!isValidBid}
+                              className="py-8 lg:py-7"
+                            >
+                              Enter Bid
                             </Button>
-                            {createBidSuccess && <Caption>Bid placed</Caption>}
-                          </>
-                        )}
-                      </form>
-                    </div>
-                  }
-                />
-              ) : (
-                <Settle />
-              )}
+                          ) : (
+                            <>
+                              <Button className="py-8 lg:py-7">
+                                <Pending className="animate-spin" />
+                              </Button>
+                              {createBidSuccess && (
+                                <Caption>Bid placed</Caption>
+                              )}
+                            </>
+                          )}
+                        </form>
+                      </div>
+                    }
+                  />
+                )
+              ) : null}
               {/* Bid History */}
               <BidHistory tokenId={tokenId} tokenAddress={ENV.TOKEN_ADDRESS} />
             </SheetHeader>
