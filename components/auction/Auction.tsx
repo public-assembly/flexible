@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react"
 import { cn } from "utils/cn"
 import { ENV } from "utils/env"
 import { BlurImage } from "@/components/BlurImage"
+import { getUnixTime } from "date-fns"
 // Icons
 import { ArrowLeft, ArrowRight } from "@/components/assets/icons"
 import { AuctionSheet } from "@/components/auction/AuctionSheet"
@@ -14,21 +15,21 @@ import { Stack } from "@/components/base/Stack"
 import { Pending } from "@/components/assets/icons"
 // Hooks
 import {
-  useActiveAuction,
   useAuctionContext,
-  useCountdown,
+  useDaoToken,
 } from "@public-assembly/dao-utils"
 import { useBid } from "@/hooks/useBid"
 import { useIsMobile } from "@/hooks/useIsMobile"
 import { useAuction } from "@/hooks/useAuction"
 import { motion } from "framer-motion"
-
+import { useAuth } from "@/hooks/useAuth"
 import { Body, Caption } from "../base/Typography"
 
 const Auction = () => {
   const { isMobile } = useIsMobile()
-
+  const { provider} = useAuth()
   const {
+    auctionData,
     totalSupply,
     incrementId,
     decrementId,
@@ -43,6 +44,32 @@ const Auction = () => {
     tokenId,
     tokenAddress: ENV.TOKEN_ADDRESS,
   })
+
+  const [auctionEnded, setAuctionEnded] = useState<boolean>(false)
+
+  const { tokenData } = useDaoToken({
+    tokenAddress: ENV.TOKEN_ADDRESS,
+    tokenId: tokenId,
+  })
+
+  const [tokenBlock, setTokenBlock] = useState<number>()
+
+  const tokenTitle = tokenData?.metadata?.name
+
+  useEffect(() => {
+    async function getTokenBlock() {
+      const block = tokenData?.mintInfo.mintContext.blockNumber
+      const unixBlock = await provider.getBlock(block)
+      setTokenBlock(Number(unixBlock.timestamp))
+    }
+    getTokenBlock()
+  }, [tokenData])
+
+  useEffect(() => {
+    if (getUnixTime(Date.now()) >= auctionData?.endTime) {
+      setAuctionEnded(true)
+    }
+  }, [auctionData])
 
   const { auctionState } = useAuctionContext()
 
@@ -103,11 +130,11 @@ const Auction = () => {
                     }  h-6 inline-flex items-center group`}
                   >
                     <div className="flex gap-x-4">
-                      <Body className="text-secondary">
+                      {/* <Body className="text-secondary">
                         {auctionState.tokenId == tokenId
                           ? "Current bid"
                           : "Winning bid"}
-                      </Body>
+                      </Body> */}
                       <Caption className="text-secondary group-hover:underline">
                         Ξ {winningBid}
                       </Caption>
@@ -120,11 +147,10 @@ const Auction = () => {
         </Stack>
 
         {/* Desktop/Tablet Auction button */}
-        <AuctionSheet tokenId={tokenId} winningBid={winningBid} />
+        <AuctionSheet tokenId={tokenId} tokenTitle={tokenTitle} tokenBlock={tokenBlock} winningBid={winningBid} auctionEnded={auctionEnded} />
       </Flex>
 
       {/* Mobile auction button */}
-
       {isMobile ? (
         <Stack className="justify-between flex-grow w-full h-full">
           <Stack className="gap-2">
@@ -144,11 +170,11 @@ const Auction = () => {
                   }  h-6 inline-flex items-center group`}
                 >
                   <div className="flex gap-x-4">
-                    <Body className="text-secondary">
+                    {/* <Body className="text-secondary">
                       {auctionState.tokenId == tokenId
                         ? "Current bid"
                         : "Winning bid"}
-                    </Body>
+                    </Body> */}
                     <Caption className="text-secondary group-hover:underline">
                       Ξ {winningBid}
                     </Caption>

@@ -32,26 +32,28 @@ import { ethers } from "ethers"
 import { BidHistory } from "./BidHistory"
 import { fromUnixTime, format, getUnixTime } from "date-fns"
 import { Settle } from "./Settle"
-import { useAuth } from "@/hooks/useAuth"
 import { useProvider } from "wagmi"
 
 const MotionButton = motion(Button)
 
 interface AuctionSheetProps {
   tokenId: string
+  tokenTitle: string
+  tokenBlock?: number
   winningBid?: string
+  auctionEnded: boolean
 }
 
 // TODO: use mobile button on ssr if windowWidth < 768
-export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
+export function AuctionSheet({ tokenId, tokenTitle, tokenBlock, winningBid, auctionEnded }: AuctionSheetProps) {
   const { isMobile } = useIsMobile()
 
   const [open, setOpen] = useState<boolean | undefined>()
 
-  const { tokenData } = useDaoToken({
-    tokenAddress: ENV.TOKEN_ADDRESS,
-    tokenId: tokenId,
-  })
+  // const { tokenData } = useDaoToken({
+  //   tokenAddress: ENV.TOKEN_ADDRESS,
+  //   tokenId: tokenId,
+  // })
 
   const provider = useProvider()
 
@@ -64,32 +66,32 @@ export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
     isValidBid,
   } = useActiveAuction(ENV.TOKEN_ADDRESS)
 
-  const [tokenBlock, setTokenBlock] = useState<number>()
+  // const [tokenBlock, setTokenBlock] = useState<number>()
 
-  const [auctionEnded, setAuctionEnded] = useState<boolean>(false)
+  // const [auctionEnded, setAuctionEnded] = useState<boolean>(false)
 
-  useEffect(() => {
-    async function getTokenBlock() {
-      const block = tokenData?.mintInfo.mintContext.blockNumber
-      const unixBlock = await provider.getBlock(block)
-      setTokenBlock(Number(unixBlock.timestamp))
-    }
-    getTokenBlock()
-  }, [tokenData])
+  // useEffect(() => {
+  //   async function getTokenBlock() {
+  //     const block = tokenData?.mintInfo.mintContext.blockNumber
+  //     const unixBlock = await provider.getBlock(block)
+  //     setTokenBlock(Number(unixBlock.timestamp))
+  //   }
+  //   getTokenBlock()
+  // }, [tokenData])
 
   const { auctionState } = useAuctionContext()
 
   const externalLinkBaseURI = "https://nouns.build/dao"
 
-  const tokenTitle = tokenData?.metadata?.name
+  // const tokenTitle = tokenData?.metadata?.name
 
-  useEffect(() => {
-    if (getUnixTime(Date.now()) >= auctionData?.endTime) {
-      setAuctionEnded(true)
-    }
-  }, [auctionData])
+  // useEffect(() => {
+  //   if (getUnixTime(Date.now()) >= auctionData?.endTime) {
+  //     setAuctionEnded(true)
+  //   }
+  // }, [auctionData])
 
-  console.log(auctionEnded)
+  // console.log(auctionEnded)
 
   if (!auctionData?.endTime) return null
   return (
@@ -139,7 +141,7 @@ export function AuctionSheet({ tokenId, winningBid }: AuctionSheetProps) {
                 <Headline>
                   {" "}
                   <a
-                    href={`${externalLinkBaseURI}/${tokenData?.tokenAddress}/${tokenId}`}
+                    href={`${externalLinkBaseURI}/${ENV.TOKEN_ADDRESS}/${tokenId}`}
                     target="_blank"
                     rel="noreferrer"
                     className="text-[24px] hover:underline flex flex-row items-center gap-2"
