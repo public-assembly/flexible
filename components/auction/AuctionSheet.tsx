@@ -22,8 +22,6 @@ import { BodySmall, Caption, Headline } from "@/components/base/Typography"
 import {
   AuthCheck,
   useActiveAuction,
-  useDaoToken,
-  useCountdown,
   useAuctionContext,
 } from "@public-assembly/dao-utils"
 import { AuctionCountdown } from "./AuctionCountdown"
@@ -50,13 +48,6 @@ export function AuctionSheet({ tokenId, tokenTitle, tokenBlock, winningBid, auct
 
   const [open, setOpen] = useState<boolean | undefined>()
 
-  // const { tokenData } = useDaoToken({
-  //   tokenAddress: ENV.TOKEN_ADDRESS,
-  //   tokenId: tokenId,
-  // })
-
-  const provider = useProvider()
-
   const {
     auctionData,
     createBid,
@@ -66,32 +57,9 @@ export function AuctionSheet({ tokenId, tokenTitle, tokenBlock, winningBid, auct
     isValidBid,
   } = useActiveAuction(ENV.TOKEN_ADDRESS)
 
-  // const [tokenBlock, setTokenBlock] = useState<number>()
-
-  // const [auctionEnded, setAuctionEnded] = useState<boolean>(false)
-
-  // useEffect(() => {
-  //   async function getTokenBlock() {
-  //     const block = tokenData?.mintInfo.mintContext.blockNumber
-  //     const unixBlock = await provider.getBlock(block)
-  //     setTokenBlock(Number(unixBlock.timestamp))
-  //   }
-  //   getTokenBlock()
-  // }, [tokenData])
-
   const { auctionState } = useAuctionContext()
 
   const externalLinkBaseURI = "https://nouns.build/dao"
-
-  // const tokenTitle = tokenData?.metadata?.name
-
-  // useEffect(() => {
-  //   if (getUnixTime(Date.now()) >= auctionData?.endTime) {
-  //     setAuctionEnded(true)
-  //   }
-  // }, [auctionData])
-
-  // console.log(auctionEnded)
 
   if (!auctionData?.endTime) return null
   return (

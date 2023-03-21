@@ -80,6 +80,10 @@ export const satoshi = localFont({
   ],
 })
 
+/**
+ * dao-utils provider configuration
+ */
+
 type ManagerProviderProps = {
   tokenAddress: `0x${string}`
   children: React.ReactNode
@@ -117,7 +121,9 @@ const DynamicAuctionProvider = dynamic(
   }
 ) as React.FC<DynamicAuctionProviderProps>
 
-// Choose which chains you'd like to show
+/**
+ * wagmi configuration
+ */
 const chains = [mainnet, goerli]
 
 const { provider, webSocketProvider } = configureChains(chains, [
@@ -137,7 +143,7 @@ const wagmiClient = createClient({
   webSocketProvider,
 })
 
-export default function ExampleApp({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <style jsx global>

@@ -6,7 +6,7 @@ export function AuctionCountdown({
 }: {
   auctionData: any
 }) {
-  const { countdownString, isEnded } = useCountdown(
+  const { countdownString } = useCountdown(
     Number(auctionData?.endTime)
   )
 
