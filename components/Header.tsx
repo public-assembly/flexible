@@ -93,10 +93,7 @@ function MobileDropdown(props: MobileDropdownProps) {
                 <Zorb address={address} size={32} radius={999} />
                 <Headline>{ensName ? ensName : address}</Headline>
               </Flex>
-              <DropdownMenu.Item
-                type="button"
-                onClick={() => console.log("open theme")}
-              >
+              <DropdownMenu.Item type="button" onClick={() => console.log()}>
                 <Button onClick={() => requestOpen("palette")}>
                   Edit theme
                 </Button>

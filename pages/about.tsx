@@ -14,6 +14,7 @@ import {
 } from "@public-assembly/dao-utils"
 import { useBalance, useContractRead } from "wagmi"
 import { aggregatorAbi } from "abi/aggregatorAbi"
+import { Hash } from "types"
 
 export default function AboutPage() {
   const { metadataSettings } = useMetadataContext()
@@ -24,7 +25,7 @@ export default function AboutPage() {
   })
 
   const { data } = useBalance({
-    address: daoAddresses?.treasuryAddress,
+    address: daoAddresses?.treasuryAddress as Hash,
   })
 
   const { data: latestRoundData } = useContractRead({
@@ -53,6 +54,7 @@ export default function AboutPage() {
         </Card>
         <Card className="px-6 py-4">
           <Stack>
+            {/* @ts-ignore */}
             <H2Heading>{tokenSettings[2].toString()}</H2Heading>
             <div className="text-black">Total Supply</div>
           </Stack>

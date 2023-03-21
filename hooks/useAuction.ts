@@ -25,6 +25,7 @@ export const useAuction = () => {
   }, [setTokenId, tokenId])
 
   const isFirstToken = tokenId === 0
+  // @ts-ignore
   const isLastToken = tokenId === totalSupply - 1
 
   const [thumbnail, setThumbnail] = useState<undefined | string>()

@@ -1,34 +1,33 @@
+// React
 import React, { useState, useEffect } from "react"
 // Utils
 import { cn } from "utils/cn"
 import { ENV } from "utils/env"
-import { BlurImage } from "@/components/BlurImage"
 // Icons
 import { ArrowLeft, ArrowRight } from "@/components/assets/icons"
 import { AuctionSheet } from "@/components/auction/AuctionSheet"
-// Components
-import Button from "@/components/base/Button"
 // Layout & Typography
+import Button from "@/components/base/Button"
 import { Flex } from "@/components/base/Flex"
 import { Stack } from "@/components/base/Stack"
-import { Pending } from "@/components/assets/icons"
+import { BlurImage } from "@/components/BlurImage"
+import { Body, Caption } from "../base/Typography"
+// dao-utils
+import { useDaoToken } from "@public-assembly/dao-utils"
 // Hooks
-import {
-  useActiveAuction,
-  useAuctionContext,
-  useCountdown,
-} from "@public-assembly/dao-utils"
 import { useBid } from "@/hooks/useBid"
 import { useIsMobile } from "@/hooks/useIsMobile"
 import { useAuction } from "@/hooks/useAuction"
+import { useAuth } from "@/hooks/useAuth"
+// Misc
 import { motion } from "framer-motion"
-
-import { Body, Caption } from "../base/Typography"
+import { getUnixTime } from "date-fns"
 
 const Auction = () => {
   const { isMobile } = useIsMobile()
-
+  const { provider } = useAuth()
   const {
+    auctionData,
     totalSupply,
     incrementId,
     decrementId,
@@ -44,7 +43,45 @@ const Auction = () => {
     tokenAddress: ENV.TOKEN_ADDRESS,
   })
 
-  const { auctionState } = useAuctionContext()
+  const [auctionEnded, setAuctionEnded] = useState<boolean>(false)
+  const [tokenBlock, setTokenBlock] = useState<number>()
+
+  const { tokenData } = useDaoToken({
+    tokenAddress: ENV.TOKEN_ADDRESS,
+    tokenId: tokenId,
+  })
+
+  const tokenTitle = tokenData?.metadata?.name
+
+  useEffect(() => {
+    async function getTokenBlock() {
+      const unixBlock = await provider.getBlock(
+        tokenData?.mintInfo.mintContext.blockNumber
+      )
+      setTokenBlock(Number(unixBlock.timestamp))
+    }
+    getTokenBlock()
+  }, [tokenData])
+
+  useEffect(() => {
+    if (auctionData.tokenId == tokenId) {
+      // If the current tokenId matches the passed tokenId, and the current time is greater than tokenBlock + 24 hours,
+      // set auctionEnded to true
+      if (tokenBlock && getUnixTime(Date.now()) >= tokenBlock + 86400) {
+        setAuctionEnded(true)
+      } else {
+        // If the current tokenId matches the passed tokenId, and the current time is NOT greater than tokenBlock + 24 hours,
+        // set auctionEnded to false
+        setAuctionEnded(false)
+      }
+    } else {
+      // If the current tokenId doesn't match the passed tokenId, and the current time is greater than tokenBlock,
+      // set auctionEnded to true
+      if (tokenBlock && getUnixTime(Date.now()) >= tokenBlock) {
+        setAuctionEnded(true)
+      }
+    }
+  }, [auctionData, tokenId, tokenBlock])
 
   if (!totalSupply) return null
   return (
@@ -104,9 +141,7 @@ const Auction = () => {
                   >
                     <div className="flex gap-x-4">
                       <Body className="text-secondary">
-                        {auctionState.tokenId == tokenId
-                          ? "Current bid"
-                          : "Winning bid"}
+                        {!auctionEnded ? "Current bid" : "Winning bid"}
                       </Body>
                       <Caption className="text-secondary group-hover:underline">
                         Ξ {winningBid}
@@ -120,11 +155,16 @@ const Auction = () => {
         </Stack>
 
         {/* Desktop/Tablet Auction button */}
-        <AuctionSheet tokenId={tokenId} winningBid={winningBid} />
+        <AuctionSheet
+          tokenId={tokenId}
+          tokenTitle={tokenTitle}
+          tokenBlock={tokenBlock}
+          winningBid={winningBid}
+          auctionEnded={auctionEnded}
+        />
       </Flex>
 
       {/* Mobile auction button */}
-
       {isMobile ? (
         <Stack className="justify-between flex-grow w-full h-full">
           <Stack className="gap-2">
@@ -145,9 +185,7 @@ const Auction = () => {
                 >
                   <div className="flex gap-x-4">
                     <Body className="text-secondary">
-                      {auctionState.tokenId == tokenId
-                        ? "Current bid"
-                        : "Winning bid"}
+                      {!auctionEnded ? "Current bid" : "Winning bid"}
                     </Body>
                     <Caption className="text-secondary group-hover:underline">
                       Ξ {winningBid}
