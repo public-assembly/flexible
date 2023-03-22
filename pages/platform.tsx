@@ -41,7 +41,7 @@ export function IndexSuccess({ platformIndex }: { platformIndex?: number }) {
             </a>
           </Button>
           <BodySmall className="max-w-sm mt-3">
-            You'll be prompted for this number when supplying environment
+            You&apos;ll be prompted for this number when supplying environment
             variables on Vercel.
           </BodySmall>
         </div>
