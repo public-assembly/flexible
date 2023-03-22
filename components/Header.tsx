@@ -106,10 +106,10 @@ function MobileDropdown(props: MobileDropdownProps) {
         <DropdownMenu.Separator />
         <Stack>
           <DropdownMenu.Item
-            type="external-link"
-            href="https://github.com/public-assembly/flexible"
+            type="link"
+            href="/platform"
           >
-            <Flex className="items-center w-full gap-4 py-4 hover:bg-tertiary/10 rounded-object">
+            <Flex className="items-center w-full gap-4 py-4 hover:bg-tertiary/10 rounded-object hover:cursor-pointer">
               <Copy />
               <Body>Copy our template</Body>
             </Flex>
