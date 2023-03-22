@@ -4,7 +4,7 @@ import { Zorb } from './base/Zorb'
 import { Button } from '@/components/base/Button'
 
 export default function ConnectButton({ ...props }) {
-  const { ensName, address } = useAuth()
+  const { ensName } = useAuth()
   return (
     <RKConnectButton.Custom>
       {({ account, chain, openAccountModal, openConnectModal, mounted }) => {

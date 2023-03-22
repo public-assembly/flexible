@@ -58,7 +58,7 @@ const Auction = () => {
       const unixBlock = await provider.getBlock(
         tokenData?.mintInfo.mintContext.blockNumber
       )
-      setTokenBlock(Number(unixBlock.timestamp))
+      setTokenBlock(Number(unixBlock?.timestamp))
     }
     getTokenBlock()
   }, [tokenData])

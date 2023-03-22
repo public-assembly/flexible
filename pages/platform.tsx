@@ -5,9 +5,11 @@ import {
   BodySmall,
   Caption,
 } from "@/components/base/Typography"
+import Balancer from "react-wrap-balancer"
 import { useAuth } from "@/hooks/useAuth"
 import Button from "@/components/base/Button"
 import { Stack } from "@/components/base/Stack"
+import { ArrowUpRight } from "@/components/assets/icons"
 import {
   useContractWrite,
   usePrepareContractWrite,
@@ -18,32 +20,47 @@ import { platformThemeRegistryAbi } from "abi/platformThemeRegistryAbi"
 import { Hash } from "types"
 import { Pending } from "@/components/assets/icons"
 import { useState } from "react"
+import ConnectButton from "@/components/ConnectButton"
+import useCopyText from "@/hooks/useCopyText"
+import { Copy } from "@/components/assets/icons"
 
 const themeRegistry = "0x9a23AE640040e4d34E9e00E500003000017144F4"
 
 export function IndexSuccess({ platformIndex }: { platformIndex?: number }) {
+  const { handleCopy, hasCopied } = useCopyText()
+  console.log(hasCopied)
+
   return (
     <>
-      <Stack className="text-center gap-y-4">
+      <Stack className="items-center text-center gap-y-8 w-auto md:w-[496px]">
         <div>
-          <Headline>Here is your new platform index!</Headline>
-          <BodySmall>Copy and paste this value to your clipboard.</BodySmall>
+          <Headline>Here is your platform index!</Headline>
+          <Balancer>
+            <BodySmall>
+              When deploying your platform, you&apos;ll provide this value as an
+              environment variable.
+            </BodySmall>
+          </Balancer>
         </div>
-        <Headline>{platformIndex}</Headline>
+        <button
+          className="flex items-center"
+          onClick={() => platformIndex && handleCopy(platformIndex.toString())}
+        >
+          <Headline>{platformIndex}</Headline>
+          <Copy className="ml-1 mt-.5 hover:cursor-pointer active:scale-125 transform" />
+        </button>
         <div className="mx-auto">
-          <Button className="max-w-[328px]">
+          <Flex className="items-center max-w-[328px]">
             <a
               href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpublic-assembly%2Fflexible&env=NEXT_PUBLIC_SITE_TITLE,NEXT_PUBLIC_APP_ID,NEXT_PUBLIC_SITE_DESCRIPTION,NEXT_PUBLIC_TWITTER_HANDLE,NEXT_PUBLIC_WEBSITE_URL,NEXT_PUBLIC_CHAIN_ID,NEXT_PUBLIC_ALCHEMY_KEY,NEXT_PUBLIC_TOKEN_ADDRESS,NEXT_PUBLIC_PLATFORM_INDEX,NEXT_PUBLIC_WEB3STORAGE_TOKEN"
               target="_blank"
               rel="noreferrer"
+              className="hover:underline mr-1"
             >
-              Deploy platform
+              Take me to Vercel
             </a>
-          </Button>
-          <BodySmall className="max-w-sm mt-3">
-            You&apos;ll be prompted for this number when supplying environment
-            variables on Vercel.
-          </BodySmall>
+            <ArrowUpRight />
+          </Flex>
         </div>
       </Stack>
     </>
@@ -51,7 +68,7 @@ export function IndexSuccess({ platformIndex }: { platformIndex?: number }) {
 }
 
 export default function Platform() {
-  const { address } = useAuth()
+  const { address, isConnected } = useAuth()
 
   const { config } = usePrepareContractWrite({
     address: themeRegistry,
@@ -86,22 +103,33 @@ export default function Platform() {
   })
 
   return (
-    <Stack className="h-full gap-4 px-4 pt-20 overflow-x-hidden">
+    <Stack className="p-6 mt-40">
       <Flex className="mx-auto border border-slate-300 p-8 rounded-lg custom-shadow w-auto">
         {isSuccess ? (
           <IndexSuccess platformIndex={platformIndex} />
         ) : (
           <>
-            <Stack className="text-center gap-y-8">
+            <Stack className="items-center text-center gap-y-8 w-auto md:w-[496px]">
               <div>
-                <Headline>
-                  Ready to create your own flexible interface?
-                </Headline>
-                <BodySmall>
-                  Writing to the shared theming registry costs gas.
-                </BodySmall>
+                <Headline>Ready to create your own DAO interface?</Headline>
+                <Balancer>
+                  {!isConnected ? (
+                    <BodySmall>
+                      Please connect your wallet to get started.
+                    </BodySmall>
+                  ) : (
+                    <BodySmall>
+                      The first step is to setup a platform index, this costs
+                      gas.
+                    </BodySmall>
+                  )}
+                </Balancer>
               </div>
-              <div className="mx-auto">
+              {!isConnected ? (
+                <span className="w-auto md:w-[328px]">
+                  <ConnectButton />
+                </span>
+              ) : (
                 <Button onClick={() => newIndex?.()} className="max-w-[328px]">
                   {!isLoading ? (
                     "Create index"
@@ -109,10 +137,7 @@ export default function Platform() {
                     <Pending className="animate-spin" />
                   )}
                 </Button>
-                <BodySmall className="max-w-sm mt-3">
-                  By default, you will be the admin of this index.
-                </BodySmall>
-              </div>
+              )}
             </Stack>
           </>
         )}
