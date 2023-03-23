@@ -1,15 +1,20 @@
-const { fontFamily } = require("tailwindcss/defaultTheme")
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+   future: {
+    hoverOnlyWhenSupported: true,
+  },
   darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     extend: {
       // Allows the use of the font-sans, font-body, font-caption utility class to apply the font to any element
       fontFamily: {
-        sans: ["var(--headline)", "var(--font-satoshi)", ...fontFamily.sans],
-        body: ["var(--body)", "var(--font-space-mono)", ...fontFamily.sans],
-        caption: ["var(--caption)", ...fontFamily.mono],
+        sans: ["var(--headline)", "var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
+        body: ["var(--body)", "var(--font-space-mono)", ...defaultTheme.fontFamily.sans],
+        caption: ["var(--caption)", ...defaultTheme.fontFamily.mono],
+        satoshi: ["var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
+        headline: ["var(--headline)", ...defaultTheme.fontFamily.sans],
       },
       colors: {
         current: "currentColor",
