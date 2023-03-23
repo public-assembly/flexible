@@ -36,17 +36,16 @@ export default function ProposalCard({ proposal }) {
     args: [address as Hash, BigNumber.from(proposal?.timeCreated)],
   })
 
-  if (proposal.status == "ACTIVE") {
-    useEffect(() => {
-      if (!address || !availableVotes || availableVotes.toNumber() < 1) return
-      const proposalVotes = proposal.votes
-      // Check if the current address can vote, and if they've voted on this proposal.
-      const hasVoted = proposalVotes.some(
-        (vote: any) => vote.voter === address.toLowerCase()
-      )
-      setNeedsAction(!hasVoted)
-    }, [address, proposal.votes])
-  }
+  useEffect(() => {
+    if (proposal.status != "ACTIVE") return
+    if (!address || !availableVotes || availableVotes.toNumber() < 1) return
+    const proposalVotes = proposal.votes
+    // Check if the current address can vote, and if they've voted on this proposal.
+    const hasVoted = proposalVotes.some(
+      (vote: any) => vote.voter === address.toLowerCase()
+    )
+    setNeedsAction(!hasVoted)
+  }, [address, proposal.votes])
 
   return (
     <>
