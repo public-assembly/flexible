@@ -96,7 +96,7 @@ export function Save() {
       <div className="flex justify-center bg-white w-full p-4">
         <div className="px-4 py-2 bg-[#F1F4F7] w-full text-center rounded-lg">
           <p className="text-[#576775]">
-            You don't have permissions to save theming data
+            You don&apos;t have permissions to save theming data
           </p>
         </div>
       </div>
