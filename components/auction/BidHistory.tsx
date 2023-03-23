@@ -1,11 +1,9 @@
 import { Flex } from "../base/Flex"
-import { Body, Caption } from "../base/Typography"
-import { shortenAddress } from "@/utils/shortenAddress"
-import { Zorb } from "../base/Zorb"
+import { Caption } from "../base/Typography"
 import { useBid } from "@/hooks/useBid"
 import { Bidder } from "@/components/auction/Bidder"
 import { Hash } from "types"
-// import { ensOrShorten } from "@/utils/ensOrShorten"
+import { cn } from "@/utils/cn"
 
 interface BidHistoryProps {
   tokenId: string
@@ -34,16 +32,23 @@ export function BidHistory({ tokenId, tokenAddress }: BidHistoryProps) {
               address={event.bidder as Hash}
               isHighestBidder={isFirstChild}
             />
-            <Caption
-              className={`uppercase ${
-                isFirstChild ? "text-secondary" : "text-primary"
-              }`}
-            >
-              Ξ <span>{`${Number(event.amount).toFixed(4)}`}</span>
-            </Caption>
+            <BidAmount isHighestBid={isFirstChild} event={event} />
           </Flex>
         )
       })}
     </Flex>
+  )
+}
+
+function BidAmount({ isHighestBid, event }) {
+  return (
+    <Caption
+      className={cn(
+        "uppercase",
+        isHighestBid ? "text-secondary" : "text-primary"
+      )}
+    >
+      Ξ <span>{`${Number(event.amount).toFixed(4)}`}</span>
+    </Caption>
   )
 }
