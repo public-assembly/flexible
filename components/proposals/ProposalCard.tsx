@@ -17,20 +17,36 @@ import {
 import { Proposer } from "@/components/proposals/Proposer"
 import { ProposalCardVotes } from "./ProposalCardVotes"
 import ProposalLabel from "./ProposalLabel"
+import { useGovernorContext } from "@public-assembly/dao-utils"
+import { useContractRead } from "wagmi"
+import { governorAbi } from "@public-assembly/dao-utils"
+import { BigNumber } from "ethers"
+import { Hash } from "types"
 
 export default function ProposalCard({ proposal }) {
   const { address } = useAuth()
   const [needsAction, setNeedsAction] = React.useState<boolean>(false)
 
-  useEffect(() => {
-    if (!address) return
-    const proposalVotes = proposal.votes
+  const { governorAddress } = useGovernorContext()
 
-    // Check if the current address has voted on this proposal.
-    const hasVoted = proposalVotes.some((vote) => vote.voter === address.toLowerCase)
+  const { data: availableVotes } = useContractRead({
+    address: governorAddress,
+    abi: governorAbi,
+    functionName: "getVotes",
+    args: [address as Hash, BigNumber.from(proposal?.timeCreated)],
+  })
 
-    setNeedsAction(!hasVoted)
-  }, [address, proposal.votes])
+  if (proposal.status == "ACTIVE") {
+    useEffect(() => {
+      if (!address || !availableVotes || availableVotes.toNumber() < 1) return
+      const proposalVotes = proposal.votes
+      // Check if the current address can vote, and if they've voted on this proposal.
+      const hasVoted = proposalVotes.some(
+        (vote: any) => vote.voter === address.toLowerCase()
+      )
+      setNeedsAction(!hasVoted)
+    }, [address, proposal.votes])
+  }
 
   return (
     <>
