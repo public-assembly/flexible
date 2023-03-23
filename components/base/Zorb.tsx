@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import { arrayify } from '@ethersproject/bytes'
-import tinycolor, { ColorInput } from 'tinycolor2'
+import { arrayify } from "@ethersproject/bytes"
+import tinycolor, { ColorInput } from "tinycolor2"
 
 type Hash = `0x${string}`
 export declare type CustomAvatarProps = {
   address?: Hash | string | undefined
   ensName?: string | undefined
-  ensImage?: string
+  ensImage?: string | null
   size: number
   radius: number
 }
@@ -126,7 +126,10 @@ export const gradientForAddress = (address: string) => {
   const startLightness = bScaleRange(bytes[2], 32, 69.5)
   const endLightness = (97 + bScaleRange(bytes[8], 72, 97)) / 2
   const startSaturation = bScaleRange(bytes[7], 81, 97)
-  const endSaturation = Math.min(startSaturation - 10, bScaleRange(bytes[10], 70, 92))
+  const endSaturation = Math.min(
+    startSaturation - 10,
+    bScaleRange(bytes[10], 70, 92)
+  )
 
   const lightnessShiftFn = lerpLightnessFn(bytes[5] % 2)
   const saturationShiftFn = lerpSaturationFn(bytes[3] % 2)
@@ -158,7 +161,9 @@ export const gradientForAddress = (address: string) => {
     },
   ]
 
-  return inputs.map((c: ColorInput) => tinycolor(c)).map((tc: tinycolor.Instance) => tc.toHslString())
+  return inputs
+    .map((c: ColorInput) => tinycolor(c))
+    .map((tc: tinycolor.Instance) => tc.toHslString())
 }
 
 export const zorbImageSVG = (address: string) => {
@@ -197,22 +202,36 @@ export const zorbImageSVG = (address: string) => {
 }
 
 export const zorbImageDataURI = (address: string) => {
-  return `data:image/svg+xml;base64,${Buffer.from(zorbImageSVG(address), 'utf-8').toString('base64')}`
+  return `data:image/svg+xml;base64,${Buffer.from(
+    zorbImageSVG(address),
+    "utf-8"
+  ).toString("base64")}`
 }
 
-const NULL_ADDRESS = '0x0000000000000000000000000000000000000000'
+const NULL_ADDRESS = "0x0000000000000000000000000000000000000000"
 
-export const Zorb = ({ address = NULL_ADDRESS, ensImage, ensName, size, radius }: CustomAvatarProps) => {
+export const Zorb = ({
+  address = NULL_ADDRESS,
+  ensImage,
+  ensName,
+  size,
+  radius,
+}: CustomAvatarProps) => {
   return (
     <div
       style={{
-        overflow: 'hidden',
+        overflow: "hidden",
         borderRadius: radius,
         height: size || 32,
         width: size || 32,
       }}
     >
-      <img src={ensImage ?? zorbImageDataURI(address)} alt={ensName ?? address} width='100%' height='100%' />
+      <img
+        src={ensImage ?? zorbImageDataURI(address)}
+        alt={ensName ?? address}
+        width="100%"
+        height="100%"
+      />
     </div>
   )
 }

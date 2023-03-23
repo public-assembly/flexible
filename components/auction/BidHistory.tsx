@@ -3,6 +3,8 @@ import { Body, Caption } from "../base/Typography"
 import { shortenAddress } from "@/utils/shortenAddress"
 import { Zorb } from "../base/Zorb"
 import { useBid } from "@/hooks/useBid"
+import { Bidder } from "@/components/auction/Bidder"
+import { Hash } from "types"
 // import { ensOrShorten } from "@/utils/ensOrShorten"
 
 interface BidHistoryProps {
@@ -11,7 +13,6 @@ interface BidHistoryProps {
 }
 
 export function BidHistory({ tokenId, tokenAddress }: BidHistoryProps) {
-
   const { tokenEvents } = useBid({ tokenId, tokenAddress })
 
   const reversedBidEvents = tokenEvents ? [...tokenEvents].reverse() : []
@@ -29,19 +30,10 @@ export function BidHistory({ tokenId, tokenAddress }: BidHistoryProps) {
                 : "border border-[bg-tertiary] text-primary"
             }`}
           >
-            <div className="flex nowrap items-center">
-              <span className="pr-2">
-                <Zorb address={event.bidder} size={16} radius={999} />
-              </span>
-              <Body
-                className={`${
-                  isFirstChild ? "text-secondary" : "text-primary"
-                }`}
-              >
-                {/* {ensOrShorten(event.bidder as Hash)} */}
-                {shortenAddress(event.bidder)}
-              </Body>
-            </div>
+            <Bidder
+              address={event.bidder as Hash}
+              isHighestBidder={isFirstChild}
+            />
             <Caption
               className={`uppercase ${
                 isFirstChild ? "text-secondary" : "text-primary"
