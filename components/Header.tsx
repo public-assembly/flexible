@@ -85,8 +85,13 @@ function MobileDropdown(props: MobileDropdownProps) {
           />
         </Button>
       </DropdownMenu.Trigger>
+
       <DropdownMenu.Content sideOffset={4} className="min-w-[328px]">
         <Stack className="flex flex-col gap-6 pb-6">
+          {/* Hide navigation from within the dropdown menu on screen sizes above 640px */}
+          <span className="sm:hidden">
+            <Navigation />
+          </span>
           {isConnected ? (
             <>
               <Flex className="items-center gap-4">
@@ -105,10 +110,7 @@ function MobileDropdown(props: MobileDropdownProps) {
         </Stack>
         <DropdownMenu.Separator />
         <Stack>
-          <DropdownMenu.Item
-            type="link"
-            href="/platform"
-          >
+          <DropdownMenu.Item type="link" href="/platform">
             <Flex className="items-center w-full gap-4 py-4 hover:bg-tertiary/10 rounded-object hover:cursor-pointer">
               <Copy />
               <Body>Copy our template</Body>
