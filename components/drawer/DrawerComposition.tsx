@@ -43,8 +43,8 @@ export function DrawerComposition({
                   overflowY: "scroll",
                 }}
               >
-                <div className="flex justify-between items-center p-6">
-                  <span className="text-[1.5rem] font-medium leading-10 tracking-[-0.5px] text-[#121212] font-['Satoshi']">
+                <div className="flex items-center justify-between p-6">
+                  <span className="text-[1.5rem] font-medium leading-10 tracking-[-0.5px] text-[#121212] font-satoshi">
                     Theme Editor
                   </span>
                   <button onClick={requestClose}>

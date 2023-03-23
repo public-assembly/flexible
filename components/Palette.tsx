@@ -35,11 +35,11 @@ export function Palette() {
   } = useThemeContext()
 
   return (
-    <div className="space-y-6 font-['Satoshi']">
+    <div className="space-y-6 font-satoshi">
       {/* Background */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
         {/* Image upload */}
-        {/* <div className="flex justify-between items-center gap-x-32">
+        {/* <div className="flex items-center justify-between gap-x-32">
           <span>Upload image</span>
           <label className="image-picker">
             Upload File
@@ -51,8 +51,8 @@ export function Palette() {
             />
           </label>
         </div> */}
-        <span className="uppercase font-semibold">Background</span>
-        <div className="flex justify-between items-center gap-x-32">
+        <span className="font-semibold uppercase">Background</span>
+        <div className="flex items-center justify-between gap-x-32">
           <label>Color</label>
           <input
             id="backgroundColor"
@@ -65,8 +65,8 @@ export function Palette() {
       </div>
       {/* Colors */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-        <span className="uppercase font-semibold">Colors</span>
-        <div className="flex justify-between items-center gap-x-4">
+        <span className="font-semibold uppercase">Colors</span>
+        <div className="flex items-center justify-between gap-x-4">
           <label>Primary</label>
           <input
             id="text"
@@ -76,7 +76,7 @@ export function Palette() {
             onChange={(e) => setPrimary(e.target.value)}
           />
         </div>
-        <div className="flex justify-between items-center gap-x-4">
+        <div className="flex items-center justify-between gap-x-4">
           <label>Secondary</label>
           <input
             id="secondary"
@@ -86,7 +86,7 @@ export function Palette() {
             onChange={(e) => setSecondary(e.target.value)}
           />
         </div>
-        <div className="flex justify-between items-center gap-x-4">
+        <div className="flex items-center justify-between gap-x-4">
           <label>Tertiary</label>
           <input
             id="tertiary"
@@ -96,7 +96,7 @@ export function Palette() {
             onChange={(e) => setTertiary(e.target.value)}
           />
         </div>
-        <div className="flex justify-between items-center gap-x-4">
+        <div className="flex items-center justify-between gap-x-4">
           <label>Highlight</label>
           <input
             id="highlight"
@@ -109,8 +109,8 @@ export function Palette() {
       </div>
       {/* Fonts */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-        <span className="uppercase font-semibold">Fonts</span>
-        <div className="flex justify-between items-center gap-x-4">
+        <span className="font-semibold uppercase">Fonts</span>
+        <div className="flex items-center justify-between gap-x-4">
           <span>Headline</span>
           <div>
             <select
@@ -197,7 +197,7 @@ export function Palette() {
           </Slider.Root>
         </div>
         <br></br>
-        <div className="flex justify-between items-center gap-x-4">
+        <div className="flex items-center justify-between gap-x-4">
           <span>Body</span>
           <div>
             <select
@@ -261,7 +261,7 @@ export function Palette() {
             </select>
           </div>
         </div>
-        <div className="flex justify-between items-center gap-x-4">
+        <div className="flex items-center justify-between gap-x-4">
           <span>Caption</span>
           <div>
             <select
@@ -328,8 +328,8 @@ export function Palette() {
       </div>
       {/* Dropshadow */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-        <span className="uppercase font-semibold">Dropshadow</span>
-        <div className="flex justify-between items-center gap-x-32">
+        <span className="font-semibold uppercase">Dropshadow</span>
+        <div className="flex items-center justify-between gap-x-32">
           <label>Color</label>
           <input
             id="shadowColor"
@@ -339,7 +339,7 @@ export function Palette() {
             onChange={(e) => setShadowColor(e.target.value)}
           />
         </div>
-        <div className="flex justify-between items-center gap-x-32">
+        <div className="flex items-center justify-between gap-x-32">
           <label>Spread</label>
           <div className="flex justify-end">
             <Slider.Root
@@ -367,8 +367,8 @@ export function Palette() {
       </div>
       {/* Corner radius */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-        <span className="uppercase font-semibold">Corner Radius</span>
-        <div className="flex justify-between items-center gap-x-32">
+        <span className="font-semibold uppercase">Corner Radius</span>
+        <div className="flex items-center justify-between gap-x-32">
           <label>Objects</label>
           <div className="flex justify-end">
             <Slider.Root
@@ -392,7 +392,7 @@ export function Palette() {
             </Slider.Root>
           </div>
         </div>
-        <div className="flex justify-between items-center gap-x-32 mt-6">
+        <div className="flex items-center justify-between mt-6 gap-x-32">
           <label>Buttons</label>
           <div className="flex justify-end">
             <Slider.Root
