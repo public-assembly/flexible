@@ -54,8 +54,9 @@ export default function AboutPage() {
         </Card>
         <Card className="px-6 py-4">
           <Stack>
-            {/* @ts-ignore */}
-            <H2Heading>{tokenSettings[2].toString()}</H2Heading>
+            {tokenSettings ? (
+              <H2Heading>{tokenSettings[2]?.toNumber() - 1}</H2Heading>
+            ) : null}
             <div className="text-black">Total Supply</div>
           </Stack>
         </Card>
