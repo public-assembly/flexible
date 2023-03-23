@@ -22,13 +22,12 @@ import { BodySmall, Caption, Headline } from "@/components/base/Typography"
 import {
   AuthCheck,
   useActiveAuction,
-  useAuctionContext,
 } from "@public-assembly/dao-utils"
 import { AuctionCountdown } from "./AuctionCountdown"
-import { ConnectButton } from "@rainbow-me/rainbowkit"
+import ConnectButton from "../ConnectButton"
 import { ethers } from "ethers"
 import { BidHistory } from "./BidHistory"
-import { fromUnixTime, format, getUnixTime } from "date-fns"
+import { fromUnixTime, format} from "date-fns"
 import { Settle } from "./Settle"
 
 const MotionButton = motion(Button)
