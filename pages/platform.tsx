@@ -7,7 +7,7 @@ import {
 } from "@/components/base/Typography"
 import Balancer from "react-wrap-balancer"
 import { useAuth } from "@/hooks/useAuth"
-import Button from "@/components/base/Button"
+import { Exit } from "@/components/assets/icons"
 import { Stack } from "@/components/base/Stack"
 import { ArrowUpRight } from "@/components/assets/icons"
 import {
@@ -19,16 +19,18 @@ import {
 import { platformThemeRegistryAbi } from "abi/platformThemeRegistryAbi"
 import { Hash } from "types"
 import { Pending } from "@/components/assets/icons"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import ConnectButton from "@/components/ConnectButton"
 import useCopyText from "@/hooks/useCopyText"
 import { Copy } from "@/components/assets/icons"
+import { Separator } from "@/components/base/Separator"
+import { useRouter } from "next/router"
+import { useThemeContext } from "@/context/ThemeProvider"
 
 const themeRegistry = "0x9a23AE640040e4d34E9e00E500003000017144F4"
 
 export function IndexSuccess({ platformIndex }: { platformIndex?: number }) {
   const { handleCopy, hasCopied } = useCopyText()
-  console.log(hasCopied)
 
   return (
     <>
@@ -68,7 +70,11 @@ export function IndexSuccess({ platformIndex }: { platformIndex?: number }) {
 }
 
 export default function Platform() {
+  const router = useRouter()
+
   const { address, isConnected } = useAuth()
+
+  const { handleCopy, hasCopied } = useCopyText()
 
   const { config } = usePrepareContractWrite({
     address: themeRegistry,
@@ -103,49 +109,76 @@ export default function Platform() {
   })
 
   return (
-    <Stack className="p-6 mt-40">
-      <Flex className="mx-auto border border-slate-300 p-8 rounded-lg custom-shadow w-auto">
-        {isSuccess ? (
-          <IndexSuccess platformIndex={platformIndex} />
-        ) : (
-          <>
-            <Stack className="items-center text-center gap-y-8 w-auto md:w-[496px]">
-              <div>
-                <Headline>Ready to create your own DAO interface?</Headline>
-                <Balancer>
-                  {!isConnected ? (
-                    <BodySmall>
-                      Please connect your wallet to get started.
-                    </BodySmall>
-                  ) : (
-                    <BodySmall>
-                      The first step is to setup a platform index, this costs
-                      gas.
-                    </BodySmall>
-                  )}
-                </Balancer>
-              </div>
-              {!isConnected ? (
-                <span className="w-auto md:w-[328px]">
-                  <ConnectButton />
-                </span>
+    <Stack className="fixed top-0 left-0 w-full h-full bg-[#111111] z-50 p-6">
+      <Flex className="flex-col mx-auto my-auto border border-[#333333] p-8 bg-black rounded-lg w-auto sm:w-[478px]">
+        <div>
+          <Flex className="items-start gap-x-8">
+            <Headline className="text-white">
+              Ready to create your own DAO interface?
+            </Headline>
+            <button onClick={() => router.push("/")}>
+              <Exit className="text-white w-8 h-8 hover:cursor-pointer sm:mt-1" />
+            </button>
+          </Flex>
+          <Separator className="mt-8 mb-6 bg-[#333333]"></Separator>
+          <Caption className="mb-2 uppercase text-[#3291FF]">
+            1. Create a platform index
+          </Caption>
+          <Body className="text-[#999999]">
+            The first step is to setup a platform index. This costs a small gas
+            fee.
+          </Body>
+          {!isSuccess ? (
+            <button
+              className="flex justify-center mt-6 py-3 px-8 bg-white font-medium rounded border border-[#333333] min-w-[156px] hover:bg-opacity-80"
+              onClick={() => newIndex?.()}
+            >
+              {!isLoading ? (
+                "Create Index"
               ) : (
-                <Button onClick={() => newIndex?.()} className="max-w-[328px]">
-                  {!isLoading ? (
-                    "Create index"
-                  ) : (
-                    <Pending className="animate-spin" />
-                  )}
-                </Button>
+                <Pending className="animate-spin" />
               )}
-            </Stack>
-          </>
-        )}
+            </button>
+          ) : null}
+        </div>
+
+        {isSuccess ? (
+          <div>
+            <Separator className="mt-8 mb-6 bg-[#333333]"></Separator>
+            <Caption className="mb-2 uppercase text-[#3291FF]">
+              2. Save your index variable
+            </Caption>
+            <Body className="text-[#999999]">
+              <span className="text-white font-medium">Important!&nbsp;</span>
+              Make sure to remember this number. During the deploy stage, you&apos;ll
+              provide this value when prompted for your
+              NEXT_PUBLIC_PLATFORM_INDEX.
+            </Body>
+            <div className="flex justify-center text-center">
+              <button
+                className="flex items-center"
+                onClick={() =>
+                  platformIndex && handleCopy(platformIndex.toString())
+                }
+              >
+                <Headline className="my-8 text-white">{platformIndex}</Headline>
+                <Copy className="ml-2 mt-.5 text-white hover:cursor-pointer active:scale-125 transform" />
+              </button>
+            </div>
+            <button className="flex items-center justify-center py-3 w-full mx-auto bg-white hover:bg-opacity-80">
+              <a
+                href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpublic-assembly%2Fflexible&env=NEXT_PUBLIC_SITE_TITLE,NEXT_PUBLIC_APP_ID,NEXT_PUBLIC_SITE_DESCRIPTION,NEXT_PUBLIC_TWITTER_HANDLE,NEXT_PUBLIC_WEBSITE_URL,NEXT_PUBLIC_CHAIN_ID,NEXT_PUBLIC_ALCHEMY_KEY,NEXT_PUBLIC_TOKEN_ADDRESS,NEXT_PUBLIC_PLATFORM_INDEX,NEXT_PUBLIC_WEB3STORAGE_TOKEN"
+                target="_blank"
+                rel="noreferrer"
+                className="mr-1 font-medium"
+              >
+                Continue to walkthrough
+              </a>
+              <ArrowUpRight />
+            </button>
+          </div>
+        ) : null}
       </Flex>
-      {/* To see components side by side */}
-      {/* <Flex className="justify-center mx-auto border border-slate-300 p-8 rounded-lg custom-shadow w-auto">
-        <IndexSuccess platformIndex={platformIndex} />
-      </Flex> */}
     </Stack>
   )
 }
