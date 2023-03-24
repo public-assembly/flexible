@@ -150,7 +150,7 @@ export default function Platform() {
             </Caption>
             <Body className="text-[#999999]">
               <span className="text-white font-medium">Important!&nbsp;</span>
-              Make sure to remember this number. During the deploy stage, you'll
+              Make sure to remember this number. During the deploy stage, you&apos;ll
               provide this value when prompted for your
               NEXT_PUBLIC_PLATFORM_INDEX.
             </Body>
