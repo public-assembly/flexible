@@ -58,6 +58,8 @@ export function AuctionSheet({
     isValidBid,
   } = useActiveAuction(ENV.TOKEN_ADDRESS)
 
+  useEffect(() => {}, [createBidSuccess])
+
   const externalLinkBaseURI = "https://nouns.build/dao"
 
   if (!auctionData?.endTime) return null
