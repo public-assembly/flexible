@@ -19,15 +19,12 @@ import {
 } from "@/components/base/Sheet"
 import { Stack } from "@/components/base/Stack"
 import { BodySmall, Caption, Headline } from "@/components/base/Typography"
-import {
-  AuthCheck,
-  useActiveAuction,
-} from "@public-assembly/dao-utils"
+import { AuthCheck, useActiveAuction } from "@public-assembly/dao-utils"
 import { AuctionCountdown } from "./AuctionCountdown"
 import ConnectButton from "../ConnectButton"
 import { ethers } from "ethers"
 import { BidHistory } from "./BidHistory"
-import { fromUnixTime, format} from "date-fns"
+import { fromUnixTime, format } from "date-fns"
 import { Settle } from "./Settle"
 
 const MotionButton = motion(Button)
@@ -185,6 +182,7 @@ export function AuctionSheet({
                           className="flex flex-col gap-y-4"
                         >
                           <input
+                            disabled={createBidLoading}
                             className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
                             type="text"
                             pattern="[0-9.]*"
@@ -203,14 +201,9 @@ export function AuctionSheet({
                               Enter Bid
                             </Button>
                           ) : (
-                            <>
-                              <Button className="py-8 lg:py-7">
-                                <Pending className="animate-spin" />
-                              </Button>
-                              {createBidSuccess && (
-                                <Caption>Bid placed</Caption>
-                              )}
-                            </>
+                            <Button className="py-8 lg:py-7">
+                              <Pending className="animate-spin" />
+                            </Button>
                           )}
                         </form>
                       </div>
