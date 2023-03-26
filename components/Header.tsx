@@ -53,15 +53,16 @@ export function Header() {
     >
       {/* Header Logo */}
       <Link href="/">
-        <Headline className="headline">{ENV.SITE_TITLE}</Headline>
+        <NetworkController.Mainnet>
+          <Headline className="headline">{ENV.SITE_TITLE}</Headline>
+        </NetworkController.Mainnet>
         <NetworkController.Testnet>
-        <div className="flex justify-center bg-white w-full p-4">
-        <div className="px-4 py-2 bg-[#F1F4F7] w-full text-center rounded-lg">
-          <p className="text-[#576775]">
-            Testnet
-          </p>
-        </div>
-      </div>
+          <Flex>
+            <Headline className="headline">{ENV.SITE_TITLE}</Headline>
+            <Flex className="justify-center items-center ml-4 px-6 py-1 border border-primary bg-highlight rounded-lg hover:cursor-default">
+              <Body className="text-primary font-medium">Goerli</Body>
+            </Flex>
+          </Flex>
         </NetworkController.Testnet>
       </Link>
 

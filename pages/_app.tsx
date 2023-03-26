@@ -125,7 +125,7 @@ const DynamicAuctionProvider = dynamic(
 /**
  * wagmi configuration
  */
-const { provider, webSocketProvider } = configureChains(
+const { chains, provider, webSocketProvider } = configureChains(
   [ENV.CHAIN === 1 ? mainnet : goerli],
   [alchemyProvider({ apiKey: ENV.ALCHEMY_KEY }), publicProvider()]
 )
