@@ -80,7 +80,7 @@ type MobileDropdownProps = {
 }
 
 function MobileDropdown(props: MobileDropdownProps) {
-  const { logout, isConnected, address, ensName } = useAuth()
+  const { logout, isConnected, chain } = useAuth()
   const { requestOpen } = useDrawer()
 
   return (
@@ -103,21 +103,12 @@ function MobileDropdown(props: MobileDropdownProps) {
           <span className="sm:hidden">
             <Navigation />
           </span>
-          {isConnected ? (
-            <>
-              <Flex className="items-center gap-4">
-                <Zorb address={address} size={32} radius={999} />
-                <Headline>{ensName ? ensName : address}</Headline>
-              </Flex>
-              <DropdownMenu.Item type="button" onClick={() => console.log()}>
-                <Button onClick={() => requestOpen("palette")}>
-                  Edit theme
-                </Button>
-              </DropdownMenu.Item>
-            </>
-          ) : (
-            <ConnectButton />
-          )}
+          <ConnectButton />
+          {isConnected && chain?.id === ENV.CHAIN ? (
+            <DropdownMenu.Item type="button" onClick={() => console.log()}>
+              <Button onClick={() => requestOpen("palette")}>Edit theme</Button>
+            </DropdownMenu.Item>
+          ) : null}
         </Stack>
         <DropdownMenu.Separator />
         <Stack>
