@@ -16,6 +16,7 @@ import { Stack } from "./base/Stack"
 import { Body, Headline } from "./base/Typography"
 import { Zorb } from "./base/Zorb"
 import { useDrawer } from "./drawer/useDrawer"
+import { NetworkController } from "./NetworkController"
 
 const fadeIn: Variants = {
   initial: { opacity: 0 },
@@ -52,7 +53,17 @@ export function Header() {
     >
       {/* Header Logo */}
       <Link href="/">
-        <Headline className="headline">{ENV.SITE_TITLE}</Headline>
+        <NetworkController.Mainnet>
+          <Headline className="headline">{ENV.SITE_TITLE}</Headline>
+        </NetworkController.Mainnet>
+        <NetworkController.Testnet>
+          <Flex>
+            <Headline className="headline">{ENV.SITE_TITLE}</Headline>
+            <Flex className="justify-center items-center ml-4 px-6 py-1 border border-primary bg-highlight rounded-lg hover:cursor-default">
+              <Body className="text-primary font-medium">Goerli</Body>
+            </Flex>
+          </Flex>
+        </NetworkController.Testnet>
       </Link>
 
       <Flex className="gap-6">
@@ -69,7 +80,7 @@ type MobileDropdownProps = {
 }
 
 function MobileDropdown(props: MobileDropdownProps) {
-  const { logout, isConnected, address, ensName } = useAuth()
+  const { logout, isConnected, chain } = useAuth()
   const { requestOpen } = useDrawer()
 
   return (
@@ -92,21 +103,12 @@ function MobileDropdown(props: MobileDropdownProps) {
           <span className="sm:hidden">
             <Navigation />
           </span>
-          {isConnected ? (
-            <>
-              <Flex className="items-center gap-4">
-                <Zorb address={address} size={32} radius={999} />
-                <Headline>{ensName ? ensName : address}</Headline>
-              </Flex>
-              <DropdownMenu.Item type="button" onClick={() => console.log()}>
-                <Button onClick={() => requestOpen("palette")}>
-                  Edit theme
-                </Button>
-              </DropdownMenu.Item>
-            </>
-          ) : (
-            <ConnectButton />
-          )}
+          <ConnectButton />
+          {isConnected && chain?.id === ENV.CHAIN ? (
+            <DropdownMenu.Item type="button" onClick={() => console.log()}>
+              <Button onClick={() => requestOpen("palette")}>Edit theme</Button>
+            </DropdownMenu.Item>
+          ) : null}
         </Stack>
         <DropdownMenu.Separator />
         <Stack>
