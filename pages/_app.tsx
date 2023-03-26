@@ -132,7 +132,6 @@ const { provider, webSocketProvider } = configureChains(
 
 const { connectors } = getDefaultWallets({
   appName: ENV.SITE_TITLE!,
-  chains,
 })
 
 const wagmiClient = createClient({
