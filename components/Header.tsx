@@ -16,6 +16,7 @@ import { Stack } from "./base/Stack"
 import { Body, Headline } from "./base/Typography"
 import { Zorb } from "./base/Zorb"
 import { useDrawer } from "./drawer/useDrawer"
+import { NetworkController } from "./NetworkController"
 
 const fadeIn: Variants = {
   initial: { opacity: 0 },
@@ -53,6 +54,15 @@ export function Header() {
       {/* Header Logo */}
       <Link href="/">
         <Headline className="headline">{ENV.SITE_TITLE}</Headline>
+        <NetworkController.Testnet>
+        <div className="flex justify-center bg-white w-full p-4">
+        <div className="px-4 py-2 bg-[#F1F4F7] w-full text-center rounded-lg">
+          <p className="text-[#576775]">
+            Testnet
+          </p>
+        </div>
+      </div>
+        </NetworkController.Testnet>
       </Link>
 
       <Flex className="gap-6">
