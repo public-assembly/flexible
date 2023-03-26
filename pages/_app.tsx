@@ -125,12 +125,10 @@ const DynamicAuctionProvider = dynamic(
 /**
  * wagmi configuration
  */
-const chains = [mainnet, goerli]
-
-const { provider, webSocketProvider } = configureChains(chains, [
-  alchemyProvider({ apiKey: ENV.ALCHEMY_KEY }),
-  publicProvider(),
-])
+const { provider, webSocketProvider } = configureChains(
+  [ENV.CHAIN === 1 ? mainnet : goerli],
+  [alchemyProvider({ apiKey: ENV.ALCHEMY_KEY }), publicProvider()]
+)
 
 const { connectors } = getDefaultWallets({
   appName: ENV.SITE_TITLE!,
