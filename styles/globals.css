@@ -10,13 +10,13 @@
     --color-primary: #121212;
     --color-secondary: #f2fdf7;
     --color-tertiary: #809aa3;
-    --color-highlight: #c5fc6b;
+    --color-highlight: ##b3eb57;
 
     /* --color-background: 231 243 236; */
     /* --color-primary: 18 18 18; */
     /* --color-secondary: 242 253 247; */
     /* --color-tertiary: 167 199 209; */
-    /* --color-highlight: 197 252 107; */
+    /* --color-highlight: 179 235 87; */
 
     /* Fonts */
     --headline: var(--font-satoshi);

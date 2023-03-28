@@ -67,6 +67,7 @@ function ProposalDetailPage() {
               abstainVotes={proposal.abstainVotes}
               againstVotes={proposal.againstVotes}
               proposalThreshold={proposal.proposalThreshold}
+              // @ts-ignore - TODO: Update dao-utils gql.ts
               transactionHash={proposal.transactionInfo.transactionHash}
             />
           </Stack>
@@ -78,6 +79,8 @@ function ProposalDetailPage() {
             abstainVotes={proposal.abstainVotes}
             againstVotes={proposal.againstVotes}
             proposalThreshold={proposal.proposalThreshold}
+            // @ts-ignore - TODO: Update dao-utils gql.ts
+            transactionHash={proposal.transactionInfo.transactionHash}
           />
         </Flex>
       </Stack>
@@ -173,7 +176,7 @@ function ProposalVoteStatus({ proposal }) {
               <>
                 <Label
                   showIcon
-                  iconLeft={<Check className="cursor-pointer"/>}
+                  iconLeft={<Check className="cursor-pointer" />}
                   showExternalLinkIcon
                   externalLink={buildEtherscanLink("tx", txHash)}
                 >

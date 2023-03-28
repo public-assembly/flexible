@@ -25,7 +25,7 @@ module.exports = {
         primary: "rgb(var(--color-primary) / <alpha-value>)",
         secondary: "rgb(var(--color-secondary) / <alpha-value>)",
         tertiary: ["rgb(var(--color-tertiary) / <alpha-value>)", "#809aa3"],
-        highlight: ["rgb(var(--color-highlight) / <alpha-value>)", "#c5fc6b"],
+        highlight: ["rgb(var(--color-highlight) / <alpha-value>)", "#B3EB57"],
       },
       borderRadius: {
         object: "var(--border-radius-object)",
