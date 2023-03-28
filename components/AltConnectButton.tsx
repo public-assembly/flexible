@@ -7,7 +7,7 @@ import { Flex } from "./base/Flex"
 import { Headline } from "./base/Typography"
 import Error from "./assets/icons/Error"
 
-export default function ConnectButton() {
+export default function AltConnectButton() {
   const { address, ensName } = useAuth()
 
   return (
@@ -18,20 +18,22 @@ export default function ConnectButton() {
             {(() => {
               if (!mounted || !account || !chain) {
                 return (
-                  <Button onClick={openConnectModal}>Connect Wallet</Button>
+                  <button
+                    className="flex justify-center mt-6 py-3 px-8 bg-white font-medium rounded border border-[#333333] min-w-[156px] hover:bg-opacity-80"
+                    onClick={openConnectModal}
+                  >
+                    Connect Wallet
+                  </button>
                 )
               }
               if (chain?.id !== ENV.CHAIN) {
                 return (
-                  <Button
-                    size="md"
-                    icon="left"
-                    className="border border-black text-[#FF0000] bg-white"
+                  <button
+                    className="flex justify-center mt-6 py-3 px-8 bg-white font-medium rounded border border-[#333333] min-w-[156px] hover:bg-opacity-80"
                     onClick={openChainModal}
                   >
-                    <Error className="mr-[6px]"/>
                     Switch Network
-                  </Button>
+                  </button>
                 )
               }
               return (
