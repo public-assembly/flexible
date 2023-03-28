@@ -8,7 +8,6 @@ import { NOUNS_PROPOSAL_STATUS } from "../types/index"
 // TODO: Fix the refresh of proposal stats and setup zustand
 export const useProposals = () => {
   const { proposals } = useGovernorContext()
-  console.log('Proposals', proposals)
 
   const [activeProposals, setActiveProposals] = useState<any[] | null>(null)
   const [restProposals, setRestProposals] = useState<any[] | null>(null)

@@ -3,6 +3,7 @@ import { ReactNode, forwardRef } from "react"
 import { VariantProps, cva } from "cva"
 import { cn } from "utils/cn"
 
+import { Link } from "./Link"
 import { ArrowUpRight } from "@/components/assets/icons"
 import CountingNumbers from "@/components/base/CountingNumbers"
 import { BodySmall, Headline } from "@/components/base/Typography"
@@ -63,7 +64,9 @@ const Label = forwardRef<HTMLDivElement, LabelProps>(
         {children}
 
         {props.externalLink && props.showExternalLinkIcon ? (
-          <ArrowUpRight className="text-tertiary" />
+          <Link href={props.externalLink}>
+            <ArrowUpRight className="text-tertiary" />
+          </Link>
         ) : null}
       </div>
     )

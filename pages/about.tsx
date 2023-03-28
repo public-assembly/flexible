@@ -18,8 +18,6 @@ import { Hash } from "types"
 import { RichText } from "@/components/base/Richtext"
 import Label from "@/components/base/Label"
 import { buildEtherscanAddressLink } from "@/utils/helpers"
-import Button from "@/components/base/Button"
-import Link from "next/link"
 
 export default function AboutPage() {
   const { metadataSettings } = useMetadataContext()
@@ -54,13 +52,13 @@ export default function AboutPage() {
       />
 
       <Flex className="gap-6">
-        <Card className="px-6 py-4">
+        <Card className="px-6 py-4 rounded-object bg-secondary">
           <Stack>
             <H2Heading>{ownerCount}</H2Heading>
             <div className="text-black">Owners</div>
           </Stack>
         </Card>
-        <Card className="px-6 py-4">
+        <Card className="px-6 py-4 rounded-object bg-secondary">
           <Stack>
             {tokenSettings ? (
               <H2Heading>{tokenSettings[2]?.toNumber() - 1}</H2Heading>
@@ -70,25 +68,19 @@ export default function AboutPage() {
         </Card>
       </Flex>
       <Flex className="flex-wrap w-full gap-6 text-black">
-        <Card className="flex justify-center items-center">
-          <span className="ml-4">
-            Treasury balance Ξ {Number(data?.formatted).toFixed(3)}
-          </span>
-          <Button className="text-center" variant="link">
-            <Link
-              href={buildEtherscanAddressLink(
-                daoAddresses?.treasuryAddress as Hash
-              )}
-            >
-              <ArrowUpRight className="text-tertiary" />
-            </Link>
-          </Button>
-        </Card>
-        <Card className="px-4 py-2">
+        <Label
+          showExternalLinkIcon
+          externalLink={buildEtherscanAddressLink(
+            daoAddresses?.treasuryAddress as Hash
+          )}
+        >
+          Treasury balance Ξ {Number(data?.formatted).toFixed(3)}
+        </Label>
+        <Label>
           Treasury balance in USD ${" "}
           {(Number(data?.formatted) * ethUsd).toLocaleString()}
-        </Card>
-        {/* <Card className="px-4 py-2">Total auction sales Ξ 7.3556</Card> */}
+          </Label>
+        {/* <Label className="px-4 py-2">Total auction sales Ξ 7.3556</Label> */}
       </Flex>
     </Stack>
   )
