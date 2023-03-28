@@ -115,7 +115,7 @@ function MobileDropdown(props: MobileDropdownProps) {
           <DropdownMenu.Item type="link" href="/platform">
             <Flex className="items-center w-full gap-4 py-4 hover:bg-tertiary/10 rounded-object hover:cursor-pointer">
               <Copy />
-              <Body>Copy our template</Body>
+              <Body>Copy this template</Body>
             </Flex>
           </DropdownMenu.Item>
           {isConnected && (
