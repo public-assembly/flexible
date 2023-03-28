@@ -5,6 +5,7 @@ import { Button } from "@/components/base/Button"
 import { ENV } from "@/utils/env"
 import { Flex } from "./base/Flex"
 import { Headline } from "./base/Typography"
+import Error from "./assets/icons/Error"
 
 export default function ConnectButton() {
   const { address, ensName } = useAuth()
@@ -23,9 +24,12 @@ export default function ConnectButton() {
               if (chain?.id !== ENV.CHAIN) {
                 return (
                   <Button
-                    className="text-red-400 bg-white"
+                    size="md"
+                    icon="left"
+                    className="border border-black text-[#FF0000] bg-white"
                     onClick={openChainModal}
                   >
+                    <Error className="mr-2"/>
                     Switch Network
                   </Button>
                 )
