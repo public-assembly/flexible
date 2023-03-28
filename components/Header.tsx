@@ -113,14 +113,14 @@ function MobileDropdown(props: MobileDropdownProps) {
         <DropdownMenu.Separator />
         <Stack>
           <DropdownMenu.Item type="link" href="/platform">
-            <Flex className="items-center w-full gap-4 py-4 hover:bg-tertiary/10 rounded-object hover:cursor-pointer">
+            <Flex className="items-center w-full gap-2 py-4 hover:bg-tertiary/10 rounded-object hover:cursor-pointer">
               <Copy />
               <Body>Copy this template</Body>
             </Flex>
           </DropdownMenu.Item>
           {isConnected && (
             <DropdownMenu.Item type="button" onClick={logout}>
-              <Flex className="items-center gap-4 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none">
+              <Flex className="items-center gap-2 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none">
                 <Exit />
                 <Body>Disconnect</Body>
               </Flex>
