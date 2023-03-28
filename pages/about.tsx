@@ -3,7 +3,7 @@ import ArrowUpRight from "@/components/assets/icons/ArrowUpRight"
 import { Flex } from "@/components/base/Flex"
 import IconButton from "@/components/base/IconButton"
 import { Stack } from "@/components/base/Stack"
-import { Body, H2Heading } from "@/components/base/Typography"
+import { H2Heading } from "@/components/base/Typography"
 import clsx from "clsx"
 import { PropsWithChildren } from "react"
 import {
@@ -15,6 +15,7 @@ import {
 import { useBalance, useContractRead } from "wagmi"
 import { aggregatorAbi } from "abi/aggregatorAbi"
 import { Hash } from "types"
+import { RichText } from "@/components/base/Richtext"
 
 export default function AboutPage() {
   const { metadataSettings } = useMetadataContext()
@@ -43,7 +44,10 @@ export default function AboutPage() {
         tooltip="website"
         href={`${metadataSettings?.projectURI}`}
       />
-      <Body className="max-w-xl">{metadataSettings?.description}</Body>
+      <RichText
+        className="max-w-xl body"
+        html={metadataSettings?.description as string}
+      />
 
       <Flex className="gap-6">
         <Card className="px-6 py-4">
