@@ -133,7 +133,7 @@ export function AuctionSheet({
                     {/* Highest bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        Ξ
+                        <span className="text-xs mr-2">Ξ</span>
                         {ethers.utils.formatEther(
                           // @ts-ignore
                           auctionData?.highestBidPriceRaw

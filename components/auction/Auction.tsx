@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react"
 // Utils
 import { cn } from "utils/cn"
 import { ENV } from "utils/env"
+import { buildEtherscanLink } from "@/utils/helpers"
 // Icons
 import { ArrowLeft, ArrowRight } from "@/components/assets/icons"
 import { AuctionSheet } from "@/components/auction/AuctionSheet"
@@ -12,6 +13,8 @@ import { Flex } from "@/components/base/Flex"
 import { Stack } from "@/components/base/Stack"
 import { BlurImage } from "@/components/BlurImage"
 import { Body, Caption } from "../base/Typography"
+import Label from "../base/Label"
+import { Link } from "../base/Link"
 // dao-utils
 import { useDaoToken } from "@public-assembly/dao-utils"
 // Hooks
@@ -129,27 +132,15 @@ const Auction = () => {
                 <span>{tokenName}</span>
               </div>
               {/* Current bid/Winning bid badge */}
-              <Flex className="z-10 items-center gap-4">
-                <div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit">
-                  <a
-                    href={winningTx}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`${
-                      !winningTx && "pointer-events-none"
-                    }  h-6 inline-flex items-center group`}
-                  >
-                    <div className="flex gap-x-4">
-                      <Body className="text-secondary">
-                        {!auctionEnded ? "Current bid" : "Winning bid"}
-                      </Body>
-                      <Caption className="text-secondary group-hover:underline">
-                        Ξ {winningBid}
-                      </Caption>
-                    </div>
-                  </a>
-                </div>
-              </Flex>
+              <Label variant="row" className="z-10 ">
+                <a href={winningTx}>
+                  <span className="mr-4">
+                    {!auctionEnded ? "Current bid" : "Winning bid"}
+                  </span>
+                  <span className="mr-2">Ξ</span>
+                  <span>{winningBid}</span>
+                </a>
+              </Label>
             </Flex>
           )}
         </Stack>
@@ -173,27 +164,15 @@ const Auction = () => {
               {tokenName}
             </motion.div>
             {/* Current bid/Winning bid badge */}
-            <Flex className="z-10 items-center gap-4">
-              <div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit">
-                <a
-                  href={winningTx}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`${
-                    !winningTx && "pointer-events-none"
-                  }  h-6 inline-flex items-center group`}
-                >
-                  <div className="flex gap-x-4">
-                    <Body className="text-secondary">
-                      {!auctionEnded ? "Current bid" : "Winning bid"}
-                    </Body>
-                    <Caption className="text-secondary group-hover:underline">
-                      Ξ {winningBid}
-                    </Caption>
-                  </div>
-                </a>
-              </div>
-            </Flex>
+            <Label variant="row" className="z-10 ">
+              <a href={winningTx}>
+                <span className="mr-4">
+                  {!auctionEnded ? "Current bid" : "Winning bid"}
+                </span>
+                <span className="mr-2">Ξ</span>
+                <span>{winningBid}</span>
+              </a>
+            </Label>
           </Stack>
         </Stack>
       ) : null}
