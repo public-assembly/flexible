@@ -24,6 +24,7 @@ import { Proposer } from "@/components/proposals/Proposer"
 import { BodyLarge, Headline } from "../../components/base/Typography"
 import { NOUNS_PROPOSAL_SUPPORT, PROPOSAL_SUPPORT } from "../../types/index"
 import { buildEtherscanLink } from "../../utils/helpers"
+import { Hash } from "../../types/index"
 
 function ProposalDetailPage() {
   const { allProposals } = useProposals()
@@ -51,7 +52,7 @@ function ProposalDetailPage() {
                 <Headline>{proposal.title}</Headline>
               </Balancer>
               <p>
-                By <Proposer proposer={proposal.proposer} />
+                By <Proposer proposer={proposal.proposer as Hash} />
               </p>
             </Stack>
 
@@ -88,7 +89,7 @@ function ProposalDetailPage() {
       <section id="Proposer">
         <BodyLarge className="py-10">Proposer</BodyLarge>
         <Flex className="items-center">
-          <Proposer proposer={proposal.proposer} className="text-primary" />
+          <Proposer proposer={proposal.proposer as Hash} className="text-primary" />
         </Flex>
       </section>
 
