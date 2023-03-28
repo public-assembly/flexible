@@ -106,7 +106,7 @@ function MobileDropdown(props: MobileDropdownProps) {
           <ConnectButton />
           {isConnected && chain?.id === ENV.CHAIN ? (
             <DropdownMenu.Item type="button" onClick={() => console.log()}>
-              <Button onClick={() => requestOpen("palette")}>Edit theme</Button>
+              <Button size="md" variant="tertiary" onClick={() => requestOpen("palette")}>Edit theme</Button>
             </DropdownMenu.Item>
           ) : null}
         </Stack>

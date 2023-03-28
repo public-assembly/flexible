@@ -18,7 +18,9 @@ export default function ConnectButton() {
             {(() => {
               if (!mounted || !account || !chain) {
                 return (
-                  <Button onClick={openConnectModal}>Connect Wallet</Button>
+                  <Button size="lg" onClick={openConnectModal}>
+                    Connect Wallet
+                  </Button>
                 )
               }
               if (chain?.id !== ENV.CHAIN) {
@@ -29,7 +31,7 @@ export default function ConnectButton() {
                     className="border border-black text-[#FF0000] bg-white"
                     onClick={openChainModal}
                   >
-                    <Error className="mr-[6px]"/>
+                    <Error className="mr-[6px]" />
                     Switch Network
                   </Button>
                 )

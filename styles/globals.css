@@ -10,7 +10,7 @@
     --color-primary: #121212;
     --color-secondary: #f2fdf7;
     --color-tertiary: #809aa3;
-    --color-highlight: ##b3eb57;
+    --color-highlight: #b3eb57;
 
     /* Fonts */
     --headline: var(--font-satoshi);
