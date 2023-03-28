@@ -142,13 +142,29 @@ const wagmiClient = createClient({
 })
 
 export default function App({ Component, pageProps }: AppProps) {
+  // font-family: ${spaceMono.style.fontFamily}, font-sans;
   return (
     <>
       <style jsx global>
         {`
-          html {
-            font-family: ${satoshi.style.fontFamily},
-              ${spaceMono.style.fontFamily}, font-sans;
+          :root {
+            --font-space-mono: ${spaceMono.style.fontFamily};
+          }
+
+          :root {
+            --font-satoshi: ${satoshi.style.fontFamily};
+          }
+
+          .headline {
+            font-family: var(--headline);
+          }
+
+          .body {
+            font-family: var(--body);
+          }
+
+          .caption {
+            font-family: var(--caption);
           }
         `}
       </style>

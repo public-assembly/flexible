@@ -45,7 +45,7 @@ function ProposalDetailPage() {
           <Stack className="w-full gap-4">
             <Flex className="items-center gap-6">
               <ProposalLabel>{proposal.status}</ProposalLabel>
-              <ProposalTimestamp voteStart={proposal.voteStart} size="sm" />
+              <ProposalTimestamp proposal={proposal} size="sm" />
             </Flex>
             <Stack className="w-full gap-2">
               <Balancer>
@@ -67,6 +67,8 @@ function ProposalDetailPage() {
               abstainVotes={proposal.abstainVotes}
               againstVotes={proposal.againstVotes}
               proposalThreshold={proposal.proposalThreshold}
+              // @ts-ignore - TODO: Update dao-utils gql.ts
+              transactionHash={proposal.transactionInfo.transactionHash}
             />
           </Stack>
 
@@ -77,6 +79,8 @@ function ProposalDetailPage() {
             abstainVotes={proposal.abstainVotes}
             againstVotes={proposal.againstVotes}
             proposalThreshold={proposal.proposalThreshold}
+            // @ts-ignore - TODO: Update dao-utils gql.ts
+            transactionHash={proposal.transactionInfo.transactionHash}
           />
         </Flex>
       </Stack>
@@ -89,7 +93,10 @@ function ProposalDetailPage() {
       <section id="Proposer">
         <BodyLarge className="py-10">Proposer</BodyLarge>
         <Flex className="items-center">
-          <Proposer proposer={proposal.proposer as Hash} className="text-primary" />
+          <Proposer
+            proposer={proposal.proposer as Hash}
+            className="text-primary"
+          />
         </Flex>
       </section>
 
@@ -166,15 +173,18 @@ function ProposalVoteStatus({ proposal }) {
             )
           case NOUNS_PROPOSAL_SUPPORT.FOR:
             return (
-              <Label
-                showIcon
-                iconLeft={<Check />}
-                showExternalLinkIcon
-                externalLink={buildEtherscanLink("tx", txHash)}
-              >
-                You voted for this proposal
-              </Label>
+              <>
+                <Label
+                  showIcon
+                  iconLeft={<Check className="cursor-pointer" />}
+                  showExternalLinkIcon
+                  externalLink={buildEtherscanLink("tx", txHash)}
+                >
+                  You voted for this proposal
+                </Label>
+              </>
             )
+
           case NOUNS_PROPOSAL_SUPPORT.AGAINST:
             return (
               <Label

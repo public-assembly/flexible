@@ -1,6 +1,6 @@
 /* @ts-ignore */
 import * as React from "react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 import Link from "next/link"
 import { useAuth } from "@/hooks/useAuth"
@@ -66,7 +66,7 @@ export default function ProposalCard({ proposal }) {
               <ProposalLabel>{proposal.status}</ProposalLabel>
               {needsAction ? <ProposalLabel>Needs vote</ProposalLabel> : null}
             </Flex>
-            <ProposalTimestamp voteStart={proposal.voteStart} size="xs" />
+            <ProposalTimestamp proposal={proposal} size="xs" />
           </Flex>
 
           <Stack className="h-full gap-2 ">
@@ -97,10 +97,10 @@ function ProposalTitle({ title }) {
 
 // TODO: Add the different timestamp formats
 export function ProposalTimestamp({
-  voteStart,
+  proposal,
   size = "sm",
 }: {
-  voteStart: number
+  proposal: any
   size?: "sm" | "xs"
 }) {
   const dateFormat: [string, Intl.DateTimeFormatOptions] = [
@@ -112,20 +112,48 @@ export function ProposalTimestamp({
     },
   ]
 
-  const voteStartFormatted = new Date(voteStart * 1000).toLocaleString(
+  const [timestampBadge, setTimestampBadge] = useState<string>("")
+
+  const voteStartFormatted = new Date(proposal.voteStart * 1000).toLocaleString(
     ...dateFormat
   )
+
+  const voteEndFormatted = new Date(proposal.voteEnd * 1000).toLocaleString(
+    ...dateFormat
+  )
+
+  const expiresAtFormatted = new Date(proposal.expiresAt * 1000).toLocaleString(
+    ...dateFormat
+  )
+
+  useEffect(() => {
+    function getTimestampBadge(proposal) {
+      if (proposal.status === "ACTIVE") {
+        setTimestampBadge(`Voting ends ${voteEndFormatted}`)
+      } else if (proposal.status === "PENDING") {
+        setTimestampBadge(`Voting starts in ${voteStartFormatted}`)
+      } else if (proposal.status === "EXECUTABLE") {
+        setTimestampBadge(`Expires ${expiresAtFormatted}`)
+      } else if (proposal.status === "EXECUTED") {
+        setTimestampBadge(`Ended ${voteEndFormatted}`)
+      } else if (proposal.status === "CANCELED") {
+        setTimestampBadge(`Ended ${voteEndFormatted}`)
+      } else if (proposal.status === "DEFEATED") {
+        setTimestampBadge(`Ended ${voteEndFormatted}`)
+      } else if (proposal.status === "VETOED") {
+        setTimestampBadge(`Ended ${voteEndFormatted}`)
+      }
+    }
+    getTimestampBadge(proposal)
+  }, [proposal])
 
   return (
     <>
       {size === "sm" ? (
-        <BodySmall className="text-primary/50">
-          Voting starts {voteStartFormatted}
-        </BodySmall>
+        <BodySmall className="text-primary/50">{timestampBadge}</BodySmall>
       ) : (
         <BodyExtraSmall className="text-primary/50">
-          {/* Voting starts {voteStartFormatted} */}
-          Starts in 3 hours 24 min
+          {timestampBadge}
         </BodyExtraSmall>
       )}
     </>

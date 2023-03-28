@@ -3,16 +3,17 @@ import { ReactNode, forwardRef } from "react"
 import { VariantProps, cva } from "cva"
 import { cn } from "utils/cn"
 
+import { Link } from "./Link"
 import { ArrowUpRight } from "@/components/assets/icons"
 import CountingNumbers from "@/components/base/CountingNumbers"
 import { BodySmall, Headline } from "@/components/base/Typography"
 
-const labelVariants = cva(["w-fit h-fit flex rounded-object items-center"], {
+const labelVariants = cva(["w-fit h-fit flex rounded-object items-center body"], {
   variants: {
     variant: {
       badge: ["flex-col gap-1 px-6 py-4 bg-secondary rounded-object "],
-      row: ["px-4 py-2 bg-primary gap-4 text-secondary text-base font-medium"],
-      rowInverse: ["px-4 py-2 bg-secondary gap-4 text-primary  text-base"],
+      row: ["px-4 py-2 bg-primary gap-4 text-secondary text-base"],
+      rowInverse: ["px-4 py-2 bg-secondary gap-4 text-primary text-base"],
     },
     titleCase: {
       true: "",
@@ -63,7 +64,9 @@ const Label = forwardRef<HTMLDivElement, LabelProps>(
         {children}
 
         {props.externalLink && props.showExternalLinkIcon ? (
-          <ArrowUpRight className="text-tertiary" />
+          <Link href={props.externalLink}>
+            <ArrowUpRight className="text-tertiary" />
+          </Link>
         ) : null}
       </div>
     )

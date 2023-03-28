@@ -133,7 +133,7 @@ export function AuctionSheet({
                     {/* Highest bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        Ξ
+                        <span className="text-xs mr-2">Ξ</span>
                         {ethers.utils.formatEther(
                           // @ts-ignore
                           auctionData?.highestBidPriceRaw
@@ -185,16 +185,29 @@ export function AuctionSheet({
                         >
                           <input
                             disabled={createBidLoading}
-                            className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption"
+                            className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption focus:text-primary"
                             type="text"
-                            pattern="[0-9.]*"
-                            placeholder={`Ξ ${auctionData.minBidAmount?.toFixed(
+                            pattern="[0-9]+(\.[0-9]+)?"
+                            onKeyDown={(event) => {
+                              const pattern = /[0-9\.]/
+                              if (
+                                !pattern.test(event.key) &&
+                                event.key !== "Backspace" &&
+                                event.key !== "Delete"
+                              ) {
+                                event.preventDefault()
+                              }
+                            }}
+                            placeholder={`${auctionData.minBidAmount?.toFixed(
                               4
                             )} OR HIGHER`}
                             onChange={(event: any) =>
                               updateBidAmount(event.target.value)
                             }
                           />
+                          <label className="absolute ml-72 sm:ml-64 mt-3">
+                            ETH
+                          </label>
                           {!createBidLoading && !createBidSuccess ? (
                             <Button
                               disabled={!isValidBid}

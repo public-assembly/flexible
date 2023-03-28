@@ -106,21 +106,21 @@ function MobileDropdown(props: MobileDropdownProps) {
           <ConnectButton />
           {isConnected && chain?.id === ENV.CHAIN ? (
             <DropdownMenu.Item type="button" onClick={() => console.log()}>
-              <Button onClick={() => requestOpen("palette")}>Edit theme</Button>
+              <Button size="md" variant="tertiary" onClick={() => requestOpen("palette")}>Edit theme</Button>
             </DropdownMenu.Item>
           ) : null}
         </Stack>
         <DropdownMenu.Separator />
         <Stack>
           <DropdownMenu.Item type="link" href="/platform">
-            <Flex className="items-center w-full gap-4 py-4 hover:bg-tertiary/10 rounded-object hover:cursor-pointer">
+            <Flex className="items-center w-full gap-2 py-4 hover:bg-tertiary/10 rounded-object hover:cursor-pointer">
               <Copy />
-              <Body>Copy our template</Body>
+              <Body>Copy this template</Body>
             </Flex>
           </DropdownMenu.Item>
           {isConnected && (
             <DropdownMenu.Item type="button" onClick={logout}>
-              <Flex className="items-center gap-4 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none">
+              <Flex className="items-center gap-2 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none">
                 <Exit />
                 <Body>Disconnect</Body>
               </Flex>

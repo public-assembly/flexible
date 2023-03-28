@@ -3,7 +3,7 @@ import ArrowUpRight from "@/components/assets/icons/ArrowUpRight"
 import { Flex } from "@/components/base/Flex"
 import IconButton from "@/components/base/IconButton"
 import { Stack } from "@/components/base/Stack"
-import { Body, H2Heading } from "@/components/base/Typography"
+import { H2Heading } from "@/components/base/Typography"
 import clsx from "clsx"
 import { PropsWithChildren } from "react"
 import {
@@ -15,6 +15,9 @@ import {
 import { useBalance, useContractRead } from "wagmi"
 import { aggregatorAbi } from "abi/aggregatorAbi"
 import { Hash } from "types"
+import { RichText } from "@/components/base/Richtext"
+import Label from "@/components/base/Label"
+import { buildEtherscanAddressLink } from "@/utils/helpers"
 
 export default function AboutPage() {
   const { metadataSettings } = useMetadataContext()
@@ -43,16 +46,19 @@ export default function AboutPage() {
         tooltip="website"
         href={`${metadataSettings?.projectURI}`}
       />
-      <Body className="max-w-xl">{metadataSettings?.description}</Body>
+      <RichText
+        className="max-w-xl body"
+        html={metadataSettings?.description as string}
+      />
 
       <Flex className="gap-6">
-        <Card className="px-6 py-4">
+        <Card className="px-6 py-4 rounded-object bg-secondary">
           <Stack>
             <H2Heading>{ownerCount}</H2Heading>
             <div className="text-black">Owners</div>
           </Stack>
         </Card>
-        <Card className="px-6 py-4">
+        <Card className="px-6 py-4 rounded-object bg-secondary">
           <Stack>
             {tokenSettings ? (
               <H2Heading>{tokenSettings[2]?.toNumber() - 1}</H2Heading>
@@ -62,17 +68,19 @@ export default function AboutPage() {
         </Card>
       </Flex>
       <Flex className="flex-wrap w-full gap-6 text-black">
-        <Card className="px-4 py-2">
-          <Flex className="items-center gap-4">
-            Treasury balance Ξ {Number(data?.formatted).toFixed(3)}
-            <ArrowUpRight />
-          </Flex>
-        </Card>
-        <Card className="px-4 py-2">
+        <Label
+          showExternalLinkIcon
+          externalLink={buildEtherscanAddressLink(
+            daoAddresses?.treasuryAddress as Hash
+          )}
+        >
+          Treasury balance Ξ {Number(data?.formatted).toFixed(3)}
+        </Label>
+        <Label>
           Treasury balance in USD ${" "}
           {(Number(data?.formatted) * ethUsd).toLocaleString()}
-        </Card>
-        {/* <Card className="px-4 py-2">Total auction sales Ξ 7.3556</Card> */}
+          </Label>
+        {/* <Label className="px-4 py-2">Total auction sales Ξ 7.3556</Label> */}
       </Flex>
     </Stack>
   )

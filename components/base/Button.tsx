@@ -4,7 +4,7 @@ import { VariantProps, cva } from "cva"
 import { cn } from "utils/cn"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center text-sm font-medium transition-colors focus:outline-none focus:ring-2 border-s dark:hover:bg-slate-800 dark:hover:text-slate-100 disabled:opacity-50 disabled:pointer-events-none dark:focus:ring-offset-slate-900 data-[state=open]:bg-primary/50",
+  "inline-flex items-center justify-center text-base font-medium transition-colors focus:outline-none focus:ring-2 border-s dark:hover:bg-slate-800 dark:hover:text-slate-100 disabled:opacity-50 disabled:pointer-events-none dark:focus:ring-offset-slate-900 data-[state=open]:bg-primary/50",
   {
     variants: {
       variant: {
@@ -22,7 +22,7 @@ const buttonVariants = cva(
           "[&>svg]:w-auto [&>svg]:h-4",
         ],
         tertiary: [
-          "bg-secondary border border-primary/50 rounded-button",
+          "bg-secondary border border-primary/50 rounded-button w-full",
           "hover:bg-primary hover:text-secondary",
           "active:border-primary active:text-primary active:bg-secondary",
           "dark:bg-tertiary dark:text-tertiary",
@@ -43,7 +43,7 @@ const buttonVariants = cva(
         default: "h-10 py-2 px-4",
         sm: "h-9 px-2 rounded-button",
         md: "h-12 py-3 px-8 rounded-button",
-        lg: "h-11 px-8 py-4 rounded-button",
+        lg: "h-14 px-8 py-4 rounded-button",
         icon: "p-2",
       },
     },

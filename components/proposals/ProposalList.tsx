@@ -1,17 +1,17 @@
 import { motion } from "framer-motion"
-
 import { cn } from "@/utils/cn"
 import ProposalCard from "@/components/proposals/ProposalCard"
 import { variants } from "@/components/proposals/animations"
 
 type ProposalListProps = {
   proposals: any
-  // Group the proposals by active or not-active  uses different layout in page
+  // Grouping the proposals by active versus not-active uses a different page layout
   type: "active" | "not-active"
 }
 
 export function ProposalList({ proposals, type }: ProposalListProps) {
   if (!proposals) return null
+  
   return (
     <>
       <motion.ul

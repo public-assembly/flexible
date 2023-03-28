@@ -48,7 +48,8 @@ function BidAmount({ isHighestBid, event }) {
         isHighestBid ? "text-secondary" : "text-primary"
       )}
     >
-      Ξ <span>{`${Number(event.amount).toFixed(4)}`}</span>
+      <span className="text-xs mr-2">Ξ</span>
+      <span>{`${Number(event.amount).toFixed(4)}`}</span>
     </Caption>
   )
 }

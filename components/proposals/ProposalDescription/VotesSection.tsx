@@ -6,24 +6,29 @@ import { Flex } from "@/components/base/Flex"
 import Label from "@/components/base/Label"
 import { Stack } from "@/components/base/Stack"
 import { Body, Caption } from "@/components/base/Typography"
+import { buildEtherscanLink } from "@/utils/helpers"
+import Link from "next/link"
+import { Hash } from "types"
 
 type VotesSectionProps = {
   forVotes: number
   againstVotes: number
   abstainVotes: number
-  className?: string
   proposalThreshold: number
+  transactionHash: Hash
+  className?: string
 }
 
 export function VotesSection({
   forVotes,
-  className,
   againstVotes,
   abstainVotes,
   proposalThreshold,
+  transactionHash,
+  className,
 }: VotesSectionProps) {
   return (
-    <Stack className={cn(className, " gap-6 pt-2")}>
+    <Stack className={cn(className, "gap-6 pt-2")}>
       <VotesList
         forVotes={forVotes}
         againstVotes={againstVotes}
@@ -31,9 +36,12 @@ export function VotesSection({
       />
 
       <Flex className="gap-6 transition-colors duration-200 ease-in-out cursor-pointer group group-hover:text-primary">
-        <a className="inline-flex items-center justify-center gap-1 underline text-primary/50">
-          Voting snapshot <ArrowUpRight className="text-primary/50" />
-        </a>
+        <Link
+          className="flex items-center underline text-primary/50"
+          href={buildEtherscanLink("tx", transactionHash)}
+        >
+          Voting snapshot <ArrowUpRight className="ml-1" />
+        </Link>
         <Label variant="rowInverse">
           <Body>Voting threshold</Body>
           <Caption>{proposalThreshold}</Caption>
