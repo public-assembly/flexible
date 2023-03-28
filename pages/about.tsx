@@ -16,6 +16,10 @@ import { useBalance, useContractRead } from "wagmi"
 import { aggregatorAbi } from "abi/aggregatorAbi"
 import { Hash } from "types"
 import { RichText } from "@/components/base/Richtext"
+import Label from "@/components/base/Label"
+import { buildEtherscanAddressLink } from "@/utils/helpers"
+import Button from "@/components/base/Button"
+import Link from "next/link"
 
 export default function AboutPage() {
   const { metadataSettings } = useMetadataContext()
@@ -66,11 +70,19 @@ export default function AboutPage() {
         </Card>
       </Flex>
       <Flex className="flex-wrap w-full gap-6 text-black">
-        <Card className="px-4 py-2">
-          <Flex className="items-center gap-4">
+        <Card className="flex justify-center items-center">
+          <span className="ml-4">
             Treasury balance Ξ {Number(data?.formatted).toFixed(3)}
-            <ArrowUpRight />
-          </Flex>
+          </span>
+          <Button className="text-center" variant="link">
+            <Link
+              href={buildEtherscanAddressLink(
+                daoAddresses?.treasuryAddress as Hash
+              )}
+            >
+              <ArrowUpRight className="text-tertiary" />
+            </Link>
+          </Button>
         </Card>
         <Card className="px-4 py-2">
           Treasury balance in USD ${" "}

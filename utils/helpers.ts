@@ -1,4 +1,5 @@
 import { ETHERSCAN_BASE_URL } from "constants/etherscan";
+import { Hash } from "types";
 
 export const isServerSide = () => typeof window === 'undefined'
 
@@ -14,7 +15,7 @@ export const hexToRgb = (hex: string) => {
   return `${r} ${g} ${b})`;
 }
 
-export const buildEtherscanAddressLink = (address: string) => {
+export const buildEtherscanAddressLink = (address: Hash) => {
   return new URL(`/address/${address}`, ETHERSCAN_BASE_URL).toString()
 }
 
