@@ -127,7 +127,7 @@ function MobileDropdown(props: MobileDropdownProps) {
           {isConnected && (
             <DropdownMenu.Item type="button" onClick={logout}>
               <Flex className="items-center gap-2 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none">
-                <Exit />
+                <Exit className="text-primary" />
                 <Body>Disconnect</Body>
               </Flex>
             </DropdownMenu.Item>

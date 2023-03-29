@@ -25,7 +25,7 @@ export function BidHistory({ tokenId, tokenAddress }: BidHistoryProps) {
             className={`w-full justify-between items-center rounded-lg p-3 ${
               isFirstChild
                 ? "bg-primary text-secondary"
-                : "border border-[bg-tertiary] text-primary"
+                : "border border-tertiary text-primary"
             }`}
           >
             <Bidder

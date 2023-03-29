@@ -185,7 +185,7 @@ export function AuctionSheet({
                         >
                           <input
                             disabled={createBidLoading}
-                            className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption focus:text-primary"
+                            className="px-4 py-3 bg-transparent rounded-lg border border-primary caption focus:text-primary placeholder:text-tertiary"
                             type="text"
                             pattern="[0-9]+(\.[0-9]+)?"
                             onKeyDown={(event) => {
