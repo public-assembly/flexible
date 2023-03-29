@@ -11,9 +11,7 @@ import Button from "@/components/base/Button"
 import { Flex } from "@/components/base/Flex"
 import { Stack } from "@/components/base/Stack"
 import { BlurImage } from "@/components/BlurImage"
-import { Body, Caption } from "../base/Typography"
 import Label from "../base/Label"
-import { Link } from "../base/Link"
 // dao-utils
 import { useDaoToken } from "@public-assembly/dao-utils"
 // Hooks

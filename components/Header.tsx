@@ -86,7 +86,7 @@ function MobileDropdown(props: MobileDropdownProps) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <Button size="icon" className="group" variant="burger">
+        <Button size="icon" className="group rounded" variant="burger">
           {/* Icon is styled with module css and animates using data attributes from radix */}
           <div
             className={cn(
@@ -106,14 +106,20 @@ function MobileDropdown(props: MobileDropdownProps) {
           <ConnectButton />
           {isConnected && chain?.id === ENV.CHAIN ? (
             <DropdownMenu.Item type="button" onClick={() => console.log()}>
-              <Button size="md" variant="tertiary" onClick={() => requestOpen("palette")}>Edit theme</Button>
+              <Button
+                size="md"
+                variant="tertiary"
+                onClick={() => requestOpen("palette")}
+              >
+                Edit theme
+              </Button>
             </DropdownMenu.Item>
           ) : null}
         </Stack>
         <DropdownMenu.Separator />
         <Stack>
           <DropdownMenu.Item type="link" href="/platform">
-            <Flex className="items-center w-full gap-2 py-4 hover:bg-tertiary/10 rounded-object hover:cursor-pointer">
+            <Flex className="items-center w-full gap-2 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none">
               <Copy />
               <Body>Copy this template</Body>
             </Flex>
