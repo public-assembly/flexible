@@ -376,7 +376,7 @@ export function Palette() {
               value={[Number(objectRadius)]}
               min={0}
               max={32}
-              step={2}
+              step={4}
               aria-label="Object Radius"
               onValueChange={(newValue) => setObjectRadius(String(newValue))}
             >
@@ -400,7 +400,7 @@ export function Palette() {
               value={[Number(buttonRadius)]}
               min={0}
               max={32}
-              step={2}
+              step={4}
               aria-label="Button Radius"
               onValueChange={(newValue) => setButtonRadius(String(newValue))}
             >

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react"
 // Utils
 import { cn } from "utils/cn"
 import { ENV } from "utils/env"
-import { buildEtherscanLink } from "@/utils/helpers"
 // Icons
 import { ArrowLeft, ArrowRight } from "@/components/assets/icons"
 import { AuctionSheet } from "@/components/auction/AuctionSheet"
@@ -90,8 +89,8 @@ const Auction = () => {
   return (
     <Stack className="h-full gap-4 px-4 pt-20 overflow-x-hidden ">
       <Flex className="relative justify-center w-full">
-        <Stack className="relative justify-between max-h-[690px] max-w-[690px] w-full h-full p-4 bg-cover border aspect-square rounded-object border-primary bg-default-auction">
-          <div className="absolute inset-0 z-0 w-full aspect-square rounded-object">
+        <Stack className="relative justify-between max-h-[690px] max-w-[690px] w-full h-full p-4 aspect-square">
+          <div className="absolute inset-0 z-0 w-full aspect-square">
             {thumbnail && (
               <BlurImage
                 src={thumbnail}
@@ -108,7 +107,7 @@ const Auction = () => {
               variant="tertiary"
               onClick={decrementId}
               className={cn(
-                "w-fit z-10",
+                "w-fit z-10 custom-shadow",
                 isFirstToken && "pointer-events-none opacity-20"
               )}
             >
@@ -118,7 +117,7 @@ const Auction = () => {
               variant="tertiary"
               onClick={incrementId}
               className={cn(
-                "w-fit z-10",
+                "w-fit z-10 custom-shadow",
                 isLastToken && "pointer-events-none opacity-20"
               )}
             >
