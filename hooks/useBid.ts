@@ -6,6 +6,7 @@ import {
   useNounsProtocol,
 } from "@public-assembly/dao-utils"
 import { ethers } from "ethers"
+
 export type AuctionEvent = {
   id: number
   bidder: string

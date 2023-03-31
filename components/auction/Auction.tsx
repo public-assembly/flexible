@@ -5,6 +5,8 @@ import { cn } from "utils/cn"
 import { ENV } from "utils/env"
 // Icons
 import { ArrowLeft, ArrowRight } from "@/components/assets/icons"
+import { Pending } from "@/components/assets/icons"
+// Components
 import { AuctionSheet } from "@/components/auction/AuctionSheet"
 // Layout & Typography
 import Button from "@/components/base/Button"
@@ -13,7 +15,7 @@ import { Stack } from "@/components/base/Stack"
 import { BlurImage } from "@/components/BlurImage"
 import Label from "../base/Label"
 // dao-utils
-import { useDaoToken } from "@public-assembly/dao-utils"
+import { useDaoToken, useActiveAuction } from "@public-assembly/dao-utils"
 // Hooks
 import { useBid } from "@/hooks/useBid"
 import { useIsMobile } from "@/hooks/useIsMobile"
@@ -22,6 +24,7 @@ import { useAuth } from "@/hooks/useAuth"
 // Misc
 import { motion } from "framer-motion"
 import { getUnixTime } from "date-fns"
+import { ethers, BigNumber } from "ethers"
 
 const Auction = () => {
   const { isMobile } = useIsMobile()
@@ -130,12 +133,23 @@ const Auction = () => {
               </div>
               {/* Current bid/Winning bid badge */}
               <Label variant="row" className="z-10 ">
-                <a href={winningTx}>
+                <a className="flex" href={winningTx}>
                   <span className="mr-4">
                     {!auctionEnded ? "Current bid" : "Winning bid"}
                   </span>
-                  <span className="mr-2">Ξ</span>
-                  <span>{winningBid}</span>
+                  {winningBid}
+                  {/* {!auctionData?.highestBidPriceRaw ? (
+                    <Pending className="animate-spin" />
+                  ) : (
+                    <>
+                      <span className="mr-2">Ξ</span>
+                      <span>
+                        {ethers.utils.formatEther(
+                          BigNumber.from(auctionData?.highestBidPriceRaw)
+                        )}
+                      </span>
+                    </>
+                  )} */}
                 </a>
               </Label>
             </Flex>
@@ -162,12 +176,23 @@ const Auction = () => {
             </motion.div>
             {/* Current bid/Winning bid badge */}
             <Label variant="row" className="z-10 ">
-              <a href={winningTx}>
+              <a className="flex" href={winningTx}>
                 <span className="mr-4">
                   {!auctionEnded ? "Current bid" : "Winning bid"}
                 </span>
                 <span className="mr-2">Ξ</span>
-                <span>{winningBid}</span>
+                {!auctionData?.highestBidPriceRaw ? (
+                  <Pending className="animate-spin" />
+                ) : (
+                  <>
+                    <span className="mr-2">Ξ</span>
+                    <span>
+                      {ethers.utils.formatEther(
+                        BigNumber.from(auctionData?.highestBidPriceRaw)
+                      )}
+                    </span>
+                  </>
+                )}
               </a>
             </Label>
           </Stack>

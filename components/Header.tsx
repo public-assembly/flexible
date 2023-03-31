@@ -14,7 +14,6 @@ import { Copy, Exit } from "./assets/icons"
 import DropdownMenu from "./base/DropdownMenu"
 import { Stack } from "./base/Stack"
 import { Body, Headline } from "./base/Typography"
-import { Zorb } from "./base/Zorb"
 import { useDrawer } from "./drawer/useDrawer"
 import { NetworkController } from "./NetworkController"
 
@@ -119,7 +118,7 @@ function MobileDropdown(props: MobileDropdownProps) {
         <DropdownMenu.Separator />
         <Stack>
           <DropdownMenu.Item type="link" href="/platform">
-            <Flex className="items-center w-full gap-2 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none">
+            <Flex className="items-center w-full gap-2 py-4 rounded-object hover:cursor-pointer hover-tertiary-10 focus:outline-none">
               <Copy />
               <Body>Copy this template</Body>
             </Flex>
