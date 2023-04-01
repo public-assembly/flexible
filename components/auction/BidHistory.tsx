@@ -1,6 +1,6 @@
 import { Flex } from "../base/Flex"
 import { Caption } from "../base/Typography"
-import { useBid } from "@/hooks/useBid"
+import { useBid } from '@public-assembly/dao-utils'
 import { Bidder } from "@/components/auction/Bidder"
 import { Hash } from "types"
 import { cn } from "@/utils/cn"
@@ -25,7 +25,7 @@ export function BidHistory({ tokenId, tokenAddress }: BidHistoryProps) {
             className={`w-full justify-between items-center rounded-lg p-3 ${
               isFirstChild
                 ? "bg-primary text-secondary"
-                : "border border-[bg-tertiary] text-primary"
+                : "border border-tertiary text-primary"
             }`}
           >
             <Bidder

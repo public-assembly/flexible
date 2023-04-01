@@ -22,7 +22,7 @@ import { BodySmall, Caption, Headline } from "@/components/base/Typography"
 import { AuthCheck, useActiveAuction } from "@public-assembly/dao-utils"
 import { AuctionCountdown } from "./AuctionCountdown"
 import ConnectButton from "../ConnectButton"
-import { ethers } from "ethers"
+import { ethers, BigNumber } from "ethers"
 import { BidHistory } from "./BidHistory"
 import { fromUnixTime, format } from "date-fns"
 import { Settle } from "./Settle"
@@ -134,10 +134,11 @@ export function AuctionSheet({
                     <Stack>
                       <Caption className="uppercase text-primary">
                         <span className="text-xs mr-2">Ξ</span>
-                        {ethers.utils.formatEther(
-                          // @ts-ignore
-                          auctionData?.highestBidPriceRaw
-                        )}
+                        <span>
+                          {ethers.utils.formatEther(
+                            BigNumber.from(auctionData?.highestBidPriceRaw)
+                          )}
+                        </span>
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Highest bid
@@ -185,7 +186,7 @@ export function AuctionSheet({
                         >
                           <input
                             disabled={createBidLoading}
-                            className="px-4 py-3 bg-transparent rounded-lg border border-[#121212] text-tertiary caption focus:text-primary"
+                            className="px-4 py-3 bg-transparent rounded-lg border border-primary caption focus:text-primary placeholder:text-tertiary"
                             type="text"
                             pattern="[0-9]+(\.[0-9]+)?"
                             onKeyDown={(event) => {

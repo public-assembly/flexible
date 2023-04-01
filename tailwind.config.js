@@ -2,30 +2,35 @@ const defaultTheme = require("tailwindcss/defaultTheme")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-   future: {
+  future: {
     hoverOnlyWhenSupported: true,
   },
   darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     extend: {
       // Allows the use of the font-sans, font-body, font-caption utility class to apply the font to any element
-      fontFamily: {
-        sans: ["var(--headline)", "var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
-        body: ["var(--body)", "var(--font-space-mono)", ...defaultTheme.fontFamily.sans],
-        caption: ["var(--caption)", ...defaultTheme.fontFamily.mono],
-        satoshi: ["var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
-        headline: ["var(--headline)", ...defaultTheme.fontFamily.sans],
-      },
+      // fontFamily: {
+      //   sans: ["var(--headline)", "var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
+      //   body: ["var(--body)", "var(--font-space-mono)", ...defaultTheme.fontFamily.sans],
+      //   caption: ["var(--caption)", ...defaultTheme.fontFamily.mono],
+      //   satoshi: ["var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
+      //   headline: ["var(--headline)", ...defaultTheme.fontFamily.sans],
+      // },
       colors: {
         current: "currentColor",
         transparent: "transparent",
-        black: "#000",
-        white: "#fff",
-        background: "hsl(var(--color-background) / 1",
-        primary: "rgb(var(--color-primary) / <alpha-value>)",
-        secondary: "rgb(var(--color-secondary) / <alpha-value>)",
-        tertiary: ["rgb(var(--color-tertiary) / <alpha-value>)", "#809aa3"],
-        highlight: ["rgb(var(--color-highlight) / <alpha-value>)", "#B3EB57"],
+        black: "#000000",
+        white: "#ffffff",
+        // background: "var(--color-background)",
+        // primary: "var(--color-primary)",
+        // secondary: "var(--color-secondary)",
+        // tertiary: "var(--color-tertiary)",
+        // highlight: "var(--color-highlight)",
+        background: "#e7f3ec",
+        primary: "#121212",
+        secondary: "#f2fdf7",
+        tertiary: "#809aa3",
+        highlight: "#b3eb57",
       },
       borderRadius: {
         object: "var(--border-radius-object)",

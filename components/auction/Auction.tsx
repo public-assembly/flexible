@@ -3,28 +3,27 @@ import React, { useState, useEffect } from "react"
 // Utils
 import { cn } from "utils/cn"
 import { ENV } from "utils/env"
-import { buildEtherscanLink } from "@/utils/helpers"
 // Icons
 import { ArrowLeft, ArrowRight } from "@/components/assets/icons"
+import { Pending } from "@/components/assets/icons"
+// Components
 import { AuctionSheet } from "@/components/auction/AuctionSheet"
 // Layout & Typography
 import Button from "@/components/base/Button"
 import { Flex } from "@/components/base/Flex"
 import { Stack } from "@/components/base/Stack"
 import { BlurImage } from "@/components/BlurImage"
-import { Body, Caption } from "../base/Typography"
 import Label from "../base/Label"
-import { Link } from "../base/Link"
 // dao-utils
-import { useDaoToken } from "@public-assembly/dao-utils"
+import { useDaoToken, useBid } from "@public-assembly/dao-utils"
 // Hooks
-import { useBid } from "@/hooks/useBid"
 import { useIsMobile } from "@/hooks/useIsMobile"
 import { useAuction } from "@/hooks/useAuction"
 import { useAuth } from "@/hooks/useAuth"
 // Misc
 import { motion } from "framer-motion"
 import { getUnixTime } from "date-fns"
+import { ethers, BigNumber } from "ethers"
 
 const Auction = () => {
   const { isMobile } = useIsMobile()
@@ -90,8 +89,8 @@ const Auction = () => {
   return (
     <Stack className="h-full gap-4 px-4 pt-20 overflow-x-hidden ">
       <Flex className="relative justify-center w-full">
-        <Stack className="relative justify-between max-h-[690px] max-w-[690px] w-full h-full p-4 bg-cover border aspect-square rounded-object border-primary bg-default-auction">
-          <div className="absolute inset-0 z-0 w-full aspect-square rounded-object">
+        <Stack className="relative justify-between max-h-[690px] max-w-[690px] w-full h-full p-4 aspect-square">
+          <div className="absolute inset-0 z-0 w-full aspect-square">
             {thumbnail && (
               <BlurImage
                 src={thumbnail}
@@ -108,7 +107,7 @@ const Auction = () => {
               variant="tertiary"
               onClick={decrementId}
               className={cn(
-                "w-fit z-10",
+                "w-fit z-10 custom-shadow",
                 isFirstToken && "pointer-events-none opacity-20"
               )}
             >
@@ -118,7 +117,7 @@ const Auction = () => {
               variant="tertiary"
               onClick={incrementId}
               className={cn(
-                "w-fit z-10",
+                "w-fit z-10 custom-shadow",
                 isLastToken && "pointer-events-none opacity-20"
               )}
             >
@@ -133,12 +132,23 @@ const Auction = () => {
               </div>
               {/* Current bid/Winning bid badge */}
               <Label variant="row" className="z-10 ">
-                <a href={winningTx}>
+                <a className="flex" href={winningTx}>
                   <span className="mr-4">
                     {!auctionEnded ? "Current bid" : "Winning bid"}
                   </span>
-                  <span className="mr-2">Ξ</span>
-                  <span>{winningBid}</span>
+                  {winningBid}
+                  {/* {!auctionData?.highestBidPriceRaw ? (
+                    <Pending className="animate-spin" />
+                  ) : (
+                    <>
+                      <span className="mr-2">Ξ</span>
+                      <span>
+                        {ethers.utils.formatEther(
+                          BigNumber.from(auctionData?.highestBidPriceRaw)
+                        )}
+                      </span>
+                    </>
+                  )} */}
                 </a>
               </Label>
             </Flex>
@@ -165,12 +175,23 @@ const Auction = () => {
             </motion.div>
             {/* Current bid/Winning bid badge */}
             <Label variant="row" className="z-10 ">
-              <a href={winningTx}>
+              <a className="flex" href={winningTx}>
                 <span className="mr-4">
                   {!auctionEnded ? "Current bid" : "Winning bid"}
                 </span>
                 <span className="mr-2">Ξ</span>
-                <span>{winningBid}</span>
+                {!auctionData?.highestBidPriceRaw ? (
+                  <Pending className="animate-spin" />
+                ) : (
+                  <>
+                    <span className="mr-2">Ξ</span>
+                    <span>
+                      {ethers.utils.formatEther(
+                        BigNumber.from(auctionData?.highestBidPriceRaw)
+                      )}
+                    </span>
+                  </>
+                )}
               </a>
             </Label>
           </Stack>
