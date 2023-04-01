@@ -9,13 +9,13 @@ module.exports = {
   theme: {
     extend: {
       // Allows the use of the font-sans, font-body, font-caption utility class to apply the font to any element
-      // fontFamily: {
-      //   sans: ["var(--headline)", "var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
-      //   body: ["var(--body)", "var(--font-space-mono)", ...defaultTheme.fontFamily.sans],
-      //   caption: ["var(--caption)", ...defaultTheme.fontFamily.mono],
-      //   satoshi: ["var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
-      //   headline: ["var(--headline)", ...defaultTheme.fontFamily.sans],
-      // },
+      fontFamily: {
+        sans: ["var(--headline)", "var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
+        body: ["var(--body)", "var(--font-space-mono)", ...defaultTheme.fontFamily.sans],
+        caption: ["var(--caption)", ...defaultTheme.fontFamily.mono],
+        satoshi: ["var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
+        headline: ["var(--headline)", ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         current: "currentColor",
         transparent: "transparent",

@@ -29,7 +29,7 @@ export function Headline({ children, className }: TypographyProps) {
   return (
     <p
       className={cn(
-        "text-[1.5rem] font-medium leading-10 tracking-[-0.5px] text-primary",
+        "text-[1.5rem] font-medium leading-10 tracking-[-0.5px] text-primary headline",
         className
       )}
     >

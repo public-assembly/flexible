@@ -71,9 +71,9 @@ export default function Platform() {
       <Flex className="flex-col mx-auto my-auto border border-[#333333] p-8 bg-black rounded-lg w-auto sm:w-[478px]">
         <div>
           <Flex className="items-start gap-x-8">
-            <Headline className="text-white">
+            <p className="text-white text-[1.5rem] font-medium leading-10 tracking-[-0.5px]">
               Ready to create your own DAO interface?
-            </Headline>
+            </p>
             <button onClick={() => router.push("/")}>
               <Exit className="text-white w-8 h-8 hover:cursor-pointer sm:mt-1" />
             </button>
@@ -81,20 +81,20 @@ export default function Platform() {
           <Separator className="mt-8 mb-6 bg-[#333333]"></Separator>
           {!isConnected ? (
             <>
-              <Body className="text-[#999999]">
+              <p className="text-[#999999] text-base">
                 Please connect your wallet.
-              </Body>
+              </p>
               <AltConnectButton />
             </>
           ) : (
             <>
-              <Caption className="mb-2 uppercase text-[#3291FF]">
+              <p className="mb-2 uppercase text-[#3291FF] text-base">
                 1. Create a platform index
-              </Caption>
-              <Body className="text-[#999999]">
+              </p>
+              <p className="text-[#999999] text-base">
                 The first step is to setup a platform index. This costs a small
                 gas fee.
-              </Body>
+              </p>
 
               {!isSuccess ? (
                 <button
@@ -115,15 +115,15 @@ export default function Platform() {
         {isSuccess ? (
           <div>
             <Separator className="mt-8 mb-6 bg-[#333333]"></Separator>
-            <Caption className="mb-2 uppercase text-[#3291FF]">
+            <p className="mb-2 uppercase text-[#3291FF] text-base">
               2. Save your index variable
-            </Caption>
-            <Body className="text-[#999999]">
+            </p>
+            <p className="text-[#999999] text-base">
               <span className="text-white font-medium">Important!&nbsp;</span>
               Make sure to remember this number. During the deploy stage,
               you&apos;ll provide this value when prompted for your
               NEXT_PUBLIC_PLATFORM_INDEX.
-            </Body>
+            </p>
             <div className="flex justify-center text-center">
               <button
                 className="flex items-center"
@@ -131,7 +131,9 @@ export default function Platform() {
                   platformIndex && handleCopy(platformIndex.toString())
                 }
               >
-                <Headline className="my-8 text-white">{platformIndex}</Headline>
+                <p className="my-8 text-white text-[1.5rem] font-medium leading-10 tracking-[-0.5px]">
+                  {platformIndex}
+                </p>
                 <Copy className="ml-2 mt-.5 text-white hover:cursor-pointer active:scale-125 transform" />
               </button>
             </div>
