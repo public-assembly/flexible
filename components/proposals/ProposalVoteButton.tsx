@@ -11,6 +11,7 @@ import {
 import { Check, Minus, Exit } from "../assets/icons"
 import { Stack } from "../base/Stack"
 import { Button } from "../base/Button"
+import { cn } from "utils/cn"
 import { useContractRead } from "wagmi"
 import {
   governorAbi,
@@ -24,6 +25,7 @@ import { Hash } from "types"
 const ProposalVoteButton = ({ proposal }) => {
   const [support, setSupport] = useState<0 | 1 | 2 | undefined>()
   const [reason, setReason] = useState<string | undefined>()
+  const [activeButton, setActiveButton] = useState<number>()
 
   const { castVote, castVoteWithReason } = useVote({
     proposal,
@@ -56,30 +58,54 @@ const ProposalVoteButton = ({ proposal }) => {
           </DialogDescription>
         </DialogHeader>
         <Stack className="grid gap-4 py-6">
-          <Button
-            onClick={() => setSupport(1)}
-            variant="tertiary"
-            className="items-center w-full gap-x-1"
+          {/* Vote for */}
+          <button
+            onClick={() => {
+              setSupport(1)
+              setActiveButton(1)
+            }}
+            className={cn([
+              "flex justify-center items-center w-full gap-x-1 h-12",
+              "bg-secondary border border-primary/50 rounded-lg",
+              "hover:bg-primary hover:text-secondary",
+              activeButton == 1 && "text-secondary bg-primary",
+            ])}
           >
             <Check />
             {availableVotes?.toString()} vote for
-          </Button>
-          <Button
-            onClick={() => setSupport(0)}
-            variant="tertiary"
-            className="items-center w-full gap-x-1"
+          </button>
+          {/* Vote against */}
+          <button
+            onClick={() => {
+              setSupport(0)
+              setActiveButton(0)
+            }}
+            className={cn([
+              "flex justify-center items-center w-full gap-x-1 h-12",
+              "bg-secondary border border-primary/50 rounded-lg",
+              "hover:bg-primary hover:text-secondary",
+              activeButton == 0 && "text-secondary bg-primary",
+            ])}
           >
             <Exit />
             {availableVotes?.toString()} vote against
-          </Button>
-          <Button
-            onClick={() => setSupport(2)}
-            variant="tertiary"
-            className="items-center w-full gap-x-1"
+          </button>
+          {/* Abstain from voting */}
+          <button
+            onClick={() => {
+              setSupport(2)
+              setActiveButton(2)
+            }}
+            className={cn([
+              "flex justify-center items-center w-full gap-x-1 h-12",
+              "bg-secondary border border-primary/50 rounded-lg",
+              "hover:bg-primary hover:text-secondary",
+              activeButton == 2 && "text-secondary bg-primary",
+            ])}
           >
             <Minus />
             Abstain from voting
-          </Button>
+          </button>
         </Stack>
         <Stack>
           <textarea
@@ -90,12 +116,14 @@ const ProposalVoteButton = ({ proposal }) => {
           ></textarea>
         </Stack>
         <DialogFooter>
-          {reason == "" ? (
+          {!reason ? (
             <Button
               onClick={() => castVote?.()}
               variant="tertiary"
+              size="lg"
               type="submit"
               className="w-full"
+              disabled={support === undefined || support === null}
             >
               Submit vote
             </Button>
@@ -103,8 +131,10 @@ const ProposalVoteButton = ({ proposal }) => {
             <Button
               onClick={() => castVoteWithReason?.()}
               variant="tertiary"
+              size="lg"
               type="submit"
               className="w-full"
+              disabled={support === undefined || support === null}
             >
               Submit vote with reason
             </Button>
