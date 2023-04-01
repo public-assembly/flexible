@@ -24,6 +24,7 @@ export default function AboutPage() {
   const { tokenSettings } = useTokenContext()
   const { daoAddresses } = useManagerContext()
   const { ownerCount } = useDaoCollectionQuery({
+    // @ts-ignore
     tokenAddress: metadataSettings?.token,
   })
 
@@ -79,7 +80,7 @@ export default function AboutPage() {
         <Label>
           Treasury balance in USD ${" "}
           {(Number(data?.formatted) * ethUsd).toLocaleString()}
-          </Label>
+        </Label>
         {/* <Label className="px-4 py-2">Total auction sales Ξ 7.3556</Label> */}
       </Flex>
     </Stack>

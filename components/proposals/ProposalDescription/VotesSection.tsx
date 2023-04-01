@@ -14,7 +14,7 @@ type VotesSectionProps = {
   forVotes: number
   againstVotes: number
   abstainVotes: number
-  proposalThreshold: number
+  votingThreshold: number
   transactionHash: Hash
   className?: string
 }
@@ -23,7 +23,7 @@ export function VotesSection({
   forVotes,
   againstVotes,
   abstainVotes,
-  proposalThreshold,
+  votingThreshold,
   transactionHash,
   className,
 }: VotesSectionProps) {
@@ -44,7 +44,7 @@ export function VotesSection({
         </Link>
         <Label variant="rowInverse">
           <Body>Voting threshold</Body>
-          <Caption>{proposalThreshold}</Caption>
+          <Caption>{votingThreshold}</Caption>
         </Label>
       </Flex>
     </Stack>
