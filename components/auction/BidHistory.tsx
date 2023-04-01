@@ -1,6 +1,6 @@
 import { Flex } from "../base/Flex"
 import { Caption } from "../base/Typography"
-import { useBid } from "@/hooks/useBid"
+import { useBid } from '@public-assembly/dao-utils'
 import { Bidder } from "@/components/auction/Bidder"
 import { Hash } from "types"
 import { cn } from "@/utils/cn"

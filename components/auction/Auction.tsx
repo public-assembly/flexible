@@ -15,9 +15,8 @@ import { Stack } from "@/components/base/Stack"
 import { BlurImage } from "@/components/BlurImage"
 import Label from "../base/Label"
 // dao-utils
-import { useDaoToken, useActiveAuction } from "@public-assembly/dao-utils"
+import { useDaoToken, useBid } from "@public-assembly/dao-utils"
 // Hooks
-import { useBid } from "@/hooks/useBid"
 import { useIsMobile } from "@/hooks/useIsMobile"
 import { useAuction } from "@/hooks/useAuction"
 import { useAuth } from "@/hooks/useAuth"
