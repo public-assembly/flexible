@@ -66,7 +66,7 @@ function ProposalDetailPage() {
               forVotes={proposal.forVotes}
               abstainVotes={proposal.abstainVotes}
               againstVotes={proposal.againstVotes}
-              proposalThreshold={proposal.proposalThreshold}
+              votingThreshold={proposal.quorumVotes}
               // @ts-ignore - TODO: Update dao-utils gql.ts
               transactionHash={proposal.transactionInfo.transactionHash}
             />
