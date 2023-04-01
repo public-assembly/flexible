@@ -42,6 +42,7 @@ const ProposalVoteButton = ({ proposal }) => {
     args: [address as Hash, BigNumber.from(proposal?.timeCreated)],
   })
 
+  if (proposal.status != "ACTIVE") return null
   return (
     <Dialog>
       <DialogTrigger asChild>
