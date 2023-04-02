@@ -10,7 +10,6 @@ import { BigNumber } from "ethers"
 import { useContractRead } from "wagmi"
 import { platformThemeRegistryAbi } from "../abi/platformThemeRegistryAbi"
 import { useWeb3Storage } from "../hooks/useWeb3Storage"
-import tinycolor from "tinycolor2"
 
 type ThemeProviderProps = {
   children?: ReactNode
@@ -79,42 +78,21 @@ export const ThemeProvider = memo(function ThemeProvider({
       "--color-primary"
     )
   )
-  document.documentElement.style.setProperty(
-    "--color-primary-rgb",
-    tinycolor(primary).lighten(10).toString()
-  )
   const [secondary, setSecondary] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
       "--color-secondary"
     )
-  )
-  document.documentElement.style.setProperty(
-    "--color-secondary-rgb",
-    tinycolor(secondary).lighten(10).toString()
   )
   const [tertiary, setTertiary] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
       "--color-tertiary"
     )
   )
-  document.documentElement.style.setProperty(
-    "--color-tertiary-rgb",
-    tinycolor(tertiary).lighten(10).toString()
-  )
-  document.documentElement.style.setProperty(
-    "--color-tertiary-rgb-10",
-    tinycolor(tertiary).desaturate(95).toString()
-  )
   const [highlight, setHighlight] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
       "--color-highlight"
     )
   )
-  document.documentElement.style.setProperty(
-    "--color-highlight-rgb",
-    tinycolor(highlight).lighten(10).toString()
-  )
-
   const [headline, setHeadline] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue("--headline")
   )
@@ -191,10 +169,10 @@ export const ThemeProvider = memo(function ThemeProvider({
       setButtonRadius(parsedMetadata.theme.cornerRadius?.buttonRadius)
     }
   }, [unpackedMetadata])
+
   /**
    * Set the variables in the local stylesheet to their corresponding values
    */
-
   // prettier-ignore
   document.documentElement.style.setProperty("--color-background", backgroundColor);
   // prettier-ignore

@@ -10,8 +10,16 @@ module.exports = {
     extend: {
       // Allows the use of the font-sans, font-body, font-caption utility class to apply the font to any element
       fontFamily: {
-        sans: ["var(--headline)", "var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
-        body: ["var(--body)", "var(--font-space-mono)", ...defaultTheme.fontFamily.sans],
+        sans: [
+          "var(--headline)",
+          "var(--font-satoshi)",
+          ...defaultTheme.fontFamily.sans,
+        ],
+        body: [
+          "var(--body)",
+          "var(--font-space-mono)",
+          ...defaultTheme.fontFamily.sans,
+        ],
         caption: ["var(--caption)", ...defaultTheme.fontFamily.mono],
         satoshi: ["var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
         headline: ["var(--headline)", ...defaultTheme.fontFamily.sans],
@@ -21,16 +29,11 @@ module.exports = {
         transparent: "transparent",
         black: "#000000",
         white: "#ffffff",
-        // background: "var(--color-background)",
-        // primary: "var(--color-primary)",
-        // secondary: "var(--color-secondary)",
-        // tertiary: "var(--color-tertiary)",
-        // highlight: "var(--color-highlight)",
-        background: "#e7f3ec",
-        primary: "#121212",
-        secondary: "#f2fdf7",
-        tertiary: "#809aa3",
-        highlight: "#b3eb57",
+        background: "rgb(var(--color-background) / <alpha-value>)",
+        primary: "rgb(var(--color-primary) / <alpha-value>)",
+        secondary: "rgb(var(--color-secondary) / <alpha-value>)",
+        tertiary: "rgb(var(--color-tertiary) / <alpha-value>)",
+        highlight: "rgb(var(--color-highlight) / <alpha-value>)",
       },
       borderRadius: {
         object: "var(--border-radius-object)",

@@ -30,7 +30,7 @@ import { ENV } from "utils/env"
 import { Header } from "@/components/Header"
 import { TopProgressBar } from "@/components/TopProgressBar"
 import { DrawerContextProvider } from "@/components/drawer/DrawerProvider"
-import { ThemeProvider } from "@/context/ThemeProvider"
+import { ThemeProvider, useThemeContext } from "@/context/ThemeProvider"
 import { Drawer } from "@/components/Drawer"
 // Misc
 import { Provider } from "react-wrap-balancer"
@@ -142,7 +142,6 @@ const wagmiClient = createClient({
 })
 
 export default function App({ Component, pageProps }: AppProps) {
-  // font-family: ${spaceMono.style.fontFamily}, font-sans;
   return (
     <>
       <style jsx global>

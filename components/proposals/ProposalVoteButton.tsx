@@ -21,13 +21,14 @@ import {
 import { useAuth } from "@/hooks/useAuth"
 import { BigNumber } from "ethers"
 import { Hash } from "types"
+import { Pending } from "../assets/icons"
 
 const ProposalVoteButton = ({ proposal }) => {
   const [support, setSupport] = useState<0 | 1 | 2 | undefined>()
   const [reason, setReason] = useState<string | undefined>()
   const [activeButton, setActiveButton] = useState<number>()
 
-  const { castVote, castVoteWithReason } = useVote({
+  const { castVote, castVoteWithReason, castVoteLoading, castVoteWithReasonLoading } = useVote({
     proposal,
     support,
     reason,
@@ -126,7 +127,7 @@ const ProposalVoteButton = ({ proposal }) => {
               className="w-full"
               disabled={support === undefined || support === null}
             >
-              Submit vote
+              {!castVoteLoading ? "Submit vote" : <Pending className="animate-spin" />}
             </Button>
           ) : (
             <Button
@@ -137,7 +138,7 @@ const ProposalVoteButton = ({ proposal }) => {
               className="w-full"
               disabled={support === undefined || support === null}
             >
-              Submit vote with reason
+              {!castVoteWithReasonLoading ? "Submit vote with reason" : <Pending className="animate-spin" />}
             </Button>
           )}
         </DialogFooter>
