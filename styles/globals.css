@@ -27,8 +27,8 @@
     --border-radius-button: 32px;
 
     --link-gradient: linear-gradient(
-      var(--color-highlight),
-      var(--color-highlight)
+      var(--link-highlight),
+      var(--link-highlight)
     );
   }
 }

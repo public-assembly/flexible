@@ -39,6 +39,7 @@ export function Navigation() {
 function NavLink({ slug, title }: NavLinkProps) {
   const router = useRouter()
   const isCurrentPath = router.asPath === slug
+
   return (
     <Link
       href={slug}
