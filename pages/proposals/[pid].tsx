@@ -167,8 +167,6 @@ function ProposalVoteStatus({ proposal }) {
     },
   })
 
-  console.log("Can vote", canVote)
-
   useEffect(() => {
     // Exit the useEffect hook on the first render if address is not defined
     if (!address) return

@@ -59,9 +59,9 @@ export function Save() {
     },
   })
 
-  const { data, write: setTheme } = useContractWrite(config)
+  const { data, write: setTheme, isLoading } = useContractWrite(config)
 
-  const { isLoading } = useWaitForTransaction({
+  useWaitForTransaction({
     hash: data?.hash,
   })
 
@@ -70,7 +70,6 @@ export function Save() {
       setTheme()
     }
     setThemeReady(false)
-    console.log("Theme is ready")
   }, [themeReady])
 
   async function handleClick() {
@@ -104,8 +103,8 @@ export function Save() {
   return (
     <div className="flex justify-center bg-white w-full p-4">
       <button
-        disabled={isLoading || canEdit}
-        className="bg-[#121212] hover:bg-[#121212]/50 active:bg-[#121212] dark:bg-[#121212] dark:text-[#121212] text-[#f2fdf7] text-lg py-3 font-satoshi rounded w-full disabled:hover:none"
+        disabled={isLoading}
+        className="flex justify-center items-center bg-[#121212] hover:bg-[#121212]/50 active:bg-[#121212] dark:bg-[#121212] dark:text-[#121212] text-[#f2fdf7] text-lg py-3 font-satoshi rounded w-full disabled:hover:none cursor-pointer"
         onClick={handleClick}
       >
         {!isLoading ? "Save" : <Pending className="animate-spin" />}

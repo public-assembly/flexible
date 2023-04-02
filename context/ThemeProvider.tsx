@@ -81,11 +81,8 @@ export const ThemeProvider = memo(function ThemeProvider({
   // )
 
   const [primary, setPrimary] = useState<string>("")
-
-  console.log("Primary", "rgb" + primary)
+  
   const primaryTest = tinycolor("rgb" + "\u00A0" + primary).toHexString()
-
-  console.log(primaryTest)
 
   // console.log('Primary computed', tinycolor('rgb' + primary).toHexString())
   // document.documentElement.style.setProperty(
