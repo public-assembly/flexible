@@ -36,12 +36,12 @@ export function Save() {
   const [canEdit, setCanEdit] = React.useState<boolean>(false)
   const { address } = useAuth()
 
-  const { data: getRole } = useContractRead({
+  useContractRead({
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     functionName: "getRole",
     args: [BigNumber.from(ENV.PLATFORM_INDEX), address as Hash],
-    onSuccess(data) {
+    onSuccess(getRole) {
       if (getRole === 1 || getRole === 2) {
         setCanEdit(true)
       }
