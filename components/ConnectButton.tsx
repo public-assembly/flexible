@@ -28,7 +28,7 @@ export default function ConnectButton() {
                   <Button
                     size="md"
                     icon="left"
-                    className="border border-black text-[#FF0000] bg-white"
+                    className="border border-black text-[#FF0000] bg-white hover:bg-white/50"
                     onClick={openChainModal}
                   >
                     <Error className="mr-[6px]" />
