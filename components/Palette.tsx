@@ -1,6 +1,7 @@
 import * as React from "react"
 import * as Slider from "@radix-ui/react-slider"
 import { useThemeContext } from "../context/ThemeProvider"
+import tinycolor from "tinycolor2"
 
 export function Palette() {
   const {
@@ -33,6 +34,22 @@ export function Palette() {
     buttonRadius,
     setButtonRadius,
   } = useThemeContext()
+
+  /**
+   * Utility function to convert from an rgb string to a hex string
+   */
+  function toHexString(color: string) {
+    return tinycolor("rgb" + "\u00A0" + color).toHexString()
+  }
+
+  /**
+   * Utility function to convert from an rgb string to just the color channels
+   */
+  function formatColor(color: string) {
+    const rgbStr = tinycolor(color).toRgbString()
+    const spaceSeparated = rgbStr.slice(4, -1).replace(/,\s*/g, " ")
+    return spaceSeparated
+  }
 
   return (
     <div className="space-y-6 font-satoshi">
@@ -102,8 +119,8 @@ export function Palette() {
             id="highlight"
             type="color"
             className="color-picker"
-            value={highlight}
-            onChange={(e) => setHighlight(e.target.value)}
+            value={toHexString(highlight)}
+            onChange={(e) => setHighlight(formatColor(e.target.value))}
           />
         </div>
       </div>

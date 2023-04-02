@@ -74,15 +74,24 @@ export const ThemeProvider = memo(function ThemeProvider({
       "--color-background"
     )
   )
-  const [primary, setPrimary] = useState<string>(
-    getComputedStyle(document.documentElement).getPropertyValue(
-      "--color-primary"
-    )
-  )
-  document.documentElement.style.setProperty(
-    "--color-primary-rgb",
-    tinycolor(primary).lighten(10).toString()
-  )
+  // const [primary, setPrimary] = useState<string>(
+  //   getComputedStyle(document.documentElement).getPropertyValue(
+  //     "--color-primary"
+  //   )
+  // )
+
+  const [primary, setPrimary] = useState<string>("")
+
+  console.log("Primary", "rgb" + primary)
+  const primaryTest = tinycolor("rgb" + "\u00A0" + primary).toHexString()
+
+  console.log(primaryTest)
+
+  // console.log('Primary computed', tinycolor('rgb' + primary).toHexString())
+  // document.documentElement.style.setProperty(
+  //   "--color-primary-rgb",
+  //   tinycolor(primary).lighten(10).toString()
+  // )
   const [secondary, setSecondary] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
       "--color-secondary"
@@ -110,6 +119,10 @@ export const ThemeProvider = memo(function ThemeProvider({
       "--color-highlight"
     )
   )
+
+  // console.log('Highlight:', tinycolor('rgb' + highlight).isValid())
+  // console.log('Highlight computed', highlight)
+
   document.documentElement.style.setProperty(
     "--color-highlight-rgb",
     tinycolor(highlight).lighten(10).toString()
@@ -191,14 +204,21 @@ export const ThemeProvider = memo(function ThemeProvider({
       setButtonRadius(parsedMetadata.theme.cornerRadius?.buttonRadius)
     }
   }, [unpackedMetadata])
+
+  // function formatColor(color: string) {
+  //   const rgbStr = tinycolor(color).toRgbString()
+  //   const spaceSeparated = rgbStr.slice(4, -1).replace(/,\s*/g, " ")
+  //   return spaceSeparated
+  // }
+
   /**
    * Set the variables in the local stylesheet to their corresponding values
    */
-
   // prettier-ignore
   document.documentElement.style.setProperty("--color-background", backgroundColor);
   // prettier-ignore
-  document.documentElement.style.setProperty("--color-primary", primary);
+  // document.documentElement.style.setProperty("--color-primary", primary);
+  document.documentElement.style.setProperty("--color-primary", (primary));
   // prettier-ignore
   document.documentElement.style.setProperty("--color-secondary", secondary);
   // prettier-ignore

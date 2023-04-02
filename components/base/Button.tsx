@@ -11,7 +11,7 @@ const buttonVariants = cva(
       variant: {
         default:
           // hover:bg-highlight/50
-          "bg-highlight hover-highlight active:bg-highlight border-primary border rounded-button w-full focus:ring-slate-400 focus:ring-offset-2",
+          "bg-highlight hover:bg-highlight/50 active:bg-highlight border-primary border rounded-button w-full focus:ring-slate-400 focus:ring-offset-2",
         primary:
           // hover:bg-primary/50
           "bg-primary hover-primary active:bg-primary dark:bg-primary dark:text-primary text-secondary",

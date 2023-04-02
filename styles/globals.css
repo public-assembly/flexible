@@ -7,16 +7,16 @@
   :root {
     /* Colors */
     --color-background: #e7f3ec;
-    --color-primary: #121212;
+    /* --color-primary: #121212; */
     --color-secondary: #f2fdf7;
     --color-tertiary: #809aa3;
-    --color-highlight: #b3eb57;
+    /* --color-highlight: #b3eb57; */
 
-    /* --color-background: 231, 243, 236;
-    --color-primary: 18, 18, 18;
-    --color-secondary: 242, 253, 247;
-    --color-tertiary: 128, 154, 163;
-    --color-highlight: 179, 235, 87; */
+    /* --color-background: 231, 243, 236; */
+    --color-primary: 18 18 18;
+    /* --color-secondary: 242, 253, 247; */
+    /* --color-tertiary: 128, 154, 163; */
+    --color-highlight: 179 235 87;
 
     /* Fonts */
     --headline: var(--font-satoshi);
@@ -41,9 +41,9 @@
 
 /* Apply theming variables to classes */
 
-.bg-primary {
+/* .bg-primary {
   background-color: var(--color-primary);
-}
+} */
 
 .bg-secondary {
   background-color: var(--color-secondary);
@@ -53,9 +53,9 @@
   background-color: var(--color-tertiary);
 }
 
-.bg-highlight {
+/* .bg-highlight {
   background-color: var(--color-highlight);
-}
+} */
 
 .text-primary {
   color: var(--color-primary);
@@ -73,9 +73,9 @@
   color: var(--color-highlight);
 }
 
-.hover-primary:hover {
+/* .hover-primary:hover {
   background-color: var(--color-primary-rgb);
-}
+} */
 
 .hover-secondary:hover {
   background-color: var(--color-secondary-rgb);
@@ -89,9 +89,9 @@
   background-color: var(--color-tertiary-rgb-10);
 }
 
-.hover-highlight:hover {
+/* .hover-highlight:hover {
   background-color: var(--color-highlight-rgb);
-}
+} */
 
 .headline {
   font-family: var(--headline);
