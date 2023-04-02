@@ -1,4 +1,3 @@
-
 .linkUnderline {
   border-bottom-width: 0;
   background-image: linear-gradient(transparent, transparent), var(--link-gradient);

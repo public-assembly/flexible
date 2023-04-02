@@ -10,6 +10,7 @@ import { BigNumber } from "ethers"
 import { useContractRead } from "wagmi"
 import { platformThemeRegistryAbi } from "../abi/platformThemeRegistryAbi"
 import { useWeb3Storage } from "../hooks/useWeb3Storage"
+import tinycolor from "tinycolor2"
 
 type ThemeProviderProps = {
   children?: ReactNode
@@ -171,6 +172,17 @@ export const ThemeProvider = memo(function ThemeProvider({
   }, [unpackedMetadata])
 
   /**
+   * If the highlight color to format is not a hex string, return it as one
+   */
+  function formatHighlight(color: string) {
+    if (color.charAt(0) != "#") {
+      return tinycolor("rgb " + "\u00A0" + color).toHexString()
+    } else {
+      return color
+    }
+  }
+
+  /**
    * Set the variables in the local stylesheet to their corresponding values
    */
   // prettier-ignore
@@ -183,6 +195,8 @@ export const ThemeProvider = memo(function ThemeProvider({
   document.documentElement.style.setProperty("--color-tertiary", tertiary);
   // prettier-ignore
   document.documentElement.style.setProperty("--color-highlight", highlight);
+  // prettier-ignore
+  document.documentElement.style.setProperty("--link-highlight", formatHighlight(highlight));
   // prettier-ignore
   document.documentElement.style.setProperty("--headline", headline);
   // prettier-ignore
