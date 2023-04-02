@@ -10,7 +10,6 @@ import { BigNumber } from "ethers"
 import { useContractRead } from "wagmi"
 import { platformThemeRegistryAbi } from "../abi/platformThemeRegistryAbi"
 import { useWeb3Storage } from "../hooks/useWeb3Storage"
-import tinycolor from "tinycolor2"
 
 type ThemeProviderProps = {
   children?: ReactNode
@@ -74,57 +73,26 @@ export const ThemeProvider = memo(function ThemeProvider({
       "--color-background"
     )
   )
-  // const [primary, setPrimary] = useState<string>(
-  //   getComputedStyle(document.documentElement).getPropertyValue(
-  //     "--color-primary"
-  //   )
-  // )
-
-  const [primary, setPrimary] = useState<string>("")
-  
-  const primaryTest = tinycolor("rgb" + "\u00A0" + primary).toHexString()
-
-  // console.log('Primary computed', tinycolor('rgb' + primary).toHexString())
-  // document.documentElement.style.setProperty(
-  //   "--color-primary-rgb",
-  //   tinycolor(primary).lighten(10).toString()
-  // )
+  const [primary, setPrimary] = useState<string>(
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--color-primary"
+    )
+  )
   const [secondary, setSecondary] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
       "--color-secondary"
     )
-  )
-  document.documentElement.style.setProperty(
-    "--color-secondary-rgb",
-    tinycolor(secondary).lighten(10).toString()
   )
   const [tertiary, setTertiary] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
       "--color-tertiary"
     )
   )
-  document.documentElement.style.setProperty(
-    "--color-tertiary-rgb",
-    tinycolor(tertiary).lighten(10).toString()
-  )
-  document.documentElement.style.setProperty(
-    "--color-tertiary-rgb-10",
-    tinycolor(tertiary).desaturate(95).toString()
-  )
   const [highlight, setHighlight] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
       "--color-highlight"
     )
   )
-
-  // console.log('Highlight:', tinycolor('rgb' + highlight).isValid())
-  // console.log('Highlight computed', highlight)
-
-  document.documentElement.style.setProperty(
-    "--color-highlight-rgb",
-    tinycolor(highlight).lighten(10).toString()
-  )
-
   const [headline, setHeadline] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue("--headline")
   )
@@ -202,20 +170,13 @@ export const ThemeProvider = memo(function ThemeProvider({
     }
   }, [unpackedMetadata])
 
-  // function formatColor(color: string) {
-  //   const rgbStr = tinycolor(color).toRgbString()
-  //   const spaceSeparated = rgbStr.slice(4, -1).replace(/,\s*/g, " ")
-  //   return spaceSeparated
-  // }
-
   /**
    * Set the variables in the local stylesheet to their corresponding values
    */
   // prettier-ignore
   document.documentElement.style.setProperty("--color-background", backgroundColor);
   // prettier-ignore
-  // document.documentElement.style.setProperty("--color-primary", primary);
-  document.documentElement.style.setProperty("--color-primary", (primary));
+  document.documentElement.style.setProperty("--color-primary", primary);
   // prettier-ignore
   document.documentElement.style.setProperty("--color-secondary", secondary);
   // prettier-ignore

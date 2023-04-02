@@ -89,8 +89,8 @@ export function Palette() {
             id="text"
             type="color"
             className="color-picker"
-            value={primary}
-            onChange={(e) => setPrimary(e.target.value)}
+            value={toHexString(primary)}
+            onChange={(e) => setPrimary(formatColor(e.target.value))}
           />
         </div>
         <div className="flex items-center justify-between gap-x-4">
@@ -99,8 +99,8 @@ export function Palette() {
             id="secondary"
             type="color"
             className="color-picker"
-            value={secondary}
-            onChange={(e) => setSecondary(e.target.value)}
+            value={toHexString(secondary)}
+            onChange={(e) => setSecondary(formatColor(e.target.value))}
           />
         </div>
         <div className="flex items-center justify-between gap-x-4">
@@ -109,8 +109,8 @@ export function Palette() {
             id="tertiary"
             type="color"
             className="color-picker"
-            value={tertiary}
-            onChange={(e) => setTertiary(e.target.value)}
+            value={toHexString(tertiary)}
+            onChange={(e) => setTertiary(formatColor(e.target.value))}
           />
         </div>
         <div className="flex items-center justify-between gap-x-4">

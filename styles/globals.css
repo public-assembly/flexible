@@ -6,16 +6,10 @@
 @layer base {
   :root {
     /* Colors */
-    --color-background: #e7f3ec;
-    /* --color-primary: #121212; */
-    --color-secondary: #f2fdf7;
-    --color-tertiary: #809aa3;
-    /* --color-highlight: #b3eb57; */
-
-    /* --color-background: 231, 243, 236; */
+    --color-background: 231 243 236;
     --color-primary: 18 18 18;
-    /* --color-secondary: 242, 253, 247; */
-    /* --color-tertiary: 128, 154, 163; */
+    --color-secondary: 242 253 247;
+    --color-tertiary: 128 154 163;
     --color-highlight: 179 235 87;
 
     /* Fonts */
@@ -40,58 +34,6 @@
 }
 
 /* Apply theming variables to classes */
-
-/* .bg-primary {
-  background-color: var(--color-primary);
-} */
-
-.bg-secondary {
-  background-color: var(--color-secondary);
-}
-
-.bg-tertiary {
-  background-color: var(--color-tertiary);
-}
-
-/* .bg-highlight {
-  background-color: var(--color-highlight);
-} */
-
-.text-primary {
-  color: var(--color-primary);
-}
-
-.text-secondary {
-  color: var(--color-secondary);
-}
-
-.text-tertiary {
-  color: var(--color-tertiary);
-}
-
-.text-highlight {
-  color: var(--color-highlight);
-}
-
-/* .hover-primary:hover {
-  background-color: var(--color-primary-rgb);
-} */
-
-.hover-secondary:hover {
-  background-color: var(--color-secondary-rgb);
-}
-
-.hover-tertiary:hover {
-  background-color: var(--color-tertiary-rgb);
-}
-
-.hover-tertiary-10:hover {
-  background-color: var(--color-tertiary-rgb-10);
-}
-
-/* .hover-highlight:hover {
-  background-color: var(--color-highlight-rgb);
-} */
 
 .headline {
   font-family: var(--headline);
