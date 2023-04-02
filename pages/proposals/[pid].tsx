@@ -26,6 +26,11 @@ import { NOUNS_PROPOSAL_SUPPORT, PROPOSAL_SUPPORT } from "../../types/index"
 import { buildEtherscanLink } from "../../utils/helpers"
 import { Hash } from "../../types/index"
 
+import { useGovernorContext } from "@public-assembly/dao-utils"
+import { useContractRead } from "wagmi"
+import { governorAbi } from "@public-assembly/dao-utils"
+import { BigNumber } from "ethers"
+
 function ProposalDetailPage() {
   const { allProposals } = useProposals()
   const { pid } = useRouter().query
@@ -127,11 +132,42 @@ function ProposalNavigation() {
 }
 
 function ProposalVoteStatus({ proposal }) {
+  /**
+   * Address of the connected user
+   */
   const { address } = useAuth()
-
-  const [needsAction, setNeedsAction] = useState(false)
+  /**
+   * If the current proposal needs action from the connected user
+   */
+  const [needsAction, setNeedsAction] = useState<boolean>(false)
+  /**
+   * If the connected user can vote on the current proposal
+   */
+  const [canVote, setCanVote] = useState<boolean>(false)
+  /**
+   * If the connected user has voted, how they voted
+   */
   const [voteSupport, setVoteSupport] = useState<PROPOSAL_SUPPORT | null>(null)
+  /**
+   * The transaction hash of the connected user's voting instance
+   */
   const [txHash, setTxHash] = useState<string | undefined>(undefined)
+
+  const { governorAddress } = useGovernorContext()
+
+  useContractRead({
+    address: governorAddress,
+    abi: governorAbi,
+    functionName: "getVotes",
+    args: [address as Hash, BigNumber.from(proposal.timeCreated)],
+    onSuccess(availableVotes) {
+      if (availableVotes.toNumber() > 0) {
+        setCanVote(true)
+      }
+    },
+  })
+
+  console.log("Can vote", canVote)
 
   useEffect(() => {
     // Exit the useEffect hook on the first render if address is not defined
@@ -148,12 +184,14 @@ function ProposalVoteStatus({ proposal }) {
     // Check if the connected address has voted on this proposal.
     // prettier-ignore
     const hasVoted = proposalVotes.some((vote: any) => vote.voter === address.toLowerCase())
+    console.log("Has voted", hasVoted)
     // If the connected address has voted, set their support to the voteSupport state variable
     if (hasVoted) setVoteSupport(vote.support)
     // Set the needsAction boolean to true if they haven't voted and false if not
     setNeedsAction(!hasVoted)
-  }, [address, proposal.votes])
+  }, [address, proposal.votes, voteSupport])
 
+  if (!canVote) return null
   return (
     <>
       {needsAction ? <ProposalVoteButton proposal={proposal} /> : null}
