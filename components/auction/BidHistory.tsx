@@ -1,6 +1,6 @@
 import { Flex } from "../base/Flex"
 import { Caption } from "../base/Typography"
-import { useBid } from '@public-assembly/dao-utils'
+import { useBid } from "@public-assembly/dao-utils"
 import { Bidder } from "@/components/auction/Bidder"
 import { Hash } from "types"
 import { cn } from "@/utils/cn"
@@ -48,8 +48,7 @@ function BidAmount({ isHighestBid, event }) {
         isHighestBid ? "text-secondary" : "text-primary"
       )}
     >
-      <span className="text-xs mr-2">Ξ</span>
-      <span>{`${Number(event.amount).toFixed(4)}`}</span>
+      {`${Number(event.amount).toFixed(4)} ETH`}
     </Caption>
   )
 }

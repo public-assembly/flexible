@@ -108,7 +108,6 @@ export function AuctionSheet({
             <SheetHeader>
               <SheetTitle>
                 <Headline>
-                  {" "}
                   <a
                     href={`${externalLinkBaseURI}/${ENV.TOKEN_ADDRESS}/${tokenId}`}
                     target="_blank"
@@ -133,12 +132,9 @@ export function AuctionSheet({
                     {/* Highest bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        <span className="text-xs mr-2">Ξ</span>
-                        <span>
-                          {ethers.utils.formatEther(
-                            BigNumber.from(auctionData?.highestBidPriceRaw)
-                          )}
-                        </span>
+                        {`${ethers.utils.formatEther(
+                          BigNumber.from(auctionData?.highestBidPriceRaw)
+                        )} ETH`}
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Highest bid

@@ -35,14 +35,15 @@ export function VotesSection({
         abstainVotes={abstainVotes}
       />
 
-      <Flex className="gap-6 transition-colors duration-200 ease-in-out cursor-pointer group group-hover:text-primary">
+      <Flex className="gap-x-6">
         <Link
-          className="flex items-center underline text-primary/50"
+          className="flex items-center"
           href={buildEtherscanLink("tx", transactionHash)}
         >
-          Voting snapshot <ArrowUpRight className="ml-1" />
+          <Body className="underline text-primary/50">Voting snapshot</Body>
+          <ArrowUpRight className="ml-[1px] text-tertiary" />
         </Link>
-        <Label variant="rowInverse">
+        <Label className="flex" variant="rowInverse">
           <Body>Voting threshold</Body>
           <Caption>{votingThreshold}</Caption>
         </Label>

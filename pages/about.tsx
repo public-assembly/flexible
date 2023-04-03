@@ -75,13 +75,13 @@ export default function AboutPage() {
             daoAddresses?.treasuryAddress as Hash
           )}
         >
-          Treasury balance Ξ {Number(data?.formatted).toFixed(3)}
+          {`Treasury balance ${Number(data?.formatted).toFixed(3)} ETH`}
         </Label>
         <Label>
-          Treasury balance in USD ${" "}
-          {(Number(data?.formatted) * ethUsd).toLocaleString()}
+          {`Treasury balance in USD ${(
+            Number(data?.formatted) * ethUsd
+          ).toLocaleString()}`}
         </Label>
-        {/* <Label className="px-4 py-2">Total auction sales Ξ 7.3556</Label> */}
       </Flex>
     </Stack>
   )

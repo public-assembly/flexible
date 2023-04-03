@@ -136,19 +136,7 @@ const Auction = () => {
                   <span className="mr-4">
                     {!auctionEnded ? "Current bid" : "Winning bid"}
                   </span>
-                  {winningBid}
-                  {/* {!auctionData?.highestBidPriceRaw ? (
-                    <Pending className="animate-spin" />
-                  ) : (
-                    <>
-                      <span className="mr-2">Ξ</span>
-                      <span>
-                        {ethers.utils.formatEther(
-                          BigNumber.from(auctionData?.highestBidPriceRaw)
-                        )}
-                      </span>
-                    </>
-                  )} */}
+                  {`${winningBid} ETH`}
                 </a>
               </Label>
             </Flex>
@@ -179,19 +167,7 @@ const Auction = () => {
                 <span className="mr-4">
                   {!auctionEnded ? "Current bid" : "Winning bid"}
                 </span>
-                <span className="mr-2">Ξ</span>
-                {!auctionData?.highestBidPriceRaw ? (
-                  <Pending className="animate-spin" />
-                ) : (
-                  <>
-                    <span className="mr-2">Ξ</span>
-                    <span>
-                      {ethers.utils.formatEther(
-                        BigNumber.from(auctionData?.highestBidPriceRaw)
-                      )}
-                    </span>
-                  </>
-                )}
+                {`${winningBid} ETH`}
               </a>
             </Label>
           </Stack>
