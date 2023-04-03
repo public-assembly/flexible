@@ -24,4 +24,4 @@ $ pnpm dev
 
 ## Contribution Guidelines
 
-If you're ready to contribute a feature, please open a [pull request](https://github.com/public-assembly/flexible/pulls) with detailed commit messages. Please also make to sure check the project's open [issues](https://github.com/public-assembly/flexible/issues) and link your PR to one if appropriate. 
+If you're prepared to add a feature, kindly create a [pull request](https://github.com/public-assembly/flexible/pulls) that includes comprehensive commit messages. Additionally, ensure that you review the project's open [issues](https://github.com/public-assembly/flexible/issues) and link your pull request to a relevant one, if applicable.
