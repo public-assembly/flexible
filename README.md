@@ -9,19 +9,19 @@ Create your own DAO interface.
 First, clone the repository:
 
 ```bash
-git clone https://github.com/public-assembly/flexible.git
+$ git clone https://github.com/public-assembly/flexible.git
 ```
 
 Second, install dependencies:
 
 ```bash
-pnpm install
+$ pnpm install
 ```
 
 Lastly, run the development server:
 
 ```bash
-pnpm dev
+$ pnpm dev
 ```
 
 ## Contribution Guidelines
