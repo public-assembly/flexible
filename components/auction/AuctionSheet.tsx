@@ -108,7 +108,6 @@ export function AuctionSheet({
             <SheetHeader>
               <SheetTitle>
                 <Headline>
-                  {" "}
                   <a
                     href={`${externalLinkBaseURI}/${ENV.TOKEN_ADDRESS}/${tokenId}`}
                     target="_blank"

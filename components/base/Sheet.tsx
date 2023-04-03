@@ -159,7 +159,7 @@ const sheetVariants = cva(
       {
         position: ["right", "left"],
         size: "auction",
-        class: "h-[709px] top-[15%]",
+        class: "h-[708px] top-[15%]",
       },
     ],
     defaultVariants: {
