@@ -1,5 +1,3 @@
-This is a [Public Assembly](https://www.public---assembly.com/about) project.
-
 # Flexible
 
 Create your own DAO interface.
