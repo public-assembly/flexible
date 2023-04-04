@@ -18,6 +18,7 @@ import {
   useGovernorContext,
   useVote,
 } from "@public-assembly/dao-utils"
+import { BodyLarge } from "../base/Typography"
 import { useAuth } from "@/hooks/useAuth"
 import { BigNumber } from "ethers"
 import { Hash } from "types"
@@ -28,7 +29,12 @@ const ProposalVoteButton = ({ proposal }) => {
   const [reason, setReason] = useState<string | undefined>()
   const [activeButton, setActiveButton] = useState<number>()
 
-  const { castVote, castVoteWithReason, castVoteLoading, castVoteWithReasonLoading } = useVote({
+  const {
+    castVote,
+    castVoteWithReason,
+    castVoteLoading,
+    castVoteWithReasonLoading,
+  } = useVote({
     proposal,
     support,
     reason,
@@ -51,7 +57,7 @@ const ProposalVoteButton = ({ proposal }) => {
           Submit vote
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] gap-y-6">
         <DialogHeader>
           <DialogTitle>Voting</DialogTitle>
           <DialogDescription>
@@ -59,7 +65,7 @@ const ProposalVoteButton = ({ proposal }) => {
             onchain.
           </DialogDescription>
         </DialogHeader>
-        <Stack className="grid gap-4 py-6">
+        <Stack className="grid gap-4">
           {/* Vote for */}
           <button
             onClick={() => {
@@ -109,7 +115,8 @@ const ProposalVoteButton = ({ proposal }) => {
             Abstain from voting
           </button>
         </Stack>
-        <Stack>
+        <Stack className="gap-y-2">
+          <BodyLarge>Reason for vote</BodyLarge>
           <textarea
             value={reason}
             onChange={(e) => setReason(e.target.value)}
@@ -121,24 +128,30 @@ const ProposalVoteButton = ({ proposal }) => {
           {!reason ? (
             <Button
               onClick={() => castVote?.()}
-              variant="tertiary"
               size="lg"
               type="submit"
               className="w-full"
               disabled={support === undefined || support === null}
             >
-              {!castVoteLoading ? "Submit vote" : <Pending className="animate-spin" />}
+              {!castVoteLoading ? (
+                "Submit vote"
+              ) : (
+                <Pending className="animate-spin" />
+              )}
             </Button>
           ) : (
             <Button
               onClick={() => castVoteWithReason?.()}
-              variant="tertiary"
               size="lg"
               type="submit"
               className="w-full"
               disabled={support === undefined || support === null}
             >
-              {!castVoteWithReasonLoading ? "Submit vote with reason" : <Pending className="animate-spin" />}
+              {!castVoteWithReasonLoading ? (
+                "Submit vote with reason"
+              ) : (
+                <Pending className="animate-spin" />
+              )}
             </Button>
           )}
         </DialogFooter>
