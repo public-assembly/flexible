@@ -18,7 +18,7 @@ import {
   useGovernorContext,
   useVote,
 } from "@public-assembly/dao-utils"
-import { BodyLarge } from "../base/Typography"
+import { Headline, BodyLarge } from "../base/Typography"
 import { useAuth } from "@/hooks/useAuth"
 import { BigNumber } from "ethers"
 import { Hash } from "types"
@@ -57,9 +57,11 @@ const ProposalVoteButton = ({ proposal }) => {
           Submit vote
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] gap-y-6">
+      <DialogContent className="sm:max-w-[425px] gap-y-6 border border-primary">
         <DialogHeader>
-          <DialogTitle>Voting</DialogTitle>
+          <DialogTitle>
+            <Headline>Voting</Headline>
+          </DialogTitle>
           <DialogDescription>
             Votes are permanent and cannot be altered after being submitted
             onchain.
