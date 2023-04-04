@@ -22,6 +22,7 @@ module.exports = {
         ],
         caption: ["var(--caption)", ...defaultTheme.fontFamily.mono],
         satoshi: ["var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
+        mono: ["var(--font-space-mono)", ...defaultTheme.fontFamily.mono],
         headline: ["var(--headline)", ...defaultTheme.fontFamily.sans],
       },
       colors: {

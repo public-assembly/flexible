@@ -9,6 +9,7 @@ import { useAuth } from "@/hooks/useAuth"
 import { Exit } from "@/components/assets/icons"
 import { Stack } from "@/components/base/Stack"
 import { ArrowUpRight } from "@/components/assets/icons"
+import { CheckCircle } from "@/components/assets/icons"
 import {
   useContractWrite,
   usePrepareContractWrite,
@@ -88,8 +89,8 @@ export default function Platform() {
             </>
           ) : (
             <>
-              <p className="mb-2 uppercase text-[#3291FF] text-base">
-                1. Create a platform index
+              <p className="mb-2 flex gap-4 uppercase text-[#3291FF] text-base font-mono">
+                1. Create a platform index {!isSuccess ? null : <CheckCircle />}
               </p>
               <p className="text-[#999999] text-base">
                 The first step is to setup a platform index. This costs a small
@@ -115,8 +116,8 @@ export default function Platform() {
         {isSuccess ? (
           <div>
             <Separator className="mt-8 mb-6 bg-[#333333]"></Separator>
-            <p className="mb-2 uppercase text-[#3291FF] text-base">
-              2. Save your index variable
+            <p className="mb-2 flex gap-4 uppercase text-[#3291FF] text-base font-mono">
+              2. Save your index variable {!hasCopied ? null : <CheckCircle />}
             </p>
             <p className="text-[#999999] text-base">
               <span className="text-white font-medium">Important!&nbsp;</span>
@@ -139,7 +140,7 @@ export default function Platform() {
             </div>
             <button className="flex items-center justify-center py-3 w-full mx-auto bg-white hover:bg-opacity-80">
               <a
-                href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpublic-assembly%2Fflexible&env=NEXT_PUBLIC_PLATFORM_INDEX,NEXT_PUBLIC_TOKEN_ADDRESS,NEXT_PUBLIC_ALCHEMY_KEY,NEXT_PUBLIC_WEB3STORAGE_TOKEN,NEXT_PUBLIC_CHAIN_ID,NEXT_PUBLIC_SITE_TITLE,NEXT_PUBLIC_SITE_DESCRIPTION,NEXT_PUBLIC_TWITTER_HANDLE,NEXT_PUBLIC_WEBSITE_URL"
+                href="https://flexible-docs-peach.vercel.app/docs/deploy_walkthrough"
                 target="_blank"
                 rel="noreferrer"
                 className="mr-1 font-medium"
