@@ -208,12 +208,12 @@ export function AuctionSheet({
                           {!createBidLoading && !createBidSuccess ? (
                             <Button
                               disabled={!isValidBid}
-                              className="py-8 lg:py-7"
+                              size="lg"
                             >
                               Enter Bid
                             </Button>
                           ) : (
-                            <Button className="py-8 lg:py-7">
+                            <Button size="lg">
                               <Pending className="animate-spin" />
                             </Button>
                           )}
