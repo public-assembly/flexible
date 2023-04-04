@@ -57,7 +57,7 @@ export function Palette() {
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
         {/* Image upload */}
         {/* <div className="flex items-center justify-between gap-x-32">
-          <span>Upload image</span>
+          <span className="text-lg uppercase font-mono">Upload image</span>
           <label className="image-picker">
             Upload File
             <input
@@ -68,7 +68,7 @@ export function Palette() {
             />
           </label>
         </div> */}
-        <span className="font-semibold uppercase">Background</span>
+        <span className="text-lg uppercase font-mono">Background</span>
         <div className="flex items-center justify-between gap-x-32">
           <label>Color</label>
           <input
@@ -82,7 +82,7 @@ export function Palette() {
       </div>
       {/* Colors */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-        <span className="font-semibold uppercase">Colors</span>
+      <span className="text-lg uppercase font-mono">Colors</span>
         <div className="flex items-center justify-between gap-x-4">
           <label>Primary</label>
           <input
@@ -126,7 +126,7 @@ export function Palette() {
       </div>
       {/* Fonts */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-        <span className="font-semibold uppercase">Fonts</span>
+      <span className="text-lg uppercase font-mono">Fonts</span>
         <div className="flex items-center justify-between gap-x-4">
           <span>Headline</span>
           <div>
@@ -345,8 +345,8 @@ export function Palette() {
       </div>
       {/* Dropshadow */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-        <span className="font-semibold uppercase">Dropshadow</span>
-        <div className="flex items-center justify-between gap-x-32">
+      <span className="text-lg uppercase font-mono">Dropshadow</span>
+        <div className="flex items-center justify-between gap-x-4">
           <label>Color</label>
           <input
             id="shadowColor"
@@ -356,7 +356,7 @@ export function Palette() {
             onChange={(e) => setShadowColor(e.target.value)}
           />
         </div>
-        <div className="flex items-center justify-between gap-x-32">
+        <div className="flex items-center justify-between gap-x-4">
           <label>Spread</label>
           <div className="flex justify-end">
             <Slider.Root
@@ -384,8 +384,8 @@ export function Palette() {
       </div>
       {/* Corner radius */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-        <span className="font-semibold uppercase">Corner Radius</span>
-        <div className="flex items-center justify-between gap-x-32">
+      <span className="text-lg uppercase font-mono">Corner Radius</span>
+        <div className="flex items-center justify-between gap-x-4">
           <label>Objects</label>
           <div className="flex justify-end">
             <Slider.Root
@@ -409,7 +409,7 @@ export function Palette() {
             </Slider.Root>
           </div>
         </div>
-        <div className="flex items-center justify-between mt-6 gap-x-32">
+        <div className="flex items-center justify-between mt-6 gap-x-4">
           <label>Buttons</label>
           <div className="flex justify-end">
             <Slider.Root

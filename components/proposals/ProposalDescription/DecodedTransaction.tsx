@@ -108,9 +108,13 @@ export const DecodedTransactions: React.FC<DecodedTransactionProps> = ({
                         className="underline"
                       >
                         <p className="flex md:hidden">
-                          {shortenAddress(decoded?.target)}
+                          {`${i + 1}.${
+                            "\u0020" + shortenAddress(decoded?.target)
+                          }`}
                         </p>
-                        <p className="hidden md:flex">{decoded?.target}</p>
+                        <p className="hidden md:flex">{`${i + 1}.${
+                          "\u0020" + decoded?.target
+                        }`}</p>
                       </a>
                     </div>
                     <Flex className="pl-2">
