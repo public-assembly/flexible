@@ -29,6 +29,11 @@ const buttonVariants = cva(
           "focus:ring-primary focus:ring-offset-1",
           "disabled:text-primary/50 disabled:border-primary/50",
         ],
+        alert: [
+          "border border-black text-[#FF0000] bg-white rounded-button w-full",
+          "hover:bg-white/50",
+          "focus:ring-primary focus:ring-offset-1",
+        ],
         link: "bg-transparent underline-offset-4 hover:underline text-slate-900 dark:text-slate-100 hover:bg-transparent dark:hover:bg-transparent",
         burger:
           "hover:bg-primary/50 data-[state=open]:bg-primary bg-transparent data-[state=open]:text-secondary focus:ring-2 active:ring-primary focus:ring-primary",
