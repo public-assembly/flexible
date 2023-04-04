@@ -23,7 +23,6 @@ import { useAuth } from "@/hooks/useAuth"
 // Misc
 import { motion } from "framer-motion"
 import { getUnixTime } from "date-fns"
-import { ethers, BigNumber } from "ethers"
 
 const Auction = () => {
   const { isMobile } = useIsMobile()
@@ -89,13 +88,13 @@ const Auction = () => {
   return (
     <Stack className="h-full gap-4 px-4 pt-20 overflow-x-hidden ">
       <Flex className="relative justify-center w-full">
-        <Stack className="relative justify-between max-h-[690px] max-w-[690px] w-full h-full p-4 aspect-square">
+        <Stack className="relative justify-between max-h-[600px] max-w-[600px] w-full h-full p-4 aspect-square">
           <div className="absolute inset-0 z-0 w-full aspect-square">
             {thumbnail && (
               <BlurImage
                 src={thumbnail}
-                height={690}
-                width={690}
+                height={600}
+                width={600}
                 alt={`${tokenId}`}
               />
             )}
