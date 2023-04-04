@@ -346,7 +346,7 @@ export function Palette() {
       {/* Dropshadow */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
         <span className="font-semibold uppercase">Dropshadow</span>
-        <div className="flex items-center justify-between gap-x-32">
+        <div className="flex items-center justify-between gap-x-4">
           <label>Color</label>
           <input
             id="shadowColor"
@@ -356,7 +356,7 @@ export function Palette() {
             onChange={(e) => setShadowColor(e.target.value)}
           />
         </div>
-        <div className="flex items-center justify-between gap-x-32">
+        <div className="flex items-center justify-between gap-x-4">
           <label>Spread</label>
           <div className="flex justify-end">
             <Slider.Root
@@ -385,7 +385,7 @@ export function Palette() {
       {/* Corner radius */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
         <span className="font-semibold uppercase">Corner Radius</span>
-        <div className="flex items-center justify-between gap-x-32">
+        <div className="flex items-center justify-between gap-x-4">
           <label>Objects</label>
           <div className="flex justify-end">
             <Slider.Root
@@ -409,7 +409,7 @@ export function Palette() {
             </Slider.Root>
           </div>
         </div>
-        <div className="flex items-center justify-between mt-6 gap-x-32">
+        <div className="flex items-center justify-between mt-6 gap-x-4">
           <label>Buttons</label>
           <div className="flex justify-end">
             <Slider.Root
