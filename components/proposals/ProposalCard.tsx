@@ -63,7 +63,13 @@ export default function ProposalCard({ proposal }) {
           {/* Statuses */}
           <Flex className="flex-wrap items-center self-stretch justify-between gap-2">
             <Flex className="gap-2">
-              <ProposalLabel>{proposal.status}</ProposalLabel>
+              {proposal.status != "ACTIVE" ? (
+                <ProposalLabel variant="secondary">
+                  {proposal.status}
+                </ProposalLabel>
+              ) : (
+                <ProposalLabel>{proposal.status}</ProposalLabel>
+              )}
               {needsAction ? <ProposalLabel>Needs vote</ProposalLabel> : null}
             </Flex>
             <ProposalTimestamp proposal={proposal} size="xs" />
