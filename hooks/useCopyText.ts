@@ -21,7 +21,7 @@ export default function useCopyText(): CopyText {
   useEffect(() => {
     setTimeout(() => {
       setHasCopied(false)
-    }, 3000)
+    }, 10000)
   }, [notificationKey])
 
   return { handleCopy, hasCopied }
