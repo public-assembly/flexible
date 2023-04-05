@@ -58,8 +58,8 @@ export function Header() {
         <NetworkController.Testnet>
           <Flex>
             <Headline className="headline">{ENV.SITE_TITLE}</Headline>
-            <Flex className="justify-center items-center ml-4 px-6 py-1 border border-primary bg-highlight rounded-lg hover:cursor-default">
-              <Body className="text-primary font-medium">Goerli</Body>
+            <Flex className="items-center justify-center px-6 py-1 ml-4 border rounded-lg border-primary bg-highlight hover:cursor-default">
+              <Body className="font-medium text-primary">Goerli</Body>
             </Flex>
           </Flex>
         </NetworkController.Testnet>
@@ -85,7 +85,7 @@ function MobileDropdown(props: MobileDropdownProps) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <Button size="icon" className="group rounded" variant="burger">
+        <Button size="icon" className="rounded group" variant="burger">
           {/* Icon is styled with module css and animates using data attributes from radix */}
           <div
             className={cn(
@@ -102,7 +102,9 @@ function MobileDropdown(props: MobileDropdownProps) {
           <span className="sm:hidden">
             <Navigation />
           </span>
-          <ConnectButton />
+          <DropdownMenu.Item type="button" onClick={() => {}}>
+            <ConnectButton />
+          </DropdownMenu.Item>
           {isConnected && chain?.id === ENV.CHAIN ? (
             <DropdownMenu.Item type="button" onClick={() => console.log()}>
               <Button
