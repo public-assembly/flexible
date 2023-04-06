@@ -25,7 +25,7 @@ import { BodyLarge, Headline } from "../../components/base/Typography"
 import { NOUNS_PROPOSAL_SUPPORT, PROPOSAL_SUPPORT } from "../../types/index"
 import { buildEtherscanLink } from "../../utils/helpers"
 import { Hash } from "../../types/index"
-
+import { useProposalPermissions } from "@/hooks/useProposalPermissions"
 import { useGovernorContext } from "@public-assembly/dao-utils"
 import { useContractRead } from "wagmi"
 import { governorAbi } from "@public-assembly/dao-utils"
@@ -38,6 +38,8 @@ function ProposalDetailPage() {
   if (!allProposals) return null
 
   const proposal = allProposals.find((proposal) => proposal.proposalId === pid)
+
+  const { canVote } = useProposalPermissions(proposal)
 
   if (!proposal) return null
   return (
@@ -187,7 +189,9 @@ function ProposalVoteStatus({ proposal }) {
     setNeedsAction(!hasVoted)
   }, [address, proposal.votes, voteSupport])
 
-  if (isConnected && !canVote) return <Label>You are not eligible to vote</Label>
+  if (!isConnected) return null
+  if (isConnected && !canVote)
+    return <Label>You are not eligible to vote</Label>
   return (
     <>
       {needsAction ? <ProposalVoteButton proposal={proposal} /> : null}

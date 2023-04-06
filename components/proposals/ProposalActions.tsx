@@ -7,6 +7,7 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi"
+import { useAuth } from "@/hooks/useAuth"
 
 /**
  * Veto a proposal
