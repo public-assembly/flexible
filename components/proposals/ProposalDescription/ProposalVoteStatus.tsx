@@ -55,7 +55,11 @@ export function ProposalVoteStatus({ proposal }) {
   }, [address, proposal.votes])
 
   if (!isConnected) {
-    return <ConnectButton />
+    return (
+      <div className="max-w-[328px]">
+        <ConnectButton />
+      </div>
+    )
   } else if (!hasVoted) {
     if (proposal.status == "SUCCEEDED") {
       return (
@@ -115,52 +119,49 @@ export function ProposalVoteStatus({ proposal }) {
     } else if (proposal.status == "EXECUTED") {
       return <Label>You did not vote on this proposal</Label>
     } else {
-      return (
-        <>
-          {(() => {
-            switch (voteSupport) {
-              case NOUNS_PROPOSAL_SUPPORT.ABSTAIN:
-                return (
-                  <Label
-                    showIcon
-                    iconLeft={<Exit />}
-                    showExternalLinkIcon
-                    externalLink={buildEtherscanLink("tx", txHash)}
-                  >
-                    You voted abstain for this proposal
-                  </Label>
-                )
-              case NOUNS_PROPOSAL_SUPPORT.FOR:
-                return (
-                  <>
-                    <Label
-                      showIcon
-                      iconLeft={<Check className="cursor-pointer" />}
-                      showExternalLinkIcon
-                      externalLink={buildEtherscanLink("tx", txHash)}
-                    >
-                      You voted for this proposal
-                    </Label>
-                  </>
-                )
+      return (() => {
+        switch (voteSupport) {
+          case NOUNS_PROPOSAL_SUPPORT.ABSTAIN:
+            return (
+              <Label
+                showIcon
+                iconLeft={<Exit />}
+                showExternalLinkIcon
+                externalLink={buildEtherscanLink("tx", txHash)}
+              >
+                You voted abstain for this proposal
+              </Label>
+            )
+          case NOUNS_PROPOSAL_SUPPORT.FOR:
+            return (
+              <>
+                <Label
+                  showIcon
+                  iconLeft={<Check className="cursor-pointer" />}
+                  showExternalLinkIcon
+                  externalLink={buildEtherscanLink("tx", txHash)}
+                >
+                  You voted for this proposal
+                </Label>
+              </>
+            )
 
-              case NOUNS_PROPOSAL_SUPPORT.AGAINST:
-                return (
-                  <Label
-                    showIcon
-                    iconLeft={<Minus />}
-                    showExternalLinkIcon
-                    externalLink={buildEtherscanLink("tx", txHash)}
-                  >
-                    You voted against this proposal
-                  </Label>
-                )
-              default:
-                return null
-            }
-          })()}
-        </>
-      )
+          case NOUNS_PROPOSAL_SUPPORT.AGAINST:
+            return (
+              <Label
+                showIcon
+                iconLeft={<Minus />}
+                showExternalLinkIcon
+                externalLink={buildEtherscanLink("tx", txHash)}
+              >
+                You voted against this proposal
+              </Label>
+            )
+          default:
+            return null
+        }
+      })()
     }
   }
+  return null
 }
