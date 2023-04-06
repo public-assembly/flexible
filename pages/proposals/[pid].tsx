@@ -26,10 +26,12 @@ import { NOUNS_PROPOSAL_SUPPORT, PROPOSAL_SUPPORT } from "../../types/index"
 import { buildEtherscanLink } from "../../utils/helpers"
 import { Hash } from "../../types/index"
 import { useProposalPermissions } from "@/hooks/useProposalPermissions"
-import { useGovernorContext } from "@public-assembly/dao-utils"
-import { useContractRead } from "wagmi"
-import { governorAbi } from "@public-assembly/dao-utils"
-import { BigNumber } from "ethers"
+import {
+  Veto,
+  Cancel,
+  Execute,
+  Queue,
+} from "@/components/proposals/ProposalActions"
 
 function ProposalDetailPage() {
   const { allProposals } = useProposals()
@@ -38,8 +40,6 @@ function ProposalDetailPage() {
   if (!allProposals) return null
 
   const proposal = allProposals.find((proposal) => proposal.proposalId === pid)
-
-  const { canVote } = useProposalPermissions(proposal)
 
   if (!proposal) return null
   return (
@@ -142,10 +142,6 @@ function ProposalVoteStatus({ proposal }) {
    */
   const [needsAction, setNeedsAction] = useState<boolean>(false)
   /**
-   * If the connected user can vote on the current proposal
-   */
-  const [canVote, setCanVote] = useState<boolean>(false)
-  /**
    * If the connected user has voted, how they voted
    */
   const [voteSupport, setVoteSupport] = useState<PROPOSAL_SUPPORT | null>(null)
@@ -154,19 +150,7 @@ function ProposalVoteStatus({ proposal }) {
    */
   const [txHash, setTxHash] = useState<string | undefined>(undefined)
 
-  const { governorAddress } = useGovernorContext()
-
-  useContractRead({
-    address: governorAddress,
-    abi: governorAbi,
-    functionName: "getVotes",
-    args: [address as Hash, BigNumber.from(proposal.timeCreated)],
-    onSuccess(availableVotes) {
-      if (availableVotes.toNumber() > 0) {
-        setCanVote(true)
-      }
-    },
-  })
+  const { canVeto, canCancel, canVote } = useProposalPermissions(proposal)
 
   useEffect(() => {
     // Exit the useEffect hook on the first render if address is not defined
@@ -189,12 +173,32 @@ function ProposalVoteStatus({ proposal }) {
     setNeedsAction(!hasVoted)
   }, [address, proposal.votes, voteSupport])
 
+  /**
+   * If the user is disconnected return nothing
+   */
   if (!isConnected) return null
+  /**
+   * If the user is connected but can't vote, return the following badge
+   */
   if (isConnected && !canVote)
     return <Label>You are not eligible to vote</Label>
+  /**
+   * If the user is connected and can vote, return the following
+   */
   return (
     <>
-      {needsAction ? <ProposalVoteButton proposal={proposal} /> : null}
+      {/* If the proposal has not been voted on */}
+      {needsAction ? (
+        // If the proposal can be vetoed by the connected address
+        canVeto ? (
+          <>
+            <ProposalVoteButton proposal={proposal} />
+            <Veto proposal={proposal} />
+          </>
+        ) : (
+          <ProposalVoteButton proposal={proposal} />
+        )
+      ) : null}
 
       {(() => {
         switch (voteSupport) {

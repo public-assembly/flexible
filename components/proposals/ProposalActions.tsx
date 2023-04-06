@@ -2,12 +2,10 @@ import Button from "../base/Button"
 import { Pending } from "../assets/icons"
 import { useGovernorContext, governorAbi } from "@public-assembly/dao-utils"
 import {
-  useContractRead,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi"
-import { useAuth } from "@/hooks/useAuth"
 
 /**
  * Veto a proposal
@@ -27,17 +25,16 @@ export function Veto({ proposal }) {
     hash: data?.hash,
   })
 
-  if (proposal.status == "EXECUTABLE")
-    return (
-      <Button
-        size="lg"
-        variant="alert"
-        disabled={isLoading}
-        onClick={() => veto?.()}
-      >
-        {!isLoading ? "Veto" : <Pending className="animate-spin" />}
-      </Button>
-    )
+  return (
+    <Button
+      size="lg"
+      variant="alert"
+      disabled={isLoading}
+      onClick={() => veto?.()}
+    >
+      {!isLoading ? "Veto" : <Pending className="animate-spin" />}
+    </Button>
+  )
 }
 
 /**

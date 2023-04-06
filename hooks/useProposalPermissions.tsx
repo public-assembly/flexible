@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useGovernorContext, governorAbi } from "@public-assembly/dao-utils"
 import { Hash } from "types"
 import { useContractReads } from "wagmi"
@@ -17,7 +17,7 @@ export function useProposalPermissions(proposal) {
     abi: governorAbi,
   }
 
-  const { data } = useContractReads({
+  useContractReads({
     contracts: [
       {
         ...governorContract,
@@ -48,13 +48,11 @@ export function useProposalPermissions(proposal) {
         availableVotes = proposalPermissions[2]
       }
 
-      if (availableVotes.toNumber() >= 1) {
+      if (availableVotes.toNumber() > 0) {
         setCanVote(true)
       }
     },
   })
-
-  console.log("Proposal permissions data:", data)
 
   return {
     canVeto,
