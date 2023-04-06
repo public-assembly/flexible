@@ -1,35 +1,24 @@
-import { useEffect, useState } from "react"
-
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useAuth } from "@/hooks/useAuth"
 import { useProposals } from "@/hooks/useProposals"
 import Balancer from "react-wrap-balancer"
 
-import { ArrowLeft, Check, Exit, Minus } from "@/components/assets/icons"
+import { ArrowLeft } from "@/components/assets/icons"
 import { Divider } from "@/components/base/Divider"
 import { Flex } from "@/components/base/Flex"
-import Label from "@/components/base/Label"
 import { RichText } from "@/components/base/Richtext"
 import { Stack } from "@/components/base/Stack"
 import { Body } from "@/components/base/Typography"
 import { ProposalTimestamp } from "@/components/proposals/ProposalCard"
 import {
+  ProposalVoteStatus,
   DecodedTransactions,
   VotesSection,
 } from "@/components/proposals/ProposalDescription"
 import ProposalLabel from "@/components/proposals/ProposalLabel"
-import ProposalVoteButton from "@/components/proposals/ProposalVoteButton"
 import { Proposer } from "@/components/proposals/Proposer"
 import { BodyLarge, Headline } from "../../components/base/Typography"
-import { NOUNS_PROPOSAL_SUPPORT, PROPOSAL_SUPPORT } from "../../types/index"
-import { buildEtherscanLink } from "../../utils/helpers"
 import { Hash } from "../../types/index"
-
-import { useGovernorContext } from "@public-assembly/dao-utils"
-import { useContractRead } from "wagmi"
-import { governorAbi } from "@public-assembly/dao-utils"
-import { BigNumber } from "ethers"
 
 function ProposalDetailPage() {
   const { allProposals } = useProposals()
@@ -44,7 +33,6 @@ function ProposalDetailPage() {
     <Stack className="w-full px-4 md:px-10">
       <Stack className="w-full gap-10 pt-10">
         <ProposalNavigation />
-
         <Flex className="justify-between w-full h-full">
           {/* Header section */}
           <Stack className="w-full gap-4">
@@ -128,114 +116,5 @@ function ProposalNavigation() {
         <Body>Back to proposals</Body>
       </Flex>
     </Link>
-  )
-}
-
-function ProposalVoteStatus({ proposal }) {
-  /**
-   * Address of the connected user
-   */
-  const { address } = useAuth()
-  /**
-   * If the current proposal needs action from the connected user
-   */
-  const [needsAction, setNeedsAction] = useState<boolean>(false)
-  /**
-   * If the connected user can vote on the current proposal
-   */
-  const [canVote, setCanVote] = useState<boolean>(false)
-  /**
-   * If the connected user has voted, how they voted
-   */
-  const [voteSupport, setVoteSupport] = useState<PROPOSAL_SUPPORT | null>(null)
-  /**
-   * The transaction hash of the connected user's voting instance
-   */
-  const [txHash, setTxHash] = useState<string | undefined>(undefined)
-
-  const { governorAddress } = useGovernorContext()
-
-  useContractRead({
-    address: governorAddress,
-    abi: governorAbi,
-    functionName: "getVotes",
-    args: [address as Hash, BigNumber.from(proposal.timeCreated)],
-    onSuccess(availableVotes) {
-      if (availableVotes.toNumber() > 0) {
-        setCanVote(true)
-      }
-    },
-  })
-
-  useEffect(() => {
-    // Exit the useEffect hook on the first render if address is not defined
-    if (!address) return
-    // Return all voting instances for this proposal
-    const proposalVotes = proposal.votes
-    // Return votes conducted by the connected address
-    // prettier-ignore
-    const vote = proposalVotes.find((vote: any) => vote.voter === address.toLowerCase())
-    // Get the hash of the voting instance
-    const hash = vote?.transactionInfo?.transactionHash
-    // If there is a hash, set it to the txHash state variable
-    if (hash) setTxHash(hash)
-    // Check if the connected address has voted on this proposal.
-    // prettier-ignore
-    const hasVoted = proposalVotes.some((vote: any) => vote.voter === address.toLowerCase())
-    console.log("Has voted", hasVoted)
-    // If the connected address has voted, set their support to the voteSupport state variable
-    if (hasVoted) setVoteSupport(vote.support)
-    // Set the needsAction boolean to true if they haven't voted and false if not
-    setNeedsAction(!hasVoted)
-  }, [address, proposal.votes, voteSupport])
-
-  if (!canVote) return null
-  return (
-    <>
-      {needsAction ? <ProposalVoteButton proposal={proposal} /> : null}
-
-      {(() => {
-        switch (voteSupport) {
-          case NOUNS_PROPOSAL_SUPPORT.ABSTAIN:
-            return (
-              <Label
-                showIcon
-                iconLeft={<Exit />}
-                showExternalLinkIcon
-                externalLink={buildEtherscanLink("tx", txHash)}
-              >
-                You abstained from voting
-              </Label>
-            )
-          case NOUNS_PROPOSAL_SUPPORT.FOR:
-            return (
-              <>
-                <Label
-                  showIcon
-                  iconLeft={<Check className="cursor-pointer" />}
-                  showExternalLinkIcon
-                  externalLink={buildEtherscanLink("tx", txHash)}
-                >
-                  You voted for this proposal
-                </Label>
-              </>
-            )
-
-          case NOUNS_PROPOSAL_SUPPORT.AGAINST:
-            return (
-              <Label
-                showIcon
-                iconLeft={<Minus />}
-                showExternalLinkIcon
-                externalLink={buildEtherscanLink("tx", txHash)}
-              >
-                You voted against this proposal
-              </Label>
-            )
-          default:
-            return null
-        }
-      })()}
-    </>
   )
 }
