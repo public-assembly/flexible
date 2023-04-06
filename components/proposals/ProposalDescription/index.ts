@@ -1,7 +1,5 @@
-import { DecodedTransactions } from './DecodedTransaction';
-import { VotesSection } from './VotesSection';
+import { DecodedTransactions } from "./DecodedTransaction"
+import { ProposalVoteStatus } from "./ProposalVoteStatus"
+import { VotesSection } from "./VotesSection"
 
-export {
-  DecodedTransactions,
-  VotesSection
-}
+export { DecodedTransactions, ProposalVoteStatus, VotesSection }
