@@ -76,6 +76,17 @@ export function ProposalVoteStatus({ proposal }) {
           {canVeto ? <Veto proposal={proposal} /> : null}
         </Flex>
       )
+    } else if (proposal.status == "QUEUED") {
+      return (
+        <Flex className="gap-6">
+          {/* If the user can cancel, render the cancel button */}
+          {canCancel ? <Cancel proposal={proposal} /> : null}
+          {/* If the user can veto, render the veto button */}
+          {canVeto ? <Veto proposal={proposal} /> : null}
+          {/* When executable = When queued + queue buffer
+          Time remaining = When executable - now */}
+        </Flex>
+      )
     } else if (proposal.status == "ACTIVE") {
       return (
         <Flex className="gap-6">
@@ -97,6 +108,8 @@ export function ProposalVoteStatus({ proposal }) {
           {canCancel ? <Cancel proposal={proposal} /> : null}
           {/* If the user can veto, render the veto button */}
           {canVeto ? <Veto proposal={proposal} /> : null}
+          {/* When active = When submitted + buffer
+          Time remaining = When active - now */}
         </Flex>
       )
     } else if (proposal.status == "EXECUTED") {
