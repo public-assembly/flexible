@@ -44,7 +44,6 @@ function ProposalDetailPage() {
     <Stack className="w-full px-4 md:px-10">
       <Stack className="w-full gap-10 pt-10">
         <ProposalNavigation />
-
         <Flex className="justify-between w-full h-full">
           {/* Header section */}
           <Stack className="w-full gap-4">
@@ -124,7 +123,7 @@ function ProposalNavigation() {
   return (
     <Link href="/proposals" className="cursor-pointer group">
       <Flex className="gap-2 w-fit">
-        <ArrowLeft className="transition duration-200 ease-in-out group-hover:-translate-x-1" />{" "}
+        <ArrowLeft className="transition duration-200 ease-in-out group-hover:-translate-x-1" />
         <Body>Back to proposals</Body>
       </Flex>
     </Link>
@@ -135,7 +134,7 @@ function ProposalVoteStatus({ proposal }) {
   /**
    * Address of the connected user
    */
-  const { address } = useAuth()
+  const { address, isConnected } = useAuth()
   /**
    * If the current proposal needs action from the connected user
    */
@@ -182,14 +181,13 @@ function ProposalVoteStatus({ proposal }) {
     // Check if the connected address has voted on this proposal.
     // prettier-ignore
     const hasVoted = proposalVotes.some((vote: any) => vote.voter === address.toLowerCase())
-    console.log("Has voted", hasVoted)
     // If the connected address has voted, set their support to the voteSupport state variable
     if (hasVoted) setVoteSupport(vote.support)
     // Set the needsAction boolean to true if they haven't voted and false if not
     setNeedsAction(!hasVoted)
   }, [address, proposal.votes, voteSupport])
 
-  if (!canVote) return null
+  if (isConnected && !canVote) return <Label>You are not eligible to vote</Label>
   return (
     <>
       {needsAction ? <ProposalVoteButton proposal={proposal} /> : null}
