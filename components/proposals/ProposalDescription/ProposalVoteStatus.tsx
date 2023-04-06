@@ -12,9 +12,11 @@ import {
   Queue,
 } from "@/components/proposals/ProposalActions"
 import { Check, Minus, Exit } from "@/components/assets/icons"
+import { Flex } from "@/components/base/Flex"
 
 export function ProposalVoteStatus({ proposal }) {
   const { address, isConnected } = useAuth()
+  const { canVeto, canCancel, canVote } = useProposalPermissions(proposal)
   /**
    * If the current proposal needs action from the connected user
    */
@@ -27,8 +29,6 @@ export function ProposalVoteStatus({ proposal }) {
    * The transaction hash of the connected user's voting instance
    */
   const [txHash, setTxHash] = useState<string | undefined>(undefined)
-
-  const { canVeto, canCancel, canVote } = useProposalPermissions(proposal)
 
   useEffect(() => {
     if (!address) return
@@ -57,31 +57,40 @@ export function ProposalVoteStatus({ proposal }) {
    */
   if (!isConnected) return null
   /**
-   * If the user is connected but can't vote, return the following badge
+   * If the proposal has succeeded return the following button
    */
-  if (isConnected && !canVote)
+  if (proposal.status == "SUCCEEDED") return <Queue proposal={proposal} />
+  /**
+   * If the proposal is executable return the following button
+   */
+  if (proposal.status == "EXECUTABLE") return <Execute proposal={proposal} />
+  /**
+   * If the user can cancel, return the following button
+   */
+  if (canCancel && proposal.status != "EXECUTED")
+    return <Cancel proposal={proposal} />
+  /**
+   * If the user can't vote and the proposal is active, return the following badge
+   */
+  if (!canVote && proposal.status == "ACTIVE")
     return <Label>You are not eligible to vote</Label>
   /**
-   * If the user is connected and can vote, return the following
+   * If the user can vote, return the following button
    */
-  if (isConnected && canVote)
+  if (canVote && needsAction) return <ProposalVoteButton proposal={proposal} />
+  /**
+   * If the user can vote and can veto, return the following group of buttons
+   */
+  if (canVote && canVeto && proposal.status != "EXECUTED")
     return (
-      <>
-        {/* If the proposal has not been voted on */}
-        {needsAction ? (
-          // If the proposal can be vetoed by the connected address
-          canVeto ? (
-            <>
-              <ProposalVoteButton proposal={proposal} />
-              <Veto proposal={proposal} />
-            </>
-          ) : (
-            <ProposalVoteButton proposal={proposal} />
-          )
-        ) : null}
-      </>
+      <Flex className="gap-6">
+        <ProposalVoteButton proposal={proposal} />
+        <Veto proposal={proposal} />
+      </Flex>
     )
-
+  /**
+   * If the user has voted, return the following badges
+   */
   return (
     <>
       {(() => {

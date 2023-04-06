@@ -3,10 +3,9 @@ import { useRouter } from "next/router"
 import { useProposals } from "@/hooks/useProposals"
 import Balancer from "react-wrap-balancer"
 
-import { ArrowLeft, Check, Exit, Minus } from "@/components/assets/icons"
+import { ArrowLeft } from "@/components/assets/icons"
 import { Divider } from "@/components/base/Divider"
 import { Flex } from "@/components/base/Flex"
-import Label from "@/components/base/Label"
 import { RichText } from "@/components/base/Richtext"
 import { Stack } from "@/components/base/Stack"
 import { Body } from "@/components/base/Typography"
@@ -113,7 +112,7 @@ function ProposalNavigation() {
   return (
     <Link href="/proposals" className="cursor-pointer group">
       <Flex className="gap-2 w-fit">
-        <ArrowLeft className="transition duration-200 ease-in-out group-hover:-translate-x-1" />
+        <ArrowLeft className="transition duration-200 ease-in-out group-hover:-translate-x-1" />{" "}
         <Body>Back to proposals</Body>
       </Flex>
     </Link>

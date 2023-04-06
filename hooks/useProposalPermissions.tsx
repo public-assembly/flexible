@@ -48,7 +48,7 @@ export function useProposalPermissions(proposal) {
         availableVotes = proposalPermissions[2]
       }
 
-      if (availableVotes.toNumber() > 0) {
+      if (availableVotes?.toNumber() > 0) {
         setCanVote(true)
       }
     },
