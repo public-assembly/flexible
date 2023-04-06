@@ -13,14 +13,15 @@ import {
 } from "@/components/proposals/ProposalActions"
 import { Check, Minus, Exit } from "@/components/assets/icons"
 import { Flex } from "@/components/base/Flex"
+import ConnectButton from "@/components/ConnectButton"
 
 export function ProposalVoteStatus({ proposal }) {
   const { address, isConnected } = useAuth()
   const { canVeto, canCancel, canVote } = useProposalPermissions(proposal)
   /**
-   * If the current proposal needs action from the connected user
+   * If the current proposal has been voted on from the connected user
    */
-  const [needsAction, setNeedsAction] = useState<boolean>(false)
+  const [hasVoted, setHasVoted] = useState<boolean>(false)
   /**
    * If the connected user has voted, how they voted
    */
@@ -47,94 +48,106 @@ export function ProposalVoteStatus({ proposal }) {
       (vote: any) => vote.voter === address.toLowerCase()
     )
     // If the connected address has voted, set their support to the voteSupport state variable
-    if (hasVoted) setVoteSupport(vote.support)
-    // Set the needsAction boolean to true if they haven't voted and false if not
-    setNeedsAction(!hasVoted)
-  }, [address, proposal.votes, voteSupport])
+    if (hasVoted) {
+      setVoteSupport(vote.support)
+      setHasVoted(true)
+    }
+  }, [address, proposal.votes])
 
-  /**
-   * If the user is disconnected return nothing
-   */
-  if (!isConnected) return null
-  /**
-   * If the proposal has succeeded return the following button
-   */
-  if (proposal.status == "SUCCEEDED") return <Queue proposal={proposal} />
-  /**
-   * If the proposal is executable return the following button
-   */
-  if (proposal.status == "EXECUTABLE") return <Execute proposal={proposal} />
-  /**
-   * If the user can cancel, return the following button
-   */
-  if (canCancel && proposal.status != "EXECUTED")
-    return <Cancel proposal={proposal} />
-  /**
-   * If the user can't vote and the proposal is active, return the following badge
-   */
-  if (!canVote && proposal.status == "ACTIVE")
-    return <Label>You are not eligible to vote</Label>
-  /**
-   * If the user can vote, return the following button
-   */
-  if (canVote && needsAction) return <ProposalVoteButton proposal={proposal} />
-  /**
-   * If the user can vote and can veto, return the following group of buttons
-   */
-  if (canVote && canVeto && proposal.status != "EXECUTED")
-    return (
-      <Flex className="gap-6">
-        <ProposalVoteButton proposal={proposal} />
-        <Veto proposal={proposal} />
-      </Flex>
-    )
-  /**
-   * If the user has voted, return the following badges
-   */
-  return (
-    <>
-      {(() => {
-        switch (voteSupport) {
-          case NOUNS_PROPOSAL_SUPPORT.ABSTAIN:
-            return (
-              <Label
-                showIcon
-                iconLeft={<Exit />}
-                showExternalLinkIcon
-                externalLink={buildEtherscanLink("tx", txHash)}
-              >
-                You abstained from voting
-              </Label>
-            )
-          case NOUNS_PROPOSAL_SUPPORT.FOR:
-            return (
-              <>
-                <Label
-                  showIcon
-                  iconLeft={<Check className="cursor-pointer" />}
-                  showExternalLinkIcon
-                  externalLink={buildEtherscanLink("tx", txHash)}
-                >
-                  You voted for this proposal
-                </Label>
-              </>
-            )
+  if (!isConnected) {
+    return <ConnectButton />
+  } else if (!hasVoted) {
+    if (proposal.status == "SUCCEEDED") {
+      return (
+        <Flex className="gap-6">
+          <Queue proposal={proposal} />
+          {/* If the user can cancel, render the cancel button */}
+          {canCancel ? <Cancel proposal={proposal} /> : null}
+        </Flex>
+      )
+    } else if (proposal.status == "EXECUTABLE") {
+      return (
+        <Flex className="gap-6">
+          <Execute proposal={proposal} />
+          {/* If the user can veto, render the veto button
+           * The submitter of the proposal can also cancel this prop,
+           * but we're not rendering that option
+           */}
+          {canVeto ? <Veto proposal={proposal} /> : null}
+        </Flex>
+      )
+    } else if (proposal.status == "ACTIVE") {
+      return (
+        <Flex className="gap-6">
+          {canVote ? (
+            <ProposalVoteButton proposal={proposal} />
+          ) : (
+            <Label>You are not eligible to vote on this proposal </Label>
+          )}
+          {/* If the user can cancel, render the cancel button */}
+          {canCancel ? <Cancel proposal={proposal} /> : null}
+          {/* If the user can veto, render the veto button */}
+          {canVeto ? <Veto proposal={proposal} /> : null}
+        </Flex>
+      )
+    } else if (proposal.status == "PENDING") {
+      return (
+        <Flex className="gap-6">
+          {/* If the user can cancel, render the cancel button */}
+          {canCancel ? <Cancel proposal={proposal} /> : null}
+          {/* If the user can veto, render the veto button */}
+          {canVeto ? <Veto proposal={proposal} /> : null}
+        </Flex>
+      )
+    } else if (proposal.status == "EXECUTED") {
+      return <Label>You did not vote on this proposal</Label>
+    } else {
+      return (
+        <>
+          {(() => {
+            switch (voteSupport) {
+              case NOUNS_PROPOSAL_SUPPORT.ABSTAIN:
+                return (
+                  <Label
+                    showIcon
+                    iconLeft={<Exit />}
+                    showExternalLinkIcon
+                    externalLink={buildEtherscanLink("tx", txHash)}
+                  >
+                    You voted abstain for this proposal
+                  </Label>
+                )
+              case NOUNS_PROPOSAL_SUPPORT.FOR:
+                return (
+                  <>
+                    <Label
+                      showIcon
+                      iconLeft={<Check className="cursor-pointer" />}
+                      showExternalLinkIcon
+                      externalLink={buildEtherscanLink("tx", txHash)}
+                    >
+                      You voted for this proposal
+                    </Label>
+                  </>
+                )
 
-          case NOUNS_PROPOSAL_SUPPORT.AGAINST:
-            return (
-              <Label
-                showIcon
-                iconLeft={<Minus />}
-                showExternalLinkIcon
-                externalLink={buildEtherscanLink("tx", txHash)}
-              >
-                You voted against this proposal
-              </Label>
-            )
-          default:
-            return null
-        }
-      })()}
-    </>
-  )
+              case NOUNS_PROPOSAL_SUPPORT.AGAINST:
+                return (
+                  <Label
+                    showIcon
+                    iconLeft={<Minus />}
+                    showExternalLinkIcon
+                    externalLink={buildEtherscanLink("tx", txHash)}
+                  >
+                    You voted against this proposal
+                  </Label>
+                )
+              default:
+                return null
+            }
+          })()}
+        </>
+      )
+    }
+  }
 }
