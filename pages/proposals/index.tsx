@@ -47,7 +47,7 @@ function ProposalsPage() {
         {hasActiveProposals ? (
           <>
             <ProposalList proposals={activeProposals} type="active" />
-            <Divider />
+            <Divider className="bg-tertiary"/>
           </>
         ) : null}
 

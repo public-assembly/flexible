@@ -14,7 +14,7 @@ type RichTextProps = {
 export function RichText(props: RichTextProps) {
   return (
     <div
-      className={cn(props.className, 'prose')}
+      className={cn(props.className, 'prose body text-primary')}
       dangerouslySetInnerHTML={{ __html: props.html }}
       tabIndex={0}
       aria-label={props.html}
