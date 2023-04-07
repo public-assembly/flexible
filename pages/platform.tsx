@@ -94,7 +94,7 @@ export default function Platform() {
               </p>
               <p className="text-[#999999] text-base font-satoshi">
                 This will allow the person submitting the transaction to change
-                the site's theme and grant others similar access.
+                the site&apos;s theme and grant others similar access.
               </p>
 
               {!isSuccess ? (
