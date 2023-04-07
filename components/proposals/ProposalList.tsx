@@ -29,7 +29,7 @@ export function ProposalList({ proposals, type }: ProposalListProps) {
           <motion.li
             variants={variants}
             key={proposal.proposalId}
-            className="w-full "
+            className="w-full"
           >
             <ProposalCard proposal={proposal} />
           </motion.li>
