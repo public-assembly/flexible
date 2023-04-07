@@ -115,7 +115,7 @@ function MobileDropdown(props: MobileDropdownProps) {
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Content sideOffset={4} className="min-w-[328px]">
-        <Stack className="flex flex-col gap-6 pb-6">
+        <Stack className="gap-y-4">
           {/* Hide navigation from within the dropdown menu on screen sizes above 640px */}
           <span className="sm:hidden">
             <Navigation />
@@ -123,35 +123,43 @@ function MobileDropdown(props: MobileDropdownProps) {
           <DropdownMenu.Item type="button" onClick={() => {}}>
             <ConnectButton />
           </DropdownMenu.Item>
+          {/* Edit theme */}
           {isConnected && chain?.id === ENV.CHAIN ? (
             canEdit ? (
               <DropdownMenu.Item type="button" onClick={() => console.log()}>
                 <Button
                   size="md"
-                  variant="tertiary"
+                  variant="primary"
                   onClick={() => requestOpen("palette")}
+                  className="mt-2"
                 >
                   Edit theme
                 </Button>
               </DropdownMenu.Item>
             ) : null
           ) : null}
-        </Stack>
-        <DropdownMenu.Separator />
-        <Stack>
+
+          {/* Copy this template */}
           <DropdownMenu.Item type="link" href="/platform">
-            <Flex className="items-center w-full gap-2 py-4 rounded-object hover:cursor-pointer hover:bg-highlight/50 focus:outline-none">
-              <Copy className="pl-1" />
-              <Body>Copy this template</Body>
-            </Flex>
+            <Button
+              size="md"
+              variant="tertiary"
+              onClick={() => requestOpen("palette")}
+            >
+              Copy this template
+            </Button>
           </DropdownMenu.Item>
+
           {isConnected && (
-            <DropdownMenu.Item type="button" onClick={logout}>
-              <Flex className="items-center gap-2 py-4 rounded-object hover:cursor-pointer hover:bg-highlight/50 focus:outline-none">
-                <Exit className="text-primary pl-1" />
-                <Body>Disconnect</Body>
-              </Flex>
-            </DropdownMenu.Item>
+            <>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Item type="button" onClick={logout}>
+                <Flex className="items-center gap-2 py-2 rounded-object hover:cursor-pointer hover:bg-highlight/50 focus:outline-none">
+                  <Exit className="text-primary ml-1" />
+                  <Body>Disconnect</Body>
+                </Flex>
+              </DropdownMenu.Item>
+            </>
           )}
         </Stack>
       </DropdownMenu.Content>

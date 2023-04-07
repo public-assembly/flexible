@@ -11,9 +11,9 @@ const buttonVariants = cva(
         default:
           "bg-highlight hover:bg-highlight/50 active:bg-highlight disabled:bg-secondary disabled:border-tertiary disabled:text-tertiary border-primary border rounded-button w-full focus:ring-slate-400 focus:ring-offset-2",
         primary:
-          "bg-primary hover:bg-primary/50 active:bg-primary dark:bg-primary dark:text-primary text-secondary",
+          "bg-primary hover:bg-primary/50 active:bg-primary dark:bg-primary dark:text-primary text-secondary w-full",
         secondary: [
-          "bg-primary text-white",
+          "bg-primary text-white rounded-button w-full",
           "hover:bg-secondary hover:border-primary hover:border hover:text-black ",
           "active:bg-primary active:text-white",
           "disabled:border-tertiary disabled:text-tertiary",
