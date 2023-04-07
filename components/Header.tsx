@@ -129,7 +129,7 @@ function MobileDropdown(props: MobileDropdownProps) {
               <DropdownMenu.Item type="button" onClick={() => console.log()}>
                 <Button
                   size="md"
-                  variant="primary"
+                  variant="secondary"
                   onClick={() => requestOpen("palette")}
                   className="mt-2"
                 >

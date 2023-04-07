@@ -44,7 +44,7 @@ function ProposalDetailPage() {
               <Balancer>
                 <Headline>{proposal.title}</Headline>
               </Balancer>
-              <p>
+              <p className="body text-primary/50">
                 By <Proposer proposer={proposal.proposer as Hash} />
               </p>
             </Stack>
@@ -77,7 +77,7 @@ function ProposalDetailPage() {
           />
         </Flex>
       </Stack>
-      <Divider />
+      <Divider className="bg-primary/50" />
 
       {/* Proposal description */}
       <RichText html={proposal.description} className="w-full" />
@@ -112,7 +112,7 @@ function ProposalNavigation() {
   return (
     <Link href="/proposals" className="cursor-pointer group">
       <Flex className="gap-2 w-fit">
-        <ArrowLeft className="transition duration-200 ease-in-out group-hover:-translate-x-1" />{" "}
+        <ArrowLeft className="transition duration-200 ease-in-out group-hover:-translate-x-1 text-primary " />{" "}
         <Body>Back to proposals</Body>
       </Flex>
     </Link>

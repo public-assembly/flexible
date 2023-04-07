@@ -90,7 +90,6 @@ const sharedBaseStyles = cva([
   "transition-color-1-ease",
   "rounded-md",
   "text-3",
-  "font-body",
   "leading-2",
   "no-underline",
   "focus:outline-none",

@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useAuth } from "@/hooks/useAuth"
 import Balancer from "react-wrap-balancer"
 import { cn } from "utils/cn"
+import { intervalToDuration, formatDuration } from "date-fns"
 
 import { Flex } from "@/components/base/Flex"
 import { Stack } from "@/components/base/Stack"
@@ -76,7 +77,7 @@ export default function ProposalCard({ proposal }) {
 
           <Stack className="h-full gap-2">
             <ProposalTitle title={proposal.title} />
-            <span className="text-xs font-medium text-primary/50">
+            <span className="text-xs font-medium text-primary/50 body">
               by <Proposer proposer={proposal.proposer} />
             </span>
           </Stack>
@@ -107,7 +108,9 @@ export function ProposalTimestamp({
   proposal: any
   size?: "sm" | "xs"
 }) {
-  const dateFormat: [string, Intl.DateTimeFormatOptions] = [
+  const [timestampBadge, setTimestampBadge] = useState<string>("")
+
+  const pastDateFormat: [string, Intl.DateTimeFormatOptions] = [
     "en-us",
     {
       month: "short",
@@ -116,36 +119,55 @@ export function ProposalTimestamp({
     },
   ]
 
-  const [timestampBadge, setTimestampBadge] = useState<string>("")
-
-  const voteStartFormatted = new Date(proposal.voteStart * 1000).toLocaleString(
-    ...dateFormat
+  const pastDateFormatted = new Date(proposal.voteEnd * 1000).toLocaleString(
+    ...pastDateFormat
   )
 
-  const voteEndFormatted = new Date(proposal.voteEnd * 1000).toLocaleString(
-    ...dateFormat
+  const expiresAtFormatted = formatDuration(
+    intervalToDuration({
+      start: new Date(),
+      end: new Date(proposal.expiresAt * 1000),
+    }),
+
+    { format: ["days", "hours", "minutes"] }
   )
 
-  const expiresAtFormatted = new Date(proposal.expiresAt * 1000).toLocaleString(
-    ...dateFormat
+  const voteEndFormatted = formatDuration(
+    intervalToDuration({
+      start: new Date(),
+      end: new Date(proposal.voteEnd * 1000),
+    }),
+
+    { format: ["days", "hours", "minutes"] }
+  )
+
+  const voteStartFormatted = formatDuration(
+    intervalToDuration({
+      start: new Date(),
+      end: new Date(proposal.voteStart * 1000),
+    }),
+
+    { format: ["days", "hours", "minutes"] }
   )
 
   useEffect(() => {
     function getTimestampBadge(proposal) {
       if (proposal.status === "ACTIVE") {
-        setTimestampBadge(`Voting ends ${voteEndFormatted}`)
+        setTimestampBadge(`Voting ends in ${voteEndFormatted}`)
       } else if (proposal.status === "PENDING") {
         setTimestampBadge(`Voting starts in ${voteStartFormatted}`)
       } else if (proposal.status === "EXECUTABLE") {
-        setTimestampBadge(`Expires ${expiresAtFormatted}`)
+        setTimestampBadge(`Expires in ${expiresAtFormatted}`)
+      } else if (proposal.status === "QUEUED") {
+        setTimestampBadge(`Expires in ${expiresAtFormatted}`)
       } else if (proposal.status === "EXECUTED") {
-        setTimestampBadge(`Ended ${voteEndFormatted}`)
+        setTimestampBadge(`Ended ${pastDateFormatted}`)
       } else if (proposal.status === "CANCELED") {
-        setTimestampBadge(`Ended ${voteEndFormatted}`)
+        setTimestampBadge(`Ended ${pastDateFormatted}`)
       } else if (proposal.status === "DEFEATED") {
-        setTimestampBadge(`Ended ${voteEndFormatted}`)
+        setTimestampBadge(`Ended ${pastDateFormatted}`)
       } else if (proposal.status === "VETOED") {
-        setTimestampBadge(`Ended ${voteEndFormatted}`)
+        setTimestampBadge(`Ended ${pastDateFormatted}`)
       }
     }
     getTimestampBadge(proposal)

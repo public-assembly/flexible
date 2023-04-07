@@ -1,3 +1,5 @@
-export function Divider() {
-  return <div className='w-full h-[1px] bg-tertiary my-10' />
+import { cn } from "@/utils/cn"
+
+export function Divider({ className }: { className?: string }) {
+  return <div className={cn("w-full h-[1px] my-10", className)} />
 }

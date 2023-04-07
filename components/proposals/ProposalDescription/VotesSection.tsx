@@ -41,7 +41,7 @@ export function VotesSection({
           href={buildEtherscanLink("tx", transactionHash)}
         >
           <Body className="underline text-primary/50">Voting snapshot</Body>
-          <ArrowUpRight className="ml-[1px] text-tertiary" />
+          <ArrowUpRight className="text-tertiary" />
         </Link>
         <Label className="flex" variant="rowInverse">
           <Body>Voting threshold</Body>
