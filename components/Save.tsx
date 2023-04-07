@@ -23,11 +23,6 @@ function makeStorageClient() {
 }
 
 const themeRegistry = "0x9a23AE640040e4d34E9e00E500003000017144F4"
-/**
- * Grab the platform index defined as an environment variable
- */
-// @ts-ignore
-const platformIndex = process.env.NEXT_PUBLIC_PLATFORM_INDEX as number
 
 export function Save() {
   const { newMetadata } = useThemeContext()
@@ -52,7 +47,7 @@ export function Save() {
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     functionName: "setPlatformTheme",
-    args: [BigNumber.from(platformIndex), uri],
+    args: [BigNumber.from(ENV.PLATFORM_INDEX), uri],
     enabled: Boolean(uri),
     onSuccess() {
       setThemeReady(true)
