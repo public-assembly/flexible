@@ -82,7 +82,7 @@ export function AuctionSheet({
               className="md:hidden max-w-[133px] uppercase fixed z-50 bottom-4 left-4"
             >
               <ArrowUp className="mr-2" />
-              Auction
+              <Caption>Auction</Caption>
             </MotionButton>
           ) : (
             <MotionButton
@@ -99,7 +99,7 @@ export function AuctionSheet({
               className="max-md:hidden max-w-[133px] uppercase absolute right-0 top-10 group"
             >
               <ArrowLeft className="mr-2 group-radix-state-open:after:rotate-180 group-radix-state-open:before:rotate-90" />
-              Auction
+              <Caption>Auction</Caption>
             </MotionButton>
           )}
         </SheetTrigger>
@@ -206,10 +206,7 @@ export function AuctionSheet({
                             ETH
                           </label>
                           {!createBidLoading && !createBidSuccess ? (
-                            <Button
-                              disabled={!isValidBid}
-                              size="lg"
-                            >
+                            <Button disabled={!isValidBid} size="lg">
                               Enter Bid
                             </Button>
                           ) : (

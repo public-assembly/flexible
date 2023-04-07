@@ -40,7 +40,7 @@ export default function ProposalCard({ proposal }) {
     if (proposal.status != "ACTIVE") return
     if (!address || !availableVotes || availableVotes.toNumber() < 1) return
     const proposalVotes = proposal.votes
-    // Check if the current address can vote, and if they've voted on this proposal.
+
     const hasVoted = proposalVotes.some(
       (vote: any) => vote.voter === address.toLowerCase()
     )
@@ -55,9 +55,8 @@ export default function ProposalCard({ proposal }) {
       >
         <Stack
           className={cn(
-            "h-full gap-6 px-4 py-4 text-primary transition duration-300 border border-tertiary bg-secondary rounded-object shadow-surface-elevation-low custom-shadow",
-            "hover:shadow-surface-elevation-medium hover:border-primary ",
-            "active:shadow-surface-elevation-low"
+            "h-full gap-6 p-4 text-primary transition duration-300 border border-tertiary bg-secondary rounded-object custom-shadow",
+            "hover:border-primary"
           )}
         >
           {/* Statuses */}
@@ -75,7 +74,7 @@ export default function ProposalCard({ proposal }) {
             <ProposalTimestamp proposal={proposal} size="xs" />
           </Flex>
 
-          <Stack className="h-full gap-2 ">
+          <Stack className="h-full gap-2">
             <ProposalTitle title={proposal.title} />
             <span className="text-xs font-medium text-primary/50">
               by <Proposer proposer={proposal.proposer} />
@@ -101,7 +100,6 @@ function ProposalTitle({ title }) {
   )
 }
 
-// TODO: Add the different timestamp formats
 export function ProposalTimestamp({
   proposal,
   size = "sm",
