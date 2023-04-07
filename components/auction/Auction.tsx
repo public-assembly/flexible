@@ -120,7 +120,7 @@ const Auction = () => {
               variant="tertiary"
               onClick={decrementId}
               className={cn(
-                "w-fit z-10 custom-shadow",
+                "w-fit z-10 custom-shadow text-primary",
                 isFirstToken && "pointer-events-none opacity-20"
               )}
             >
@@ -130,7 +130,7 @@ const Auction = () => {
               variant="tertiary"
               onClick={incrementId}
               className={cn(
-                "w-fit z-10 custom-shadow",
+                "w-fit z-10 custom-shadow text-primary",
                 isLastToken && "pointer-events-none opacity-20"
               )}
             >
