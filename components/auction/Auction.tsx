@@ -161,14 +161,18 @@ const Auction = () => {
               {tokenName}
             </motion.div>
             {/* Current bid/Winning bid badge */}
-            <Label variant="row" className="z-10 ">
-              <a className="flex" href={winningTx}>
-                <span className="mr-4">
-                  {!auctionEnded ? "Current bid" : "Winning bid"}
-                </span>
-                {`${winningBid} ETH`}
-              </a>
-            </Label>
+            {auctionEnded ? (
+              <Flex className="gap-4">
+                <Label variant="row">{`${winningBid} ETH`}</Label>
+              </Flex>
+            ) : (
+              <Label variant="row" className="z-10 ">
+                <a className="flex" href={winningTx}>
+                  <span className="mr-4">Current bid</span>
+                  {`${winningBid} ETH`}
+                </a>
+              </Label>
+            )}
           </Stack>
         </Stack>
       ) : null}
