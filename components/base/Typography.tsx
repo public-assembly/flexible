@@ -57,7 +57,7 @@ export function BodyLarge({ children, className }: TypographyProps) {
 
 export function Body({ children, className }: TypographyProps) {
   return (
-    <p className={cn("text-base font-normal text-primary body", className)}>
+    <p className={cn("text-base font-normal text-primary body hover:text-secondary", className)}>
       {children}
     </p>
   )

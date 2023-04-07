@@ -4,25 +4,34 @@ import { VariantProps, cva } from "cva"
 import { cn } from "utils/cn"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center text-base font-medium transition-colors focus:outline-none focus:ring-2 border-s dark:hover:bg-slate-800 dark:hover:text-slate-100 disabled:opacity-50 disabled:pointer-events-none dark:focus:ring-offset-slate-900 data-[state=open]:bg-primary/50",
+  [
+    "inline-flex items-center justify-center text-base font-medium transition-colors border-s body",
+    "focus:outline-none focus:ring-2",
+    "dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-offset-slate-900",
+    "disabled:opacity-50 disabled:pointer-events-none",
+    "data-[state=open]:bg-primary/50",
+  ],
   {
     variants: {
       variant: {
-        default:
-          "bg-highlight hover:bg-highlight/50 active:bg-highlight disabled:bg-secondary disabled:border-tertiary disabled:text-tertiary border-primary border rounded-button w-full focus:ring-slate-400 focus:ring-offset-2",
-        primary:
-          "bg-primary hover:bg-primary/50 active:bg-primary dark:bg-primary dark:text-primary text-secondary w-full",
+        default: [
+          "bg-highlight rounded-button w-full border border-primary text-primary",
+          "hover:bg-highlight/50",
+          "active:bg-highlight",
+          "disabled:bg-secondary disabled:border-tertiary disabled:text-tertiary",
+          "focus:ring-slate-400 focus:ring-offset-2",
+        ],
         secondary: [
-          "bg-primary text-white rounded-button w-full",
-          "hover:bg-secondary hover:border-primary hover:border hover:text-black ",
-          "active:bg-primary active:text-white",
-          "disabled:border-tertiary disabled:text-tertiary",
+          "bg-primary rounded-button w-full text-secondary",
+          "hover:bg-secondary hover:border hover:border-primary hover:text-primary ",
+          "active:bg-primary active:text-primary",
+          "disabled:border-tertiary disabled:text-tertiary disabled:bg-secondary",
           "focus:ring-primary focus:ring-offset-1",
-          // I want to select and style the first <svg> child element of every button
+          // TODO: select and style the first <svg> child element of every button
           "[&>svg]:w-auto [&>svg]:h-4",
         ],
         tertiary: [
-          "bg-secondary border border-primary/50 rounded-button w-full",
+          "bg-secondary rounded-button w-full border border-primary text-primary",
           "hover:bg-primary hover:text-secondary",
           "active:border-primary active:text-primary active:bg-secondary",
           "dark:bg-tertiary dark:text-tertiary",
