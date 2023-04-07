@@ -36,10 +36,10 @@ function ProposalsPage() {
     <motion.section className="flex flex-col items-center justify-center min-h-full gap-8 px-4 pb-10 m-auto max-w-7xl grow">
       <Seo title="proposals" />
 
-      <ProposalListStats
+      {/* <ProposalListStats
         activeProposalCount={activeProposalCount}
         totalProposalCount={totalProposalCount}
-      />
+      /> */}
 
       <Stack className="items-center justify-center w-full h-full">
         {isEmpty ? <ProposalEmptyState /> : null}

@@ -2,20 +2,23 @@ import Link from "next/link"
 import { Variants, motion } from "framer-motion"
 import { cn } from "utils/cn"
 import { ENV } from "utils/env"
-
+import { useState } from "react"
 import Button from "@/components/base/Button"
 import { Flex } from "@/components/base/Flex"
 import { useAuth } from "../hooks/useAuth"
 import { useIsMobile } from "../hooks/useIsMobile"
 import ConnectButton from "./ConnectButton"
-import styles from "./Header.module.css"
 import { Navigation } from "./Navigation"
-import { Copy, Exit } from "./assets/icons"
+import { Copy, Exit, PlusIcon, Minus } from "./assets/icons"
 import DropdownMenu from "./base/DropdownMenu"
 import { Stack } from "./base/Stack"
 import { Body, Headline } from "./base/Typography"
 import { useDrawer } from "./drawer/useDrawer"
 import { NetworkController } from "./NetworkController"
+import { BigNumber } from "ethers"
+import { useContractRead } from "wagmi"
+import { platformThemeRegistryAbi } from "abi/platformThemeRegistryAbi"
+import { Hash } from "types"
 
 const fadeIn: Variants = {
   initial: { opacity: 0 },
@@ -65,7 +68,7 @@ export function Header() {
         </NetworkController.Testnet>
       </Link>
 
-      <Flex className="gap-6">
+      <Flex className="gap-6 items-center">
         {!isMobile && <Navigation />}
         <MobileDropdown />
       </Flex>
@@ -79,20 +82,35 @@ type MobileDropdownProps = {
 }
 
 function MobileDropdown(props: MobileDropdownProps) {
-  const { logout, isConnected, chain } = useAuth()
+  const { address, logout, isConnected, chain } = useAuth()
+  const [canEdit, setCanEdit] = useState<boolean>(false)
   const { requestOpen } = useDrawer()
 
+  const themeRegistry = "0x9a23AE640040e4d34E9e00E500003000017144F4"
+
+  useContractRead({
+    address: themeRegistry,
+    abi: platformThemeRegistryAbi,
+    functionName: "getRole",
+    args: [BigNumber.from(ENV.PLATFORM_INDEX), address as Hash],
+    onSuccess(getRole) {
+      if (getRole === 1 || getRole === 2) {
+        setCanEdit(true)
+      }
+    },
+  })
+
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root onOpenChange={() => setIsOpen(!isOpen)}>
       <DropdownMenu.Trigger asChild>
-        <Button size="icon" className="rounded group" variant="burger">
-          {/* Icon is styled with module css and animates using data attributes from radix */}
-          <div
-            className={cn(
-              styles.icon,
-              "group-radix-state-open:after:rotate-180 group-radix-state-open:before:rotate-90"
-            )}
-          />
+        <Button size="icon" className="rounded-object" variant="burger">
+          {!isOpen ? (
+            <PlusIcon className="w-8 h-8 text-primary" />
+          ) : (
+            <Minus className="w-8 h-8 text-secondary" />
+          )}
         </Button>
       </DropdownMenu.Trigger>
 
@@ -106,29 +124,31 @@ function MobileDropdown(props: MobileDropdownProps) {
             <ConnectButton />
           </DropdownMenu.Item>
           {isConnected && chain?.id === ENV.CHAIN ? (
-            <DropdownMenu.Item type="button" onClick={() => console.log()}>
-              <Button
-                size="md"
-                variant="tertiary"
-                onClick={() => requestOpen("palette")}
-              >
-                Edit theme
-              </Button>
-            </DropdownMenu.Item>
+            canEdit ? (
+              <DropdownMenu.Item type="button" onClick={() => console.log()}>
+                <Button
+                  size="md"
+                  variant="tertiary"
+                  onClick={() => requestOpen("palette")}
+                >
+                  Edit theme
+                </Button>
+              </DropdownMenu.Item>
+            ) : null
           ) : null}
         </Stack>
         <DropdownMenu.Separator />
         <Stack>
           <DropdownMenu.Item type="link" href="/platform">
-            <Flex className="items-center w-full gap-2 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none">
-              <Copy />
+            <Flex className="items-center w-full gap-2 py-4 rounded-object hover:cursor-pointer hover:bg-highlight/50 focus:outline-none">
+              <Copy className="pl-1" />
               <Body>Copy this template</Body>
             </Flex>
           </DropdownMenu.Item>
           {isConnected && (
             <DropdownMenu.Item type="button" onClick={logout}>
-              <Flex className="items-center gap-2 py-4 rounded-object hover:cursor-pointer hover:bg-tertiary/10 focus:outline-none">
-                <Exit className="text-primary" />
+              <Flex className="items-center gap-2 py-4 rounded-object hover:cursor-pointer hover:bg-highlight/50 focus:outline-none">
+                <Exit className="text-primary pl-1" />
                 <Body>Disconnect</Body>
               </Flex>
             </DropdownMenu.Item>
