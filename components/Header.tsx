@@ -8,9 +8,8 @@ import { Flex } from "@/components/base/Flex"
 import { useAuth } from "../hooks/useAuth"
 import { useIsMobile } from "../hooks/useIsMobile"
 import ConnectButton from "./ConnectButton"
-import styles from "./Header.module.css"
 import { Navigation } from "./Navigation"
-import { Copy, Exit } from "./assets/icons"
+import { Copy, Exit, PlusIcon, Minus } from "./assets/icons"
 import DropdownMenu from "./base/DropdownMenu"
 import { Stack } from "./base/Stack"
 import { Body, Headline } from "./base/Typography"
@@ -101,17 +100,17 @@ function MobileDropdown(props: MobileDropdownProps) {
     },
   })
 
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root onOpenChange={() => setIsOpen(!isOpen)}>
       <DropdownMenu.Trigger asChild>
-        <Button size="icon" className="rounded group" variant="burger">
-          {/* Icon is styled with module css and animates using data attributes from radix */}
-          <div
-            className={cn(
-              styles.icon,
-              "group-radix-state-open:after:rotate-180 group-radix-state-open:before:rotate-90"
-            )}
-          />
+        <Button size="icon" className="rounded-object" variant="burger">
+          {!isOpen ? (
+            <PlusIcon className="w-8 h-8 text-primary" />
+          ) : (
+            <Minus className="w-8 h-8 text-secondary" />
+          )}
         </Button>
       </DropdownMenu.Trigger>
 

@@ -172,9 +172,9 @@ export const ThemeProvider = memo(function ThemeProvider({
   }, [unpackedMetadata])
 
   /**
-   * If the highlight color to format is not a hex string, return it as one
+   * If the color to format is not a hex string, return it as one
    */
-  function formatHighlight(color: string) {
+  function formatToHex(color: string) {
     if (color.charAt(0) != "#") {
       return tinycolor("rgb " + "\u00A0" + color).toHexString()
     } else {
@@ -196,7 +196,7 @@ export const ThemeProvider = memo(function ThemeProvider({
   // prettier-ignore
   document.documentElement.style.setProperty("--color-highlight", highlight);
   // prettier-ignore
-  document.documentElement.style.setProperty("--link-highlight", formatHighlight(highlight));
+  document.documentElement.style.setProperty("--link-highlight", formatToHex(highlight));
   // prettier-ignore
   document.documentElement.style.setProperty("--headline", headline);
   // prettier-ignore
@@ -213,12 +213,16 @@ export const ThemeProvider = memo(function ThemeProvider({
   document.documentElement.style.setProperty("--border-radius-object", objectRadius + 'px');
   // prettier-ignore
   document.documentElement.style.setProperty("--border-radius-button", buttonRadius + 'px');
+  // prettier-ignore
+  document.documentElement.style.setProperty("--icon-primary", formatToHex(primary));
+  // prettier-ignore
+  document.documentElement.style.setProperty("--icon-secondary", formatToHex(secondary));
 
   const newMetadata = JSON.stringify(
     {
       theme: {
         background: {
-          image: image || "",
+          // image: image || "",
           backgroundColor: backgroundColor || "",
         },
         colors: {
