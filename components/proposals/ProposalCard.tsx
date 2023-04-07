@@ -77,7 +77,7 @@ export default function ProposalCard({ proposal }) {
 
           <Stack className="h-full gap-2">
             <ProposalTitle title={proposal.title} />
-            <span className="text-xs font-medium text-primary/50">
+            <span className="text-xs font-medium text-primary/50 body">
               by <Proposer proposer={proposal.proposer} />
             </span>
           </Stack>
@@ -108,7 +108,6 @@ export function ProposalTimestamp({
   proposal: any
   size?: "sm" | "xs"
 }) {
-  
   const [timestampBadge, setTimestampBadge] = useState<string>("")
 
   const pastDateFormat: [string, Intl.DateTimeFormatOptions] = [

@@ -13,17 +13,29 @@ export function ProposalCardVotes({
   return (
     <Flex className="hidden gap-2 md:flex text-primary!important">
       {forVotes > 0 ? (
-        <ProposalLabel variant="tertiary" textTransform="uppercase">
+        <ProposalLabel
+          className="caption"
+          variant="tertiary"
+          textTransform="uppercase"
+        >
           {forVotes} For
         </ProposalLabel>
       ) : null}
       {againstVotes > 0 ? (
-        <ProposalLabel variant="tertiary" textTransform="uppercase">
+        <ProposalLabel
+          className="caption"
+          variant="tertiary"
+          textTransform="uppercase"
+        >
           {againstVotes} Against
         </ProposalLabel>
       ) : null}
       {abstainVotes > 0 ? (
-        <ProposalLabel variant="tertiary" textTransform="uppercase">
+        <ProposalLabel
+          className="caption"
+          variant="tertiary"
+          textTransform="uppercase"
+        >
           {abstainVotes} Abstain
         </ProposalLabel>
       ) : null}

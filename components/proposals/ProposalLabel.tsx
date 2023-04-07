@@ -4,13 +4,13 @@ import { VariantProps, cva } from "cva"
 import { cn } from "utils/cn"
 
 const labelVariants = cva(
-  ["border-[.5px] rounded-[2px] w-fit px-1 py-[2px] ", "text-xs  font-medium"],
+  ["border-[.5px] rounded-[2px] w-fit px-1 py-[2px] text-xs font-medium body"],
   {
     variants: {
       variant: {
         primary: ["bg-primary text-secondary"],
-        secondary: ["bg-secondary text-primary"],
-        tertiary: ["border-tertiary text-primary/50 bg-tertiary/50"],
+        secondary: ["bg-secondary text-primary border-primary"],
+        tertiary: ["border-tertiary text-primary bg-tertiary/50"],
         badge: ["px-6 py-4 "],
       },
       textTransform: {
