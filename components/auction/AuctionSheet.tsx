@@ -79,10 +79,10 @@ export function AuctionSheet({
                 easings: [0.44, 0, 0.56, 1],
               }}
               variant="tertiary"
-              className="md:hidden max-w-[133px] uppercase fixed z-50 bottom-4 left-4"
+              className="md:hidden max-w-[133px] uppercase fixed z-50 bottom-4 left-4 caption"
             >
               <ArrowUp className="mr-2" />
-              <Caption>Auction</Caption>
+              Auction
             </MotionButton>
           ) : (
             <MotionButton
@@ -96,10 +96,10 @@ export function AuctionSheet({
                 easings: [0.44, 0, 0.56, 1],
               }}
               variant="tertiary"
-              className="max-md:hidden max-w-[133px] uppercase absolute right-0 top-10 group"
+              className="max-md:hidden max-w-[133px] uppercase absolute right-0 top-10 group caption"
             >
               <ArrowLeft className="mr-2 group-radix-state-open:after:rotate-180 group-radix-state-open:before:rotate-90" />
-              <Caption>Auction</Caption>
+              Auction
             </MotionButton>
           )}
         </SheetTrigger>
