@@ -65,7 +65,7 @@ export function Header() {
         </NetworkController.Testnet>
       </Link>
 
-      <Flex className="gap-6">
+      <Flex className="gap-6 items-center">
         {!isMobile && <Navigation />}
         <MobileDropdown />
       </Flex>
