@@ -19,7 +19,7 @@ import {
 import { platformThemeRegistryAbi } from "abi/platformThemeRegistryAbi"
 import { Hash } from "types"
 import { Pending } from "@/components/assets/icons"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import AltConnectButton from "@/components/AltConnectButton"
 import useCopyText from "@/hooks/useCopyText"
 import { Copy } from "@/components/assets/icons"
@@ -72,7 +72,7 @@ export default function Platform() {
       <Flex className="flex-col mx-auto my-auto border border-[#333333] p-8 bg-black rounded-lg w-auto sm:w-[478px]">
         <div>
           <Flex className="items-start gap-x-8">
-            <p className="text-white text-[1.5rem] font-medium leading-10 tracking-[-0.5px]">
+            <p className="text-white text-[1.5rem] font-medium font-satoshi leading-10 tracking-[-0.5px]">
               Ready to create your own DAO interface?
             </p>
             <button onClick={() => router.push("/")}>
@@ -82,7 +82,7 @@ export default function Platform() {
           <Separator className="mt-8 mb-6 bg-[#333333]"></Separator>
           {!isConnected ? (
             <>
-              <p className="text-[#999999] text-base">
+              <p className="text-[#999999] text-base font-satoshi">
                 Please connect your wallet.
               </p>
               <AltConnectButton />
@@ -92,14 +92,14 @@ export default function Platform() {
               <p className="mb-2 flex gap-4 uppercase text-[#3291FF] text-base font-mono">
                 1. Create a platform index {!isSuccess ? null : <CheckCircle />}
               </p>
-              <p className="text-[#999999] text-base">
-                The first step is to setup a platform index. This costs a small
-                gas fee.
+              <p className="text-[#999999] text-base font-satoshi">
+                This will allow the person submitting the transaction to change
+                the site's theme and grant others similar access.
               </p>
 
               {!isSuccess ? (
                 <button
-                  className="flex justify-center mt-6 py-3 px-8 bg-white font-medium rounded border border-[#333333] min-w-[156px] hover:bg-opacity-80"
+                  className="flex justify-center mt-6 py-3 px-8 bg-white font-medium font-satoshi rounded border border-[#333333] min-w-[156px] hover:bg-opacity-80"
                   onClick={() => newIndex?.()}
                 >
                   {!isLoading ? (
@@ -119,7 +119,7 @@ export default function Platform() {
             <p className="mb-2 flex gap-4 uppercase text-[#3291FF] text-base font-mono">
               2. Save your index variable {!hasCopied ? null : <CheckCircle />}
             </p>
-            <p className="text-[#999999] text-base">
+            <p className="text-[#999999] text-base font-satoshi">
               <span className="text-white font-medium">Important!&nbsp;</span>
               Make sure to remember this number. During the deploy stage,
               you&apos;ll provide this value when prompted for your
@@ -132,7 +132,7 @@ export default function Platform() {
                   platformIndex && handleCopy(platformIndex.toString())
                 }
               >
-                <p className="my-8 text-white text-[1.5rem] font-medium leading-10 tracking-[-0.5px]">
+                <p className="my-8 text-white text-[1.5rem] font-bold font-satoshi leading-10 tracking-[-0.5px]">
                   {platformIndex}
                 </p>
                 <Copy className="ml-2 mt-.5 text-white hover:cursor-pointer active:scale-125 transform" />
@@ -143,11 +143,11 @@ export default function Platform() {
                 href="https://flexible-docs-peach.vercel.app/docs/deploy_walkthrough"
                 target="_blank"
                 rel="noreferrer"
-                className="mr-1 font-medium"
+                className="mr-1 font-medium font-satoshi"
               >
                 Continue to walkthrough
               </a>
-              <ArrowUpRight />
+              <ArrowUpRight className="text-[#121213]" />
             </button>
           </div>
         ) : null}

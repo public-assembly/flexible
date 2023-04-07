@@ -1,5 +1,5 @@
 .icon {
-  color: var(--color-primary);
+  background-color: var(--color-primary);
   position: relative;
   width: 24px;
   height: 24px;
@@ -9,6 +9,7 @@
   content: "";
   position: absolute;
   background-color: currentColor;
+  /* color: var(--color-primary); */
   transition: transform 0.25s ease-out;
 }
 
