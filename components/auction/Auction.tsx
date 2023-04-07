@@ -15,7 +15,7 @@ import { Stack } from "@/components/base/Stack"
 import { BlurImage } from "@/components/BlurImage"
 import Label from "../base/Label"
 // dao-utils
-import { useDaoToken, useBid } from "@public-assembly/dao-utils"
+import { useDaoToken, useBid, useBidder } from "@public-assembly/dao-utils"
 // Hooks
 import { useIsMobile } from "@/hooks/useIsMobile"
 import { useAuction } from "@/hooks/useAuction"
@@ -23,6 +23,8 @@ import { useAuth } from "@/hooks/useAuth"
 // Misc
 import { motion } from "framer-motion"
 import { getUnixTime } from "date-fns"
+import { ensOrShorten } from "@/utils/ensOrShorten"
+import { Hash } from "types"
 
 const Auction = () => {
   const { isMobile } = useIsMobile()
@@ -39,10 +41,22 @@ const Auction = () => {
     tokenName,
   } = useAuction()
 
-  const { winningBid, winningTx } = useBid({
+  const { winningBid, winningTx, tokenEvents } = useBid({
     tokenId,
     tokenAddress: ENV.TOKEN_ADDRESS,
   })
+
+  const [tokenOwner, setTokenOwner] = useState<string | Hash>()
+
+  useEffect(() => {
+    if (tokenEvents?.length != 0) {
+      setTokenOwner(tokenEvents?.[tokenEvents.length - 1].bidder)
+    } else {
+      setTokenOwner(tokenData?.owner)
+    }
+  })
+
+  const resolvedTokenOwner = useBidder(tokenOwner).bidder
 
   const [auctionEnded, setAuctionEnded] = useState<boolean>(false)
   const [tokenBlock, setTokenBlock] = useState<number>()
@@ -130,14 +144,19 @@ const Auction = () => {
                 <span>{tokenName}</span>
               </div>
               {/* Current bid/Winning bid badge */}
-              <Label variant="row" className="z-10 ">
-                <a className="flex" href={winningTx}>
-                  <span className="mr-4">
-                    {!auctionEnded ? "Current bid" : "Winning bid"}
-                  </span>
-                  {`${winningBid} ETH`}
-                </a>
-              </Label>
+              {auctionEnded ? (
+                <Flex className="gap-4 z-10">
+                  <Label variant="row">{`${winningBid} ETH`}</Label>
+                  <Label variant="row">{`${resolvedTokenOwner}`}</Label>
+                </Flex>
+              ) : (
+                <Label variant="row" className="z-10 ">
+                  <a className="flex" href={winningTx}>
+                    <span className="mr-4">Current bid</span>
+                    {`${winningBid} ETH`}
+                  </a>
+                </Label>
+              )}
             </Flex>
           )}
         </Stack>
@@ -155,24 +174,25 @@ const Auction = () => {
       {/* Mobile auction button */}
       {isMobile ? (
         <Stack className="justify-between flex-grow w-full h-full">
-          <Stack className="gap-2">
+          <Stack className="gap-4">
             {/* Current token/Historical token badge */}
             <motion.div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit">
               {tokenName}
             </motion.div>
             {/* Current bid/Winning bid badge */}
             {auctionEnded ? (
-              <Flex className="gap-4">
-                <Label variant="row">{`${winningBid} ETH`}</Label>
-              </Flex>
-            ) : (
-              <Label variant="row" className="z-10 ">
-                <a className="flex" href={winningTx}>
-                  <span className="mr-4">Current bid</span>
-                  {`${winningBid} ETH`}
-                </a>
-              </Label>
-            )}
+                <Flex className="gap-4 z-10">
+                  <Label variant="row">{`${winningBid} ETH`}</Label>
+                  <Label variant="row">{`${resolvedTokenOwner}`}</Label>
+                </Flex>
+              ) : (
+                <Label variant="row" className="z-10 ">
+                  <a className="flex" href={winningTx}>
+                    <span className="mr-4">Current bid</span>
+                    {`${winningBid} ETH`}
+                  </a>
+                </Label>
+              )}
           </Stack>
         </Stack>
       ) : null}
