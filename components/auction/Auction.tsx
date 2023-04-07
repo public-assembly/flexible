@@ -86,7 +86,7 @@ const Auction = () => {
 
   if (!totalSupply) return null
   return (
-    <Stack className="h-full gap-4 px-4 pt-20 overflow-x-hidden ">
+    <Stack className="h-full gap-4 px-4 pt-10 md:pt-20 overflow-x-hidden ">
       <Flex className="relative justify-center w-full">
         <Stack className="relative justify-between max-h-[600px] max-w-[600px] w-full h-full p-4 aspect-square">
           <div className="absolute inset-0 z-0 w-full aspect-square">
