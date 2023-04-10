@@ -9,6 +9,7 @@ import { Body, Caption } from "@/components/base/Typography"
 import { buildEtherscanLink } from "@/utils/helpers"
 import Link from "next/link"
 import { Hash } from "types"
+import { useThemeContext } from "@/context/ThemeProvider"
 
 type VotesSectionProps = {
   forVotes: number
@@ -27,6 +28,11 @@ export function VotesSection({
   transactionHash,
   className,
 }: VotesSectionProps) {
+
+  const {body} = useThemeContext()
+
+  console.log("body with default set", body)
+
   return (
     <Stack className={cn(className, "justify-between")}>
       <VotesList
