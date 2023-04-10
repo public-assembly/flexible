@@ -7,7 +7,6 @@ import { cn } from "utils/cn"
 
 import { Exit } from "@/components/assets/icons"
 import Button from "@/components/base/Button"
-import { Caption } from "./Typography"
 
 const Sheet = SheetPrimitive.Root
 
@@ -193,11 +192,10 @@ const SheetContent = React.forwardRef<
       <SheetPrimitive.Close asChild className={cn("mb-10")}>
         <Button
           variant="tertiary"
-          className="max-w-[133px] uppercase gap-2 shadow-surface-elevation-medium caption"
+          className="px-[12px] w-fit uppercase caption custom-shadow"
         >
           <Exit />
-          Hide
-          <span className="sr-only">Close</span>
+          <span className="mx-2">Hide</span>
         </Button>
       </SheetPrimitive.Close>
       {children}
