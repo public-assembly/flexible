@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { Variants, motion } from "framer-motion"
 import { cn } from "utils/cn"
 import { ENV } from "utils/env"
@@ -85,6 +86,7 @@ function MobileDropdown(props: MobileDropdownProps) {
   const { address, logout, isConnected, chain } = useAuth()
   const [canEdit, setCanEdit] = useState<boolean>(false)
   const { requestOpen } = useDrawer()
+  const router = useRouter()
 
   const themeRegistry = "0x9a23AE640040e4d34E9e00E500003000017144F4"
 
@@ -144,7 +146,7 @@ function MobileDropdown(props: MobileDropdownProps) {
             <Button
               size="md"
               variant="tertiary"
-              onClick={() => requestOpen("palette")}
+              onClick={() => router.push("/platform")}
             >
               Copy this template
             </Button>
