@@ -28,21 +28,24 @@ export function VotesSection({
   className,
 }: VotesSectionProps) {
   return (
-    <Stack className={cn(className, "gap-6 pt-2")}>
+    <Stack className={cn(className, "justify-between")}>
       <VotesList
         forVotes={forVotes}
         againstVotes={againstVotes}
         abstainVotes={abstainVotes}
       />
 
-      <Flex className="gap-x-6">
+      <Flex className="gap-x-6 justify-end">
         <Link
           className="flex items-center"
           href={buildEtherscanLink("tx", transactionHash)}
         >
-          <Body className="underline text-primary/50">Voting snapshot</Body>
+          <Body className="underline text-primary/50 hover:none">
+            Voting snapshot
+          </Body>
           <ArrowUpRight className="text-tertiary" />
         </Link>
+
         <Label className="flex" variant="rowInverse">
           <Body>Voting threshold</Body>
           <Caption>{votingThreshold}</Caption>
@@ -62,7 +65,7 @@ function VotesList({
   abstainVotes: number
 }) {
   return (
-    <Flex className="gap-6">
+    <Flex className="gap-6 justify-end">
       <Badge value={forVotes}>For</Badge>
       <Badge value={againstVotes}>Against</Badge>
       <Badge value={abstainVotes}>Abstain</Badge>
