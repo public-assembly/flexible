@@ -29,7 +29,7 @@ export function Veto({ proposal }) {
     <Button
       size="lg"
       variant="alert"
-      className="max-w-[328px]"
+      className="min-w-[328px]"
       disabled={isLoading}
       onClick={() => veto?.()}
     >
@@ -65,7 +65,7 @@ export function Execute({ proposal }) {
   return (
     <Button
       size="lg"
-      className="max-w-[328px]"
+      className="min-w-[328px]"
       disabled={isLoading}
       onClick={() => execute?.()}
     >
@@ -95,7 +95,7 @@ export function Queue({ proposal }) {
   return (
     <Button
       size="lg"
-      className="max-w-[328px]"
+      className="min-w-[328px]"
       disabled={isLoading}
       onClick={() => queue?.()}
     >
@@ -129,7 +129,7 @@ export function Cancel({ proposal }) {
     <Button
       size="lg"
       variant="alert"
-      className="max-w-[328px]"
+      className="min-w-[328px]"
       disabled={isLoading}
       onClick={() => cancel?.()}
     >

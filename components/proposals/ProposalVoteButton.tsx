@@ -53,7 +53,7 @@ const ProposalVoteButton = ({ proposal }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="max-w-[328px]" size="lg">
+        <Button className="min-w-[328px]" size="lg">
           Submit vote
         </Button>
       </DialogTrigger>

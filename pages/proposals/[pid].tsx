@@ -35,7 +35,7 @@ function ProposalDetailPage() {
         <ProposalNavigation />
         <Flex className="justify-between w-full h-full">
           {/* Header section */}
-          <Stack className="w-full gap-4">
+          <Stack className="w-fit gap-4">
             <Flex className="items-center gap-6">
               <ProposalLabel>{proposal.status}</ProposalLabel>
               <ProposalTimestamp proposal={proposal} size="sm" />
