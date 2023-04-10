@@ -66,7 +66,7 @@ export function AuctionSheet({
   return (
     <AnimatePresence>
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetTrigger asChild>
+        <SheetTrigger asChild className="custom-shadow">
           {isMobile ? (
             <MotionButton
               initial={{ opacity: 0, y: 100 }}
