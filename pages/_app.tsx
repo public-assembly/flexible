@@ -23,7 +23,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy"
 import {
   GovernorProvider,
   MetadataProvider,
-  TokenProvider,
+  TokenProvider
 } from "@public-assembly/dao-utils"
 // Local
 import { ENV } from "utils/env"
@@ -35,6 +35,7 @@ import { Drawer } from "@/components/Drawer"
 // Misc
 import { Provider } from "react-wrap-balancer"
 import { SWRConfig } from "swr"
+import { Seo } from "@/components/Seo"
 
 /** Import both default fonts from Figma. This resolves the FOUT (flash of unstyled text): https://nextjs.org/docs/basic-features/font-optimization*/
 export const spaceMono = Space_Mono({
@@ -131,7 +132,7 @@ const { chains, provider, webSocketProvider } = configureChains(
 )
 
 const { connectors } = getDefaultWallets({
-  appName: ENV.SITE_TITLE!,
+  appName: "Flexible",
 })
 
 const wagmiClient = createClient({
@@ -167,9 +168,7 @@ export default function App({ Component, pageProps }: AppProps) {
           }
         `}
       </style>
-      <NextHead>
-        <title>{ENV.SITE_TITLE}</title>
-      </NextHead>
+      <Seo  />
       <SWRConfig
         value={{
           fetcher: (resource, init) =>

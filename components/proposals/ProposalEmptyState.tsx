@@ -4,11 +4,14 @@ import { ArrowUpRight } from "@/components/assets/icons"
 import { buildCreateProposalUrl } from "utils/helpers"
 import Button from "@/components/base/Button"
 import { ENV } from "utils/env"
+import { useTokenContext } from "@public-assembly/dao-utils"
 
 const ProposalEmptyState = () => {
+  const { tokenSettings } = useTokenContext()
+
   return (
     <EmptyState
-      heading={`${ENV.SITE_TITLE} has not created any proposals yet.`}
+      heading={`${tokenSettings?.[0]} has not created any proposals yet.`}
       actions={
         <a
           target="_blank"
