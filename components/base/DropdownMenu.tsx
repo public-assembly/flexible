@@ -115,11 +115,7 @@ const BaseItemLink = React.forwardRef<HTMLAnchorElement, BaseItemLinkProps>(
 BaseItemLink.displayName = "BaseItemLink"
 
 // sharedBaseStyles(),
-
-const BaseItem = withClassName(
-  DropdownPrimitive.Item,
-  cn("base-item", "w-full", "flex")
-)
+const BaseItem = withClassName(DropdownPrimitive.Item, cn("base-item"))
 
 type BaseItemProps = React.ComponentProps<typeof BaseItem>
 
@@ -172,7 +168,8 @@ function Item(props: DropdownItemProps) {
       )
     }
     default: {
-      return <BaseItem {...props} />
+      const { children } = props
+      return <BaseItem {...props}>{children}</BaseItem>
     }
   }
 }
