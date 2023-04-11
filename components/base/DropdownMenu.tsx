@@ -131,6 +131,7 @@ export type DropdownItemTypeProps =
   | {
       type?: "button"
       onClick(): void
+      className?: string
     }
   | {
       type: "link"
