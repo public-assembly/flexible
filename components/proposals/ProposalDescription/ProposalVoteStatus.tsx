@@ -22,6 +22,36 @@ const voteSupportMessages = {
   abstain: "You voted abstain for this proposal",
 }
 
+type ProposalVoteBadgeProps = {
+  voteSupport: PROPOSAL_SUPPORT | null
+  txHash: string | undefined
+}
+
+function ProposalVoteBadge({ voteSupport, txHash }: ProposalVoteBadgeProps) {
+  return (
+    <Label
+      showIcon
+      iconLeft={
+        voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
+          <Minus />
+        ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
+          <Check />
+        ) : (
+          <Exit />
+        )
+      }
+      showExternalLinkIcon
+      externalLink={buildEtherscanLink("tx", txHash)}
+    >
+      {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
+        ? voteSupportMessages.abstain
+        : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
+        ? voteSupportMessages.for
+        : voteSupportMessages.against}
+    </Label>
+  )
+}
+
 export function ProposalVoteStatus({ proposal }) {
   const { address, isConnected } = useAuth()
   const { canVeto, canCancel, canVote } = useProposalPermissions(proposal)
@@ -79,28 +109,7 @@ export function ProposalVoteStatus({ proposal }) {
         </>
       )
     } else {
-      return (
-        <Label
-          showIcon
-          iconLeft={
-            voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
-              <Exit />
-            ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
-              <Check className="cursor-pointer" />
-            ) : (
-              <Minus />
-            )
-          }
-          showExternalLinkIcon
-          externalLink={buildEtherscanLink("tx", txHash)}
-        >
-          {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
-            ? voteSupportMessages.abstain
-            : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
-            ? voteSupportMessages.for
-            : voteSupportMessages.against}
-        </Label>
-      )
+      return <ProposalVoteBadge voteSupport={voteSupport} txHash={txHash} />
     }
   } else if (proposal.status == "EXECUTABLE") {
     if (!hasVoted) {
@@ -110,13 +119,13 @@ export function ProposalVoteStatus({ proposal }) {
             <Label>You were not eligible to vote on this proposal</Label>
           ) : (
             <Label>You did not vote on this proposal </Label>
-          )}        
+          )}
           <Flex className="gap-6">
             <Execute proposal={proposal} />
             {/* If the user can veto, render the veto button
-            * The submitter of the proposal can also cancel this prop,
-            * but we're not rendering that option
-            */}
+             * The submitter of the proposal can also cancel this prop,
+             * but we're not rendering that option
+             */}
             {canVeto ? <Veto proposal={proposal} /> : null}
           </Flex>
         </Stack>
@@ -124,26 +133,7 @@ export function ProposalVoteStatus({ proposal }) {
     } else {
       return (
         <Stack className="gap-6">
-          <Label
-            showIcon
-            iconLeft={
-              voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
-                <Exit />
-              ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
-                <Check className="cursor-pointer" />
-              ) : (
-                <Minus />
-              )
-            }
-            showExternalLinkIcon
-            externalLink={buildEtherscanLink("tx", txHash)}
-          >
-            {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
-              ? voteSupportMessages.abstain
-              : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
-              ? voteSupportMessages.for
-              : voteSupportMessages.against}
-          </Label>
+          <ProposalVoteBadge voteSupport={voteSupport} txHash={txHash} />
           <Flex className="gap-6">
             <Execute proposal={proposal} />
             {/* If the user can veto, render the veto button
@@ -177,26 +167,7 @@ export function ProposalVoteStatus({ proposal }) {
     } else {
       return (
         <Stack className="gap-6">
-          <Label
-            showIcon
-            iconLeft={
-              voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
-                <Exit />
-              ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
-                <Check className="cursor-pointer" />
-              ) : (
-                <Minus />
-              )
-            }
-            showExternalLinkIcon
-            externalLink={buildEtherscanLink("tx", txHash)}
-          >
-            {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
-              ? voteSupportMessages.abstain
-              : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
-              ? voteSupportMessages.for
-              : voteSupportMessages.against}
-          </Label>
+          <ProposalVoteBadge voteSupport={voteSupport} txHash={txHash} />
           <Flex className="gap-6">
             {/* If the user can cancel, render the cancel button */}
             {canCancel ? <Cancel proposal={proposal} /> : null}
@@ -227,26 +198,7 @@ export function ProposalVoteStatus({ proposal }) {
     } else {
       return (
         <Stack className="gap-6">
-          <Label
-            showIcon
-            iconLeft={
-              voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
-                <Exit />
-              ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
-                <Check className="cursor-pointer" />
-              ) : (
-                <Minus />
-              )
-            }
-            showExternalLinkIcon
-            externalLink={buildEtherscanLink("tx", txHash)}
-          >
-            {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
-              ? voteSupportMessages.abstain
-              : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
-              ? voteSupportMessages.for
-              : voteSupportMessages.against}
-          </Label>
+          <ProposalVoteBadge voteSupport={voteSupport} txHash={txHash} />
           <Flex className="gap-6">
             {/* If the user can cancel, render the cancel button */}
             {canCancel ? <Cancel proposal={proposal} /> : null}
@@ -268,26 +220,7 @@ export function ProposalVoteStatus({ proposal }) {
     } else {
       return (
         <Stack className="gap-6">
-          <Label
-            showIcon
-            iconLeft={
-              voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
-                <Exit />
-              ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
-                <Check className="cursor-pointer" />
-              ) : (
-                <Minus />
-              )
-            }
-            showExternalLinkIcon
-            externalLink={buildEtherscanLink("tx", txHash)}
-          >
-            {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
-              ? voteSupportMessages.abstain
-              : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
-              ? voteSupportMessages.for
-              : voteSupportMessages.against}
-          </Label>
+          <ProposalVoteBadge voteSupport={voteSupport} txHash={txHash} />
         </Stack>
       )
     }
@@ -309,26 +242,7 @@ export function ProposalVoteStatus({ proposal }) {
     } else {
       return (
         <Stack className={canCancel || canVeto ? "gap-6" : ""}>
-          <Label
-            showIcon
-            iconLeft={
-              voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
-                <Exit />
-              ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
-                <Check className="cursor-pointer" />
-              ) : (
-                <Minus />
-              )
-            }
-            showExternalLinkIcon
-            externalLink={buildEtherscanLink("tx", txHash)}
-          >
-            {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
-              ? voteSupportMessages.abstain
-              : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
-              ? voteSupportMessages.for
-              : voteSupportMessages.against}
-          </Label>
+          <ProposalVoteBadge voteSupport={voteSupport} txHash={txHash} />
           <Flex className="gap-6">
             {/* If the user can cancel, render the cancel button */}
             {canCancel ? <Cancel proposal={proposal} /> : null}
