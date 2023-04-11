@@ -119,7 +119,7 @@ function MobileDropdown(props: MobileDropdownProps) {
         </Button>
       </DropdownMenu.Trigger>
 
-      <DropdownMenu.Content sideOffset={0} className="min-w-[328px]">
+      <DropdownMenu.Content sideOffset={4} className="min-w-[328px] w-full">
         <Stack className="gap-y-4">
           {/* Hide navigation from within the dropdown menu on screen sizes above 640px */}
           <span className="sm:hidden">
