@@ -15,7 +15,12 @@ import { Stack } from "@/components/base/Stack"
 import { BlurImage } from "@/components/BlurImage"
 import Label from "../base/Label"
 // dao-utils
-import { useDaoToken, useBid, useBidder } from "@public-assembly/dao-utils"
+import {
+  useDaoToken,
+  useBid,
+  useBidder,
+  useTokenContext,
+} from "@public-assembly/dao-utils"
 // Hooks
 import { useIsMobile } from "@/hooks/useIsMobile"
 import { useAuction } from "@/hooks/useAuction"
@@ -23,7 +28,6 @@ import { useAuth } from "@/hooks/useAuth"
 // Misc
 import { motion } from "framer-motion"
 import { getUnixTime } from "date-fns"
-import { ensOrShorten } from "@/utils/ensOrShorten"
 import { Hash } from "types"
 
 const Auction = () => {
@@ -67,6 +71,8 @@ const Auction = () => {
   })
 
   const tokenTitle = tokenData?.metadata?.name
+
+  const { tokenSettings } = useTokenContext()
 
   useEffect(() => {
     async function getTokenBlock() {
@@ -140,15 +146,43 @@ const Auction = () => {
           {isMobile ? null : (
             <Flex className="justify-between">
               {/* Current token/Historical token badge */}
-              <div className="z-10 px-4 py-2 bg-primary text-secondary rounded-object body">
-                <span>{tokenName}</span>
-              </div>
+              {tokenName ? (
+                <Label variant="row" className="z-10">
+                  {tokenName}
+                </Label>
+              ) : (
+                <Label variant="row" className="animate-pulse z-10">
+                  {tokenSettings?.[0]}
+                </Label>
+              )}
               {/* Current bid/Winning bid badge */}
               {auctionEnded ? (
-                <Flex className="gap-4 z-10">
-                  <Label variant="row">{`${winningBid} ETH`}</Label>
-                  <Label variant="row">{`${resolvedTokenOwner}`}</Label>
-                </Flex>
+                winningBid === "N/A" &&
+                tokenData?.owner !=
+                  "0x0000000000000000000000000000000000000000" ? (
+                  <Label
+                    variant="row"
+                    className="z-10"
+                  >{`Allocated to ${resolvedTokenOwner}`}</Label>
+                ) : (
+                  <Flex className="gap-4 z-10">
+                    {winningBid && resolvedTokenOwner ? (
+                      <>
+                        <Label variant="row">{`${winningBid} ETH`}</Label>
+                        <Label variant="row">{`${resolvedTokenOwner}`}</Label>
+                      </>
+                    ) : (
+                      <>
+                        <Label variant="row" className="animate-pulse">
+                          N/A
+                        </Label>
+                        <Label variant="row" className="animate-pulse">
+                          0x...
+                        </Label>
+                      </>
+                    )}
+                  </Flex>
+                )
               ) : (
                 <Label variant="row" className="z-10 ">
                   <a className="flex" href={winningTx}>
@@ -157,6 +191,10 @@ const Auction = () => {
                   </a>
                 </Label>
               )}
+              {/*
+               */}
+
+              {/* token burned, token allocated */}
             </Flex>
           )}
         </Stack>
@@ -181,18 +219,18 @@ const Auction = () => {
             </motion.div>
             {/* Current bid/Winning bid badge */}
             {auctionEnded ? (
-                <Flex className="gap-4 z-10">
-                  <Label variant="row">{`${winningBid} ETH`}</Label>
-                  <Label variant="row">{`${resolvedTokenOwner}`}</Label>
-                </Flex>
-              ) : (
-                <Label variant="row" className="z-10 ">
-                  <a className="flex" href={winningTx}>
-                    <span className="mr-4">Current bid</span>
-                    {`${winningBid} ETH`}
-                  </a>
-                </Label>
-              )}
+              <Flex className="gap-4 z-10">
+                <Label variant="row">{`${winningBid} ETH`}</Label>
+                <Label variant="row">{`${resolvedTokenOwner}`}</Label>
+              </Flex>
+            ) : (
+              <Label variant="row" className="z-10 ">
+                <a className="flex" href={winningTx}>
+                  <span className="mr-4">Current bid</span>
+                  {`${winningBid} ETH`}
+                </a>
+              </Label>
+            )}
           </Stack>
         </Stack>
       ) : null}
