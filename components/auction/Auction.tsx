@@ -155,46 +155,40 @@ const Auction = () => {
                   {tokenSettings?.[0]}
                 </Label>
               )}
-              {/* Current bid/Winning bid badge */}
-              {auctionEnded ? (
-                winningBid === "N/A" &&
-                tokenData?.owner !=
-                  "0x0000000000000000000000000000000000000000" ? (
-                  <Label
-                    variant="row"
-                    className="z-10"
-                  >{`Allocated to ${resolvedTokenOwner}`}</Label>
-                ) : (
-                  <Flex className="gap-4 z-10">
-                    {winningBid && resolvedTokenOwner ? (
-                      <>
-                        <Label variant="row">{`${winningBid} ETH`}</Label>
-                        <Label variant="row">{`${resolvedTokenOwner}`}</Label>
-                      </>
-                    ) : (
-                      <>
-                        <Label variant="row" className="animate-pulse">
-                          N/A
-                        </Label>
-                        <Label variant="row" className="animate-pulse">
-                          0x...
-                        </Label>
-                      </>
-                    )}
-                  </Flex>
-                )
-              ) : (
-                <Label variant="row" className="z-10 ">
+              {/* Current bid/Historical bid badge */}
+              {!auctionEnded ? (
+                <Label variant="row" className="z-10">
                   <a className="flex" href={winningTx}>
                     <span className="mr-4">Current bid</span>
                     {`${winningBid} ETH`}
                   </a>
                 </Label>
+              ) : !tokenData ? (
+                <Flex className="gap-x-4">
+                  <Label variant="row" className="animate-pulse">
+                    N/A
+                  </Label>
+                  <Label variant="row" className="animate-pulse">
+                    0x...
+                  </Label>
+                </Flex>
+              ) : winningBid === "N/A" &&
+                tokenData?.owner !=
+                  "0x0000000000000000000000000000000000000000" ? (
+                <Label
+                  variant="row"
+                  className="z-10"
+                >{`Allocated to ${resolvedTokenOwner}`}</Label>
+              ) : (
+                <Flex className="gap-4 z-10">
+                  {winningBid && resolvedTokenOwner ? (
+                    <>
+                      <Label variant="row">{`${winningBid} ETH`}</Label>
+                      <Label variant="row">{`${resolvedTokenOwner}`}</Label>
+                    </>
+                  ) : null}
+                </Flex>
               )}
-              {/*
-               */}
-
-              {/* token burned, token allocated */}
             </Flex>
           )}
         </Stack>
@@ -217,19 +211,39 @@ const Auction = () => {
             <motion.div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit">
               {tokenName}
             </motion.div>
-            {/* Current bid/Winning bid badge */}
-            {auctionEnded ? (
-              <Flex className="gap-4 z-10">
-                <Label variant="row">{`${winningBid} ETH`}</Label>
-                <Label variant="row">{`${resolvedTokenOwner}`}</Label>
-              </Flex>
-            ) : (
-              <Label variant="row" className="z-10 ">
+            {/* Current bid/Historical bid badge */}
+            {!auctionEnded ? (
+              <Label variant="row" className="z-10">
                 <a className="flex" href={winningTx}>
                   <span className="mr-4">Current bid</span>
                   {`${winningBid} ETH`}
                 </a>
               </Label>
+            ) : !tokenData ? (
+              <Flex className="gap-x-4">
+                <Label variant="row" className="animate-pulse">
+                  N/A
+                </Label>
+                <Label variant="row" className="animate-pulse">
+                  0x...
+                </Label>
+              </Flex>
+            ) : winningBid === "N/A" &&
+              tokenData?.owner !=
+                "0x0000000000000000000000000000000000000000" ? (
+              <Label
+                variant="row"
+                className="z-10"
+              >{`Allocated to ${resolvedTokenOwner}`}</Label>
+            ) : (
+              <Flex className="gap-4 z-10">
+                {winningBid && resolvedTokenOwner ? (
+                  <>
+                    <Label variant="row">{`${winningBid} ETH`}</Label>
+                    <Label variant="row">{`${resolvedTokenOwner}`}</Label>
+                  </>
+                ) : null}
+              </Flex>
             )}
           </Stack>
         </Stack>
