@@ -3,7 +3,6 @@ import { DrawerPortal } from "./DrawerPortal"
 import { DrawerOverlay } from "./DrawerOverlay"
 import { DrawerCompositionProps } from "./drawerTypes"
 import { motion, AnimatePresence } from "framer-motion"
-import { Headline } from "../base/Typography"
 import { Save } from "../Save"
 
 export function DrawerComposition({
