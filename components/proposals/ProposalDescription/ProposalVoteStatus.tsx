@@ -13,7 +13,14 @@ import {
 } from "@/components/proposals/ProposalActions"
 import { Check, Minus, Exit } from "@/components/assets/icons"
 import { Flex } from "@/components/base/Flex"
+import { Stack } from "@/components/base/Stack"
 import ConnectButton from "@/components/ConnectButton"
+
+const voteSupportMessages = {
+  for: "You voted for this proposal",
+  against: "You voted against this proposal",
+  abstain: "You voted abstain for this proposal",
+}
 
 export function ProposalVoteStatus({ proposal }) {
   const { address, isConnected } = useAuth()
@@ -60,108 +67,290 @@ export function ProposalVoteStatus({ proposal }) {
         <ConnectButton />
       </div>
     )
-  } else if (!hasVoted) {
-    if (proposal.status == "SUCCEEDED") {
+  } else if (proposal.status == "EXECUTED") {
+    if (!hasVoted) {
       return (
-        <Flex className="gap-6">
-          <Queue proposal={proposal} />
-          {/* If the user can cancel, render the cancel button */}
-          {canCancel ? <Cancel proposal={proposal} /> : null}
-        </Flex>
-      )
-    } else if (proposal.status == "EXECUTABLE") {
-      return (
-        <Flex className="gap-6">
-          <Execute proposal={proposal} />
-          {/* If the user can veto, render the veto button
-           * The submitter of the proposal can also cancel this prop,
-           * but we're not rendering that option
-           */}
-          {canVeto ? <Veto proposal={proposal} /> : null}
-        </Flex>
-      )
-    } else if (proposal.status == "QUEUED") {
-      return (
-        <Flex className="gap-6">
-          {/* If the user can cancel, render the cancel button */}
-          {canCancel ? <Cancel proposal={proposal} /> : null}
-          {/* If the user can veto, render the veto button */}
-          {canVeto ? <Veto proposal={proposal} /> : null}
-          {/* When executable = When queued + queue buffer
-          Time remaining = When executable - now */}
-        </Flex>
-      )
-    } else if (proposal.status == "ACTIVE") {
-      return (
-        <Flex className="gap-6">
-          {canVote ? (
-            <ProposalVoteButton proposal={proposal} />
+        <>
+          {!canVote ? (
+            <Label>You were not eligible to vote on this proposal</Label>
           ) : (
-            <Label>You are not eligible to vote on this proposal </Label>
+            <Label>You did not vote on this proposal </Label>
           )}
-          {/* If the user can cancel, render the cancel button */}
-          {canCancel ? <Cancel proposal={proposal} /> : null}
-          {/* If the user can veto, render the veto button */}
-          {canVeto ? <Veto proposal={proposal} /> : null}
-        </Flex>
+        </>
       )
-    } else if (proposal.status == "PENDING") {
-      return (
-        <Flex className="gap-6">
-          {/* If the user can cancel, render the cancel button */}
-          {canCancel ? <Cancel proposal={proposal} /> : null}
-          {/* If the user can veto, render the veto button */}
-          {canVeto ? <Veto proposal={proposal} /> : null}
-          {/* When active = When submitted + buffer
-          Time remaining = When active - now */}
-        </Flex>
-      )
-    } else if (proposal.status == "EXECUTED") {
-      return <Label>You did not vote on this proposal</Label>
     } else {
-      return (() => {
-        switch (voteSupport) {
-          case NOUNS_PROPOSAL_SUPPORT.ABSTAIN:
-            return (
-              <Label
-                showIcon
-                iconLeft={<Exit />}
-                showExternalLinkIcon
-                externalLink={buildEtherscanLink("tx", txHash)}
-              >
-                You voted abstain for this proposal
-              </Label>
+      return (
+        <Label
+          showIcon
+          iconLeft={
+            voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
+              <Exit />
+            ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
+              <Check className="cursor-pointer" />
+            ) : (
+              <Minus />
             )
-          case NOUNS_PROPOSAL_SUPPORT.FOR:
-            return (
-              <>
-                <Label
-                  showIcon
-                  iconLeft={<Check className="cursor-pointer" />}
-                  showExternalLinkIcon
-                  externalLink={buildEtherscanLink("tx", txHash)}
-                >
-                  You voted for this proposal
-                </Label>
-              </>
-            )
-
-          case NOUNS_PROPOSAL_SUPPORT.AGAINST:
-            return (
-              <Label
-                showIcon
-                iconLeft={<Minus />}
-                showExternalLinkIcon
-                externalLink={buildEtherscanLink("tx", txHash)}
-              >
-                You voted against this proposal
-              </Label>
-            )
-          default:
-            return null
-        }
-      })()
+          }
+          showExternalLinkIcon
+          externalLink={buildEtherscanLink("tx", txHash)}
+        >
+          {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
+            ? voteSupportMessages.abstain
+            : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
+            ? voteSupportMessages.for
+            : voteSupportMessages.against}
+        </Label>
+      )
     }
+  } else if (proposal.status == "EXECUTABLE") {
+    if (!hasVoted) {
+      return (
+        <Stack className={"gap-6"}>
+          {!canVote ? (
+            <Label>You were not eligible to vote on this proposal</Label>
+          ) : (
+            <Label>You did not vote on this proposal </Label>
+          )}        
+          <Flex className="gap-6">
+            <Execute proposal={proposal} />
+            {/* If the user can veto, render the veto button
+            * The submitter of the proposal can also cancel this prop,
+            * but we're not rendering that option
+            */}
+            {canVeto ? <Veto proposal={proposal} /> : null}
+          </Flex>
+        </Stack>
+      )
+    } else {
+      return (
+        <Stack className="gap-6">
+          <Label
+            showIcon
+            iconLeft={
+              voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
+                <Exit />
+              ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
+                <Check className="cursor-pointer" />
+              ) : (
+                <Minus />
+              )
+            }
+            showExternalLinkIcon
+            externalLink={buildEtherscanLink("tx", txHash)}
+          >
+            {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
+              ? voteSupportMessages.abstain
+              : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
+              ? voteSupportMessages.for
+              : voteSupportMessages.against}
+          </Label>
+          <Flex className="gap-6">
+            <Execute proposal={proposal} />
+            {/* If the user can veto, render the veto button
+             * The submitter of the proposal can also cancel this prop,
+             * but we're not rendering that option
+             */}
+            {canVeto ? <Veto proposal={proposal} /> : null}
+          </Flex>
+        </Stack>
+      )
+    }
+  } else if (proposal.status == "QUEUED") {
+    if (!hasVoted) {
+      return (
+        <Stack className={canVeto || canCancel ? "gap-6" : ""}>
+          {!canVote ? (
+            <Label>You were not eligible to vote on this proposal</Label>
+          ) : (
+            <Label>You did not vote on this proposal </Label>
+          )}
+          <Flex className="gap-6">
+            {/* If the user can cancel, render the cancel button */}
+            {canCancel ? <Cancel proposal={proposal} /> : null}
+            {/* If the user can veto, render the veto button */}
+            {canVeto ? <Veto proposal={proposal} /> : null}
+            {/* When executable = When queued + queue buffer
+            Time remaining = When executable - now */}
+          </Flex>
+        </Stack>
+      )
+    } else {
+      return (
+        <Stack className="gap-6">
+          <Label
+            showIcon
+            iconLeft={
+              voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
+                <Exit />
+              ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
+                <Check className="cursor-pointer" />
+              ) : (
+                <Minus />
+              )
+            }
+            showExternalLinkIcon
+            externalLink={buildEtherscanLink("tx", txHash)}
+          >
+            {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
+              ? voteSupportMessages.abstain
+              : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
+              ? voteSupportMessages.for
+              : voteSupportMessages.against}
+          </Label>
+          <Flex className="gap-6">
+            {/* If the user can cancel, render the cancel button */}
+            {canCancel ? <Cancel proposal={proposal} /> : null}
+            {/* If the user can veto, render the veto button */}
+            {canVeto ? <Veto proposal={proposal} /> : null}
+            {/* When executable = When queued + queue buffer
+            Time remaining = When executable - now */}
+          </Flex>
+        </Stack>
+      )
+    }
+  } else if (proposal.status == "SUCCEEDED") {
+    if (!hasVoted) {
+      return (
+        <Stack className={canCancel ? "gap-6" : ""}>
+          {!canVote ? (
+            <Label>You were not eligible to vote on this proposal</Label>
+          ) : (
+            <Label>You did not vote on this proposal </Label>
+          )}
+          <Flex className="gap-6">
+            <Queue proposal={proposal} />
+            {/* If the user can cancel, render the cancel button */}
+            {canCancel ? <Cancel proposal={proposal} /> : null}
+          </Flex>
+        </Stack>
+      )
+    } else {
+      return (
+        <Stack className="gap-6">
+          <Label
+            showIcon
+            iconLeft={
+              voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
+                <Exit />
+              ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
+                <Check className="cursor-pointer" />
+              ) : (
+                <Minus />
+              )
+            }
+            showExternalLinkIcon
+            externalLink={buildEtherscanLink("tx", txHash)}
+          >
+            {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
+              ? voteSupportMessages.abstain
+              : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
+              ? voteSupportMessages.for
+              : voteSupportMessages.against}
+          </Label>
+          <Flex className="gap-6">
+            {/* If the user can cancel, render the cancel button */}
+            {canCancel ? <Cancel proposal={proposal} /> : null}
+          </Flex>
+        </Stack>
+      )
+    }
+  } else if (proposal.status == "DEFEATED") {
+    if (!hasVoted) {
+      return (
+        <Stack>
+          {!canVote ? (
+            <Label>You were not eligible to vote on this proposal</Label>
+          ) : (
+            <Label>You did not vote on this proposal </Label>
+          )}
+        </Stack>
+      )
+    } else {
+      return (
+        <Stack className="gap-6">
+          <Label
+            showIcon
+            iconLeft={
+              voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
+                <Exit />
+              ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
+                <Check className="cursor-pointer" />
+              ) : (
+                <Minus />
+              )
+            }
+            showExternalLinkIcon
+            externalLink={buildEtherscanLink("tx", txHash)}
+          >
+            {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
+              ? voteSupportMessages.abstain
+              : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
+              ? voteSupportMessages.for
+              : voteSupportMessages.against}
+          </Label>
+        </Stack>
+      )
+    }
+  } else if (proposal.status == "ACTIVE") {
+    if (!hasVoted) {
+      return (
+        <Stack className={canCancel ? "gap-6" : ""}>
+          {!canVote ? (
+            <Label>You are not eligible to vote on this proposal</Label>
+          ) : (
+            <Flex className="gap-6">
+              <ProposalVoteButton proposal={proposal} />
+              {/* If the user can cancel, render the cancel button */}
+              {canCancel ? <Cancel proposal={proposal} /> : null}
+            </Flex>
+          )}
+        </Stack>
+      )
+    } else {
+      return (
+        <Stack className={canCancel || canVeto ? "gap-6" : ""}>
+          <Label
+            showIcon
+            iconLeft={
+              voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN ? (
+                <Exit />
+              ) : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR ? (
+                <Check className="cursor-pointer" />
+              ) : (
+                <Minus />
+              )
+            }
+            showExternalLinkIcon
+            externalLink={buildEtherscanLink("tx", txHash)}
+          >
+            {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
+              ? voteSupportMessages.abstain
+              : voteSupport == NOUNS_PROPOSAL_SUPPORT.FOR
+              ? voteSupportMessages.for
+              : voteSupportMessages.against}
+          </Label>
+          <Flex className="gap-6">
+            {/* If the user can cancel, render the cancel button */}
+            {canCancel ? <Cancel proposal={proposal} /> : null}
+            {/* If the user can veto, render the veto button */}
+            {canVeto ? <Veto proposal={proposal} /> : null}
+            {/* When over = When went live - active buffer
+            Time remaining = When over - now */}
+          </Flex>
+        </Stack>
+      )
+    }
+  } else if (proposal.status == "PENDING") {
+    return (
+      <Flex className="gap-6">
+        {/* If the user can cancel, render the cancel button */}
+        {canCancel ? <Cancel proposal={proposal} /> : null}
+        {/* If the user can veto, render the veto button */}
+        {canVeto ? <Veto proposal={proposal} /> : null}
+        {/* When active = When submitted + buffer
+        Time remaining = When active - now */}
+      </Flex>
+    )
   }
   return null
 }
