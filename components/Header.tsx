@@ -119,7 +119,7 @@ function MobileDropdown(props: MobileDropdownProps) {
         </Button>
       </DropdownMenu.Trigger>
 
-      <DropdownMenu.Content sideOffset={4} className="min-w-[328px] w-full">
+      <DropdownMenu.Content sideOffset={4} className="min-w-[328px]">
         <Stack className="gap-y-4">
           {/* Hide navigation from within the dropdown menu on screen sizes above 640px */}
           <span className="sm:hidden">
@@ -127,10 +127,9 @@ function MobileDropdown(props: MobileDropdownProps) {
           </span>
           {/* Connect */}
           <DropdownMenu.Item type="button" onClick={() => {}}>
-            {/* <Flex className="items-centerpy-2 rounded-object hover:cursor-pointer hover:bg-highlight/50 focus:outline-none body text-primary border border-[#ff89de]">
-              <Exit className="text-primary" />
-              Disconnect
-            </Flex> */}
+            <ConnectButton />
+          </DropdownMenu.Item>
+          <DropdownMenu.Item type="button" onClick={() => {}}>
             <ConnectButton />
           </DropdownMenu.Item>
           {/* Edit theme */}
