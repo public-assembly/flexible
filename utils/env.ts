@@ -6,9 +6,6 @@ const PROCESS = {
   CHAIN: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   ALCHEMY_KEY: process.env.NEXT_PUBLIC_ALCHEMY_KEY,
   VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
-  SITE_TITLE: process.env.NEXT_PUBLIC_SITE_TITLE,
-  APP_ID: process.env.NEXT_PUBLIC_APP_ID,
-  SITE_DESCRIPTION: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
   TWITTER_HANDLE: process.env.NEXT_PUBLIC_TWITTER_HANDLE,
   WEBSITE_URL: process.env.NEXT_PUBLIC_WEBSITE_URL,
   NETWORK_URL: process.env.NEXT_PUBLIC_NETWORK_URL,
@@ -44,9 +41,6 @@ export const ENV = {
   VERCEL_ENV: VERCEL_ENV,
   /** Cast to a string because we throw an error if this is not set */
   ALCHEMY_KEY: PROCESS.ALCHEMY_KEY as string,
-  APP_ID: PROCESS.APP_ID,
-  SITE_TITLE: PROCESS.SITE_TITLE,
-  SITE_DESCRIPTION: PROCESS.SITE_DESCRIPTION,
   TWITTER_HANDLE: PROCESS.TWITTER_HANDLE,
   WEBSITE_URL: PROCESS.WEBSITE_URL,
   /** Cast to a string because we throw an error if this is not set */

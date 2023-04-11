@@ -4,7 +4,6 @@ import { useProposals } from "@/hooks/useProposals"
 import { motion } from "framer-motion"
 import { isServerSide } from "utils/helpers"
 
-import { Seo } from "@/components/Seo"
 import CountingNumbers from "@/components/base/CountingNumbers"
 import { Divider } from "@/components/base/Divider"
 import { Flex } from "@/components/base/Flex"
@@ -34,7 +33,6 @@ function ProposalsPage() {
 
   return (
     <motion.section className="flex flex-col items-center justify-center min-h-full gap-8 px-4 pb-10 m-auto max-w-7xl grow">
-      <Seo title="proposals" />
 
       <ProposalListStats
         activeProposalCount={activeProposalCount}

@@ -20,6 +20,7 @@ import { BigNumber } from "ethers"
 import { useContractRead } from "wagmi"
 import { platformThemeRegistryAbi } from "abi/platformThemeRegistryAbi"
 import { Hash } from "types"
+import { useTokenContext } from "@public-assembly/dao-utils"
 
 const fadeIn: Variants = {
   initial: { opacity: 0 },
@@ -35,6 +36,8 @@ const container: Variants = {
 
 export function Header() {
   const { isMobile } = useIsMobile()
+  const { tokenSettings } = useTokenContext()
+
   return (
     <motion.header
       variants={container}
@@ -57,11 +60,11 @@ export function Header() {
       {/* Header Logo */}
       <Link href="/">
         <NetworkController.Mainnet>
-          <Headline className="headline">{ENV.SITE_TITLE}</Headline>
+          <Headline className="headline">{tokenSettings?.[0]}</Headline>
         </NetworkController.Mainnet>
         <NetworkController.Testnet>
           <Flex>
-            <Headline className="headline">{ENV.SITE_TITLE}</Headline>
+            <Headline className="headline">{tokenSettings?.[0]}</Headline>
             <Flex className="items-center justify-center px-6 py-1 ml-4 border rounded-lg border-primary bg-highlight hover:cursor-default">
               <Body className="font-medium text-primary">Goerli</Body>
             </Flex>

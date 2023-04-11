@@ -27,6 +27,7 @@ export function VotesSection({
   transactionHash,
   className,
 }: VotesSectionProps) {
+
   return (
     <Stack className={cn(className, "justify-between")}>
       <VotesList
