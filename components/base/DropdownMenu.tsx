@@ -115,7 +115,7 @@ const BaseItemLink = React.forwardRef<HTMLAnchorElement, BaseItemLinkProps>(
 BaseItemLink.displayName = "BaseItemLink"
 
 // todo pass the base styles as well
-const BaseItem = withClassName(DropdownPrimitive.Item, "base-item w-full")
+const BaseItem = withClassName(DropdownPrimitive.Item, "base-item")
 
 type BaseItemProps = React.ComponentProps<typeof BaseItem>
 
@@ -130,6 +130,7 @@ type BaseDropdownItemProps = {
 export type DropdownItemTypeProps =
   | {
       type?: "button"
+      className?: string
       onClick(): void
     }
   | {
