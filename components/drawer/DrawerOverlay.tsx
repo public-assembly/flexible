@@ -1,8 +1,8 @@
-import { useDrawer } from './useDrawer';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useDrawer } from "./useDrawer"
+import { motion, AnimatePresence } from "framer-motion"
 
 export function DrawerOverlay({ drawerName }: { drawerName: string }) {
-  const { drawerType } = useDrawer();
+  const { drawerType } = useDrawer()
 
   return (
     <AnimatePresence>
@@ -13,15 +13,12 @@ export function DrawerOverlay({ drawerName }: { drawerName: string }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           style={{
-            position: 'fixed',
+            position: "fixed",
             top: 0,
             left: 0,
-            width: '100vw',
-            height: '100vh',
-            zIndex: 1000,
           }}
         />
       )}
     </AnimatePresence>
-  );
+  )
 }
