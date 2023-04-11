@@ -125,14 +125,13 @@ function MobileDropdown(props: MobileDropdownProps) {
           <span className="sm:hidden">
             <Navigation />
           </span>
-          {/* onClick={() => {}} */}
-          <DropdownMenu.Item type="link" href="">
+          <DropdownMenu.Item type="button" onClick={() => {}}>
             <ConnectButton />
           </DropdownMenu.Item>
           {/* Edit theme */}
           {isConnected && chain?.id === ENV.CHAIN ? (
             canEdit ? (
-              <DropdownMenu.Item type="button" onClick={() => console.log()}>
+              <DropdownMenu.Item type="button" onClick={() => {}}>
                 <Button
                   size="md"
                   variant="secondary"

@@ -115,7 +115,7 @@ const BaseItemLink = React.forwardRef<HTMLAnchorElement, BaseItemLinkProps>(
 BaseItemLink.displayName = "BaseItemLink"
 
 // todo pass the base styles as well
-const BaseItem = withClassName(DropdownPrimitive.Item, "base-item")
+const BaseItem = withClassName(DropdownPrimitive.Item, "base-item w-full")
 
 type BaseItemProps = React.ComponentProps<typeof BaseItem>
 
@@ -147,6 +147,14 @@ export type DropdownItemProps = BaseDropdownItemProps & DropdownItemTypeProps
 
 function Item(props: DropdownItemProps) {
   switch (props.type) {
+    case "button": {
+      const { children, ...rest } = props
+      return (
+        <DropdownPrimitive.Item {...rest} asChild>
+          <BaseItem>{children}</BaseItem>
+        </DropdownPrimitive.Item>
+      )
+    }
     case "link": {
       const { children, href, ...rest } = props
       return (
