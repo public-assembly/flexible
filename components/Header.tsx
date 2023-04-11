@@ -127,15 +127,11 @@ function MobileDropdown(props: MobileDropdownProps) {
           </span>
           {/* Connect */}
           <DropdownMenu.Item type="button" onClick={() => {}}>
+            <Flex className="items-center gap-2 py-2 rounded-object hover:cursor-pointer hover:bg-highlight/50 focus:outline-none body text-primary">
+              <Exit className="text-primary ml-1" />
+              Disconnect
+            </Flex>
             {/* <ConnectButton /> */}
-            <Button
-              size="md"
-              variant="secondary"
-              onClick={() => requestOpen("palette")}
-              className="mt-2"
-            >
-              Edit theme
-            </Button>
           </DropdownMenu.Item>
           {/* Edit theme */}
           {isConnected && chain?.id === ENV.CHAIN ? (
