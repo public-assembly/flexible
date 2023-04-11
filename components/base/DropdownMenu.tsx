@@ -130,7 +130,6 @@ type BaseDropdownItemProps = {
 export type DropdownItemTypeProps =
   | {
       type?: "button"
-      className?: string
       onClick(): void
     }
   | {
@@ -148,14 +147,6 @@ export type DropdownItemProps = BaseDropdownItemProps & DropdownItemTypeProps
 
 function Item(props: DropdownItemProps) {
   switch (props.type) {
-    case "button": {
-      const { children, ...rest } = props
-      return (
-        <DropdownPrimitive.Item {...rest} asChild>
-          <BaseItem>{children}</BaseItem>
-        </DropdownPrimitive.Item>
-      )
-    }
     case "link": {
       const { children, href, ...rest } = props
       return (

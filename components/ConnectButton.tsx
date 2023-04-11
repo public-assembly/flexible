@@ -18,7 +18,7 @@ export default function ConnectButton() {
             {(() => {
               if (!mounted || !account || !chain) {
                 return (
-                  <Button size="lg" onClick={openConnectModal}>
+                  <Button size="md" onClick={openConnectModal}>
                     Connect Wallet
                   </Button>
                 )

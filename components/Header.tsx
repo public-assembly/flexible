@@ -125,11 +125,8 @@ function MobileDropdown(props: MobileDropdownProps) {
           <span className="sm:hidden">
             <Navigation />
           </span>
-          <DropdownMenu.Item
-            type="button"
-            onClick={() => {}}
-            className="w-full"
-          >
+          {/* Connect */}
+          <DropdownMenu.Item type="button" onClick={() => {}}>
             <ConnectButton />
           </DropdownMenu.Item>
           {/* Edit theme */}
