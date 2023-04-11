@@ -6,7 +6,6 @@ import type { AppProps } from "next/app"
 import dynamic from "next/dynamic"
 import { Space_Mono } from "next/font/google"
 import localFont from "next/font/local"
-import NextHead from "next/head"
 // RainbowKit
 import "@rainbow-me/rainbowkit/styles.css"
 import {
@@ -23,7 +22,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy"
 import {
   GovernorProvider,
   MetadataProvider,
-  TokenProvider
+  TokenProvider,
 } from "@public-assembly/dao-utils"
 // Local
 import { ENV } from "utils/env"
@@ -168,7 +167,6 @@ export default function App({ Component, pageProps }: AppProps) {
           }
         `}
       </style>
-      <Seo  />
       <SWRConfig
         value={{
           fetcher: (resource, init) =>
@@ -192,6 +190,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   <DynamicAuctionProvider>
                     <MetadataProvider>
                       <TokenProvider>
+                        <Seo />
                         <ThemeProvider platformIndex={ENV.PLATFORM_INDEX}>
                           <TopProgressBar />
                           <DrawerContextProvider>
