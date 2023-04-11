@@ -127,8 +127,8 @@ function MobileDropdown(props: MobileDropdownProps) {
           </span>
           {/* Connect */}
           <DropdownMenu.Item type="button" onClick={() => {}}>
-            <Flex className="items-center gap-2 py-2 rounded-object hover:cursor-pointer hover:bg-highlight/50 focus:outline-none body text-primary">
-              <Exit className="text-primary ml-1" />
+            <Flex className="items-centerpy-2 rounded-object hover:cursor-pointer hover:bg-highlight/50 focus:outline-none body text-primary border border-[#ff89de]">
+              <Exit className="text-primary" />
               Disconnect
             </Flex>
             {/* <ConnectButton /> */}
