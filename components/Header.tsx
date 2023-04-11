@@ -120,15 +120,13 @@ function MobileDropdown(props: MobileDropdownProps) {
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Content sideOffset={4} className="min-w-[328px]">
-        <Stack className="gap-y-4">
+        {/* <Stack className="gap-y-4"> */}
+        <Stack>
           {/* Hide navigation from within the dropdown menu on screen sizes above 640px */}
           <span className="sm:hidden">
             <Navigation />
           </span>
           {/* Connect */}
-          <DropdownMenu.Item type="button" onClick={() => {}}>
-            <ConnectButton />
-          </DropdownMenu.Item>
           <DropdownMenu.Item type="button" onClick={() => {}}>
             <ConnectButton />
           </DropdownMenu.Item>
