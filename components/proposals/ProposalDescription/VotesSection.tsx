@@ -29,7 +29,7 @@ export function VotesSection({
 }: VotesSectionProps) {
 
   return (
-    <Stack className={cn(className, "gap-6 justify-between")}>
+    <Stack className={cn(className, "gap-6")}>
       <VotesList
         forVotes={forVotes}
         againstVotes={againstVotes}
