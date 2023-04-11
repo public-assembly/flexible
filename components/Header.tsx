@@ -126,7 +126,7 @@ function MobileDropdown(props: MobileDropdownProps) {
             <Navigation />
           </span>
           {/* Connect */}
-          <DropdownMenu.Item type="link" href="" onClick={() => {}}>
+          <DropdownMenu.Item type="button" onClick={() => {}}>
             <ConnectButton />
           </DropdownMenu.Item>
           {/* Edit theme */}
