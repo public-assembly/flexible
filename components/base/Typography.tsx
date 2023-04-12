@@ -39,7 +39,11 @@ export function Headline({ children, className }: TypographyProps) {
 }
 
 export function Caption({ children, className }: TypographyProps) {
-  return <p className={cn("text-base text-primary caption", className)}>{children}</p>
+  return (
+    <p className={cn("text-base text-primary caption", className)}>
+      {children}
+    </p>
+  )
 }
 
 export function BodyLarge({ children, className }: TypographyProps) {
@@ -57,7 +61,7 @@ export function BodyLarge({ children, className }: TypographyProps) {
 
 export function Body({ children, className }: TypographyProps) {
   return (
-    <p className={cn("text-base font-normal text-primary body hover:text-secondary", className)}>
+    <p className={cn("text-base font-normal text-primary body", className)}>
       {children}
     </p>
   )

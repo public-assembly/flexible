@@ -47,7 +47,7 @@ export function VotesSection({
           <ArrowUpRight className="text-tertiary" />
         </Link>
 
-        <Label className="flex" variant="rowInverse">
+        <Label className="flex cursor-default" variant="rowInverse">
           <Body>Voting threshold</Body>
           <Caption>{votingThreshold}</Caption>
         </Label>

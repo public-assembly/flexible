@@ -104,6 +104,7 @@ export function AuctionSheet({
           )}
         </SheetTrigger>
         {open && (
+          // onInteractOutside={(e) => e.preventDefault()}
           <SheetContent position={isMobile ? "bottom" : "right"} size="auction">
             <SheetHeader>
               <SheetTitle>
