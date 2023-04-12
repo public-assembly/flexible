@@ -1,4 +1,6 @@
-import { cn } from 'utils/cn'
+import { cn } from "utils/cn"
+import ReactMarkdown from "react-markdown"
+import rehypeRaw from "rehype-raw"
 
 type RichTextProps = {
   className?: string
@@ -13,11 +15,12 @@ type RichTextProps = {
 
 export function RichText(props: RichTextProps) {
   return (
-    <div
-      className={cn(props.className, 'prose body text-primary')}
-      dangerouslySetInnerHTML={{ __html: props.html }}
-      tabIndex={0}
+    <ReactMarkdown
+      className={cn(props.className, "prose body text-primary")}
       aria-label={props.html}
-    />
+      rehypePlugins={[rehypeRaw]}
+    >
+      {props.html}
+    </ReactMarkdown>
   )
 }
