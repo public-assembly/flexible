@@ -1,9 +1,8 @@
 import { Globe } from "@/components/assets/icons"
-import ArrowUpRight from "@/components/assets/icons/ArrowUpRight"
 import { Flex } from "@/components/base/Flex"
 import IconButton from "@/components/base/IconButton"
 import { Stack } from "@/components/base/Stack"
-import { H2Heading } from "@/components/base/Typography"
+import { Body, H2Heading } from "@/components/base/Typography"
 import clsx from "clsx"
 import { PropsWithChildren } from "react"
 import {
@@ -18,6 +17,7 @@ import { Hash } from "types"
 import { RichText } from "@/components/base/Richtext"
 import Label from "@/components/base/Label"
 import { buildEtherscanAddressLink } from "@/utils/helpers"
+import HtmlReactParser from "html-react-parser"
 
 export default function AboutPage() {
   const { metadataSettings } = useMetadataContext()
@@ -47,10 +47,11 @@ export default function AboutPage() {
         tooltip="website"
         href={`${metadataSettings?.projectURI}`}
       />
-      <RichText
-        className="max-w-xl body"
-        html={metadataSettings?.description as string}
-      />
+      <Flex className="max-w-xl body">
+        {HtmlReactParser(
+          String(metadataSettings?.description).replace(/\\n/g, "<br />")
+        )}
+      </Flex>
 
       <Flex className="gap-6">
         <Card className="px-6 py-4 rounded-object bg-secondary">
