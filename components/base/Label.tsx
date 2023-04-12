@@ -8,21 +8,24 @@ import { ArrowUpRight } from "@/components/assets/icons"
 import CountingNumbers from "@/components/base/CountingNumbers"
 import { BodySmall, Headline } from "@/components/base/Typography"
 
-const labelVariants = cva(["w-fit h-fit flex rounded-object items-center body"], {
-  variants: {
-    variant: {
-      badge: ["flex-col gap-1 px-6 py-4 bg-secondary rounded-object "],
-      row: ["px-4 py-2 bg-primary gap-4 text-secondary text-base"],
-      rowInverse: ["px-4 py-2 bg-secondary gap-4 text-primary text-base"],
+const labelVariants = cva(
+  ["w-fit h-fit flex rounded-object items-center body"],
+  {
+    variants: {
+      variant: {
+        badge: ["flex-col gap-1 px-6 py-4 bg-secondary rounded-object "],
+        row: ["px-4 py-2 bg-primary gap-4 text-secondary text-base"],
+        rowInverse: ["px-4 py-2 bg-secondary gap-4 text-primary text-base"],
+      },
+      titleCase: {
+        true: "",
+      },
     },
-    titleCase: {
-      true: "",
+    defaultVariants: {
+      variant: "rowInverse",
     },
-  },
-  defaultVariants: {
-    variant: "rowInverse",
-  },
-})
+  }
+)
 
 export type LabelProps = {
   className?: string
