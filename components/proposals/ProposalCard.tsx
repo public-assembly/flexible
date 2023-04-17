@@ -63,12 +63,19 @@ export default function ProposalCard({ proposal }) {
           {/* Statuses */}
           <Flex className="flex-wrap items-center self-stretch justify-between gap-2">
             <Flex className="gap-2">
-              {proposal.status != "ACTIVE" ? (
+              {proposal.status === "ACTIVE" ? (
+                <ProposalLabel>{proposal.status}</ProposalLabel>
+              ) : proposal.status === "PENDING" ||
+                proposal.status === "QUEUED" ||
+                proposal.status === "EXECUTED" ||
+                proposal.status === "SUCCEEDED" ? (
                 <ProposalLabel variant="secondary">
                   {proposal.status}
                 </ProposalLabel>
               ) : (
-                <ProposalLabel>{proposal.status}</ProposalLabel>
+                <ProposalLabel variant="tertiary">
+                  {proposal.status}
+                </ProposalLabel>
               )}
               {needsAction ? <ProposalLabel>Needs vote</ProposalLabel> : null}
             </Flex>
