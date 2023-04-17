@@ -44,7 +44,7 @@ export function VotesSection({
           <Body className="underline text-primary/50 hover:none">
             Voting snapshot
           </Body>
-          <ArrowUpRight className="text-tertiary" />
+          <ArrowUpRight className="ml-1 text-tertiary" />
         </Link>
 
         <Label className="flex cursor-default" variant="rowInverse">

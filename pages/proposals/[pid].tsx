@@ -37,7 +37,20 @@ function ProposalDetailPage() {
           {/* Header section */}
           <Stack className="w-fit gap-4">
             <Flex className="items-center gap-6">
-              <ProposalLabel>{proposal.status}</ProposalLabel>
+              {proposal.status === "ACTIVE" ? (
+                <ProposalLabel>{proposal.status}</ProposalLabel>
+              ) : proposal.status === "PENDING" ||
+                proposal.status === "QUEUED" ||
+                proposal.status === "EXECUTED" ||
+                proposal.status === "SUCCEEDED" ? (
+                <ProposalLabel variant="secondary">
+                  {proposal.status}
+                </ProposalLabel>
+              ) : (
+                <ProposalLabel variant="tertiary">
+                  {proposal.status}
+                </ProposalLabel>
+              )}
               <ProposalTimestamp proposal={proposal} size="sm" />
             </Flex>
             <Stack className="w-full gap-2">

@@ -16,7 +16,10 @@ type RichTextProps = {
 export function RichText(props: RichTextProps) {
   return (
     <ReactMarkdown
-      className={cn(props.className, "prose body text-primary")}
+      className={cn(
+        props.className,
+        "prose prose-a:text-primary prose-p:text-primary prose-headings:text-primary prose-em:text-primary prose-strong:text-primary body text-primary"
+      )}
       aria-label={props.html}
       rehypePlugins={[rehypeRaw]}
     >
