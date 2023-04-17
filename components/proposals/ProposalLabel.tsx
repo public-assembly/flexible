@@ -11,7 +11,6 @@ const labelVariants = cva(
         primary: ["bg-primary text-secondary"],
         secondary: ["bg-secondary text-primary border-primary"],
         tertiary: ["border-tertiary text-primary bg-tertiary/50"],
-        badge: ["px-6 py-4 "],
       },
       textTransform: {
         titleCase: "lowercase first-letter:capitalize",
