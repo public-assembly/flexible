@@ -26,6 +26,7 @@ import { ethers, BigNumber } from "ethers"
 import { BidHistory } from "./BidHistory"
 import { fromUnixTime, format } from "date-fns"
 import { Settle } from "./Settle"
+import { useAuth } from "@/hooks/useAuth"
 
 const MotionButton = motion(Button)
 
@@ -37,7 +38,6 @@ interface AuctionSheetProps {
   auctionEnded: boolean
 }
 
-// TODO: use mobile button on ssr if windowWidth < 768
 export function AuctionSheet({
   tokenId,
   tokenTitle,
@@ -48,6 +48,8 @@ export function AuctionSheet({
   const { isMobile } = useIsMobile()
 
   const [open, setOpen] = useState<boolean | undefined>()
+
+  const { isConnected } = useAuth()
 
   const {
     auctionData,
@@ -170,7 +172,11 @@ export function AuctionSheet({
               </Flex>
               {auctionData.tokenId == tokenId ? (
                 auctionEnded ? (
-                  <Settle />
+                  !isConnected ? (
+                    <ConnectButton />
+                  ) : (
+                    <Settle />
+                  )
                 ) : (
                   <AuthCheck
                     connectButton={<ConnectButton />}
