@@ -30,7 +30,7 @@ export function Veto({ proposal }) {
       size="lg"
       variant="alert"
       className="min-w-[328px]"
-      disabled={isLoading}
+      disabled={isLoading || !veto}
       onClick={() => veto?.()}
     >
       {!isLoading ? "Veto" : <Pending className="animate-spin" />}
@@ -66,7 +66,7 @@ export function Execute({ proposal }) {
     <Button
       size="lg"
       className="min-w-[328px]"
-      disabled={isLoading}
+      disabled={isLoading || !execute}
       onClick={() => execute?.()}
     >
       {!isLoading ? "Execute" : <Pending className="animate-spin" />}
@@ -96,7 +96,7 @@ export function Queue({ proposal }) {
     <Button
       size="lg"
       className="min-w-[328px]"
-      disabled={isLoading}
+      disabled={isLoading || !queue}
       onClick={() => queue?.()}
     >
       {!isLoading ? "Queue" : <Pending className="animate-spin" />}
@@ -122,15 +122,12 @@ export function Cancel({ proposal }) {
     hash: data?.hash,
   })
 
-  /**
-   * Add pertaining state check
-   */
   return (
     <Button
       size="lg"
       variant="alert"
       className="min-w-[328px]"
-      disabled={isLoading}
+      disabled={isLoading || !cancel}
       onClick={() => cancel?.()}
     >
       {!isLoading ? "Cancel proposal" : <Pending className="animate-spin" />}
