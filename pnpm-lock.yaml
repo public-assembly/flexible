@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@ethersproject/bytes': ^5.7.0
   '@ianvs/prettier-plugin-sort-imports': ^3.7.1
-  '@public-assembly/dao-utils': ^0.0.27
+  '@public-assembly/dao-utils': ^0.0.31
   '@radix-ui/react-alert-dialog': ^1.0.2
   '@radix-ui/react-dialog': ^1.0.2
   '@radix-ui/react-dropdown-menu': ^2.0.2
@@ -52,7 +52,7 @@ specifiers:
 dependencies:
   '@ethersproject/bytes': 5.7.0
   '@ianvs/prettier-plugin-sort-imports': 3.7.1
-  '@public-assembly/dao-utils': 0.0.27_c7yta3nf6rucrqchtn43suhoee
+  '@public-assembly/dao-utils': 0.0.31_c7yta3nf6rucrqchtn43suhoee
   '@radix-ui/react-alert-dialog': 1.0.2_5ndqzdd6t4rivxsukjv3i3ak2q
   '@radix-ui/react-dialog': 1.0.2_5ndqzdd6t4rivxsukjv3i3ak2q
   '@radix-ui/react-dropdown-menu': 2.0.2_5ndqzdd6t4rivxsukjv3i3ak2q
@@ -1142,8 +1142,8 @@ packages:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
     dev: false
 
-  /@public-assembly/dao-utils/0.0.27_c7yta3nf6rucrqchtn43suhoee:
-    resolution: {integrity: sha512-n/8XTqCiVx7GhLZ/8bqsblDfNLnpscXHp9iG6/3eSQvSCCwVbDeInDEdyTeY5Ot8HIiqhIQuf45zcXRV2GDw7w==}
+  /@public-assembly/dao-utils/0.0.31_c7yta3nf6rucrqchtn43suhoee:
+    resolution: {integrity: sha512-Kk9sP0hWRfDB4+NGgGE8hbZ8Ehj1yZMHittGmxgxDe1bOW+mg6ycKek7RjBkPG9RIzQqAKdD87uZ7NeCuZPEDg==}
     peerDependencies:
       date-fns: ^2.29.3
       ethers: ^5.7.1

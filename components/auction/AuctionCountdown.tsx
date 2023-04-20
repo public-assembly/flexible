@@ -1,14 +1,8 @@
 import { useCountdown } from "@public-assembly/dao-utils"
 import { Caption } from "../base/Typography"
 
-export function AuctionCountdown({
-  auctionData,
-}: {
-  auctionData: any
-}) {
-  const { countdownString } = useCountdown(
-    Number(auctionData?.endTime)
-  )
+export function AuctionCountdown({ auctionState }: { auctionState: any }) {
+  const { countdownString } = useCountdown(auctionState.endTime)
 
   return (
     <Caption>
