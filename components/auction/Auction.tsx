@@ -1,53 +1,50 @@
-// React
 import React, { useState, useEffect } from "react"
-// Utils
 import { cn } from "utils/cn"
 import { ENV } from "utils/env"
-// Icons
 import { ArrowLeft, ArrowRight } from "@/components/assets/icons"
-import { Pending } from "@/components/assets/icons"
-// Components
 import { AuctionSheet } from "@/components/auction/AuctionSheet"
-// Layout & Typography
 import Button from "@/components/base/Button"
 import { Flex } from "@/components/base/Flex"
 import { Stack } from "@/components/base/Stack"
 import { BlurImage } from "@/components/BlurImage"
 import Label from "../base/Label"
-// dao-utils
 import {
-  useDaoToken,
+  useDaoTokenQuery,
   useBid,
   useBidder,
   useTokenContext,
+  useTokenExplorer,
+  useActiveAuction,
+  useManagerContext,
+  useTokenMetadata,
+  useCountdown,
 } from "@public-assembly/dao-utils"
-// Hooks
 import { useIsMobile } from "@/hooks/useIsMobile"
-import { useAuction } from "@/hooks/useAuction"
-import { useAuth } from "@/hooks/useAuth"
-// Misc
 import { motion } from "framer-motion"
-import { getUnixTime } from "date-fns"
 import { Hash } from "types"
 
 const Auction = () => {
   const { isMobile } = useIsMobile()
-  const { provider } = useAuth()
+  const { tokenAddress } = useManagerContext()
+  const { auctionState, minBidAmount } = useActiveAuction(tokenAddress as Hash)
+  const { isEnded } = useCountdown(auctionState.endTime)
+
   const {
-    auctionData,
-    totalSupply,
     incrementId,
     decrementId,
     tokenId,
+    currentTokenId,
     isFirstToken,
     isLastToken,
-    thumbnail,
-    tokenName,
-  } = useAuction()
+  } = useTokenExplorer()
+
+  const { tokenName, tokenThumbnail } = useTokenMetadata(
+    currentTokenId.toString()
+  )
 
   const { winningBid, winningTx, tokenEvents } = useBid({
-    tokenId,
-    tokenAddress: ENV.TOKEN_ADDRESS,
+    tokenId: currentTokenId.toString(),
+    tokenAddress: tokenAddress as Hash,
   })
 
   const [tokenOwner, setTokenOwner] = useState<string | Hash>()
@@ -62,64 +59,27 @@ const Auction = () => {
 
   const resolvedTokenOwner = useBidder(tokenOwner).bidder
 
-  const [auctionEnded, setAuctionEnded] = useState<boolean>(false)
-  const [tokenBlock, setTokenBlock] = useState<number>()
-
-  const { tokenData } = useDaoToken({
+  const { tokenData } = useDaoTokenQuery({
     tokenAddress: ENV.TOKEN_ADDRESS,
-    tokenId: tokenId,
+    tokenId: currentTokenId.toString(),
   })
-
-  const tokenTitle = tokenData?.metadata?.name
 
   const { tokenSettings } = useTokenContext()
 
-  useEffect(() => {
-    async function getTokenBlock() {
-      const unixBlock = await provider.getBlock(
-        tokenData?.mintInfo.mintContext.blockNumber
-      )
-      setTokenBlock(Number(unixBlock?.timestamp))
-    }
-    getTokenBlock()
-  }, [tokenData])
-
-  useEffect(() => {
-    if (auctionData.tokenId == tokenId) {
-      // If the current tokenId matches the passed tokenId, and the current time is greater than tokenBlock + 24 hours,
-      // set auctionEnded to true
-      if (tokenBlock && getUnixTime(Date.now()) >= tokenBlock + 86400) {
-        setAuctionEnded(true)
-      } else {
-        // If the current tokenId matches the passed tokenId, and the current time is NOT greater than tokenBlock + 24 hours,
-        // set auctionEnded to false
-        setAuctionEnded(false)
-      }
-    } else {
-      // If the current tokenId doesn't match the passed tokenId, and the current time is greater than tokenBlock,
-      // set auctionEnded to true
-      if (tokenBlock && getUnixTime(Date.now()) >= tokenBlock) {
-        setAuctionEnded(true)
-      }
-    }
-  }, [auctionData, tokenId, tokenBlock])
-
-  if (!totalSupply) return null
   return (
     <Stack className="h-full gap-4 px-4 pt-10 md:pt-20 overflow-x-hidden ">
       <Flex className="relative justify-center w-full">
         <Stack className="relative justify-between max-h-[600px] max-w-[600px] w-full h-full p-4 aspect-square">
           <div className="absolute inset-0 z-0 w-full aspect-square">
-            {thumbnail && (
+            {tokenThumbnail && (
               <BlurImage
-                src={thumbnail}
+                src={tokenThumbnail}
                 height={600}
                 width={600}
                 alt={`${tokenId}`}
               />
             )}
           </div>
-
           {/* Explorer buttons */}
           <Flex className="gap-4">
             <Button
@@ -156,11 +116,11 @@ const Auction = () => {
                 </Label>
               )}
               {/* Current bid/Historical bid badge */}
-              {!auctionEnded ? (
+              {isLastToken && !isEnded ? (
                 <Label variant="row" className="z-10">
                   <a className="flex" href={winningTx}>
                     <span className="mr-4">Current bid</span>
-                    {`${winningBid} ETH`}
+                    {winningBid ? `${winningBid} ETH` : ""}
                   </a>
                 </Label>
               ) : !tokenData ? (
@@ -195,11 +155,13 @@ const Auction = () => {
 
         {/* Desktop/Tablet Auction button */}
         <AuctionSheet
-          tokenId={tokenId}
-          tokenTitle={tokenTitle}
-          tokenBlock={tokenBlock}
-          winningBid={winningBid}
-          auctionEnded={auctionEnded}
+          currentTokenId={currentTokenId.toString()}
+          tokenName={tokenName as string}
+          winningBid={winningBid as string}
+          isEnded={isEnded}
+          isLastToken={isLastToken}
+          auctionState={auctionState}
+          minBidAmount={minBidAmount}
         />
       </Flex>
 
@@ -212,11 +174,11 @@ const Auction = () => {
               {tokenName}
             </motion.div>
             {/* Current bid/Historical bid badge */}
-            {!auctionEnded ? (
+            {isLastToken && !isEnded ? (
               <Label variant="row" className="z-10">
                 <a className="flex" href={winningTx}>
                   <span className="mr-4">Current bid</span>
-                  {`${winningBid} ETH`}
+                  {winningBid ? `${winningBid} ETH` : ""}
                 </a>
               </Label>
             ) : !tokenData ? (
