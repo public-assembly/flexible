@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react"
-
 import { useGovernorContext } from "@public-assembly/dao-utils"
 import _ from "lodash"
-
 import { NOUNS_PROPOSAL_STATUS } from "../types/index"
 
-// TODO: Fix the refresh of proposal stats and setup zustand
 export const useProposals = () => {
   const { proposals } = useGovernorContext()
 
