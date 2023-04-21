@@ -1,6 +1,5 @@
 import { DrawerComposition } from "./drawer/DrawerComposition"
 import { Palette } from "./Palette"
-import { Save } from "./Save"
 import { Exit } from "./assets/icons"
 
 export function Drawer() {

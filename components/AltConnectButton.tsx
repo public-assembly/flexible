@@ -1,11 +1,9 @@
 import { useAuth } from "@/hooks/useAuth"
 import { ConnectButton as RKConnectButton } from "@rainbow-me/rainbowkit"
 import { Zorb } from "./base/Zorb"
-import { Button } from "@/components/base/Button"
 import { ENV } from "@/utils/env"
 import { Flex } from "./base/Flex"
 import { Headline } from "./base/Typography"
-import Error from "./assets/icons/Error"
 
 export default function AltConnectButton() {
   const { address, ensName } = useAuth()
