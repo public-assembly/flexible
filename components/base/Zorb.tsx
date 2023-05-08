@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { arrayify } from "@ethersproject/bytes"
-import tinycolor, { ColorInput } from "tinycolor2"
+import { arrayify } from '@ethersproject/bytes'
+import tinycolor, { ColorInput } from 'tinycolor2'
 
 type Hash = `0x${string}`
 export declare type CustomAvatarProps = {
@@ -204,11 +204,11 @@ export const zorbImageSVG = (address: string) => {
 export const zorbImageDataURI = (address: string) => {
   return `data:image/svg+xml;base64,${Buffer.from(
     zorbImageSVG(address),
-    "utf-8"
-  ).toString("base64")}`
+    'utf-8'
+  ).toString('base64')}`
 }
 
-const NULL_ADDRESS = "0x0000000000000000000000000000000000000000"
+const NULL_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 export const Zorb = ({
   address = NULL_ADDRESS,
@@ -220,7 +220,7 @@ export const Zorb = ({
   return (
     <div
       style={{
-        overflow: "hidden",
+        overflow: 'hidden',
         borderRadius: radius,
         height: size || 32,
         width: size || 32,

@@ -1,69 +1,69 @@
-import "../styles/globals.css"
-import type { AppProps } from "next/app"
-import dynamic from "next/dynamic"
-import { Space_Mono } from "next/font/google"
-import localFont from "next/font/local"
-import { ConnectKitProvider, getDefaultClient } from "connectkit"
-import { createClient, configureChains, WagmiConfig } from "wagmi"
-import { mainnet, goerli } from "wagmi/chains"
-import { publicProvider } from "wagmi/providers/public"
-import { alchemyProvider } from "wagmi/providers/alchemy"
+import { Drawer } from '@/components/Drawer'
+import { DrawerContextProvider } from '@/components/drawer/DrawerProvider'
+import { Header } from '@/components/Header'
+import { Seo } from '@/components/Seo'
+import { TopProgressBar } from '@/components/TopProgressBar'
+import { ThemeProvider } from '@/context/ThemeProvider'
 import {
   GovernorProvider,
   MetadataProvider,
   TokenProvider,
-} from "@public-assembly/dao-utils"
-import { ENV } from "utils/env"
-import { Header } from "@/components/Header"
-import { TopProgressBar } from "@/components/TopProgressBar"
-import { DrawerContextProvider } from "@/components/drawer/DrawerProvider"
-import { ThemeProvider } from "@/context/ThemeProvider"
-import { Drawer } from "@/components/Drawer"
-import { Provider } from "react-wrap-balancer"
-import { SWRConfig } from "swr"
-import { Seo } from "@/components/Seo"
+} from '@public-assembly/dao-utils'
+import { ConnectKitProvider, getDefaultClient } from 'connectkit'
+import type { AppProps } from 'next/app'
+import dynamic from 'next/dynamic'
+import { Space_Mono } from 'next/font/google'
+import localFont from 'next/font/local'
+import { Provider } from 'react-wrap-balancer'
+import { SWRConfig } from 'swr'
+import { ENV } from 'utils/env'
+import { configureChains, createClient, WagmiConfig } from 'wagmi'
+import { goerli, mainnet } from 'wagmi/chains'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { publicProvider } from 'wagmi/providers/public'
+import '../styles/globals.css'
 
 /** Import both default fonts from Figma. This resolves the FOUT (flash of unstyled text): https://nextjs.org/docs/basic-features/font-optimization*/
 export const spaceMono = Space_Mono({
-  variable: "--font-space-mono",
-  style: ["normal"],
-  weight: ["400", "700"],
-  subsets: ["latin"],
+  variable: '--font-space-mono',
+  style: ['normal'],
+  weight: ['400', '700'],
+  subsets: ['latin'],
 })
 
 export const satoshi = localFont({
-  variable: "--font-satoshi",
+  variable: '--font-satoshi',
   src: [
     {
-      path: "./fonts/Satoshi-Regular.woff2",
-      weight: "400",
-      style: "normal",
+      path: './fonts/Satoshi-Regular.woff2',
+      weight: '400',
+      style: 'normal',
     },
     {
-      path: "./fonts/Satoshi-Italic.woff2",
-      weight: "400",
-      style: "italic",
+      path: './fonts/Satoshi-Italic.woff2',
+      weight: '400',
+      style: 'italic',
     },
     {
-      path: "./fonts/Satoshi-Medium.woff2",
-      weight: "500",
-      style: "normal",
+      path: './fonts/Satoshi-Medium.woff2',
+      weight: '500',
+      style: 'normal',
     },
     {
-      path: "./fonts/Satoshi-MediumItalic.woff2",
-      weight: "500",
-      style: "italic",
+      path: './fonts/Satoshi-MediumItalic.woff2',
+      weight: '500',
+      style: 'italic',
     },
     {
-      path: "./fonts/Satoshi-Bold.woff2",
-      weight: "700",
-      style: "normal",
+      path: './fonts/Satoshi-Bold.woff2',
+      weight: '700',
+      style: 'normal',
     },
 
     {
-      path: "./fonts/Satoshi-BoldItalic.woff2",
-      weight: "700",
-      style: "italic",
+      path: './fonts/Satoshi-BoldItalic.woff2',
+      weight: '700',
+      style: 'italic',
     },
   ],
 })
@@ -91,7 +91,7 @@ interface DynamicAuctionProviderProps extends AuctionProviderProps {
 
 const DynamicManagerProvider = dynamic(
   () =>
-    import("@public-assembly/dao-utils").then(
+    import('@public-assembly/dao-utils').then(
       (module) => module.ManagerProvider
     ),
   {
@@ -101,7 +101,7 @@ const DynamicManagerProvider = dynamic(
 
 const DynamicAuctionProvider = dynamic(
   () =>
-    import("@public-assembly/dao-utils").then(
+    import('@public-assembly/dao-utils').then(
       (module) => module.AuctionProvider
     ),
   {
@@ -116,7 +116,7 @@ const { chains, provider } = configureChains(
 
 const client = createClient(
   getDefaultClient({
-    appName: "Flexible",
+    appName: 'Flexible',
     chains,
     provider,
   })

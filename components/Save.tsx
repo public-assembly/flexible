@@ -1,18 +1,18 @@
-import * as React from "react"
-import { Web3Storage } from "web3.storage"
-import { useThemeContext } from "../context/ThemeProvider"
+import { useAuth } from '@/hooks/useAuth'
+import { ENV } from '@/utils/env'
+import { BigNumber } from 'ethers'
+import * as React from 'react'
+import { Hash } from 'types'
 import {
   useContractRead,
-  usePrepareContractWrite,
   useContractWrite,
+  usePrepareContractWrite,
   useWaitForTransaction,
-} from "wagmi"
-import { platformThemeRegistryAbi } from "../abi/platformThemeRegistryAbi"
-import { BigNumber } from "ethers"
-import { ENV } from "@/utils/env"
-import { Pending } from "./assets/icons"
-import { useAuth } from "@/hooks/useAuth"
-import { Hash } from "types"
+} from 'wagmi'
+import { Web3Storage } from 'web3.storage'
+import { platformThemeRegistryAbi } from '../abi/platformThemeRegistryAbi'
+import { useThemeContext } from '../context/ThemeProvider'
+import { Pending } from './assets/icons'
 
 function getAccessToken() {
   return ENV.WEB3STORAGE_TOKEN
@@ -22,11 +22,11 @@ function makeStorageClient() {
   return new Web3Storage({ token: getAccessToken() as string })
 }
 
-const themeRegistry = "0x9a23AE640040e4d34E9e00E500003000017144F4"
+const themeRegistry = '0x9a23AE640040e4d34E9e00E500003000017144F4'
 
 export function Save() {
   const { newMetadata } = useThemeContext()
-  const [uri, setUri] = React.useState<string>("")
+  const [uri, setUri] = React.useState<string>('')
   const [themeReady, setThemeReady] = React.useState<boolean>(false)
   const [canEdit, setCanEdit] = React.useState<boolean>(false)
   const { address } = useAuth()
@@ -34,7 +34,7 @@ export function Save() {
   useContractRead({
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
-    functionName: "getRole",
+    functionName: 'getRole',
     args: [BigNumber.from(ENV.PLATFORM_INDEX), address as Hash],
     onSuccess(getRole) {
       if (getRole === 1 || getRole === 2) {
@@ -46,7 +46,7 @@ export function Save() {
   const { config } = usePrepareContractWrite({
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
-    functionName: "setPlatformTheme",
+    functionName: 'setPlatformTheme',
     args: [BigNumber.from(ENV.PLATFORM_INDEX), uri],
     enabled: Boolean(uri),
     onSuccess() {
@@ -74,12 +74,12 @@ export function Save() {
       // prettier-ignore
       // @ts-ignore
       const cid = await client.put([blobThemeData], { wrapWithDirectory: false });
-      const uri = "ipfs://" + cid
+      const uri = 'ipfs://' + cid
       /**
        * Set state variable to cid in uri format
        */
       setUri(uri)
-      console.log("Uri:", uri)
+      console.log('Uri:', uri)
     } catch (err) {
       console.error(err)
     }
@@ -87,8 +87,8 @@ export function Save() {
 
   if (!canEdit)
     return (
-      <div className="flex justify-center bg-white w-full p-4">
-        <div className="px-4 py-2 bg-[#F1F4F7] w-full text-center rounded-lg">
+      <div className="flex w-full justify-center bg-white p-4">
+        <div className="w-full rounded-lg bg-[#F1F4F7] px-4 py-2 text-center">
           <p className="text-[#576775]">
             You don&apos;t have permissions to save theming data
           </p>
@@ -96,13 +96,13 @@ export function Save() {
       </div>
     )
   return (
-    <div className="flex justify-center bg-white w-full p-4">
+    <div className="flex w-full justify-center bg-white p-4">
       <button
         disabled={isLoading}
-        className="flex justify-center items-center bg-[#121212] hover:bg-[#121212]/50 active:bg-[#121212] dark:bg-[#121212] dark:text-[#121212] text-[#f2fdf7] text-lg py-3 font-satoshi rounded w-full disabled:hover:none cursor-pointer"
+        className="disabled:hover:none flex w-full cursor-pointer items-center justify-center rounded bg-[#121212] py-3 font-satoshi text-lg text-[#f2fdf7] hover:bg-[#121212]/50 active:bg-[#121212] dark:bg-[#121212] dark:text-[#121212]"
         onClick={handleClick}
       >
-        {!isLoading ? "Save" : <Pending className="animate-spin" />}
+        {!isLoading ? 'Save' : <Pending className="animate-spin" />}
       </button>
     </div>
   )

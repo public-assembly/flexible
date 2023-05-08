@@ -1,9 +1,9 @@
-import { Flex } from "@/components/base/Flex"
-import { Body } from "@/components/base/Typography"
-import { Zorb } from "@/components/base/Zorb"
-import { Hash } from "types"
-import { useEnsName, useEnsAvatar } from "wagmi"
-import { shortenAddress } from "../../utils/shortenAddress"
+import { Flex } from '@/components/base/Flex'
+import { Body } from '@/components/base/Typography'
+import { Zorb } from '@/components/base/Zorb'
+import { Hash } from 'types'
+import { useEnsAvatar, useEnsName } from 'wagmi'
+import { shortenAddress } from '../../utils/shortenAddress'
 
 type BidderProps = {
   address: Hash
@@ -19,7 +19,7 @@ export function Bidder(props: BidderProps) {
   })
 
   return (
-    <Flex className="items-center gap-2 flex-nowrap">
+    <Flex className="flex-nowrap items-center gap-2">
       <Zorb
         address={props.address}
         ensImage={ensAvatar}
@@ -27,7 +27,7 @@ export function Bidder(props: BidderProps) {
         radius={999}
       />
       <Body
-        className={props.isHighestBidder ? "text-secondary" : "text-primary"}
+        className={props.isHighestBidder ? 'text-secondary' : 'text-primary'}
       >
         {ensName ?? shortenAddress(props.address)}
       </Body>

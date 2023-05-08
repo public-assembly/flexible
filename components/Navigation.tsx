@@ -1,10 +1,10 @@
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { cn } from "utils/cn"
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { cn } from 'utils/cn'
 
-import styles from "./Navigation.module.css"
-import { Flex } from "./base/Flex"
-import { Headline } from "./base/Typography"
+import { Flex } from './base/Flex'
+import { Headline } from './base/Typography'
+import styles from './Navigation.module.css'
 
 type NavLinkProps = {
   slug: string
@@ -13,22 +13,22 @@ type NavLinkProps = {
 
 const navLinks: NavLinkProps[] = [
   {
-    slug: "/",
-    title: "Auction",
+    slug: '/',
+    title: 'Auction',
   },
   {
-    slug: "/proposals",
-    title: "Props",
+    slug: '/proposals',
+    title: 'Props',
   },
   {
-    slug: "/about",
-    title: "About",
+    slug: '/about',
+    title: 'About',
   },
 ]
 
 export function Navigation() {
   return (
-    <Flex className="gap-6 flex-col mb-8 md:mb-0 md:flex-row">
+    <Flex className="mb-8 flex-col gap-6 md:mb-0 md:flex-row">
       {navLinks.map((page) => (
         <NavLink key={page.slug} slug={page.slug} title={page.title} />
       ))}
@@ -45,13 +45,13 @@ function NavLink({ slug, title }: NavLinkProps) {
       href={slug}
       key={slug}
       className={cn(
-        "relative flex flex-row transition duration-300 group cursor-pointer"
+        'group relative flex cursor-pointer flex-row transition duration-300'
       )}
     >
       <Headline
         className={cn(
-          isCurrentPath ? styles.linkUnderlineIsActive : "",
-          "group-hover:text-tertiary headline",
+          isCurrentPath ? styles.linkUnderlineIsActive : '',
+          'headline group-hover:text-tertiary',
           styles.linkUnderline
         )}
       >

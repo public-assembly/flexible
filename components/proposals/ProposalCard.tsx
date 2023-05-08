@@ -1,28 +1,27 @@
 /* @ts-ignore */
-import * as React from "react"
-import { useEffect, useState } from "react"
+import * as React from 'react'
+import { useEffect, useState } from 'react'
 
-import Link from "next/link"
-import { useAuth } from "@/hooks/useAuth"
-import Balancer from "react-wrap-balancer"
-import { cn } from "utils/cn"
-import { intervalToDuration, formatDuration } from "date-fns"
+import { useAuth } from '@/hooks/useAuth'
+import { formatDuration, intervalToDuration } from 'date-fns'
+import Link from 'next/link'
+import Balancer from 'react-wrap-balancer'
+import { cn } from 'utils/cn'
 
-import { Flex } from "@/components/base/Flex"
-import { Stack } from "@/components/base/Stack"
+import { Flex } from '@/components/base/Flex'
+import { Stack } from '@/components/base/Stack'
 import {
   BodyExtraSmall,
   BodyLarge,
   BodySmall,
-} from "@/components/base/Typography"
-import { Proposer } from "@/components/proposals/Proposer"
-import { ProposalCardVotes } from "./ProposalCardVotes"
-import ProposalLabel from "./ProposalLabel"
-import { useGovernorContext } from "@public-assembly/dao-utils"
-import { useContractRead } from "wagmi"
-import { governorAbi } from "@public-assembly/dao-utils"
-import { BigNumber } from "ethers"
-import { Hash } from "types"
+} from '@/components/base/Typography'
+import { Proposer } from '@/components/proposals/Proposer'
+import { governorAbi, useGovernorContext } from '@public-assembly/dao-utils'
+import { BigNumber } from 'ethers'
+import { Hash } from 'types'
+import { useContractRead } from 'wagmi'
+import { ProposalCardVotes } from './ProposalCardVotes'
+import ProposalLabel from './ProposalLabel'
 
 export default function ProposalCard({ proposal }) {
   const { address } = useAuth()
@@ -33,12 +32,12 @@ export default function ProposalCard({ proposal }) {
   const { data: availableVotes } = useContractRead({
     address: governorAddress,
     abi: governorAbi,
-    functionName: "getVotes",
+    functionName: 'getVotes',
     args: [address as Hash, BigNumber.from(proposal?.timeCreated)],
   })
 
   useEffect(() => {
-    if (proposal.status != "ACTIVE") return
+    if (proposal.status != 'ACTIVE') return
     if (!address || !availableVotes || availableVotes.toNumber() < 1) return
     const proposalVotes = proposal.votes
 
@@ -52,23 +51,23 @@ export default function ProposalCard({ proposal }) {
     <>
       <Link
         href={`proposals/${proposal.proposalId}`}
-        className="transition-opacity duration-300 group-hover:opacity-50 hover:!opacity-100"
+        className="transition-opacity duration-300 hover:!opacity-100 group-hover:opacity-50"
       >
         <Stack
           className={cn(
-            "h-full gap-6 p-4 text-primary transition duration-300 border border-tertiary bg-secondary rounded-object custom-shadow",
-            "hover:border-primary"
+            'custom-shadow h-full gap-6 rounded-object border border-tertiary bg-secondary p-4 text-primary transition duration-300',
+            'hover:border-primary'
           )}
         >
           {/* Statuses */}
-          <Flex className="flex-wrap items-center self-stretch justify-between gap-2">
+          <Flex className="flex-wrap items-center justify-between gap-2 self-stretch">
             <Flex className="gap-2">
-              {proposal.status === "ACTIVE" ? (
+              {proposal.status === 'ACTIVE' ? (
                 <ProposalLabel>{proposal.status}</ProposalLabel>
-              ) : proposal.status === "PENDING" ||
-                proposal.status === "QUEUED" ||
-                proposal.status === "EXECUTED" ||
-                proposal.status === "SUCCEEDED" ? (
+              ) : proposal.status === 'PENDING' ||
+                proposal.status === 'QUEUED' ||
+                proposal.status === 'EXECUTED' ||
+                proposal.status === 'SUCCEEDED' ? (
                 <ProposalLabel variant="secondary">
                   {proposal.status}
                 </ProposalLabel>
@@ -84,7 +83,7 @@ export default function ProposalCard({ proposal }) {
 
           <Stack className="h-full gap-2">
             <ProposalTitle title={proposal.title} />
-            <span className="text-xs font-medium text-primary/50 body">
+            <span className="body text-xs font-medium text-primary/50">
               by <Proposer proposer={proposal.proposer} />
             </span>
           </Stack>
@@ -110,19 +109,19 @@ function ProposalTitle({ title }) {
 
 export function ProposalTimestamp({
   proposal,
-  size = "sm",
+  size = 'sm',
 }: {
   proposal: any
-  size?: "sm" | "xs"
+  size?: 'sm' | 'xs'
 }) {
-  const [timestampBadge, setTimestampBadge] = useState<string>("")
+  const [timestampBadge, setTimestampBadge] = useState<string>('')
 
   const pastDateFormat: [string, Intl.DateTimeFormatOptions] = [
-    "en-us",
+    'en-us',
     {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
+      month: 'short',
+      day: '2-digit',
+      year: 'numeric',
     },
   ]
 
@@ -136,7 +135,7 @@ export function ProposalTimestamp({
       end: new Date(proposal.expiresAt * 1000),
     }),
 
-    { format: ["days", "hours", "minutes"] }
+    { format: ['days', 'hours', 'minutes'] }
   )
 
   const voteEndFormatted = formatDuration(
@@ -145,7 +144,7 @@ export function ProposalTimestamp({
       end: new Date(proposal.voteEnd * 1000),
     }),
 
-    { format: ["days", "hours", "minutes"] }
+    { format: ['days', 'hours', 'minutes'] }
   )
 
   const voteStartFormatted = formatDuration(
@@ -154,26 +153,26 @@ export function ProposalTimestamp({
       end: new Date(proposal.voteStart * 1000),
     }),
 
-    { format: ["days", "hours", "minutes"] }
+    { format: ['days', 'hours', 'minutes'] }
   )
 
   useEffect(() => {
     function getTimestampBadge(proposal) {
-      if (proposal.status === "ACTIVE") {
+      if (proposal.status === 'ACTIVE') {
         setTimestampBadge(`Voting ends in ${voteEndFormatted}`)
-      } else if (proposal.status === "PENDING") {
+      } else if (proposal.status === 'PENDING') {
         setTimestampBadge(`Voting starts in ${voteStartFormatted}`)
-      } else if (proposal.status === "EXECUTABLE") {
+      } else if (proposal.status === 'EXECUTABLE') {
         setTimestampBadge(`Expires in ${expiresAtFormatted}`)
-      } else if (proposal.status === "QUEUED") {
+      } else if (proposal.status === 'QUEUED') {
         setTimestampBadge(`Expires in ${expiresAtFormatted}`)
-      } else if (proposal.status === "EXECUTED") {
+      } else if (proposal.status === 'EXECUTED') {
         setTimestampBadge(`Ended ${pastDateFormatted}`)
-      } else if (proposal.status === "CANCELED") {
+      } else if (proposal.status === 'CANCELED') {
         setTimestampBadge(`Ended ${pastDateFormatted}`)
-      } else if (proposal.status === "DEFEATED") {
+      } else if (proposal.status === 'DEFEATED') {
         setTimestampBadge(`Ended ${pastDateFormatted}`)
-      } else if (proposal.status === "VETOED") {
+      } else if (proposal.status === 'VETOED') {
         setTimestampBadge(`Ended ${pastDateFormatted}`)
       }
     }
@@ -182,7 +181,7 @@ export function ProposalTimestamp({
 
   return (
     <>
-      {size === "sm" ? (
+      {size === 'sm' ? (
         <BodySmall className="text-primary/50">{timestampBadge}</BodySmall>
       ) : (
         <BodyExtraSmall className="text-primary/50">

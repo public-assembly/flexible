@@ -1,10 +1,9 @@
-import React from "react"
-import EmptyState from "../EmptyState"
-import { ArrowUpRight } from "@/components/assets/icons"
-import { buildCreateProposalUrl } from "utils/helpers"
-import Button from "@/components/base/Button"
-import { ENV } from "utils/env"
-import { useTokenContext } from "@public-assembly/dao-utils"
+import { ArrowUpRight } from '@/components/assets/icons'
+import Button from '@/components/base/Button'
+import { useTokenContext } from '@public-assembly/dao-utils'
+import { ENV } from 'utils/env'
+import { buildCreateProposalUrl } from 'utils/helpers'
+import EmptyState from '../EmptyState'
 
 const ProposalEmptyState = () => {
   const { tokenSettings } = useTokenContext()
@@ -22,7 +21,7 @@ const ProposalEmptyState = () => {
           <Button
             variant="secondary"
             size="md"
-            suffix={<ArrowUpRight className="text-tertiary ml-[6px]" />}
+            suffix={<ArrowUpRight className="ml-[6px] text-tertiary" />}
           >
             Submit a proposal
           </Button>

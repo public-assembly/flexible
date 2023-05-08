@@ -1,16 +1,16 @@
-import React, { useEffect } from "react"
+import React, { useEffect } from 'react'
 
-import { useProposals } from "@/hooks/useProposals"
-import { motion } from "framer-motion"
-import { isServerSide } from "utils/helpers"
+import { useProposals } from '@/hooks/useProposals'
+import { motion } from 'framer-motion'
+import { isServerSide } from 'utils/helpers'
 
-import CountingNumbers from "@/components/base/CountingNumbers"
-import { Divider } from "@/components/base/Divider"
-import { Flex } from "@/components/base/Flex"
-import { Stack } from "@/components/base/Stack"
-import { Caption } from "@/components/base/Typography"
-import ProposalEmptyState from "@/components/proposals/ProposalEmptyState"
-import { ProposalList } from "@/components/proposals/ProposalList"
+import CountingNumbers from '@/components/base/CountingNumbers'
+import { Divider } from '@/components/base/Divider'
+import { Flex } from '@/components/base/Flex'
+import { Stack } from '@/components/base/Stack'
+import { Caption } from '@/components/base/Typography'
+import ProposalEmptyState from '@/components/proposals/ProposalEmptyState'
+import { ProposalList } from '@/components/proposals/ProposalList'
 
 function ProposalsPage() {
   const {
@@ -32,20 +32,19 @@ function ProposalsPage() {
   if (!loading) return null
 
   return (
-    <motion.section className="flex flex-col items-center justify-center min-h-full gap-8 px-4 pb-10 m-auto max-w-7xl grow">
-
+    <motion.section className="m-auto flex min-h-full max-w-7xl grow flex-col items-center justify-center gap-8 px-4 pb-10">
       <ProposalListStats
         activeProposalCount={activeProposalCount}
         totalProposalCount={totalProposalCount}
       />
 
-      <Stack className="items-center justify-center w-full h-full">
+      <Stack className="h-full w-full items-center justify-center">
         {isEmpty ? <ProposalEmptyState /> : null}
 
         {hasActiveProposals ? (
           <>
             <ProposalList proposals={activeProposals} type="active" />
-            <Divider className="bg-tertiary"/>
+            <Divider className="bg-tertiary" />
           </>
         ) : null}
 
@@ -61,7 +60,7 @@ export default ProposalsPage
 
 function ProposalListStats({ activeProposalCount, totalProposalCount }) {
   return (
-    <Flex className="justify-start hidden w-full gap-10 md:flex">
+    <Flex className="hidden w-full justify-start gap-10 md:flex">
       <Caption>
         <CountingNumbers value={activeProposalCount} interval={1} /> Active
       </Caption>

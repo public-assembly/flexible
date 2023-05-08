@@ -1,10 +1,10 @@
-import React from "react"
+import React from 'react'
 
-import { cn } from "utils/cn"
-import { shortenAddress } from "utils/shortenAddress"
-import { useEnsName } from "wagmi"
-import { Hash } from "types"
-import { ArrowUpRight } from "@/components/assets/icons"
+import { ArrowUpRight } from '@/components/assets/icons'
+import { Hash } from 'types'
+import { cn } from 'utils/cn'
+import { shortenAddress } from 'utils/shortenAddress'
+import { useEnsName } from 'wagmi'
 
 type ProposerProps = {
   proposer: Hash | undefined
@@ -28,7 +28,7 @@ export function Proposer({ proposer, className, externalLink }: ProposerProps) {
       {!!externalLink ? (
         <a
           className={cn(
-            "inline-flex items-center justify-center gap-1 underline text-primary/50",
+            'inline-flex items-center justify-center gap-1 text-primary/50 underline',
             className
           )}
         >

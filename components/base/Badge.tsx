@@ -1,12 +1,12 @@
-import { ReactNode } from "react"
+import { ReactNode } from 'react'
 
-import { VariantProps } from "cva"
-import { cn } from "utils/cn"
+import { VariantProps } from 'cva'
+import { cn } from 'utils/cn'
 
-import CountingNumbers from "@/components/base/CountingNumbers"
-import { Stack } from "@/components/base/Stack"
-import { BodySmall, Headline } from "@/components/base/Typography"
-import { labelVariants } from "@/components/proposals/ProposalLabel"
+import CountingNumbers from '@/components/base/CountingNumbers'
+import { Stack } from '@/components/base/Stack'
+import { BodySmall, Headline } from '@/components/base/Typography'
+import { labelVariants } from '@/components/proposals/ProposalLabel'
 
 type BadgeProps = {
   className?: string
@@ -19,7 +19,7 @@ export function Badge(props: BadgeProps) {
     <Stack
       className={cn(
         props.className,
-        "flex-col gap-1 px-6 py-4 bg-secondary rounded-object w-24 h-24 justify-center items-center"
+        'h-24 w-24 flex-col items-center justify-center gap-1 rounded-object bg-secondary px-6 py-4'
       )}
     >
       <Headline>

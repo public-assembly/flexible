@@ -1,4 +1,16 @@
-import { useState, useMemo } from "react"
+import { useAuth } from '@/hooks/useAuth'
+import {
+  governorAbi,
+  useGovernorContext,
+  useVote,
+} from '@public-assembly/dao-utils'
+import { BigNumber } from 'ethers'
+import { useState } from 'react'
+import { Hash } from 'types'
+import { cn } from 'utils/cn'
+import { useContractRead } from 'wagmi'
+import { Check, Exit, Minus, Pending } from '../assets/icons'
+import { Button } from '../base/Button'
 import {
   Dialog,
   DialogContent,
@@ -7,22 +19,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../base/Dialog"
-import { Check, Minus, Exit } from "../assets/icons"
-import { Stack } from "../base/Stack"
-import { Button } from "../base/Button"
-import { cn } from "utils/cn"
-import { useContractRead } from "wagmi"
-import {
-  governorAbi,
-  useGovernorContext,
-  useVote,
-} from "@public-assembly/dao-utils"
-import { Headline, BodyLarge } from "../base/Typography"
-import { useAuth } from "@/hooks/useAuth"
-import { BigNumber } from "ethers"
-import { Hash } from "types"
-import { Pending } from "../assets/icons"
+} from '../base/Dialog'
+import { Stack } from '../base/Stack'
+import { BodyLarge, Headline } from '../base/Typography'
 
 const ProposalVoteButton = ({ proposal }) => {
   const [support, setSupport] = useState<0 | 1 | 2 | undefined>()
@@ -45,11 +44,11 @@ const ProposalVoteButton = ({ proposal }) => {
   const { data: availableVotes } = useContractRead({
     address: governorAddress,
     abi: governorAbi,
-    functionName: "getVotes",
+    functionName: 'getVotes',
     args: [address as Hash, BigNumber.from(proposal?.timeCreated)],
   })
 
-  if (proposal.status != "ACTIVE") return null
+  if (proposal.status != 'ACTIVE') return null
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -57,7 +56,7 @@ const ProposalVoteButton = ({ proposal }) => {
           Submit vote
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] gap-y-6 border border-primary">
+      <DialogContent className="gap-y-6 border border-primary sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
             <Headline>Voting</Headline>
@@ -75,10 +74,10 @@ const ProposalVoteButton = ({ proposal }) => {
               setActiveButton(1)
             }}
             className={cn([
-              "flex justify-center items-center w-full gap-x-1 h-12",
-              "bg-secondary border border-primary/50 rounded-lg",
-              "hover:bg-primary hover:text-secondary",
-              activeButton == 1 && "text-secondary bg-primary",
+              'flex h-12 w-full items-center justify-center gap-x-1',
+              'rounded-lg border border-primary/50 bg-secondary',
+              'hover:bg-primary hover:text-secondary',
+              activeButton == 1 && 'bg-primary text-secondary',
             ])}
           >
             <Check />
@@ -91,10 +90,10 @@ const ProposalVoteButton = ({ proposal }) => {
               setActiveButton(0)
             }}
             className={cn([
-              "flex justify-center items-center w-full gap-x-1 h-12",
-              "bg-secondary border border-primary/50 rounded-lg",
-              "hover:bg-primary hover:text-secondary",
-              activeButton == 0 && "text-secondary bg-primary",
+              'flex h-12 w-full items-center justify-center gap-x-1',
+              'rounded-lg border border-primary/50 bg-secondary',
+              'hover:bg-primary hover:text-secondary',
+              activeButton == 0 && 'bg-primary text-secondary',
             ])}
           >
             <Exit />
@@ -107,10 +106,10 @@ const ProposalVoteButton = ({ proposal }) => {
               setActiveButton(2)
             }}
             className={cn([
-              "flex justify-center items-center w-full gap-x-1 h-12",
-              "bg-secondary border border-primary/50 rounded-lg",
-              "hover:bg-primary hover:text-secondary",
-              activeButton == 2 && "text-secondary bg-primary",
+              'flex h-12 w-full items-center justify-center gap-x-1',
+              'rounded-lg border border-primary/50 bg-secondary',
+              'hover:bg-primary hover:text-secondary',
+              activeButton == 2 && 'bg-primary text-secondary',
             ])}
           >
             <Minus />
@@ -123,7 +122,7 @@ const ProposalVoteButton = ({ proposal }) => {
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             placeholder="Comment (optional)"
-            className="py-2 px-3 w-full min-h-[167px] text-black"
+            className="min-h-[167px] w-full py-2 px-3 text-black"
           ></textarea>
         </Stack>
         <DialogFooter>
@@ -136,7 +135,7 @@ const ProposalVoteButton = ({ proposal }) => {
               disabled={support === undefined || support === null}
             >
               {!castVoteLoading ? (
-                "Submit vote"
+                'Submit vote'
               ) : (
                 <Pending className="animate-spin" />
               )}
@@ -150,7 +149,7 @@ const ProposalVoteButton = ({ proposal }) => {
               disabled={support === undefined || support === null}
             >
               {!castVoteWithReasonLoading ? (
-                "Submit vote with reason"
+                'Submit vote with reason'
               ) : (
                 <Pending className="animate-spin" />
               )}

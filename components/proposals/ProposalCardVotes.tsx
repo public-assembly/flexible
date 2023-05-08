@@ -1,5 +1,5 @@
-import { Flex } from "@/components/base/Flex"
-import ProposalLabel from "@/components/proposals/ProposalLabel"
+import { Flex } from '@/components/base/Flex'
+import ProposalLabel from '@/components/proposals/ProposalLabel'
 
 export function ProposalCardVotes({
   forVotes,
@@ -11,7 +11,7 @@ export function ProposalCardVotes({
   abstainVotes: number
 }) {
   return (
-    <Flex className="hidden gap-2 md:flex text-primary!important">
+    <Flex className="text-primary!important hidden gap-2 md:flex">
       {forVotes > 0 ? (
         <ProposalLabel variant="tertiaryVotes" textTransform="uppercase">
           {forVotes} For

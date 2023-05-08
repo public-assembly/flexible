@@ -1,25 +1,25 @@
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { Variants, motion } from "framer-motion"
-import { ENV } from "utils/env"
-import { useState } from "react"
-import Button from "@/components/base/Button"
-import { Flex } from "@/components/base/Flex"
-import { useAuth } from "../hooks/useAuth"
-import { useIsMobile } from "../hooks/useIsMobile"
-import ConnectButton from "./ConnectButton"
-import { Navigation } from "./Navigation"
-import { Exit, PlusIcon, Minus } from "./assets/icons"
-import DropdownMenu from "./base/DropdownMenu"
-import { Stack } from "./base/Stack"
-import { Body, Headline } from "./base/Typography"
-import { useDrawer } from "./drawer/useDrawer"
-import { NetworkController } from "./NetworkController"
-import { BigNumber } from "ethers"
-import { useContractRead } from "wagmi"
-import { platformThemeRegistryAbi } from "abi/platformThemeRegistryAbi"
-import { Hash } from "types"
-import { useTokenContext } from "@public-assembly/dao-utils"
+import Button from '@/components/base/Button'
+import { Flex } from '@/components/base/Flex'
+import { useTokenContext } from '@public-assembly/dao-utils'
+import { platformThemeRegistryAbi } from 'abi/platformThemeRegistryAbi'
+import { BigNumber } from 'ethers'
+import { motion, Variants } from 'framer-motion'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { Hash } from 'types'
+import { ENV } from 'utils/env'
+import { useContractRead } from 'wagmi'
+import { useAuth } from '../hooks/useAuth'
+import { useIsMobile } from '../hooks/useIsMobile'
+import { Exit, Minus, PlusIcon } from './assets/icons'
+import DropdownMenu from './base/DropdownMenu'
+import { Stack } from './base/Stack'
+import { Body, Headline } from './base/Typography'
+import ConnectButton from './ConnectButton'
+import { useDrawer } from './drawer/useDrawer'
+import { Navigation } from './Navigation'
+import { NetworkController } from './NetworkController'
 
 const fadeIn: Variants = {
   initial: { opacity: 0 },
@@ -49,12 +49,12 @@ export function Header() {
         y: 0,
       }}
       transition={{
-        ease: "easeInOut",
+        ease: 'easeInOut',
         duration: 0.8,
         delay: 0.5,
         easings: [0.44, 0, 0.56, 1],
       }}
-      className="flex flex-row items-center justify-between w-full px-4 py-4 bg-transparent"
+      className="flex w-full flex-row items-center justify-between bg-transparent px-4 py-4"
     >
       {/* Header Logo */}
       <Link href="/">
@@ -64,14 +64,14 @@ export function Header() {
         <NetworkController.Testnet>
           <Flex>
             <Headline className="headline">{tokenSettings?.[0]}</Headline>
-            <Flex className="items-center justify-center px-6 py-1 ml-4 border rounded-lg border-primary bg-highlight hover:cursor-default">
+            <Flex className="ml-4 items-center justify-center rounded-lg border border-primary bg-highlight px-6 py-1 hover:cursor-default">
               <Body className="font-medium text-primary">Goerli</Body>
             </Flex>
           </Flex>
         </NetworkController.Testnet>
       </Link>
 
-      <Flex className="gap-6 items-center">
+      <Flex className="items-center gap-6">
         {!isMobile && <Navigation />}
         <MobileDropdown />
       </Flex>
@@ -90,12 +90,12 @@ function MobileDropdown(props: MobileDropdownProps) {
   const { requestOpen } = useDrawer()
   const router = useRouter()
 
-  const themeRegistry = "0x9a23AE640040e4d34E9e00E500003000017144F4"
+  const themeRegistry = '0x9a23AE640040e4d34E9e00E500003000017144F4'
 
   useContractRead({
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
-    functionName: "getRole",
+    functionName: 'getRole',
     args: [BigNumber.from(ENV.PLATFORM_INDEX), address as Hash],
     onSuccess(getRole) {
       if (getRole === 1 || getRole === 2) {
@@ -111,9 +111,9 @@ function MobileDropdown(props: MobileDropdownProps) {
       <DropdownMenu.Trigger asChild>
         <Button size="icon" className="rounded-object" variant="burger">
           {!isOpen ? (
-            <PlusIcon className="w-8 h-8 text-primary" />
+            <PlusIcon className="h-8 w-8 text-primary" />
           ) : (
-            <Minus className="w-8 h-8 text-secondary" />
+            <Minus className="h-8 w-8 text-secondary" />
           )}
         </Button>
       </DropdownMenu.Trigger>
@@ -134,7 +134,7 @@ function MobileDropdown(props: MobileDropdownProps) {
                 <Button
                   size="md"
                   variant="secondary"
-                  onClick={() => requestOpen("palette")}
+                  onClick={() => requestOpen('palette')}
                   className="mt-2"
                 >
                   Edit theme
@@ -148,7 +148,7 @@ function MobileDropdown(props: MobileDropdownProps) {
             <Button
               size="md"
               variant="tertiary"
-              onClick={() => router.push("/platform")}
+              onClick={() => router.push('/platform')}
             >
               Copy this template
             </Button>
@@ -158,8 +158,8 @@ function MobileDropdown(props: MobileDropdownProps) {
             <>
               <DropdownMenu.Separator />
               <DropdownMenu.Item type="button" onClick={logout}>
-                <Flex className="items-center gap-2 py-2 rounded-object hover:cursor-pointer hover:bg-highlight/50 focus:outline-none body text-primary">
-                  <Exit className="text-primary ml-1" />
+                <Flex className="body items-center gap-2 rounded-object py-2 text-primary hover:cursor-pointer hover:bg-highlight/50 focus:outline-none">
+                  <Exit className="ml-1 text-primary" />
                   Disconnect
                 </Flex>
               </DropdownMenu.Item>

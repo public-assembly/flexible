@@ -1,11 +1,11 @@
-import Button from "../base/Button"
-import { Pending } from "../assets/icons"
-import { useGovernorContext, governorAbi } from "@public-assembly/dao-utils"
+import { governorAbi, useGovernorContext } from '@public-assembly/dao-utils'
 import {
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
-} from "wagmi"
+} from 'wagmi'
+import { Pending } from '../assets/icons'
+import Button from '../base/Button'
 
 /**
  * Veto a proposal
@@ -16,7 +16,7 @@ export function Veto({ proposal }) {
   const { config } = usePrepareContractWrite({
     address: governorAddress,
     abi: governorAbi,
-    functionName: "veto",
+    functionName: 'veto',
     args: [proposal.proposalId],
   })
   const { data, write: veto } = useContractWrite(config)
@@ -33,7 +33,7 @@ export function Veto({ proposal }) {
       disabled={isLoading || !veto}
       onClick={() => veto?.()}
     >
-      {!isLoading ? "Veto" : <Pending className="animate-spin" />}
+      {!isLoading ? 'Veto' : <Pending className="animate-spin" />}
     </Button>
   )
 }
@@ -47,7 +47,7 @@ export function Execute({ proposal }) {
   const { config } = usePrepareContractWrite({
     address: governorAddress,
     abi: governorAbi,
-    functionName: "execute",
+    functionName: 'execute',
     args: [
       proposal.targets,
       proposal.values,
@@ -69,7 +69,7 @@ export function Execute({ proposal }) {
       disabled={isLoading || !execute}
       onClick={() => execute?.()}
     >
-      {!isLoading ? "Execute" : <Pending className="animate-spin" />}
+      {!isLoading ? 'Execute' : <Pending className="animate-spin" />}
     </Button>
   )
 }
@@ -83,7 +83,7 @@ export function Queue({ proposal }) {
   const { config } = usePrepareContractWrite({
     address: governorAddress,
     abi: governorAbi,
-    functionName: "queue",
+    functionName: 'queue',
     args: [proposal.proposalId],
   })
   const { data, write: queue } = useContractWrite(config)
@@ -99,7 +99,7 @@ export function Queue({ proposal }) {
       disabled={isLoading || !queue}
       onClick={() => queue?.()}
     >
-      {!isLoading ? "Queue" : <Pending className="animate-spin" />}
+      {!isLoading ? 'Queue' : <Pending className="animate-spin" />}
     </Button>
   )
 }
@@ -113,7 +113,7 @@ export function Cancel({ proposal }) {
   const { config } = usePrepareContractWrite({
     address: governorAddress,
     abi: governorAbi,
-    functionName: "cancel",
+    functionName: 'cancel',
     args: [proposal.proposalId],
   })
   const { data, write: cancel } = useContractWrite(config)
@@ -130,7 +130,7 @@ export function Cancel({ proposal }) {
       disabled={isLoading || !cancel}
       onClick={() => cancel?.()}
     >
-      {!isLoading ? "Cancel proposal" : <Pending className="animate-spin" />}
+      {!isLoading ? 'Cancel proposal' : <Pending className="animate-spin" />}
     </Button>
   )
 }

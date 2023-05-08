@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react"
-import { cn } from "utils/cn"
-import { ENV } from "utils/env"
-import { ArrowLeft, ArrowRight } from "@/components/assets/icons"
-import { AuctionSheet } from "@/components/auction/AuctionSheet"
-import Button from "@/components/base/Button"
-import { Flex } from "@/components/base/Flex"
-import { Stack } from "@/components/base/Stack"
-import { BlurImage } from "@/components/BlurImage"
-import Label from "../base/Label"
+import { ArrowLeft, ArrowRight } from '@/components/assets/icons'
+import { AuctionSheet } from '@/components/auction/AuctionSheet'
+import Button from '@/components/base/Button'
+import { Flex } from '@/components/base/Flex'
+import { Stack } from '@/components/base/Stack'
+import { BlurImage } from '@/components/BlurImage'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import {
-  useDaoTokenQuery,
+  useActiveAuction,
   useBid,
   useBidder,
+  useCountdown,
+  useDaoTokenQuery,
+  useManagerContext,
   useTokenContext,
   useTokenExplorer,
-  useActiveAuction,
-  useManagerContext,
   useTokenMetadata,
-  useCountdown,
-} from "@public-assembly/dao-utils"
-import { useIsMobile } from "@/hooks/useIsMobile"
-import { motion } from "framer-motion"
-import { Hash } from "types"
+} from '@public-assembly/dao-utils'
+import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { Hash } from 'types'
+import { cn } from 'utils/cn'
+import { ENV } from 'utils/env'
+import Label from '../base/Label'
 
 const Auction = () => {
   const { isMobile } = useIsMobile()
@@ -67,10 +67,10 @@ const Auction = () => {
   const { tokenSettings } = useTokenContext()
 
   return (
-    <Stack className="h-full gap-4 px-4 pt-10 md:pt-20 overflow-x-hidden ">
-      <Flex className="relative justify-center w-full">
-        <Stack className="relative justify-between max-h-[600px] max-w-[600px] w-full h-full p-4 aspect-square">
-          <div className="absolute inset-0 z-0 w-full aspect-square">
+    <Stack className="h-full gap-4 overflow-x-hidden px-4 pt-10 md:pt-20 ">
+      <Flex className="relative w-full justify-center">
+        <Stack className="relative aspect-square h-full max-h-[600px] w-full max-w-[600px] justify-between p-4">
+          <div className="absolute inset-0 z-0 aspect-square w-full">
             {tokenThumbnail && (
               <BlurImage
                 src={tokenThumbnail}
@@ -86,8 +86,8 @@ const Auction = () => {
               variant="tertiary"
               onClick={decrementId}
               className={cn(
-                "w-fit z-10 custom-shadow text-primary",
-                isFirstToken && "pointer-events-none opacity-20"
+                'custom-shadow z-10 w-fit text-primary',
+                isFirstToken && 'pointer-events-none opacity-20'
               )}
             >
               <ArrowLeft />
@@ -96,8 +96,8 @@ const Auction = () => {
               variant="tertiary"
               onClick={incrementId}
               className={cn(
-                "w-fit z-10 custom-shadow text-primary",
-                isLastToken && "pointer-events-none opacity-20"
+                'custom-shadow z-10 w-fit text-primary',
+                isLastToken && 'pointer-events-none opacity-20'
               )}
             >
               <ArrowRight />
@@ -111,7 +111,7 @@ const Auction = () => {
                   {tokenName}
                 </Label>
               ) : (
-                <Label variant="row" className="animate-pulse z-10">
+                <Label variant="row" className="z-10 animate-pulse">
                   {tokenSettings?.[0]}
                 </Label>
               )}
@@ -120,7 +120,7 @@ const Auction = () => {
                 <Label variant="row" className="z-10">
                   <a className="flex" href={winningTx}>
                     <span className="mr-4">Current bid</span>
-                    {winningBid ? `${winningBid} ETH` : ""}
+                    {winningBid ? `${winningBid} ETH` : ''}
                   </a>
                 </Label>
               ) : !tokenData ? (
@@ -132,15 +132,15 @@ const Auction = () => {
                     0x...
                   </Label>
                 </Flex>
-              ) : winningBid === "N/A" &&
+              ) : winningBid === 'N/A' &&
                 tokenData?.owner !=
-                  "0x0000000000000000000000000000000000000000" ? (
+                  '0x0000000000000000000000000000000000000000' ? (
                 <Label
                   variant="row"
                   className="z-10"
                 >{`Allocated to ${resolvedTokenOwner}`}</Label>
               ) : (
-                <Flex className="gap-4 z-10">
+                <Flex className="z-10 gap-4">
                   {winningBid && resolvedTokenOwner ? (
                     <>
                       <Label variant="row">{`${winningBid} ETH`}</Label>
@@ -167,10 +167,10 @@ const Auction = () => {
 
       {/* Mobile auction button */}
       {isMobile ? (
-        <Stack className="justify-between flex-grow w-full h-full">
+        <Stack className="h-full w-full flex-grow justify-between">
           <Stack className="gap-4">
             {/* Current token/Historical token badge */}
-            <motion.div className="px-4 py-2 bg-primary text-secondary rounded-object w-fit">
+            <motion.div className="w-fit rounded-object bg-primary px-4 py-2 text-secondary">
               {tokenName}
             </motion.div>
             {/* Current bid/Historical bid badge */}
@@ -178,7 +178,7 @@ const Auction = () => {
               <Label variant="row" className="z-10">
                 <a className="flex" href={winningTx}>
                   <span className="mr-4">Current bid</span>
-                  {winningBid ? `${winningBid} ETH` : ""}
+                  {winningBid ? `${winningBid} ETH` : ''}
                 </a>
               </Label>
             ) : !tokenData ? (
@@ -190,15 +190,15 @@ const Auction = () => {
                   0x...
                 </Label>
               </Flex>
-            ) : winningBid === "N/A" &&
+            ) : winningBid === 'N/A' &&
               tokenData?.owner !=
-                "0x0000000000000000000000000000000000000000" ? (
+                '0x0000000000000000000000000000000000000000' ? (
               <Label
                 variant="row"
                 className="z-10"
               >{`Allocated to ${resolvedTokenOwner}`}</Label>
             ) : (
-              <Flex className="gap-4 z-10">
+              <Flex className="z-10 gap-4">
                 {winningBid && resolvedTokenOwner ? (
                   <>
                     <Label variant="row">{`${winningBid} ETH`}</Label>

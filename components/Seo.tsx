@@ -1,6 +1,6 @@
-import Head from "next/head"
-import { ENV } from "utils/env"
-import { useMetadataContext, useTokenContext } from "@public-assembly/dao-utils"
+import { useMetadataContext, useTokenContext } from '@public-assembly/dao-utils'
+import Head from 'next/head'
+import { ENV } from 'utils/env'
 
 type SeoProps = {
   url?: string
@@ -11,11 +11,11 @@ export function Seo({ url, ogImage }: SeoProps) {
   const { metadataSettings } = useMetadataContext()
   const { tokenSettings } = useTokenContext()
 
-  const title = tokenSettings?.[0] || ""
-  const description = metadataSettings?.description || ""
-  const defaultOGURL = ENV.WEBSITE_URL || ""
+  const title = tokenSettings?.[0] || ''
+  const description = metadataSettings?.description || ''
+  const defaultOGURL = ENV.WEBSITE_URL || ''
   const defaultOGImage = `https://hkzmq6akhweeabrxhijjq2oxlyzwgrhv5j6anakmfd5hxn4tunca.arweave.net/OrLIeAo9iEAGNzoSmGnXXjNjRPXqfAaBTCj6e7eTo0Q`
-  const favicon = "/favicon.png"
+  const favicon = '/favicon.png'
 
   return (
     <Head>

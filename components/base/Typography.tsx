@@ -1,4 +1,4 @@
-import { cn } from "utils/cn"
+import { cn } from 'utils/cn'
 
 type TypographyProps = {
   children: React.ReactNode
@@ -6,14 +6,14 @@ type TypographyProps = {
 }
 
 export function H2Heading({ children, className }: TypographyProps) {
-  return <h2 className="text-4xl font-medium text-black primary">{children}</h2>
+  return <h2 className="primary text-4xl font-medium text-black">{children}</h2>
 }
 
 export function H1Heading({ children, className }: TypographyProps) {
   return (
     <h1
       className={cn(
-        "text-2xl font-medium leading-10 tracking-[-0.5px] text-primary",
+        'text-2xl font-medium leading-10 tracking-[-0.5px] text-primary',
         className
       )}
     >
@@ -29,7 +29,7 @@ export function Headline({ children, className }: TypographyProps) {
   return (
     <p
       className={cn(
-        "text-[1.5rem] font-medium leading-10 tracking-[-0.5px] text-primary headline",
+        'headline text-[1.5rem] font-medium leading-10 tracking-[-0.5px] text-primary',
         className
       )}
     >
@@ -40,7 +40,7 @@ export function Headline({ children, className }: TypographyProps) {
 
 export function Caption({ children, className }: TypographyProps) {
   return (
-    <p className={cn("text-base text-primary caption", className)}>
+    <p className={cn('caption text-base text-primary', className)}>
       {children}
     </p>
   )
@@ -50,7 +50,7 @@ export function BodyLarge({ children, className }: TypographyProps) {
   return (
     <p
       className={cn(
-        "text-[18px] leading-7 font-medium text-primary body",
+        'body text-[18px] font-medium leading-7 text-primary',
         className
       )}
     >
@@ -61,7 +61,7 @@ export function BodyLarge({ children, className }: TypographyProps) {
 
 export function Body({ children, className }: TypographyProps) {
   return (
-    <p className={cn("text-base font-normal text-primary body", className)}>
+    <p className={cn('body text-base font-normal text-primary', className)}>
       {children}
     </p>
   )
@@ -69,7 +69,7 @@ export function Body({ children, className }: TypographyProps) {
 
 export function BodySmall({ children, className }: TypographyProps) {
   return (
-    <p className={cn("text-sm font-normal text-primary body", className)}>
+    <p className={cn('body text-sm font-normal text-primary', className)}>
       {children}
     </p>
   )
@@ -79,7 +79,7 @@ export function BodyExtraSmall({ children, className }: TypographyProps) {
   return (
     <span
       className={cn(
-        "text-xs leading-4 font-medium text-secondary body",
+        'body text-xs font-medium leading-4 text-secondary',
         className
       )}
     >

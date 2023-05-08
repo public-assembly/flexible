@@ -1,23 +1,22 @@
-import { Globe } from "@/components/assets/icons"
-import { Flex } from "@/components/base/Flex"
-import IconButton from "@/components/base/IconButton"
-import { Stack } from "@/components/base/Stack"
-import { Body, H2Heading } from "@/components/base/Typography"
-import clsx from "clsx"
-import { PropsWithChildren } from "react"
+import { Globe } from '@/components/assets/icons'
+import { Flex } from '@/components/base/Flex'
+import IconButton from '@/components/base/IconButton'
+import Label from '@/components/base/Label'
+import { Stack } from '@/components/base/Stack'
+import { H2Heading } from '@/components/base/Typography'
+import { buildEtherscanAddressLink } from '@/utils/helpers'
 import {
+  useDaoCollectionQuery,
+  useManagerContext,
   useMetadataContext,
   useTokenContext,
-  useManagerContext,
-  useDaoCollectionQuery,
-} from "@public-assembly/dao-utils"
-import { useBalance, useContractRead } from "wagmi"
-import { aggregatorAbi } from "abi/aggregatorAbi"
-import { Hash } from "types"
-import { RichText } from "@/components/base/Richtext"
-import Label from "@/components/base/Label"
-import { buildEtherscanAddressLink } from "@/utils/helpers"
-import HtmlReactParser from "html-react-parser"
+} from '@public-assembly/dao-utils'
+import { aggregatorAbi } from 'abi/aggregatorAbi'
+import clsx from 'clsx'
+import HtmlReactParser from 'html-react-parser'
+import { PropsWithChildren } from 'react'
+import { Hash } from 'types'
+import { useBalance, useContractRead } from 'wagmi'
 
 export default function AboutPage() {
   const { metadataSettings } = useMetadataContext()
@@ -33,9 +32,9 @@ export default function AboutPage() {
   })
 
   const { data: latestRoundData } = useContractRead({
-    address: "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
+    address: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
     abi: aggregatorAbi,
-    functionName: "latestRoundData",
+    functionName: 'latestRoundData',
   })
 
   const ethUsd = Number(latestRoundData?.answer.toString().substring(0, 4))
@@ -47,20 +46,20 @@ export default function AboutPage() {
         tooltip="website"
         href={`${metadataSettings?.projectURI}`}
       />
-      <Flex className="max-w-xl body">
+      <Flex className="body max-w-xl">
         {HtmlReactParser(
-          String(metadataSettings?.description).replace(/\\n/g, "<br />")
+          String(metadataSettings?.description).replace(/\\n/g, '<br />')
         )}
       </Flex>
 
       <Flex className="gap-6">
-        <Card className="px-6 py-4 rounded-object bg-secondary">
+        <Card className="rounded-object bg-secondary px-6 py-4">
           <Stack>
             <H2Heading>{ownerCount}</H2Heading>
             <div className="text-black">Owners</div>
           </Stack>
         </Card>
-        <Card className="px-6 py-4 rounded-object bg-secondary">
+        <Card className="rounded-object bg-secondary px-6 py-4">
           <Stack>
             {tokenSettings ? (
               <H2Heading>{tokenSettings[2]?.toNumber() - 1}</H2Heading>
@@ -69,7 +68,7 @@ export default function AboutPage() {
           </Stack>
         </Card>
       </Flex>
-      <Flex className="flex-wrap w-full gap-6 text-black">
+      <Flex className="w-full flex-wrap gap-6 text-black">
         <Label
           showExternalLinkIcon
           externalLink={buildEtherscanAddressLink(
@@ -93,7 +92,7 @@ function Card({
   className,
 }: PropsWithChildren<{ className?: string }>) {
   return (
-    <div className={clsx("bg-white rounded-md w-fit h-fit", className)}>
+    <div className={clsx('h-fit w-fit rounded-md bg-white', className)}>
       {children}
     </div>
   )

@@ -1,11 +1,11 @@
-import Button from "../base/Button"
+import { auctionAbi, useAuctionContext } from '@public-assembly/dao-utils'
 import {
-  usePrepareContractWrite,
   useContractWrite,
+  usePrepareContractWrite,
   useWaitForTransaction,
-} from "wagmi"
-import { Pending } from "../assets/icons"
-import { useAuctionContext, auctionAbi } from "@public-assembly/dao-utils"
+} from 'wagmi'
+import { Pending } from '../assets/icons'
+import Button from '../base/Button'
 
 export function Settle() {
   const { auctionAddress } = useAuctionContext()
@@ -13,7 +13,7 @@ export function Settle() {
   const { config } = usePrepareContractWrite({
     address: auctionAddress,
     abi: auctionAbi,
-    functionName: "settleCurrentAndCreateNewAuction",
+    functionName: 'settleCurrentAndCreateNewAuction',
   })
   const { data, write: settle } = useContractWrite(config)
 
@@ -23,7 +23,7 @@ export function Settle() {
 
   return (
     <Button size="lg" disabled={isLoading} onClick={() => settle?.()}>
-      {!isLoading ? "Settle auction" : <Pending className="animate-spin" />}
+      {!isLoading ? 'Settle auction' : <Pending className="animate-spin" />}
     </Button>
   )
 }

@@ -1,12 +1,12 @@
-import { motion } from "framer-motion"
-import { cn } from "@/utils/cn"
-import ProposalCard from "@/components/proposals/ProposalCard"
-import { variants } from "@/components/proposals/animations"
+import { variants } from '@/components/proposals/animations'
+import ProposalCard from '@/components/proposals/ProposalCard'
+import { cn } from '@/utils/cn'
+import { motion } from 'framer-motion'
 
 type ProposalListProps = {
   proposals: any
   // Grouping the proposals by active versus not-active uses a different page layout
-  type: "active" | "not-active"
+  type: 'active' | 'not-active'
 }
 
 export function ProposalList({ proposals, type }: ProposalListProps) {
@@ -19,12 +19,11 @@ export function ProposalList({ proposals, type }: ProposalListProps) {
       variants={variants}
       exit={{ opacity: 0 }}
       className={cn(
-        type === "active"
-          ? "flex flex-wrap w-full gap-6 md:gap-10 md:grid md:grid-cols-2 group"
-          : "flex flex-wrap w-full gap-6 md:gap-10 md:grid md:grid-cols-3 group"
+        type === 'active'
+          ? 'group flex w-full flex-wrap gap-6 md:grid md:grid-cols-2 md:gap-10'
+          : 'group flex w-full flex-wrap gap-6 md:grid md:grid-cols-3 md:gap-10'
       )}
     >
-   
       {proposals.map((proposal) => (
         <motion.li
           variants={variants}
