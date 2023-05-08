@@ -97,57 +97,6 @@ a {
   text-decoration: none;
 }
 
-.color-picker {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 161px;
-  height: 42px;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.color-picker::-webkit-color-swatch {
-  border: solid 1px #f6f6f6;
-  border-radius: 8px;
-}
-
-.font-picker {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: transparent;
-  border: 1px solid #ccc;
-  padding: 10px;
-  position: relative;
-  text-align: center;
-}
-
-.font-picker:after {
-  content: "\2304";
-  font-size: 30px;
-  line-height: 23px;
-  padding-right: 2px;
-}
-
-.image-picker {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 40px;
-  padding-right: 40px;
-  border: solid 1.5px #c9d2d2;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-input[type="file"] {
-  display: none;
-}
-
-input[type="range"] {
-  display: none;
-}
-
 div[data-radix-popper-content-wrapper] .content-outer .content-inner {
   width: 100%;
   max-width: 100%;
@@ -160,11 +109,7 @@ div[data-radix-popper-content-wrapper] {
   z-index: 999 !important;
 }
 
-.new-line {
-  white-space: pre;
-}
-
-/* On screens that are 768px or less, create sheet for dropdown */
+/* On screens that are 768px or less, create a sheet for the dropdown menu */
 @media screen and (max-width: 768px) {
   div[data-radix-popper-content-wrapper] {
     transform: none !important;
@@ -181,26 +126,18 @@ div[data-radix-popper-content-wrapper] {
   }
 }
 
-/* Scrollbar */
-
-/* Width */
+/* Hide scrollbar */
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: transparent;
+/* Disable default input styling for file inputs */
+input[type="file"] {
+  display: none;
 }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: var(--color-tertiary);
-  border-radius: 48px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-tertiary);
+/* Disable default input styling for range inputs */
+input[type="range"] {
+  display: none;
 }
