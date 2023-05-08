@@ -1,6 +1,6 @@
-import { DrawerContext } from './DrawerProvider'
-import { DrawerType, DrawerContextType } from './drawerTypes'
 import { useCallback, useContext } from 'react'
+import { DrawerContext } from './DrawerProvider'
+import { DrawerContextType, DrawerType } from './drawerTypes'
 
 export function useDrawer() {
   const [state, setState] = useContext<DrawerContextType>(DrawerContext)

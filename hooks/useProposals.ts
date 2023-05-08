@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
 import { useGovernorContext } from '@public-assembly/dao-utils'
 import _ from 'lodash'
+import { useEffect, useState } from 'react'
 import { NOUNS_PROPOSAL_STATUS } from '../types/index'
 
 export const useProposals = () => {

@@ -1,11 +1,11 @@
-import Button from '../base/Button'
-import { Pending } from '../assets/icons'
-import { useGovernorContext, governorAbi } from '@public-assembly/dao-utils'
+import { governorAbi, useGovernorContext } from '@public-assembly/dao-utils'
 import {
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
 } from 'wagmi'
+import { Pending } from '../assets/icons'
+import Button from '../base/Button'
 
 /**
  * Veto a proposal

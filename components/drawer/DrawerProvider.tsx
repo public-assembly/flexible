@@ -1,8 +1,8 @@
-import React, { createContext, useState } from 'react'
+import { createContext, useState } from 'react'
 import type {
+  DrawerContextType,
   DrawerProviderProps,
   DrawerState,
-  DrawerContextType,
 } from './drawerTypes'
 
 export const DrawerContext = createContext<DrawerContextType>([

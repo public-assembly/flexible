@@ -1,12 +1,12 @@
-import { ReactNode, forwardRef } from 'react'
+import { forwardRef, ReactNode } from 'react'
 
-import { VariantProps, cva } from 'cva'
+import { cva, VariantProps } from 'cva'
 import { cn } from 'utils/cn'
 
-import { Link } from './Link'
 import { ArrowUpRight } from '@/components/assets/icons'
 import CountingNumbers from '@/components/base/CountingNumbers'
 import { BodySmall, Headline } from '@/components/base/Typography'
+import { Link } from './Link'
 
 const labelVariants = cva(
   ['w-fit h-fit flex rounded-object items-center body'],

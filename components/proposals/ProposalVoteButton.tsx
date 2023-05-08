@@ -1,4 +1,16 @@
-import { useState, useMemo } from 'react'
+import { useAuth } from '@/hooks/useAuth'
+import {
+  governorAbi,
+  useGovernorContext,
+  useVote,
+} from '@public-assembly/dao-utils'
+import { BigNumber } from 'ethers'
+import { useState } from 'react'
+import { Hash } from 'types'
+import { cn } from 'utils/cn'
+import { useContractRead } from 'wagmi'
+import { Check, Exit, Minus, Pending } from '../assets/icons'
+import { Button } from '../base/Button'
 import {
   Dialog,
   DialogContent,
@@ -8,21 +20,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../base/Dialog'
-import { Check, Minus, Exit } from '../assets/icons'
 import { Stack } from '../base/Stack'
-import { Button } from '../base/Button'
-import { cn } from 'utils/cn'
-import { useContractRead } from 'wagmi'
-import {
-  governorAbi,
-  useGovernorContext,
-  useVote,
-} from '@public-assembly/dao-utils'
-import { Headline, BodyLarge } from '../base/Typography'
-import { useAuth } from '@/hooks/useAuth'
-import { BigNumber } from 'ethers'
-import { Hash } from 'types'
-import { Pending } from '../assets/icons'
+import { BodyLarge, Headline } from '../base/Typography'
 
 const ProposalVoteButton = ({ proposal }) => {
   const [support, setSupport] = useState<0 | 1 | 2 | undefined>()

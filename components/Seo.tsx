@@ -1,6 +1,6 @@
+import { useMetadataContext, useTokenContext } from '@public-assembly/dao-utils'
 import Head from 'next/head'
 import { ENV } from 'utils/env'
-import { useMetadataContext, useTokenContext } from '@public-assembly/dao-utils'
 
 type SeoProps = {
   url?: string

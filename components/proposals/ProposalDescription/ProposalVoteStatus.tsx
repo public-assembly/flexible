@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react'
-import { useAuth } from '@/hooks/useAuth'
-import { useProposalPermissions } from '@/hooks/useProposalPermissions'
-import ProposalVoteButton from '../ProposalVoteButton'
+import { Check, Exit, Minus } from '@/components/assets/icons'
+import { Flex } from '@/components/base/Flex'
 import Label from '@/components/base/Label'
-import { buildEtherscanLink } from '@/utils/helpers'
-import { PROPOSAL_SUPPORT, NOUNS_PROPOSAL_SUPPORT } from 'types'
+import { Stack } from '@/components/base/Stack'
+import ConnectButton from '@/components/ConnectButton'
 import {
-  Veto,
   Cancel,
   Execute,
   Queue,
+  Veto,
 } from '@/components/proposals/ProposalActions'
-import { Check, Minus, Exit } from '@/components/assets/icons'
-import { Flex } from '@/components/base/Flex'
-import { Stack } from '@/components/base/Stack'
-import ConnectButton from '@/components/ConnectButton'
+import { useAuth } from '@/hooks/useAuth'
+import { useProposalPermissions } from '@/hooks/useProposalPermissions'
+import { buildEtherscanLink } from '@/utils/helpers'
+import { useEffect, useState } from 'react'
+import { NOUNS_PROPOSAL_SUPPORT, PROPOSAL_SUPPORT } from 'types'
+import ProposalVoteButton from '../ProposalVoteButton'
 
 const voteSupportMessages = {
   for: 'You voted for this proposal',

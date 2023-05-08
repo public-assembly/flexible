@@ -2,11 +2,11 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
-import Link from 'next/link'
 import { useAuth } from '@/hooks/useAuth'
+import { formatDuration, intervalToDuration } from 'date-fns'
+import Link from 'next/link'
 import Balancer from 'react-wrap-balancer'
 import { cn } from 'utils/cn'
-import { intervalToDuration, formatDuration } from 'date-fns'
 
 import { Flex } from '@/components/base/Flex'
 import { Stack } from '@/components/base/Stack'
@@ -16,13 +16,12 @@ import {
   BodySmall,
 } from '@/components/base/Typography'
 import { Proposer } from '@/components/proposals/Proposer'
-import { ProposalCardVotes } from './ProposalCardVotes'
-import ProposalLabel from './ProposalLabel'
-import { useGovernorContext } from '@public-assembly/dao-utils'
-import { useContractRead } from 'wagmi'
-import { governorAbi } from '@public-assembly/dao-utils'
+import { governorAbi, useGovernorContext } from '@public-assembly/dao-utils'
 import { BigNumber } from 'ethers'
 import { Hash } from 'types'
+import { useContractRead } from 'wagmi'
+import { ProposalCardVotes } from './ProposalCardVotes'
+import ProposalLabel from './ProposalLabel'
 
 export default function ProposalCard({ proposal }) {
   const { address } = useAuth()

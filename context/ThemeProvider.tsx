@@ -1,16 +1,16 @@
+import { BigNumber } from 'ethers'
 import {
   createContext,
+  memo,
   ReactNode,
   useContext,
-  useState,
   useEffect,
-  memo,
+  useState,
 } from 'react'
-import { BigNumber } from 'ethers'
+import tinycolor from 'tinycolor2'
 import { useContractRead } from 'wagmi'
 import { platformThemeRegistryAbi } from '../abi/platformThemeRegistryAbi'
 import { useWeb3Storage } from '../hooks/useWeb3Storage'
-import tinycolor from 'tinycolor2'
 
 type ThemeProviderProps = {
   children?: ReactNode

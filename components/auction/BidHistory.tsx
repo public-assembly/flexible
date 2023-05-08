@@ -1,9 +1,9 @@
+import { Bidder } from '@/components/auction/Bidder'
+import { cn } from '@/utils/cn'
+import { useBid } from '@public-assembly/dao-utils'
+import { Hash } from 'types'
 import { Flex } from '../base/Flex'
 import { Caption } from '../base/Typography'
-import { useBid } from '@public-assembly/dao-utils'
-import { Bidder } from '@/components/auction/Bidder'
-import { Hash } from 'types'
-import { cn } from '@/utils/cn'
 
 interface BidHistoryProps {
   tokenId: string

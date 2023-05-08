@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from 'react'
-import { cn } from 'utils/cn'
-import { ENV } from 'utils/env'
 import { ArrowLeft, ArrowRight } from '@/components/assets/icons'
 import { AuctionSheet } from '@/components/auction/AuctionSheet'
 import Button from '@/components/base/Button'
 import { Flex } from '@/components/base/Flex'
 import { Stack } from '@/components/base/Stack'
 import { BlurImage } from '@/components/BlurImage'
-import Label from '../base/Label'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import {
-  useDaoTokenQuery,
+  useActiveAuction,
   useBid,
   useBidder,
+  useCountdown,
+  useDaoTokenQuery,
+  useManagerContext,
   useTokenContext,
   useTokenExplorer,
-  useActiveAuction,
-  useManagerContext,
   useTokenMetadata,
-  useCountdown,
 } from '@public-assembly/dao-utils'
-import { useIsMobile } from '@/hooks/useIsMobile'
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { Hash } from 'types'
+import { cn } from 'utils/cn'
+import { ENV } from 'utils/env'
+import Label from '../base/Label'
 
 const Auction = () => {
   const { isMobile } = useIsMobile()

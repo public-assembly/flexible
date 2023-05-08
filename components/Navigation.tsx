@@ -2,9 +2,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { cn } from 'utils/cn'
 
-import styles from './Navigation.module.css'
 import { Flex } from './base/Flex'
 import { Headline } from './base/Typography'
+import styles from './Navigation.module.css'
 
 type NavLinkProps = {
   slug: string

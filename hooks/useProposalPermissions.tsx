@@ -1,9 +1,9 @@
+import { useAuth } from '@/hooks/useAuth'
+import { governorAbi, useGovernorContext } from '@public-assembly/dao-utils'
+import { BigNumber } from 'ethers'
 import { useState } from 'react'
-import { useGovernorContext, governorAbi } from '@public-assembly/dao-utils'
 import { Hash } from 'types'
 import { useContractReads } from 'wagmi'
-import { BigNumber } from 'ethers'
-import { useAuth } from '@/hooks/useAuth'
 
 export function useProposalPermissions(proposal) {
   const { governorAddress } = useGovernorContext()

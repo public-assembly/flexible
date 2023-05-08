@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react'
-import NextLink from 'next/link'
-import { Tooltip } from './Tooltip'
 import { cx } from 'cva'
+import NextLink from 'next/link'
+import React, { ReactNode } from 'react'
+import { Tooltip } from './Tooltip'
 
 type LinkProps = {
   href: string

@@ -1,23 +1,22 @@
 import { Globe } from '@/components/assets/icons'
 import { Flex } from '@/components/base/Flex'
 import IconButton from '@/components/base/IconButton'
+import Label from '@/components/base/Label'
 import { Stack } from '@/components/base/Stack'
-import { Body, H2Heading } from '@/components/base/Typography'
-import clsx from 'clsx'
-import { PropsWithChildren } from 'react'
+import { H2Heading } from '@/components/base/Typography'
+import { buildEtherscanAddressLink } from '@/utils/helpers'
 import {
+  useDaoCollectionQuery,
+  useManagerContext,
   useMetadataContext,
   useTokenContext,
-  useManagerContext,
-  useDaoCollectionQuery,
 } from '@public-assembly/dao-utils'
-import { useBalance, useContractRead } from 'wagmi'
 import { aggregatorAbi } from 'abi/aggregatorAbi'
-import { Hash } from 'types'
-import { RichText } from '@/components/base/Richtext'
-import Label from '@/components/base/Label'
-import { buildEtherscanAddressLink } from '@/utils/helpers'
+import clsx from 'clsx'
 import HtmlReactParser from 'html-react-parser'
+import { PropsWithChildren } from 'react'
+import { Hash } from 'types'
+import { useBalance, useContractRead } from 'wagmi'
 
 export default function AboutPage() {
   const { metadataSettings } = useMetadataContext()

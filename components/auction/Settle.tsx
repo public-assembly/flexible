@@ -1,11 +1,11 @@
-import Button from '../base/Button'
+import { auctionAbi, useAuctionContext } from '@public-assembly/dao-utils'
 import {
-  usePrepareContractWrite,
   useContractWrite,
+  usePrepareContractWrite,
   useWaitForTransaction,
 } from 'wagmi'
 import { Pending } from '../assets/icons'
-import { useAuctionContext, auctionAbi } from '@public-assembly/dao-utils'
+import Button from '../base/Button'
 
 export function Settle() {
   const { auctionAddress } = useAuctionContext()

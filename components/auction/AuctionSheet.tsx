@@ -1,7 +1,3 @@
-import { useState, useEffect } from 'react'
-import { useIsMobile } from '@/hooks/useIsMobile'
-import { AnimatePresence, motion } from 'framer-motion'
-import { ENV } from '@/utils/env'
 import {
   ArrowLeft,
   ArrowUp,
@@ -19,14 +15,18 @@ import {
 } from '@/components/base/Sheet'
 import { Stack } from '@/components/base/Stack'
 import { BodySmall, Caption, Headline } from '@/components/base/Typography'
-import { useActiveAuction, useDaoTokenQuery } from '@public-assembly/dao-utils'
-import { AuctionCountdown } from './AuctionCountdown'
-import ConnectButton from '../ConnectButton'
-import { ethers, BigNumber } from 'ethers'
-import { BidHistory } from './BidHistory'
-import { fromUnixTime, format } from 'date-fns'
-import { Settle } from './Settle'
 import { useAuth } from '@/hooks/useAuth'
+import { useIsMobile } from '@/hooks/useIsMobile'
+import { ENV } from '@/utils/env'
+import { useActiveAuction, useDaoTokenQuery } from '@public-assembly/dao-utils'
+import { format, fromUnixTime } from 'date-fns'
+import { BigNumber, ethers } from 'ethers'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import ConnectButton from '../ConnectButton'
+import { AuctionCountdown } from './AuctionCountdown'
+import { BidHistory } from './BidHistory'
+import { Settle } from './Settle'
 
 const MotionButton = motion(Button)
 

@@ -1,10 +1,10 @@
 import React from 'react'
 
+import { ArrowUpRight } from '@/components/assets/icons'
+import { Hash } from 'types'
 import { cn } from 'utils/cn'
 import { shortenAddress } from 'utils/shortenAddress'
 import { useEnsName } from 'wagmi'
-import { Hash } from 'types'
-import { ArrowUpRight } from '@/components/assets/icons'
 
 type ProposerProps = {
   proposer: Hash | undefined

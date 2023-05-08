@@ -1,12 +1,12 @@
 import {
   useAccount,
+  useBalance,
   useDisconnect,
+  useEnsAvatar,
+  useEnsName,
   useNetwork,
   useProvider,
   useSigner,
-  useBalance,
-  useEnsName,
-  useEnsAvatar,
 } from 'wagmi'
 import { shortenAddress } from '../utils/shortenAddress'
 

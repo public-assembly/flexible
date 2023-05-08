@@ -1,6 +1,6 @@
-import { cn } from 'utils/cn'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
+import { cn } from 'utils/cn'
 
 type RichTextProps = {
   className?: string

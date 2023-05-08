@@ -1,6 +1,6 @@
+import { useProposals } from '@/hooks/useProposals'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useProposals } from '@/hooks/useProposals'
 import Balancer from 'react-wrap-balancer'
 
 import { ArrowLeft } from '@/components/assets/icons'
@@ -11,8 +11,8 @@ import { Stack } from '@/components/base/Stack'
 import { Body } from '@/components/base/Typography'
 import { ProposalTimestamp } from '@/components/proposals/ProposalCard'
 import {
-  ProposalVoteStatus,
   DecodedTransactions,
+  ProposalVoteStatus,
   VotesSection,
 } from '@/components/proposals/ProposalDescription'
 import ProposalLabel from '@/components/proposals/ProposalLabel'

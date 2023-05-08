@@ -1,11 +1,10 @@
-import { FC, forwardRef, PropsWithChildren } from 'react'
-import React from 'react'
+import React, { FC, forwardRef, PropsWithChildren } from 'react'
 
 import * as DropdownPrimitive from '@radix-ui/react-dropdown-menu'
 
-import { withClassName } from '../withClassName'
 import { cva, cx } from 'cva'
 import { cn } from 'utils/cn'
+import { withClassName } from '../withClassName'
 
 import NextLink from 'next/link'
 

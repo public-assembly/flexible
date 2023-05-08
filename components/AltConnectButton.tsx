@@ -1,8 +1,8 @@
 import { useAuth } from '@/hooks/useAuth'
 import { ConnectKitButton } from 'connectkit'
-import { Zorb } from './base/Zorb'
 import { Flex } from './base/Flex'
 import { Headline } from './base/Typography'
+import { Zorb } from './base/Zorb'
 
 export default function AltConnectButton() {
   const { address, ensName } = useAuth()

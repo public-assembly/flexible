@@ -1,3 +1,4 @@
+import ArrowLeft from './ArrowLeft'
 import ArrowRight from './ArrowRight'
 import ArrowUp from './ArrowUp'
 import ArrowUpLeft from './ArrowUpLeft'
@@ -16,7 +17,6 @@ import Minus from './Minus'
 import Pending from './Pending'
 import PlusIcon from './PlusIcon'
 import VerticalDots from './VerticalDots'
-import ArrowLeft from './ArrowLeft'
 
 export {
   Exit,

@@ -1,6 +1,6 @@
-import { ReactNode, forwardRef } from 'react'
+import { forwardRef, ReactNode } from 'react'
 
-import { VariantProps, cva } from 'cva'
+import { cva, VariantProps } from 'cva'
 import { cn } from 'utils/cn'
 
 const labelVariants = cva(

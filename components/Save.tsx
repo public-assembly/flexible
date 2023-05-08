@@ -1,18 +1,18 @@
+import { useAuth } from '@/hooks/useAuth'
+import { ENV } from '@/utils/env'
+import { BigNumber } from 'ethers'
 import * as React from 'react'
-import { Web3Storage } from 'web3.storage'
-import { useThemeContext } from '../context/ThemeProvider'
+import { Hash } from 'types'
 import {
   useContractRead,
-  usePrepareContractWrite,
   useContractWrite,
+  usePrepareContractWrite,
   useWaitForTransaction,
 } from 'wagmi'
+import { Web3Storage } from 'web3.storage'
 import { platformThemeRegistryAbi } from '../abi/platformThemeRegistryAbi'
-import { BigNumber } from 'ethers'
-import { ENV } from '@/utils/env'
+import { useThemeContext } from '../context/ThemeProvider'
 import { Pending } from './assets/icons'
-import { useAuth } from '@/hooks/useAuth'
-import { Hash } from 'types'
 
 function getAccessToken() {
   return ENV.WEB3STORAGE_TOKEN

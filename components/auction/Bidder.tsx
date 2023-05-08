@@ -2,7 +2,7 @@ import { Flex } from '@/components/base/Flex'
 import { Body } from '@/components/base/Typography'
 import { Zorb } from '@/components/base/Zorb'
 import { Hash } from 'types'
-import { useEnsName, useEnsAvatar } from 'wagmi'
+import { useEnsAvatar, useEnsName } from 'wagmi'
 import { shortenAddress } from '../../utils/shortenAddress'
 
 type BidderProps = {

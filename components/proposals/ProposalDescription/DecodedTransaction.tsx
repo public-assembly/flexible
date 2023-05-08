@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
+import { Flex } from '@/components/base/Flex'
+import { Stack } from '@/components/base/Stack'
 import axios from 'axios'
 import { ETHERSCAN_BASE_URL, ETHER_ACTOR_BASE_URL } from 'constants/etherscan'
 import { ethers } from 'ethers'
+import React, { Fragment } from 'react'
 import useSWR from 'swr'
-import { Flex } from '@/components/base/Flex'
-import { Stack } from '@/components/base/Stack'
 import { shortenAddress } from '../../../utils/shortenAddress'
 
 interface DecodedTransactionProps {

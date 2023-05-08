@@ -1,7 +1,6 @@
-import * as React from 'react'
 import * as Slider from '@radix-ui/react-slider'
-import { useThemeContext } from '../context/ThemeProvider'
 import tinycolor from 'tinycolor2'
+import { useThemeContext } from '../context/ThemeProvider'
 import styles from './Palette.module.css'
 
 export function Palette() {

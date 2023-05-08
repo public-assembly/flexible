@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion'
-import { cn } from '@/utils/cn'
-import ProposalCard from '@/components/proposals/ProposalCard'
 import { variants } from '@/components/proposals/animations'
+import ProposalCard from '@/components/proposals/ProposalCard'
+import { cn } from '@/utils/cn'
+import { motion } from 'framer-motion'
 
 type ProposalListProps = {
   proposals: any

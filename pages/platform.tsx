@@ -1,30 +1,26 @@
+import AltConnectButton from '@/components/AltConnectButton'
+import {
+  ArrowUpRight,
+  CheckCircle,
+  Copy,
+  Exit,
+  Pending,
+} from '@/components/assets/icons'
 import { Flex } from '@/components/base/Flex'
-import {
-  Headline,
-  Body,
-  BodySmall,
-  Caption,
-} from '@/components/base/Typography'
-import { useAuth } from '@/hooks/useAuth'
-import { Exit } from '@/components/assets/icons'
+import { Separator } from '@/components/base/Separator'
 import { Stack } from '@/components/base/Stack'
-import { ArrowUpRight } from '@/components/assets/icons'
-import { CheckCircle } from '@/components/assets/icons'
+import { useAuth } from '@/hooks/useAuth'
+import useCopyText from '@/hooks/useCopyText'
+import { platformThemeRegistryAbi } from 'abi/platformThemeRegistryAbi'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { Hash } from 'types'
 import {
+  useContractEvent,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
-  useContractEvent,
 } from 'wagmi'
-import { platformThemeRegistryAbi } from 'abi/platformThemeRegistryAbi'
-import { Hash } from 'types'
-import { Pending } from '@/components/assets/icons'
-import { useState } from 'react'
-import AltConnectButton from '@/components/AltConnectButton'
-import useCopyText from '@/hooks/useCopyText'
-import { Copy } from '@/components/assets/icons'
-import { Separator } from '@/components/base/Separator'
-import { useRouter } from 'next/router'
 
 const themeRegistry = '0x9a23AE640040e4d34E9e00E500003000017144F4'
 

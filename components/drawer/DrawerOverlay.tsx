@@ -1,5 +1,5 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import { useDrawer } from './useDrawer'
-import { motion, AnimatePresence } from 'framer-motion'
 
 export function DrawerOverlay({ drawerName }: { drawerName: string }) {
   const { drawerType } = useDrawer()
