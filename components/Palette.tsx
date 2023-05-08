@@ -1,8 +1,8 @@
-import * as React from "react"
-import * as Slider from "@radix-ui/react-slider"
-import { useThemeContext } from "../context/ThemeProvider"
-import tinycolor from "tinycolor2"
-import styles from "./Palette.module.css"
+import * as React from 'react'
+import * as Slider from '@radix-ui/react-slider'
+import { useThemeContext } from '../context/ThemeProvider'
+import tinycolor from 'tinycolor2'
+import styles from './Palette.module.css'
 
 export function Palette() {
   const {
@@ -40,7 +40,7 @@ export function Palette() {
    * Utility function to convert from an rgb string to a hex string
    */
   function toHexString(color: string) {
-    return tinycolor("rgb" + "\u00A0" + color).toHexString()
+    return tinycolor('rgb' + '\u00A0' + color).toHexString()
   }
 
   /**
@@ -48,14 +48,14 @@ export function Palette() {
    */
   function formatColor(color: string) {
     const rgbStr = tinycolor(color).toRgbString()
-    const spaceSeparated = rgbStr.slice(4, -1).replace(/,\s*/g, " ")
+    const spaceSeparated = rgbStr.slice(4, -1).replace(/,\s*/g, ' ')
     return spaceSeparated
   }
 
   return (
     <div className="space-y-6 font-satoshi">
       {/* Background */}
-      <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
+      <div className="flex flex-col gap-y-4 rounded-xl py-4 px-6 shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
         {/* Image upload */}
         {/* <div className="flex items-center justify-between gap-x-32">
           <span className="text-lg uppercase font-mono">Upload image</span>
@@ -69,7 +69,7 @@ export function Palette() {
             />
           </label>
         </div> */}
-        <span className="text-lg uppercase font-mono">Background</span>
+        <span className="font-mono text-lg uppercase">Background</span>
         <div className="flex items-center justify-between gap-x-32">
           <label>Color</label>
           <input
@@ -82,8 +82,8 @@ export function Palette() {
         </div>
       </div>
       {/* Colors */}
-      <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-        <span className="text-lg uppercase font-mono">Colors</span>
+      <div className="flex flex-col gap-y-4 rounded-xl py-4 px-6 shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
+        <span className="font-mono text-lg uppercase">Colors</span>
         <div className="flex items-center justify-between gap-x-4">
           <label>Primary</label>
           <input
@@ -126,8 +126,8 @@ export function Palette() {
         </div>
       </div>
       {/* Fonts */}
-      <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-        <span className="text-lg uppercase font-mono">Fonts</span>
+      <div className="flex flex-col gap-y-4 rounded-xl py-4 px-6 shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
+        <span className="font-mono text-lg uppercase">Fonts</span>
         <div className="flex items-center justify-between gap-x-4">
           <span>Headline</span>
           <div>
@@ -195,7 +195,7 @@ export function Palette() {
         {/* Slider */}
         <div className="flex justify-end">
           <Slider.Root
-            className="relative flex items-center select-none touch-none w-[161px] h-5"
+            className="relative flex h-5 w-[161px] touch-none select-none items-center"
             value={Number(headlineSize) > 16 ? [Number(headlineSize)] : [16]}
             min={16}
             max={64}
@@ -203,13 +203,13 @@ export function Palette() {
             aria-label="Headline Font Size"
             onValueChange={(newValue) => setHeadlineSize(String(newValue))}
           >
-            <Slider.Track className="bg-[#C9D2D2] relative grow rounded-full h-[3px]">
-              <Slider.Range className="absolute bg-[#C9D2D2] rounded-full h-full" />
+            <Slider.Track className="relative h-[3px] grow rounded-full bg-[#C9D2D2]">
+              <Slider.Range className="absolute h-full rounded-full bg-[#C9D2D2]" />
             </Slider.Track>
 
-            <Slider.Thumb className="block w-5 h-5 bg-[#1E1F22] rounded-[10px]">
+            <Slider.Thumb className="block h-5 w-5 rounded-[10px] bg-[#1E1F22]">
               <div className="pt-6 pr-4">
-                {headlineSize == "" ? "16px" : `${headlineSize}px`}
+                {headlineSize == '' ? '16px' : `${headlineSize}px`}
               </div>
             </Slider.Thumb>
           </Slider.Root>
@@ -345,8 +345,8 @@ export function Palette() {
         </div>
       </div>
       {/* Dropshadow */}
-      <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-        <span className="text-lg uppercase font-mono">Dropshadow</span>
+      <div className="flex flex-col gap-y-4 rounded-xl py-4  px-6 shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
+        <span className="font-mono text-lg uppercase">Dropshadow</span>
         <div className="flex items-center justify-between gap-x-4">
           <label>Color</label>
           <input
@@ -361,7 +361,7 @@ export function Palette() {
           <label>Spread</label>
           <div className="flex justify-end">
             <Slider.Root
-              className="relative flex items-center select-none touch-none w-[161px] h-5"
+              className="relative flex h-5 w-[161px] touch-none select-none items-center"
               value={[Number(shadowSpread)]}
               min={0}
               max={32}
@@ -369,13 +369,13 @@ export function Palette() {
               aria-label="Dropshadow Spread"
               onValueChange={(newValue) => setShadowSpread(String(newValue))}
             >
-              <Slider.Track className="bg-[#C9D2D2] relative grow rounded-full h-[3px]">
-                <Slider.Range className="absolute bg-[#C9D2D2] rounded-full h-full" />
+              <Slider.Track className="relative h-[3px] grow rounded-full bg-[#C9D2D2]">
+                <Slider.Range className="absolute h-full rounded-full bg-[#C9D2D2]" />
               </Slider.Track>
 
-              <Slider.Thumb className="block w-5 h-5 bg-[#1E1F22] rounded-[10px]">
+              <Slider.Thumb className="block h-5 w-5 rounded-[10px] bg-[#1E1F22]">
                 <div className="pt-6 pr-4">
-                  {shadowSpread == "" ? "1px" : `${shadowSpread}px`}
+                  {shadowSpread == '' ? '1px' : `${shadowSpread}px`}
                 </div>
               </Slider.Thumb>
             </Slider.Root>
@@ -384,13 +384,13 @@ export function Palette() {
         <br></br>
       </div>
       {/* Corner radius */}
-      <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-        <span className="text-lg uppercase font-mono">Corner Radius</span>
+      <div className="flex flex-col gap-y-4 rounded-xl py-4 px-6 shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
+        <span className="font-mono text-lg uppercase">Corner Radius</span>
         <div className="flex items-center justify-between gap-x-4">
           <label>Objects</label>
           <div className="flex justify-end">
             <Slider.Root
-              className="relative flex items-center select-none touch-none w-[161px] h-5"
+              className="relative flex h-5 w-[161px] touch-none select-none items-center"
               value={[Number(objectRadius)]}
               min={0}
               max={32}
@@ -398,23 +398,23 @@ export function Palette() {
               aria-label="Object Radius"
               onValueChange={(newValue) => setObjectRadius(String(newValue))}
             >
-              <Slider.Track className="bg-[#C9D2D2] relative grow rounded-full h-[3px]">
-                <Slider.Range className="absolute bg-[#C9D2D2] rounded-full h-full" />
+              <Slider.Track className="relative h-[3px] grow rounded-full bg-[#C9D2D2]">
+                <Slider.Range className="absolute h-full rounded-full bg-[#C9D2D2]" />
               </Slider.Track>
 
-              <Slider.Thumb className="block w-5 h-5 bg-[#1E1F22] rounded-[10px]">
+              <Slider.Thumb className="block h-5 w-5 rounded-[10px] bg-[#1E1F22]">
                 <div className="pt-6 pr-4">
-                  {objectRadius == "" ? "0px" : `${objectRadius}px`}
+                  {objectRadius == '' ? '0px' : `${objectRadius}px`}
                 </div>
               </Slider.Thumb>
             </Slider.Root>
           </div>
         </div>
-        <div className="flex items-center justify-between mt-6 gap-x-4">
+        <div className="mt-6 flex items-center justify-between gap-x-4">
           <label>Buttons</label>
           <div className="flex justify-end">
             <Slider.Root
-              className="relative flex items-center select-none touch-none w-[161px] h-5"
+              className="relative flex h-5 w-[161px] touch-none select-none items-center"
               value={[Number(buttonRadius)]}
               min={0}
               max={32}
@@ -422,13 +422,13 @@ export function Palette() {
               aria-label="Button Radius"
               onValueChange={(newValue) => setButtonRadius(String(newValue))}
             >
-              <Slider.Track className="bg-[#C9D2D2] relative grow rounded-full h-[3px]">
-                <Slider.Range className="absolute bg-[#C9D2D2] rounded-full h-full" />
+              <Slider.Track className="relative h-[3px] grow rounded-full bg-[#C9D2D2]">
+                <Slider.Range className="absolute h-full rounded-full bg-[#C9D2D2]" />
               </Slider.Track>
 
-              <Slider.Thumb className="block w-5 h-5 bg-[#1E1F22] rounded-[10px]">
+              <Slider.Thumb className="block h-5 w-5 rounded-[10px] bg-[#1E1F22]">
                 <div className="pt-6 pr-4">
-                  {buttonRadius == "" ? "0px" : `${buttonRadius}px`}
+                  {buttonRadius == '' ? '0px' : `${buttonRadius}px`}
                 </div>
               </Slider.Thumb>
             </Slider.Root>
