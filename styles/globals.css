@@ -33,7 +33,6 @@
 }
 
 /* Apply theming variables to classes */
-
 .headline {
   font-family: var(--headline);
   font-size: var(--headline-size, 24px);
@@ -68,11 +67,6 @@
   -webkit-font-smoothing: antialiased;
   /* Makes fonts on Firefox render similarly to Chrome */
   -moz-osx-font-smoothing: grayscale;
-}
-
-::-webkit-scrollbar {
-  width: 0;
-  height: 0;
 }
 
 html {
@@ -193,7 +187,8 @@ div[data-radix-popper-content-wrapper] {
 
 /* Width */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 0;
+  height: 0;
 }
 
 /* Track */
