@@ -1,0 +1,42 @@
+.colorPicker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 161px;
+  height: 42px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.colorPicker::-webkit-color-swatch {
+  border: solid 1px #f6f6f6;
+  border-radius: 8px;
+}
+
+.fontPicker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 1px solid #ccc;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+}
+
+.fontPicker:after {
+  content: "\2304";
+  font-size: 30px;
+  line-height: 23px;
+  padding-right: 2px;
+}
+
+.imagePicker {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border: solid 1.5px #c9d2d2;
+  border-radius: 8px;
+  cursor: pointer;
+}

@@ -2,6 +2,7 @@ import * as React from "react"
 import * as Slider from "@radix-ui/react-slider"
 import { useThemeContext } from "../context/ThemeProvider"
 import tinycolor from "tinycolor2"
+import styles from "./Palette.module.css"
 
 export function Palette() {
   const {
@@ -74,7 +75,7 @@ export function Palette() {
           <input
             id="backgroundColor"
             type="color"
-            className="color-picker"
+            className={styles.colorPicker}
             value={backgroundColor}
             onChange={(e) => setBackgroundColor(e.target.value)}
           />
@@ -82,13 +83,13 @@ export function Palette() {
       </div>
       {/* Colors */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-      <span className="text-lg uppercase font-mono">Colors</span>
+        <span className="text-lg uppercase font-mono">Colors</span>
         <div className="flex items-center justify-between gap-x-4">
           <label>Primary</label>
           <input
             id="text"
             type="color"
-            className="color-picker"
+            className={styles.colorPicker}
             value={toHexString(primary)}
             onChange={(e) => setPrimary(formatColor(e.target.value))}
           />
@@ -98,7 +99,7 @@ export function Palette() {
           <input
             id="secondary"
             type="color"
-            className="color-picker"
+            className={styles.colorPicker}
             value={toHexString(secondary)}
             onChange={(e) => setSecondary(formatColor(e.target.value))}
           />
@@ -108,7 +109,7 @@ export function Palette() {
           <input
             id="tertiary"
             type="color"
-            className="color-picker"
+            className={styles.colorPicker}
             value={toHexString(tertiary)}
             onChange={(e) => setTertiary(formatColor(e.target.value))}
           />
@@ -118,7 +119,7 @@ export function Palette() {
           <input
             id="highlight"
             type="color"
-            className="color-picker"
+            className={styles.colorPicker}
             value={toHexString(highlight)}
             onChange={(e) => setHighlight(formatColor(e.target.value))}
           />
@@ -126,13 +127,13 @@ export function Palette() {
       </div>
       {/* Fonts */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-      <span className="text-lg uppercase font-mono">Fonts</span>
+        <span className="text-lg uppercase font-mono">Fonts</span>
         <div className="flex items-center justify-between gap-x-4">
           <span>Headline</span>
           <div>
             <select
-              className="font-picker"
               id="headline"
+              className={styles.fontPicker}
               value={headline}
               onChange={(e) => setHeadline(e.target.value)}
             >
@@ -218,8 +219,8 @@ export function Palette() {
           <span>Body</span>
           <div>
             <select
-              className="font-picker"
               id="body"
+              className={styles.fontPicker}
               value={body}
               onChange={(e) => setBody(e.target.value)}
             >
@@ -282,8 +283,8 @@ export function Palette() {
           <span>Caption</span>
           <div>
             <select
-              className="font-picker"
               id="caption"
+              className={styles.fontPicker}
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
             >
@@ -345,13 +346,13 @@ export function Palette() {
       </div>
       {/* Dropshadow */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-      <span className="text-lg uppercase font-mono">Dropshadow</span>
+        <span className="text-lg uppercase font-mono">Dropshadow</span>
         <div className="flex items-center justify-between gap-x-4">
           <label>Color</label>
           <input
             id="shadowColor"
             type="color"
-            className="color-picker"
+            className={styles.colorPicker}
             value={shadowColor}
             onChange={(e) => setShadowColor(e.target.value)}
           />
@@ -384,7 +385,7 @@ export function Palette() {
       </div>
       {/* Corner radius */}
       <div className="flex flex-col gap-y-4 py-4 px-6 rounded-xl shadow-[0_1px_2px_1px_rgba(0,0,0,0.12)]">
-      <span className="text-lg uppercase font-mono">Corner Radius</span>
+        <span className="text-lg uppercase font-mono">Corner Radius</span>
         <div className="flex items-center justify-between gap-x-4">
           <label>Objects</label>
           <div className="flex justify-end">
