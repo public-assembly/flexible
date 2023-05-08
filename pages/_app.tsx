@@ -1,37 +1,24 @@
-// @ts-nocheck
-// Styles
 import "../styles/globals.css"
-// Next.js
 import type { AppProps } from "next/app"
 import dynamic from "next/dynamic"
 import { Space_Mono } from "next/font/google"
 import localFont from "next/font/local"
-// RainbowKit
-import "@rainbow-me/rainbowkit/styles.css"
-import {
-  getDefaultWallets,
-  RainbowKitProvider,
-  lightTheme,
-} from "@rainbow-me/rainbowkit"
-// wagmi
+import { ConnectKitProvider, getDefaultClient } from "connectkit"
 import { createClient, configureChains, WagmiConfig } from "wagmi"
 import { mainnet, goerli } from "wagmi/chains"
 import { publicProvider } from "wagmi/providers/public"
 import { alchemyProvider } from "wagmi/providers/alchemy"
-// dao-utils
 import {
   GovernorProvider,
   MetadataProvider,
   TokenProvider,
 } from "@public-assembly/dao-utils"
-// Local
 import { ENV } from "utils/env"
 import { Header } from "@/components/Header"
 import { TopProgressBar } from "@/components/TopProgressBar"
 import { DrawerContextProvider } from "@/components/drawer/DrawerProvider"
-import { ThemeProvider, useThemeContext } from "@/context/ThemeProvider"
+import { ThemeProvider } from "@/context/ThemeProvider"
 import { Drawer } from "@/components/Drawer"
-// Misc
 import { Provider } from "react-wrap-balancer"
 import { SWRConfig } from "swr"
 import { Seo } from "@/components/Seo"
@@ -82,7 +69,7 @@ export const satoshi = localFont({
 })
 
 /**
- * dao-utils provider configuration
+ * Provider configuration
  */
 
 type ManagerProviderProps = {
@@ -122,24 +109,18 @@ const DynamicAuctionProvider = dynamic(
   }
 ) as React.FC<DynamicAuctionProviderProps>
 
-/**
- * wagmi configuration
- */
-const { chains, provider, webSocketProvider } = configureChains(
+const { chains, provider } = configureChains(
   [ENV.CHAIN === 1 ? mainnet : goerli],
   [alchemyProvider({ apiKey: ENV.ALCHEMY_KEY }), publicProvider()]
 )
 
-const { connectors } = getDefaultWallets({
-  appName: "Flexible",
-})
-
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider,
-  webSocketProvider,
-})
+const client = createClient(
+  getDefaultClient({
+    appName: "Flexible",
+    chains,
+    provider,
+  })
+)
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -173,15 +154,8 @@ export default function App({ Component, pageProps }: AppProps) {
             fetch(resource, init).then((res) => res.json()),
         }}
       >
-        <WagmiConfig client={wagmiClient}>
-          <RainbowKitProvider
-            chains={chains}
-            modalSize="compact"
-            theme={lightTheme({
-              accentColor: "black",
-              borderRadius: "large",
-            })}
-          >
+        <WagmiConfig client={client}>
+          <ConnectKitProvider theme="web95">
             <Provider>
               <DynamicManagerProvider
                 tokenAddress={ENV.TOKEN_ADDRESS as `0x${string}`}
@@ -205,7 +179,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 </GovernorProvider>
               </DynamicManagerProvider>
             </Provider>
-          </RainbowKitProvider>
+          </ConnectKitProvider>
         </WagmiConfig>
       </SWRConfig>
     </>

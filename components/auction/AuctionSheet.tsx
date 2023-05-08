@@ -214,9 +214,9 @@ export function AuctionSheet({
                           }
                         }}
                         placeholder={`${minBidAmount.toFixed(4)} OR HIGHER`}
-                        onChange={(event: any) =>
-                          updateBidAmount(event.target.value)
-                        }
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>
+                        ) => updateBidAmount(event.target.value)}
                       />
                       <label className="absolute ml-72 sm:ml-64 mt-3">
                         ETH
