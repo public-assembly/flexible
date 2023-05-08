@@ -10,7 +10,7 @@ export default function ConnectButton() {
 
   return (
     <ConnectKitButton.Custom>
-      {({ isConnected, show, hide, chain }) => {
+      {({ isConnected, show }) => {
         if (!isConnected) {
           return (
             <Button size="lg" onClick={show}>
