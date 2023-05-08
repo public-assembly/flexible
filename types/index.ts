@@ -12,7 +12,8 @@ export const NOUNS_PROPOSAL_STATUS = {
   VETOED: 'VETOED',
 } as const
 
-export type PROPOSAL_STATUS = typeof NOUNS_PROPOSAL_STATUS[keyof typeof NOUNS_PROPOSAL_STATUS]
+export type PROPOSAL_STATUS =
+  (typeof NOUNS_PROPOSAL_STATUS)[keyof typeof NOUNS_PROPOSAL_STATUS]
 
 export type Hash = `0x${string}`
 
@@ -22,4 +23,5 @@ export const NOUNS_PROPOSAL_SUPPORT = {
   ABSTAIN: 'ABSTAIN',
 } as const
 
-export type PROPOSAL_SUPPORT = typeof NOUNS_PROPOSAL_SUPPORT[keyof typeof NOUNS_PROPOSAL_SUPPORT]
+export type PROPOSAL_SUPPORT =
+  (typeof NOUNS_PROPOSAL_SUPPORT)[keyof typeof NOUNS_PROPOSAL_SUPPORT]

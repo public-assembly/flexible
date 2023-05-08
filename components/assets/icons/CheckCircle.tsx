@@ -1,5 +1,5 @@
-import React from "react"
-import { IconProps } from "./types"
+import React from 'react'
+import { IconProps } from './types'
 
 function CheckCircle({ className }: IconProps) {
   return (

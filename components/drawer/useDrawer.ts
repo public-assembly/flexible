@@ -8,7 +8,10 @@ export function useDrawer() {
 
   const handleSetDrawerOptions = useCallback(
     (update: any) => {
-      setState((prev) => ({ ...prev, options: { ...prev?.drawerOptions, ...update } }))
+      setState((prev) => ({
+        ...prev,
+        options: { ...prev?.drawerOptions, ...update },
+      }))
     },
     [setState]
   )

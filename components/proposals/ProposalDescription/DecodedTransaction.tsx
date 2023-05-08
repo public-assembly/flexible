@@ -1,11 +1,11 @@
-import React, { Fragment } from "react"
-import axios from "axios"
-import { ETHERSCAN_BASE_URL, ETHER_ACTOR_BASE_URL } from "constants/etherscan"
-import { ethers } from "ethers"
-import useSWR from "swr"
-import { Flex } from "@/components/base/Flex"
-import { Stack } from "@/components/base/Stack"
-import { shortenAddress } from "../../../utils/shortenAddress"
+import React, { Fragment } from 'react'
+import axios from 'axios'
+import { ETHERSCAN_BASE_URL, ETHER_ACTOR_BASE_URL } from 'constants/etherscan'
+import { ethers } from 'ethers'
+import useSWR from 'swr'
+import { Flex } from '@/components/base/Flex'
+import { Stack } from '@/components/base/Stack'
+import { shortenAddress } from '../../../utils/shortenAddress'
 
 interface DecodedTransactionProps {
   targets: string[]
@@ -25,10 +25,10 @@ export const DecodedTransactions: React.FC<DecodedTransactionProps> = ({
   const formatSendEth = (value: string) => {
     const amount = ethers.utils.formatEther(value)
     return {
-      functionName: "Transfer",
-      name: "Transfer",
+      functionName: 'Transfer',
+      name: 'Transfer',
       args: {
-        ["Transfer"]: { name: `value`, value: `${amount} ETH` },
+        ['Transfer']: { name: `value`, value: `${amount} ETH` },
       },
     }
   }
@@ -39,7 +39,7 @@ export const DecodedTransactions: React.FC<DecodedTransactionProps> = ({
     value: string
   ) => {
     /* if calldata is '0x' */
-    const isTransfer = calldata === "0x"
+    const isTransfer = calldata === '0x'
 
     if (isTransfer) {
       return formatSendEth(value)
@@ -55,7 +55,7 @@ export const DecodedTransactions: React.FC<DecodedTransactionProps> = ({
 
       return decoded.data
     } catch (err) {
-      console.log("err", err)
+      console.log('err', err)
 
       // if err return original calldata
       return calldata
@@ -64,7 +64,7 @@ export const DecodedTransactions: React.FC<DecodedTransactionProps> = ({
 
   const { data: decodedTransactions } = useSWR(
     targets && calldatas && values
-      ? ["proposal-transactions", targets, calldatas, values]
+      ? ['proposal-transactions', targets, calldatas, values]
       : null,
     async (_, targets, calldatas, values) => {
       return await Promise.all(
@@ -106,11 +106,11 @@ export const DecodedTransactions: React.FC<DecodedTransactionProps> = ({
                       >
                         <p className="flex md:hidden">
                           {`${i + 1}.${
-                            "\u0020" + shortenAddress(decoded?.target)
+                            '\u0020' + shortenAddress(decoded?.target)
                           }`}
                         </p>
                         <p className="hidden md:flex">{`${i + 1}.${
-                          "\u0020" + decoded?.target
+                          '\u0020' + decoded?.target
                         }`}</p>
                       </a>
                     </div>
@@ -127,7 +127,7 @@ export const DecodedTransactions: React.FC<DecodedTransactionProps> = ({
                             // if verified contract and arguments object {name, value}
                             <Flex
                               key={arg?.name}
-                              className="flex-wrap w-full pl-4 overflow-hidden"
+                              className="w-full flex-wrap overflow-hidden pl-4"
                             >
                               {/* <Body> */}
                               {arg?.name}: {arg?.value}

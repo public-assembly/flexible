@@ -1,25 +1,25 @@
-import { useState, useEffect } from "react"
-import { useAuth } from "@/hooks/useAuth"
-import { useProposalPermissions } from "@/hooks/useProposalPermissions"
-import ProposalVoteButton from "../ProposalVoteButton"
-import Label from "@/components/base/Label"
-import { buildEtherscanLink } from "@/utils/helpers"
-import { PROPOSAL_SUPPORT, NOUNS_PROPOSAL_SUPPORT } from "types"
+import { useState, useEffect } from 'react'
+import { useAuth } from '@/hooks/useAuth'
+import { useProposalPermissions } from '@/hooks/useProposalPermissions'
+import ProposalVoteButton from '../ProposalVoteButton'
+import Label from '@/components/base/Label'
+import { buildEtherscanLink } from '@/utils/helpers'
+import { PROPOSAL_SUPPORT, NOUNS_PROPOSAL_SUPPORT } from 'types'
 import {
   Veto,
   Cancel,
   Execute,
   Queue,
-} from "@/components/proposals/ProposalActions"
-import { Check, Minus, Exit } from "@/components/assets/icons"
-import { Flex } from "@/components/base/Flex"
-import { Stack } from "@/components/base/Stack"
-import ConnectButton from "@/components/ConnectButton"
+} from '@/components/proposals/ProposalActions'
+import { Check, Minus, Exit } from '@/components/assets/icons'
+import { Flex } from '@/components/base/Flex'
+import { Stack } from '@/components/base/Stack'
+import ConnectButton from '@/components/ConnectButton'
 
 const voteSupportMessages = {
-  for: "You voted for this proposal",
-  against: "You voted against this proposal",
-  abstain: "You voted abstain for this proposal",
+  for: 'You voted for this proposal',
+  against: 'You voted against this proposal',
+  abstain: 'You voted abstain for this proposal',
 }
 
 type ProposalVoteBadgeProps = {
@@ -41,7 +41,7 @@ function ProposalVoteBadge({ voteSupport, txHash }: ProposalVoteBadgeProps) {
         )
       }
       showExternalLinkIcon
-      externalLink={buildEtherscanLink("tx", txHash)}
+      externalLink={buildEtherscanLink('tx', txHash)}
     >
       {voteSupport == NOUNS_PROPOSAL_SUPPORT.ABSTAIN
         ? voteSupportMessages.abstain
@@ -97,7 +97,7 @@ export function ProposalVoteStatus({ proposal }) {
         <ConnectButton />
       </div>
     )
-  } else if (proposal.status == "EXECUTED") {
+  } else if (proposal.status == 'EXECUTED') {
     if (!hasVoted) {
       return (
         <>
@@ -111,10 +111,10 @@ export function ProposalVoteStatus({ proposal }) {
     } else {
       return <ProposalVoteBadge voteSupport={voteSupport} txHash={txHash} />
     }
-  } else if (proposal.status == "EXECUTABLE") {
+  } else if (proposal.status == 'EXECUTABLE') {
     if (!hasVoted) {
       return (
-        <Stack className={"gap-6"}>
+        <Stack className={'gap-6'}>
           {!canVote ? (
             <Label>You were not eligible to vote on this proposal</Label>
           ) : (
@@ -145,10 +145,10 @@ export function ProposalVoteStatus({ proposal }) {
         </Stack>
       )
     }
-  } else if (proposal.status == "QUEUED") {
+  } else if (proposal.status == 'QUEUED') {
     if (!hasVoted) {
       return (
-        <Stack className={canVeto || canCancel ? "gap-6" : ""}>
+        <Stack className={canVeto || canCancel ? 'gap-6' : ''}>
           {!canVote ? (
             <Label>You were not eligible to vote on this proposal</Label>
           ) : (
@@ -179,10 +179,10 @@ export function ProposalVoteStatus({ proposal }) {
         </Stack>
       )
     }
-  } else if (proposal.status == "SUCCEEDED") {
+  } else if (proposal.status == 'SUCCEEDED') {
     if (!hasVoted) {
       return (
-        <Stack className={canCancel ? "gap-6" : ""}>
+        <Stack className={canCancel ? 'gap-6' : ''}>
           {!canVote ? (
             <Label>You were not eligible to vote on this proposal</Label>
           ) : (
@@ -206,7 +206,7 @@ export function ProposalVoteStatus({ proposal }) {
         </Stack>
       )
     }
-  } else if (proposal.status == "DEFEATED") {
+  } else if (proposal.status == 'DEFEATED') {
     if (!hasVoted) {
       return (
         <Stack>
@@ -224,10 +224,10 @@ export function ProposalVoteStatus({ proposal }) {
         </Stack>
       )
     }
-  } else if (proposal.status == "ACTIVE") {
+  } else if (proposal.status == 'ACTIVE') {
     if (!hasVoted) {
       return (
-        <Stack className={canCancel ? "gap-6" : ""}>
+        <Stack className={canCancel ? 'gap-6' : ''}>
           {!canVote ? (
             <Label>You are not eligible to vote on this proposal</Label>
           ) : (
@@ -241,7 +241,7 @@ export function ProposalVoteStatus({ proposal }) {
       )
     } else {
       return (
-        <Stack className={canCancel || canVeto ? "gap-6" : ""}>
+        <Stack className={canCancel || canVeto ? 'gap-6' : ''}>
           <ProposalVoteBadge voteSupport={voteSupport} txHash={txHash} />
           <Flex className="gap-6">
             {/* If the user can cancel, render the cancel button */}
@@ -254,7 +254,7 @@ export function ProposalVoteStatus({ proposal }) {
         </Stack>
       )
     }
-  } else if (proposal.status == "PENDING") {
+  } else if (proposal.status == 'PENDING') {
     return (
       <Flex className="gap-6">
         {/* If the user can cancel, render the cancel button */}

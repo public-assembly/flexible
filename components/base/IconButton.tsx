@@ -11,7 +11,7 @@ type IconButtonProps = {
 const IconButton = (props: IconButtonProps) => {
   return (
     <NextLink href={props.href} target="_blank">
-      <Button variant='tertiary' className='px-4 py-2 w-fit'>
+      <Button variant="tertiary" className="w-fit px-4 py-2">
         {props.icon}
       </Button>
     </NextLink>

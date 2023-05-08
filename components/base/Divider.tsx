@@ -1,5 +1,5 @@
-import { cn } from "@/utils/cn"
+import { cn } from '@/utils/cn'
 
 export function Divider({ className }: { className?: string }) {
-  return <div className={cn("w-full h-[1px] my-10", className)} />
+  return <div className={cn('my-10 h-[1px] w-full', className)} />
 }

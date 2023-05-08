@@ -1,24 +1,24 @@
-import { FC, forwardRef, PropsWithChildren } from "react"
-import React from "react"
+import { FC, forwardRef, PropsWithChildren } from 'react'
+import React from 'react'
 
-import * as DropdownPrimitive from "@radix-ui/react-dropdown-menu"
+import * as DropdownPrimitive from '@radix-ui/react-dropdown-menu'
 
-import { withClassName } from "../withClassName"
-import { cva, cx } from "cva"
-import { cn } from "utils/cn"
+import { withClassName } from '../withClassName'
+import { cva, cx } from 'cva'
+import { cn } from 'utils/cn'
 
-import NextLink from "next/link"
+import NextLink from 'next/link'
 
 /* DropdownMenu.Content */
 const Overlay: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div
       className={cn(
-        "overlay",
-        "fixed bottom-0 left-0 w-screen h-screen pointer-events-none",
-        "backdrop-blur-[24px] bg-black/60 filter md:hidden",
-        "group-radix-state-closed:animate-fadeOut group-radix-state-open:animate-fadeIn",
-        "data-closed:animate-fadeOut data-open:animate-fadeIn data-[side=top]:data-[state=open]:animate-fadeIn data-[side=top]:data-[state=closed]:animate-fadeOut"
+        'overlay',
+        'pointer-events-none fixed bottom-0 left-0 h-screen w-screen',
+        'bg-black/60 filter backdrop-blur-[24px] md:hidden',
+        'group-radix-state-closed:animate-fadeOut group-radix-state-open:animate-fadeIn',
+        'data-open:animate-fadeIn data-closed:animate-fadeOut data-[side=top]:data-[state=open]:animate-fadeIn data-[side=top]:data-[state=closed]:animate-fadeOut'
       )}
     >
       {children}
@@ -30,15 +30,15 @@ const ContentInner: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <div
       className={cn(
-        "content-inner",
-        "relative p-6 overflow-auto bg-secondary",
-        "rounded-object max-w-[80vw]",
-        "origin-radix-dropdown-menu custom-shadow",
+        'content-inner',
+        'relative overflow-auto bg-secondary p-6',
+        'max-w-[80vw] rounded-object',
+        'custom-shadow origin-radix-dropdown-menu',
         // mobile sheet animations
-        "group-radix-state-open:animate-longFadeInUp",
-        "group-radix-state-closed:animate-longFadeInDown",
-        "group-radix-state-open:md:animate-slide-down",
-        "group-radix-state-closed:md:animate-slide-up"
+        'group-radix-state-open:animate-longFadeInUp',
+        'group-radix-state-closed:animate-longFadeInDown',
+        'group-radix-state-open:md:animate-slide-down',
+        'group-radix-state-closed:md:animate-slide-up'
       )}
     >
       {children}
@@ -49,9 +49,9 @@ const ContentInner: React.FC<React.PropsWithChildren> = ({ children }) => {
 const ContentOuter = withClassName(
   DropdownPrimitive.Content,
   cn(
-    "content-outer",
-    "group",
-    "radix-state-closed:animate-fakeFade origin-radix-dropdown-menu"
+    'content-outer',
+    'group',
+    'radix-state-closed:animate-fakeFade origin-radix-dropdown-menu'
   )
 )
 
@@ -72,36 +72,36 @@ const Content = forwardRef(function Content(
 })
 
 Content.defaultProps = {
-  align: "start",
+  align: 'start',
   collisionPadding: 8,
   sideOffset: 8,
 }
 
 /* DropdownMenu.Item */
 const sharedBaseStyles = cva([
-  "gap-3",
-  "w-full",
-  "flex",
-  "items-center",
-  "py-1",
-  "text-primary",
-  "cursor-pointer",
-  "transition-colors",
-  "transition-color-1-ease",
-  "rounded-md",
-  "text-3",
-  "leading-2",
-  "no-underline",
-  "focus:outline-none",
-  "focus:bg-primary/10",
-  "disabled:text-primary/50",
-  "disabled:bg-transparent!",
+  'gap-3',
+  'w-full',
+  'flex',
+  'items-center',
+  'py-1',
+  'text-primary',
+  'cursor-pointer',
+  'transition-colors',
+  'transition-color-1-ease',
+  'rounded-md',
+  'text-3',
+  'leading-2',
+  'no-underline',
+  'focus:outline-none',
+  'focus:bg-primary/10',
+  'disabled:text-primary/50',
+  'disabled:bg-transparent!',
 ])
 
 type BaseItemLinkProps = {
   className?: string
   children: React.ReactNode
-} & React.ComponentPropsWithoutRef<"a">
+} & React.ComponentPropsWithoutRef<'a'>
 
 const BaseItemLink = React.forwardRef<HTMLAnchorElement, BaseItemLinkProps>(
   (props, forwardedRef: React.Ref<HTMLAnchorElement>) => {
@@ -112,10 +112,10 @@ const BaseItemLink = React.forwardRef<HTMLAnchorElement, BaseItemLinkProps>(
     )
   }
 )
-BaseItemLink.displayName = "BaseItemLink"
+BaseItemLink.displayName = 'BaseItemLink'
 
 // todo pass the base styles as well
-const BaseItem = withClassName(DropdownPrimitive.Item, "base-item")
+const BaseItem = withClassName(DropdownPrimitive.Item, 'base-item')
 
 type BaseItemProps = React.ComponentProps<typeof BaseItem>
 
@@ -129,16 +129,16 @@ type BaseDropdownItemProps = {
 
 export type DropdownItemTypeProps =
   | {
-      type?: "button"
+      type?: 'button'
       onClick(): void
     }
   | {
-      type: "link"
+      type: 'link'
       href: string
       onClick?(): void
     }
   | {
-      type: "external-link"
+      type: 'external-link'
       href: string
       onClick?(): void
     }
@@ -147,7 +147,7 @@ export type DropdownItemProps = BaseDropdownItemProps & DropdownItemTypeProps
 
 function Item(props: DropdownItemProps) {
   switch (props.type) {
-    case "link": {
+    case 'link': {
       const { children, href, ...rest } = props
       return (
         <NextLink href={href} passHref>
@@ -157,7 +157,7 @@ function Item(props: DropdownItemProps) {
         </NextLink>
       )
     }
-    case "external-link": {
+    case 'external-link': {
       const { children, href, ...rest } = props
       return (
         <DropdownPrimitive.Item {...rest} asChild>
@@ -179,7 +179,7 @@ const DropdownSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownPrimitive.Separator
     ref={ref}
-    className={cn("dropdown-separator my-1 h-px bg-tertiary/50", className)}
+    className={cn('dropdown-separator my-1 h-px bg-tertiary/50', className)}
     {...props}
   />
 ))

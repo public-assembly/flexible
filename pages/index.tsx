@@ -2,7 +2,7 @@ import Auction from '@/components/auction/Auction'
 
 function HomePage() {
   return (
-    <section className='flex-1 h-full pb-4 md:pb-0 md:h-full'>
+    <section className="h-full flex-1 pb-4 md:h-full md:pb-0">
       <Auction />
     </section>
   )

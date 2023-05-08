@@ -1,28 +1,28 @@
-import { ReactNode, forwardRef } from "react"
+import { ReactNode, forwardRef } from 'react'
 
-import { VariantProps, cva } from "cva"
-import { cn } from "utils/cn"
+import { VariantProps, cva } from 'cva'
+import { cn } from 'utils/cn'
 
-import { Link } from "./Link"
-import { ArrowUpRight } from "@/components/assets/icons"
-import CountingNumbers from "@/components/base/CountingNumbers"
-import { BodySmall, Headline } from "@/components/base/Typography"
+import { Link } from './Link'
+import { ArrowUpRight } from '@/components/assets/icons'
+import CountingNumbers from '@/components/base/CountingNumbers'
+import { BodySmall, Headline } from '@/components/base/Typography'
 
 const labelVariants = cva(
-  ["w-fit h-fit flex rounded-object items-center body"],
+  ['w-fit h-fit flex rounded-object items-center body'],
   {
     variants: {
       variant: {
-        badge: ["flex-col gap-1 px-6 py-4 bg-secondary rounded-object "],
-        row: ["px-4 py-2 bg-primary gap-4 text-secondary text-base"],
-        rowInverse: ["px-4 py-2 bg-secondary gap-4 text-primary text-base"],
+        badge: ['flex-col gap-1 px-6 py-4 bg-secondary rounded-object '],
+        row: ['px-4 py-2 bg-primary gap-4 text-secondary text-base'],
+        rowInverse: ['px-4 py-2 bg-secondary gap-4 text-primary text-base'],
       },
       titleCase: {
-        true: "",
+        true: '',
       },
     },
     defaultVariants: {
-      variant: "rowInverse",
+      variant: 'rowInverse',
     },
   }
 )
@@ -40,7 +40,7 @@ export type LabelProps = {
 const Label = forwardRef<HTMLDivElement, LabelProps>(
   ({ className, titleCase, variant, children, ...props }, ref) => {
     // This is the only place where the variant is used, and it's not used in the return statement
-    if (variant === "badge" && !!props.value)
+    if (variant === 'badge' && !!props.value)
       return (
         <div
           className={cn(className, labelVariants({ variant, titleCase }))}
@@ -76,7 +76,7 @@ const Label = forwardRef<HTMLDivElement, LabelProps>(
   }
 )
 
-Label.displayName = "Label"
+Label.displayName = 'Label'
 
 export { Label, labelVariants }
 export default Label

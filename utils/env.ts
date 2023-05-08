@@ -19,7 +19,9 @@ const PROCESS = {
 
 // Checks that run in all environments
 if (PROCESS.CHAIN !== 1 && PROCESS.CHAIN !== 5) {
-  throw new Error(`${PROCESS.CHAIN} is not supported. Supported values are 1 (mainnet) and 5 (goerli)`)
+  throw new Error(
+    `${PROCESS.CHAIN} is not supported. Supported values are 1 (mainnet) and 5 (goerli)`
+  )
 }
 if (!PROCESS.ALCHEMY_KEY) {
   throw new Error('PROCESS.ALCHEMY_KEY is not set')
@@ -29,7 +31,9 @@ if (!PROCESS.TOKEN_ADDRESS) {
 }
 
 type VercelEnv = 'production' | 'preview' | 'development'
-const VERCEL_ENV = PROCESS.VERCEL_ENV ? (PROCESS.VERCEL_ENV as VercelEnv) : ('development' as const)
+const VERCEL_ENV = PROCESS.VERCEL_ENV
+  ? (PROCESS.VERCEL_ENV as VercelEnv)
+  : ('development' as const)
 
 /**
  * These values are present on the client and server.
@@ -48,7 +52,6 @@ export const ENV = {
   PLATFORM_INDEX: PROCESS.PLATFORM_INDEX,
   WEB3STORAGE_TOKEN: PROCESS.WEB3STORAGE_TOKEN,
 } as const
-
 
 export const isDev = ENV.VERCEL_ENV === 'development'
 export const isPreview = ENV.VERCEL_ENV === 'preview'

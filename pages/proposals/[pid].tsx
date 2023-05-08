@@ -1,24 +1,24 @@
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { useProposals } from "@/hooks/useProposals"
-import Balancer from "react-wrap-balancer"
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useProposals } from '@/hooks/useProposals'
+import Balancer from 'react-wrap-balancer'
 
-import { ArrowLeft } from "@/components/assets/icons"
-import { Divider } from "@/components/base/Divider"
-import { Flex } from "@/components/base/Flex"
-import { RichText } from "@/components/base/Richtext"
-import { Stack } from "@/components/base/Stack"
-import { Body } from "@/components/base/Typography"
-import { ProposalTimestamp } from "@/components/proposals/ProposalCard"
+import { ArrowLeft } from '@/components/assets/icons'
+import { Divider } from '@/components/base/Divider'
+import { Flex } from '@/components/base/Flex'
+import { RichText } from '@/components/base/Richtext'
+import { Stack } from '@/components/base/Stack'
+import { Body } from '@/components/base/Typography'
+import { ProposalTimestamp } from '@/components/proposals/ProposalCard'
 import {
   ProposalVoteStatus,
   DecodedTransactions,
   VotesSection,
-} from "@/components/proposals/ProposalDescription"
-import ProposalLabel from "@/components/proposals/ProposalLabel"
-import { Proposer } from "@/components/proposals/Proposer"
-import { BodyLarge, Headline } from "../../components/base/Typography"
-import { Hash } from "../../types/index"
+} from '@/components/proposals/ProposalDescription'
+import ProposalLabel from '@/components/proposals/ProposalLabel'
+import { Proposer } from '@/components/proposals/Proposer'
+import { BodyLarge, Headline } from '../../components/base/Typography'
+import { Hash } from '../../types/index'
 
 function ProposalDetailPage() {
   const { allProposals } = useProposals()
@@ -33,16 +33,16 @@ function ProposalDetailPage() {
     <Stack className="w-full px-4 md:px-10">
       <Stack className="w-full gap-10 pt-10">
         <ProposalNavigation />
-        <Flex className="justify-between w-full h-full">
+        <Flex className="h-full w-full justify-between">
           {/* Header section */}
           <Stack className="w-fit gap-4">
             <Flex className="items-center gap-6">
-              {proposal.status === "ACTIVE" ? (
+              {proposal.status === 'ACTIVE' ? (
                 <ProposalLabel>{proposal.status}</ProposalLabel>
-              ) : proposal.status === "PENDING" ||
-                proposal.status === "QUEUED" ||
-                proposal.status === "EXECUTED" ||
-                proposal.status === "SUCCEEDED" ? (
+              ) : proposal.status === 'PENDING' ||
+                proposal.status === 'QUEUED' ||
+                proposal.status === 'EXECUTED' ||
+                proposal.status === 'SUCCEEDED' ? (
                 <ProposalLabel variant="secondary">
                   {proposal.status}
                 </ProposalLabel>
@@ -123,9 +123,9 @@ export default ProposalDetailPage
 
 function ProposalNavigation() {
   return (
-    <Link href="/proposals" className="cursor-pointer group">
-      <Flex className="gap-2 w-fit">
-        <ArrowLeft className="transition duration-200 ease-in-out group-hover:-translate-x-1 text-primary " />{" "}
+    <Link href="/proposals" className="group cursor-pointer">
+      <Flex className="w-fit gap-2">
+        <ArrowLeft className="text-primary transition duration-200 ease-in-out group-hover:-translate-x-1 " />{' '}
         <Body>Back to proposals</Body>
       </Flex>
     </Link>

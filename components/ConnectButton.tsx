@@ -1,9 +1,9 @@
-import { useAuth } from "@/hooks/useAuth"
-import { ConnectKitButton } from "connectkit"
-import { Zorb } from "./base/Zorb"
-import { Button } from "@/components/base/Button"
-import { Flex } from "./base/Flex"
-import { Headline } from "./base/Typography"
+import { useAuth } from '@/hooks/useAuth'
+import { ConnectKitButton } from 'connectkit'
+import { Zorb } from './base/Zorb'
+import { Button } from '@/components/base/Button'
+import { Flex } from './base/Flex'
+import { Headline } from './base/Typography'
 
 export default function ConnectButton() {
   const { address, ensName } = useAuth()

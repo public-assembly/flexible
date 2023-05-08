@@ -3,8 +3,8 @@
  * https://github.com/ourzora/nouns-builder/blob/main/apps/web/src/components/NetworkController/index.tsx
  * */
 
-import React, { ReactNode } from "react"
-import { ENV } from "@/utils/env"
+import React, { ReactNode } from 'react'
+import { ENV } from '@/utils/env'
 
 interface NetworkControllerProps {
   children: ReactNode

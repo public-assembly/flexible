@@ -5,12 +5,12 @@ import {
   useState,
   useEffect,
   memo,
-} from "react"
-import { BigNumber } from "ethers"
-import { useContractRead } from "wagmi"
-import { platformThemeRegistryAbi } from "../abi/platformThemeRegistryAbi"
-import { useWeb3Storage } from "../hooks/useWeb3Storage"
-import tinycolor from "tinycolor2"
+} from 'react'
+import { BigNumber } from 'ethers'
+import { useContractRead } from 'wagmi'
+import { platformThemeRegistryAbi } from '../abi/platformThemeRegistryAbi'
+import { useWeb3Storage } from '../hooks/useWeb3Storage'
+import tinycolor from 'tinycolor2'
 
 type ThemeProviderProps = {
   children?: ReactNode
@@ -21,38 +21,38 @@ type ThemeProviderProps = {
  * Assign default values to the context provider
  */
 const ThemeContext = createContext({
-  themeCID: "",
-  newMetadata: "",
+  themeCID: '',
+  newMetadata: '',
   /**
    * Configurable properties
    */
-  image: "",
+  image: '',
   setImage: (image: string) => {},
-  backgroundColor: "",
+  backgroundColor: '',
   setBackgroundColor: (backgroundColor: string) => {},
-  primary: "",
+  primary: '',
   setPrimary: (primary: string) => {},
-  secondary: "",
+  secondary: '',
   setSecondary: (secondary: string) => {},
-  tertiary: "",
+  tertiary: '',
   setTertiary: (tertiary: string) => {},
-  highlight: "",
+  highlight: '',
   setHighlight: (highlight: string) => {},
-  headline: "",
+  headline: '',
   setHeadline: (headline: string) => {},
-  headlineSize: "",
+  headlineSize: '',
   setHeadlineSize: (headlineSize: string) => {},
-  body: "",
+  body: '',
   setBody: (body: string) => {},
-  caption: "",
+  caption: '',
   setCaption: (caption: string) => {},
-  shadowColor: "",
+  shadowColor: '',
   setShadowColor: (shadowColor: string) => {},
-  shadowSpread: "",
+  shadowSpread: '',
   setShadowSpread: (shadowSpread: string) => {},
-  objectRadius: "",
+  objectRadius: '',
   setObjectRadius: (objectRadius: string) => {},
-  buttonRadius: "",
+  buttonRadius: '',
   setButtonRadius: (buttonRadius: string) => {},
 })
 
@@ -60,73 +60,73 @@ export const ThemeProvider = memo(function ThemeProvider({
   children,
   platformIndex,
 }: ThemeProviderProps) {
-  const themeRegistry = "0x9a23AE640040e4d34E9e00E500003000017144F4"
+  const themeRegistry = '0x9a23AE640040e4d34E9e00E500003000017144F4'
   /**
    * Assign a state variable to the theme content object
    */
-  const [themeCID, setThemeCID] = useState<string>("")
+  const [themeCID, setThemeCID] = useState<string>('')
   /**
    * Set state variables for the parameters derived from the theme content object
    */
-  const [image, setImage] = useState<string>("")
+  const [image, setImage] = useState<string>('')
   const [backgroundColor, setBackgroundColor] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
-      "--color-background"
+      '--color-background'
     )
   )
   const [primary, setPrimary] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
-      "--color-primary"
+      '--color-primary'
     )
   )
   const [secondary, setSecondary] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
-      "--color-secondary"
+      '--color-secondary'
     )
   )
   const [tertiary, setTertiary] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
-      "--color-tertiary"
+      '--color-tertiary'
     )
   )
   const [highlight, setHighlight] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
-      "--color-highlight"
+      '--color-highlight'
     )
   )
   const [headline, setHeadline] = useState<string>(
-    getComputedStyle(document.documentElement).getPropertyValue("--headline")
+    getComputedStyle(document.documentElement).getPropertyValue('--headline')
   )
   const [headlineSize, setHeadlineSize] = useState<string>(
     getComputedStyle(document.documentElement)
-      .getPropertyValue("--headline-size")
+      .getPropertyValue('--headline-size')
       .slice(0, -2)
   )
   const [body, setBody] = useState<string>(
-    getComputedStyle(document.documentElement).getPropertyValue("--body")
+    getComputedStyle(document.documentElement).getPropertyValue('--body')
   )
   const [caption, setCaption] = useState<string>(
-    getComputedStyle(document.documentElement).getPropertyValue("--caption")
+    getComputedStyle(document.documentElement).getPropertyValue('--caption')
   )
 
   const [shadowColor, setShadowColor] = useState<string>(
     getComputedStyle(document.documentElement).getPropertyValue(
-      "--color-shadow"
+      '--color-shadow'
     )
   )
   const [shadowSpread, setShadowSpread] = useState<string>(
     getComputedStyle(document.documentElement)
-      .getPropertyValue("--shadow-spread")
+      .getPropertyValue('--shadow-spread')
       .slice(0, -2)
   )
   const [objectRadius, setObjectRadius] = useState<string>(
     getComputedStyle(document.documentElement)
-      .getPropertyValue("--border-radius-object")
+      .getPropertyValue('--border-radius-object')
       .slice(0, -2)
   )
   const [buttonRadius, setButtonRadius] = useState<string>(
     getComputedStyle(document.documentElement)
-      .getPropertyValue("--border-radius-button")
+      .getPropertyValue('--border-radius-button')
       .slice(0, -2)
   )
   /**
@@ -135,10 +135,10 @@ export const ThemeProvider = memo(function ThemeProvider({
   useContractRead({
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
-    functionName: "getPlatformTheme",
+    functionName: 'getPlatformTheme',
     args: [BigNumber.from(platformIndex)],
     onSuccess(data: any) {
-      setThemeCID(data.substring("ipfs://".length))
+      setThemeCID(data.substring('ipfs://'.length))
     },
     onError(error: any) {
       console.log(error)
@@ -175,8 +175,8 @@ export const ThemeProvider = memo(function ThemeProvider({
    * If the color to format is not a hex string, return it as one
    */
   function formatToHex(color: string) {
-    if (color.charAt(0) != "#") {
-      return tinycolor("rgb " + "\u00A0" + color).toHexString()
+    if (color.charAt(0) != '#') {
+      return tinycolor('rgb ' + '\u00A0' + color).toHexString()
     } else {
       return color
     }
@@ -223,27 +223,27 @@ export const ThemeProvider = memo(function ThemeProvider({
       theme: {
         background: {
           // image: image || "",
-          backgroundColor: backgroundColor || "",
+          backgroundColor: backgroundColor || '',
         },
         colors: {
-          primary: primary || "",
-          secondary: secondary || "",
-          tertiary: tertiary || "",
-          highlight: highlight || "",
+          primary: primary || '',
+          secondary: secondary || '',
+          tertiary: tertiary || '',
+          highlight: highlight || '',
         },
         fonts: {
-          headline: headline || "",
-          headlineSize: headlineSize || "",
-          body: body || "",
-          caption: caption || "",
+          headline: headline || '',
+          headlineSize: headlineSize || '',
+          body: body || '',
+          caption: caption || '',
         },
         dropshadow: {
-          shadowColor: shadowColor || "",
-          shadowSpread: shadowSpread || "",
+          shadowColor: shadowColor || '',
+          shadowSpread: shadowSpread || '',
         },
         cornerRadius: {
-          objectRadius: objectRadius || "",
-          buttonRadius: buttonRadius || "",
+          objectRadius: objectRadius || '',
+          buttonRadius: buttonRadius || '',
         },
       },
     },
@@ -258,7 +258,7 @@ export const ThemeProvider = memo(function ThemeProvider({
     src: url('${headlineFontUrl}') format('woff2');
     }`
 
-  const headlineStyle = document.createElement("style")
+  const headlineStyle = document.createElement('style')
   headlineStyle.appendChild(document.createTextNode(headlineRule))
   document.head.appendChild(headlineStyle)
 
@@ -269,7 +269,7 @@ export const ThemeProvider = memo(function ThemeProvider({
     src: url('${bodyFontUrl}') format('woff2');
     }`
 
-  const bodyStyle = document.createElement("style")
+  const bodyStyle = document.createElement('style')
   bodyStyle.appendChild(document.createTextNode(bodyRule))
   document.head.appendChild(bodyStyle)
 
@@ -280,7 +280,7 @@ export const ThemeProvider = memo(function ThemeProvider({
     src: url('${captionFontUrl}') format('woff2');
     }`
 
-  const captionStyle = document.createElement("style")
+  const captionStyle = document.createElement('style')
   captionStyle.appendChild(document.createTextNode(captionRule))
   document.head.appendChild(captionStyle)
 
@@ -331,7 +331,7 @@ export const ThemeProvider = memo(function ThemeProvider({
 export const useThemeContext = () => {
   const context = useContext(ThemeContext)
   if (!context) {
-    throw Error("useThemeContext hook must be used within a ThemeProvider")
+    throw Error('useThemeContext hook must be used within a ThemeProvider')
   }
   return context
 }

@@ -1,4 +1,4 @@
-import { Headline } from "./base/Typography"
+import { Headline } from './base/Typography'
 
 type EmptyState = {
   actions?: React.ReactNode
@@ -9,9 +9,9 @@ type EmptyState = {
 export default function EmptyState(props: EmptyState) {
   const { actions, heading, subheading } = props
   return (
-    <div className="flex flex-col items-center h-full py-8">
-      <Headline className="mb-8 headline">{heading}</Headline>
-      {subheading && <p className="mb-4 text-md text-black/60">{subheading}</p>}
+    <div className="flex h-full flex-col items-center py-8">
+      <Headline className="headline mb-8">{heading}</Headline>
+      {subheading && <p className="text-md mb-4 text-black/60">{subheading}</p>}
       {actions && <div className="flex justify-center gap-2">{actions}</div>}
     </div>
   )

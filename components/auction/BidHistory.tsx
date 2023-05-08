@@ -1,9 +1,9 @@
-import { Flex } from "../base/Flex"
-import { Caption } from "../base/Typography"
-import { useBid } from "@public-assembly/dao-utils"
-import { Bidder } from "@/components/auction/Bidder"
-import { Hash } from "types"
-import { cn } from "@/utils/cn"
+import { Flex } from '../base/Flex'
+import { Caption } from '../base/Typography'
+import { useBid } from '@public-assembly/dao-utils'
+import { Bidder } from '@/components/auction/Bidder'
+import { Hash } from 'types'
+import { cn } from '@/utils/cn'
 
 interface BidHistoryProps {
   tokenId: string
@@ -16,16 +16,16 @@ export function BidHistory({ tokenId, tokenAddress }: BidHistoryProps) {
   const reversedBidEvents = tokenEvents ? [...tokenEvents].reverse() : []
 
   return (
-    <Flex className="flex-col gap-y-2 pt-8 min-w-[306px] w-full max-h-[312px] overflow-y-auto">
+    <Flex className="max-h-[312px] w-full min-w-[306px] flex-col gap-y-2 overflow-y-auto pt-8">
       {reversedBidEvents?.map((event, index) => {
         const isFirstChild = index === 0
         return (
           <Flex
             key={`${event.amount}-${event.bidder}`}
-            className={`w-full justify-between items-center rounded-lg p-3 ${
+            className={`w-full items-center justify-between rounded-lg p-3 ${
               isFirstChild
-                ? "bg-primary text-secondary"
-                : "border border-tertiary text-primary"
+                ? 'bg-primary text-secondary'
+                : 'border border-tertiary text-primary'
             }`}
           >
             <Bidder
@@ -44,8 +44,8 @@ function BidAmount({ isHighestBid, event }) {
   return (
     <Caption
       className={cn(
-        "uppercase",
-        isHighestBid ? "text-secondary" : "text-primary"
+        'uppercase',
+        isHighestBid ? 'text-secondary' : 'text-primary'
       )}
     >
       {`${Number(event.amount).toFixed(4)} ETH`}

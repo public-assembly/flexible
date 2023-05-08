@@ -1,32 +1,32 @@
-import { useState, useEffect } from "react"
-import { useIsMobile } from "@/hooks/useIsMobile"
-import { AnimatePresence, motion } from "framer-motion"
-import { ENV } from "@/utils/env"
+import { useState, useEffect } from 'react'
+import { useIsMobile } from '@/hooks/useIsMobile'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ENV } from '@/utils/env'
 import {
   ArrowLeft,
   ArrowUp,
   ArrowUpRight,
   Pending,
-} from "@/components/assets/icons"
-import Button from "@/components/base/Button"
-import { Flex } from "@/components/base/Flex"
+} from '@/components/assets/icons'
+import Button from '@/components/base/Button'
+import { Flex } from '@/components/base/Flex'
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/base/Sheet"
-import { Stack } from "@/components/base/Stack"
-import { BodySmall, Caption, Headline } from "@/components/base/Typography"
-import { useActiveAuction, useDaoTokenQuery } from "@public-assembly/dao-utils"
-import { AuctionCountdown } from "./AuctionCountdown"
-import ConnectButton from "../ConnectButton"
-import { ethers, BigNumber } from "ethers"
-import { BidHistory } from "./BidHistory"
-import { fromUnixTime, format } from "date-fns"
-import { Settle } from "./Settle"
-import { useAuth } from "@/hooks/useAuth"
+} from '@/components/base/Sheet'
+import { Stack } from '@/components/base/Stack'
+import { BodySmall, Caption, Headline } from '@/components/base/Typography'
+import { useActiveAuction, useDaoTokenQuery } from '@public-assembly/dao-utils'
+import { AuctionCountdown } from './AuctionCountdown'
+import ConnectButton from '../ConnectButton'
+import { ethers, BigNumber } from 'ethers'
+import { BidHistory } from './BidHistory'
+import { fromUnixTime, format } from 'date-fns'
+import { Settle } from './Settle'
+import { useAuth } from '@/hooks/useAuth'
 
 const MotionButton = motion(Button)
 
@@ -75,7 +75,7 @@ export function AuctionSheet({
     createBid()
   }
 
-  const externalLinkBaseURI = "https://nouns.build/dao"
+  const externalLinkBaseURI = 'https://nouns.build/dao'
 
   return (
     <AnimatePresence>
@@ -87,13 +87,13 @@ export function AuctionSheet({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 100 }}
               transition={{
-                ease: "easeInOut",
+                ease: 'easeInOut',
                 duration: 0.8,
                 delay: 0.6,
                 easings: [0.44, 0, 0.56, 1],
               }}
               variant="tertiary"
-              className="px-[12px] w-fit md:hidden uppercase fixed z-50 bottom-4 left-4 caption"
+              className="caption fixed bottom-4 left-4 z-50 w-fit px-[12px] uppercase md:hidden"
             >
               <ArrowUp className="min-w-[16px]" />
               <span className="px-2">Auction</span>
@@ -104,22 +104,22 @@ export function AuctionSheet({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 200 }}
               transition={{
-                ease: "easeInOut",
+                ease: 'easeInOut',
                 duration: 0.8,
                 delay: 0.5,
                 easings: [0.44, 0, 0.56, 1],
               }}
               variant="tertiary"
-              className="px-[12px] w-fit max-md:hidden uppercase absolute right-0 top-10 group caption"
+              className="caption group absolute right-0 top-10 w-fit px-[12px] uppercase max-md:hidden"
             >
-              <ArrowLeft className="min-w-[24px] group-radix-state-open:after:rotate-180 group-radix-state-open:before:rotate-90" />
+              <ArrowLeft className="min-w-[24px] group-radix-state-open:before:rotate-90 group-radix-state-open:after:rotate-180" />
               <span className="px-2">Auction</span>
             </MotionButton>
           )}
         </SheetTrigger>
         {open && (
           // onInteractOutside={(e) => e.preventDefault()}
-          <SheetContent position={isMobile ? "bottom" : "right"} size="auction">
+          <SheetContent position={isMobile ? 'bottom' : 'right'} size="auction">
             <SheetHeader>
               <SheetTitle>
                 <Headline>
@@ -127,7 +127,7 @@ export function AuctionSheet({
                     href={`${externalLinkBaseURI}/${ENV.TOKEN_ADDRESS}/${currentTokenId}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-[24px] hover:underline flex flex-row items-center gap-2"
+                    className="flex flex-row items-center gap-2 text-[24px] hover:underline"
                   >
                     <span>{tokenName}</span>
                     <ArrowUpRight size={24} className="text-tertiary" />
@@ -166,7 +166,7 @@ export function AuctionSheet({
                             tokenData?.mintInfo.mintContext
                               .blockNumber as number
                           ),
-                          "MMMM d, yyyy"
+                          'MMMM d, yyyy'
                         )}`}</span>
                       </Caption>
                       <BodySmall className="text-tertiary">
@@ -200,15 +200,15 @@ export function AuctionSheet({
                     >
                       <input
                         disabled={createBidLoading}
-                        className="px-4 py-3 bg-transparent rounded-lg border border-primary caption focus:text-primary placeholder:text-tertiary"
+                        className="caption rounded-lg border border-primary bg-transparent px-4 py-3 placeholder:text-tertiary focus:text-primary"
                         type="text"
                         pattern="[0-9]+(\.[0-9]+)?"
                         onKeyDown={(event) => {
                           const pattern = /[0-9\.]/
                           if (
                             !pattern.test(event.key) &&
-                            event.key !== "Backspace" &&
-                            event.key !== "Delete"
+                            event.key !== 'Backspace' &&
+                            event.key !== 'Delete'
                           ) {
                             event.preventDefault()
                           }
@@ -218,7 +218,7 @@ export function AuctionSheet({
                           event: React.ChangeEvent<HTMLInputElement>
                         ) => updateBidAmount(event.target.value)}
                       />
-                      <label className="absolute ml-72 sm:ml-64 mt-3">
+                      <label className="absolute ml-72 mt-3 sm:ml-64">
                         ETH
                       </label>
                       {!createBidLoading && !createBidSuccess ? (

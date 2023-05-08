@@ -1,8 +1,8 @@
-import { useAuth } from "@/hooks/useAuth"
-import { ConnectKitButton } from "connectkit"
-import { Zorb } from "./base/Zorb"
-import { Flex } from "./base/Flex"
-import { Headline } from "./base/Typography"
+import { useAuth } from '@/hooks/useAuth'
+import { ConnectKitButton } from 'connectkit'
+import { Zorb } from './base/Zorb'
+import { Flex } from './base/Flex'
+import { Headline } from './base/Typography'
 
 export default function AltConnectButton() {
   const { address, ensName } = useAuth()
@@ -13,7 +13,7 @@ export default function AltConnectButton() {
         if (!isConnected) {
           return (
             <button
-              className="flex justify-center mt-6 py-3 px-8 bg-white font-medium rounded border border-[#333333] min-w-[156px] hover:bg-opacity-80"
+              className="mt-6 flex min-w-[156px] justify-center rounded border border-[#333333] bg-white py-3 px-8 font-medium hover:bg-opacity-80"
               onClick={show}
             >
               Connect Wallet
