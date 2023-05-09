@@ -1,5 +1,6 @@
 import Button from '@/components/base/Button'
 import { Flex } from '@/components/base/Flex'
+import { cn } from '@/utils/cn'
 import { useTokenContext } from '@public-assembly/dao-utils'
 import { platformThemeRegistryAbi } from 'abi/platformThemeRegistryAbi'
 import { BigNumber } from 'ethers'
@@ -36,6 +37,9 @@ const container: Variants = {
 export function Header() {
   const { isMobile } = useIsMobile()
   const { tokenSettings } = useTokenContext()
+  const router = useRouter()
+
+  const isAuction = router.pathname === '/'
 
   return (
     <motion.header
@@ -54,7 +58,10 @@ export function Header() {
         delay: 0.5,
         easings: [0.44, 0, 0.56, 1],
       }}
-      className="flex w-full flex-row items-center justify-between bg-transparent px-4 py-4"
+      className={cn(
+        'flex w-full items-center justify-between bg-transparent p-4',
+        { 'sm:absolute': isAuction }
+      )}
     >
       {/* Header Logo */}
       <Link href="/">

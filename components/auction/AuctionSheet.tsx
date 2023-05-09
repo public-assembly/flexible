@@ -213,7 +213,7 @@ export function AuctionSheet({
                             event.preventDefault()
                           }
                         }}
-                        placeholder={`${minBidAmount.toFixed(4)} OR HIGHER`}
+                        placeholder={`${minBidAmount?.toFixed(4)} OR HIGHER`}
                         onChange={(
                           event: React.ChangeEvent<HTMLInputElement>
                         ) => updateBidAmount(event.target.value)}
