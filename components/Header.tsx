@@ -54,7 +54,7 @@ export function Header() {
         delay: 0.5,
         easings: [0.44, 0, 0.56, 1],
       }}
-      className="flex w-full flex-row items-center justify-between bg-transparent px-4 py-4"
+      className="flex w-full items-center justify-between bg-transparent px-4 py-4"
     >
       {/* Header Logo */}
       <Link href="/">

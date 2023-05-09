@@ -1,6 +1,3 @@
-import { ArrowLeft, ArrowRight } from '@/components/assets/icons'
-import { AuctionSheet } from '@/components/auction/AuctionSheet'
-import Button from '@/components/base/Button'
 import { Flex } from '@/components/base/Flex'
 import { Stack } from '@/components/base/Stack'
 import { BlurImage } from '@/components/BlurImage'
@@ -19,9 +16,9 @@ import {
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { Hash } from 'types'
-import { cn } from 'utils/cn'
 import { ENV } from 'utils/env'
 import Label from '../base/Label'
+import { ExplorerButtons } from './ExplorerButtons'
 
 const Auction = () => {
   const { isMobile } = useIsMobile()
@@ -67,7 +64,9 @@ const Auction = () => {
   const { tokenSettings } = useTokenContext()
 
   return (
-    <Stack className="h-full gap-4 overflow-x-hidden px-4 pt-10 md:pt-20 ">
+    // <Stack className="min-h-screen items-center justify-center px-4">
+    <Stack className="mt-1/2 translate-y-1/2 transform px-4">
+      {/* <Stack> */}
       <Flex className="relative w-full justify-center">
         <Stack className="relative aspect-square h-full max-h-[600px] w-full max-w-[600px] justify-between p-4">
           <div className="absolute inset-0 z-0 aspect-square w-full">
@@ -80,29 +79,14 @@ const Auction = () => {
               />
             )}
           </div>
-          {/* Explorer buttons */}
-          <Flex className="gap-4">
-            <Button
-              variant="tertiary"
-              onClick={decrementId}
-              className={cn(
-                'custom-shadow z-10 w-fit text-primary',
-                isFirstToken && 'pointer-events-none opacity-20'
-              )}
-            >
-              <ArrowLeft />
-            </Button>
-            <Button
-              variant="tertiary"
-              onClick={incrementId}
-              className={cn(
-                'custom-shadow z-10 w-fit text-primary',
-                isLastToken && 'pointer-events-none opacity-20'
-              )}
-            >
-              <ArrowRight />
-            </Button>
-          </Flex>
+
+          <ExplorerButtons
+            incrementId={incrementId}
+            decrementId={decrementId}
+            isFirstToken={isFirstToken}
+            isLastToken={isLastToken}
+          />
+
           {isMobile ? null : (
             <Flex className="justify-between">
               {/* Current token/Historical token badge */}
@@ -154,7 +138,7 @@ const Auction = () => {
         </Stack>
 
         {/* Desktop/Tablet Auction button */}
-        <AuctionSheet
+        {/* <AuctionSheet
           currentTokenId={currentTokenId.toString()}
           tokenName={tokenName as string}
           winningBid={winningBid as string}
@@ -162,7 +146,7 @@ const Auction = () => {
           isLastToken={isLastToken}
           auctionState={auctionState}
           minBidAmount={minBidAmount}
-        />
+                  /> */}
       </Flex>
 
       {/* Mobile auction button */}
