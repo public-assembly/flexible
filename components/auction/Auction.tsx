@@ -65,8 +65,7 @@ const Auction = () => {
 
   return (
     // <Stack className="min-h-screen items-center justify-center px-4">
-    <Stack className="mt-1/2 translate-y-1/2 transform px-4">
-      {/* <Stack> */}
+    <Stack className="min-h-screen justify-center px-4">
       <Flex className="relative w-full justify-center">
         <Stack className="relative aspect-square h-full max-h-[600px] w-full max-w-[600px] justify-between p-4">
           <div className="absolute inset-0 z-0 aspect-square w-full">
