@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react'
 import { Hash } from 'types'
 import { ENV } from 'utils/env'
 import Label from '../base/Label'
+import { AuctionSheet } from './AuctionSheet'
 import { ExplorerButtons } from './ExplorerButtons'
 
 const Auction = () => {
@@ -64,8 +65,7 @@ const Auction = () => {
   const { tokenSettings } = useTokenContext()
 
   return (
-    // <Stack className="min-h-screen items-center justify-center px-4">
-    <Stack className="min-h-screen justify-center px-4">
+    <Stack className="min-h-screen justify-center gap-4 px-4">
       <Flex className="relative w-full justify-center">
         <Stack className="relative aspect-square h-full max-h-[600px] w-full max-w-[600px] justify-between p-4">
           <div className="absolute inset-0 z-0 aspect-square w-full">
@@ -137,7 +137,7 @@ const Auction = () => {
         </Stack>
 
         {/* Desktop/Tablet Auction button */}
-        {/* <AuctionSheet
+        <AuctionSheet
           currentTokenId={currentTokenId.toString()}
           tokenName={tokenName as string}
           winningBid={winningBid as string}
@@ -145,7 +145,7 @@ const Auction = () => {
           isLastToken={isLastToken}
           auctionState={auctionState}
           minBidAmount={minBidAmount}
-                  /> */}
+        />
       </Flex>
 
       {/* Mobile auction button */}

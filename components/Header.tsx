@@ -40,7 +40,6 @@ export function Header() {
   const router = useRouter()
 
   const isAuction = router.pathname === '/'
-  console.log(isAuction)
 
   return (
     <motion.header
@@ -61,7 +60,7 @@ export function Header() {
       }}
       className={cn(
         'flex w-full items-center justify-between bg-transparent p-4',
-        { 'md:absolute': isAuction }
+        { 'sm:absolute': isAuction }
       )}
     >
       {/* Header Logo */}
