@@ -161,13 +161,17 @@ export function AuctionSheet({
                     {/* Auction ended */}
                     <Stack>
                       <Caption>
-                        <span className="uppercase">{`${format(
-                          fromUnixTime(
-                            tokenData?.mintInfo.mintContext
-                              .blockNumber as number
-                          ),
-                          'MMMM d, yyyy'
-                        )}`}</span>
+                        <span className="uppercase">
+                          {tokenData?.mintInfo
+                            ? `${format(
+                                fromUnixTime(
+                                  tokenData?.mintInfo.mintContext
+                                    .blockNumber as number
+                                ),
+                                'MMMM d, yyyy'
+                              )}`
+                            : '-'}
+                        </span>
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Auction ended
