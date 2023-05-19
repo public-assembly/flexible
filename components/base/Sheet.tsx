@@ -12,17 +12,20 @@ const Sheet = SheetPrimitive.Root
 
 const SheetTrigger = SheetPrimitive.Trigger
 
-const portalVariants = cva('fixed inset-0 z-sheet-0 flex group', {
-  variants: {
-    position: {
-      top: 'items-start',
-      bottom: 'items-end',
-      left: 'justify-start',
-      right: 'justify-end',
+const portalVariants = cva(
+  'fixed inset-0 z-sheet-0 flex group pointer-events-none',
+  {
+    variants: {
+      position: {
+        top: 'items-start',
+        bottom: 'items-end',
+        left: 'justify-start',
+        right: 'justify-end',
+      },
     },
-  },
-  defaultVariants: { position: 'right' },
-})
+    defaultVariants: { position: 'right' },
+  }
+)
 
 interface SheetPortalProps
   extends SheetPrimitive.DialogPortalProps,
@@ -180,8 +183,13 @@ const SheetContent = React.forwardRef<
   <SheetPortal position={position} forceMount>
     <SheetOverlay />
     <SheetPrimitive.Content
+      onInteractOutside={(e) => e.preventDefault()}
       ref={ref}
-      className={cn(sheetVariants({ position, size }), className)}
+      className={cn(
+        sheetVariants({ position, size }),
+        className,
+        'pointer-events-auto'
+      )}
       {...props}
       /**
        * Allows events to be called outside the bounds of the component

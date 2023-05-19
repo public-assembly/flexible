@@ -79,7 +79,7 @@ export function AuctionSheet({
 
   return (
     <AnimatePresence>
-      <Sheet open={open} onOpenChange={setOpen}>
+      <Sheet open={open} onOpenChange={setOpen} modal={false}>
         <SheetTrigger asChild className="custom-shadow">
           {isMobile ? (
             <MotionButton
@@ -218,7 +218,7 @@ export function AuctionSheet({
                           event: React.ChangeEvent<HTMLInputElement>
                         ) => updateBidAmount(event.target.value)}
                       />
-                      <label className="absolute ml-72 mt-3 sm:ml-64">
+                      <label className="absolute mt-3 ml-72 sm:ml-64">
                         ETH
                       </label>
                       {!createBidLoading && !createBidSuccess ? (
