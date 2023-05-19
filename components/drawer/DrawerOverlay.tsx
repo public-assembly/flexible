@@ -16,9 +16,6 @@ export function DrawerOverlay({ drawerName }: { drawerName: string }) {
             position: 'fixed',
             top: 0,
             left: 0,
-            pointerEvents: 'none',
-            borderWidth: "1px",
-            borderColor: "red"
           }}
         />
       )}
