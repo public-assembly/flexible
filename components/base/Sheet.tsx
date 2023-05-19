@@ -67,7 +67,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
-  'fixed scale-100 z-sheet-1 gap-4 bg-secondary p-6 opacity-100 border-primary shadow-elevation-small border',
+  'fixed scale-100 z-sheet-1 gap-4 bg-secondary p-6 opacity-100 border-primary shadow-elevation-small border pointer-events-auto',
   {
     variants: {
       position: {
@@ -185,11 +185,7 @@ const SheetContent = React.forwardRef<
     <SheetPrimitive.Content
       onInteractOutside={(e) => e.preventDefault()}
       ref={ref}
-      className={cn(
-        sheetVariants({ position, size }),
-        className,
-        'pointer-events-auto'
-      )}
+      className={cn(sheetVariants({ position, size }), className)}
       {...props}
       /**
        * Allows events to be called outside the bounds of the component
