@@ -79,7 +79,7 @@ export function AuctionSheet({
 
   return (
     <AnimatePresence>
-      <Sheet open={open} onOpenChange={setOpen} modal={false}>
+      <Sheet open={open} onOpenChange={setOpen} modal={isMobile}>
         <SheetTrigger asChild className="custom-shadow">
           {isMobile ? (
             <MotionButton
@@ -119,7 +119,15 @@ export function AuctionSheet({
         </SheetTrigger>
         {open && (
           // onInteractOutside={(e) => e.preventDefault()}
-          <SheetContent position={isMobile ? 'bottom' : 'right'} size="auction">
+          <SheetContent
+            position={isMobile ? 'bottom' : 'right'}
+            size="auction"
+            onInteractOutside={(e) => {
+              if (!isMobile) {
+                e.preventDefault()
+              }
+            }}
+          >
             <SheetHeader>
               <SheetTitle>
                 <Headline>

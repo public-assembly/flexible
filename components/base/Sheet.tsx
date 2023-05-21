@@ -183,7 +183,6 @@ const SheetContent = React.forwardRef<
   <SheetPortal position={position} forceMount>
     <SheetOverlay />
     <SheetPrimitive.Content
-      onInteractOutside={(e) => e.preventDefault()}
       ref={ref}
       className={cn(sheetVariants({ position, size }), className)}
       {...props}
