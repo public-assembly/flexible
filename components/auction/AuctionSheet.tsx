@@ -5,6 +5,7 @@ import {
   Pending,
 } from '@/components/assets/icons'
 import Button from '@/components/base/Button'
+import { Grid } from '@/components/base/Grid'
 import {
   Sheet,
   SheetContent,
@@ -22,7 +23,6 @@ import { format, fromUnixTime } from 'date-fns'
 import { BigNumber, ethers } from 'ethers'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { Grid } from '../base/Grid'
 import ConnectButton from '../ConnectButton'
 import { AuctionCountdown } from './AuctionCountdown'
 import { BidHistory } from './BidHistory'
