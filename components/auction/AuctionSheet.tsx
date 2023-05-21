@@ -176,7 +176,7 @@ export function AuctionSheet({
                     {/* Winning bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        {winningBid}
+                        {winningBid} ETH
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Winning bid
@@ -218,7 +218,7 @@ export function AuctionSheet({
                           event: React.ChangeEvent<HTMLInputElement>
                         ) => updateBidAmount(event.target.value)}
                       />
-                      <label className="absolute ml-72 mt-3 sm:ml-64">
+                      <label className="absolute mt-3 ml-72 sm:ml-64">
                         ETH
                       </label>
                       {!createBidLoading && !createBidSuccess ? (
