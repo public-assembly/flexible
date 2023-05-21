@@ -5,7 +5,6 @@ import {
   Pending,
 } from '@/components/assets/icons'
 import Button from '@/components/base/Button'
-import { Flex } from '@/components/base/Flex'
 import {
   Sheet,
   SheetContent,
@@ -23,6 +22,7 @@ import { format, fromUnixTime } from 'date-fns'
 import { BigNumber, ethers } from 'ethers'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { Grid } from '../base/Grid'
 import ConnectButton from '../ConnectButton'
 import { AuctionCountdown } from './AuctionCountdown'
 import { BidHistory } from './BidHistory'
@@ -142,7 +142,7 @@ export function AuctionSheet({
                   </a>
                 </Headline>
               </SheetTitle>
-              <Flex className="gap-10">
+              <Grid className="grid-cols-2">
                 {!isEnded ? (
                   <>
                     {/* Auction countdown */}
@@ -167,7 +167,7 @@ export function AuctionSheet({
                 ) : (
                   <>
                     {/* Auction ended */}
-                    <Stack>
+                    <Stack className="justify-between">
                       <Caption>
                         <span className="uppercase">
                           {tokenData?.mintInfo
@@ -178,7 +178,7 @@ export function AuctionSheet({
                                 ),
                                 'MMMM d, yyyy'
                               )}`
-                            : '-'}
+                            : 'N/A'}
                         </span>
                       </Caption>
                       <BodySmall className="text-tertiary">
@@ -196,7 +196,7 @@ export function AuctionSheet({
                     </Stack>
                   </>
                 )}
-              </Flex>
+              </Grid>
               {isLastToken ? (
                 isEnded ? (
                   !isConnected ? (
