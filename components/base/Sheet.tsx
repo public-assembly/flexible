@@ -54,7 +54,7 @@ const SheetOverlay = React.forwardRef<
         'pointer-events-none fixed inset-0',
         '-z-sheet-1',
         'md:hidden',
-        'bg-black/60 filter backdrop-blur-[24px]',
+        'bg-black/60 filter backdrop-blur-[18px]',
         'group-radix-state-closed:animate-fadeOut group-radix-state-open:animate-fadeIn',
         'data-open:animate-fadeIn data-closed:animate-fadeOut',
       ],
