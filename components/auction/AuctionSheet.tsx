@@ -118,10 +118,9 @@ export function AuctionSheet({
           )}
         </SheetTrigger>
         {open && (
-          // onInteractOutside={(e) => e.preventDefault()}
           <SheetContent
-            position={isMobile ? 'bottom' : 'right'}
             size="auction"
+            position={isMobile ? 'bottom' : 'right'}
             onInteractOutside={(e) => {
               if (!isMobile) {
                 e.preventDefault()
@@ -167,7 +166,7 @@ export function AuctionSheet({
                 ) : (
                   <>
                     {/* Auction ended */}
-                    <Stack className="justify-between">
+                    <Stack>
                       <Caption>
                         <span className="uppercase">
                           {tokenData?.mintInfo
