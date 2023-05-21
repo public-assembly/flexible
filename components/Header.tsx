@@ -99,11 +99,11 @@ function MobileDropdown(props: MobileDropdownProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   useEffect(() => {
-    router.events.on('routeChangeComplete', () => {
-      if (isOpen) {
-        setIsOpen(false)
-      }
-    })
+    const closeDropdown = () => setIsOpen(false)
+    router.events.on('routeChangeComplete', closeDropdown)
+    return () => {
+      router.events.off('routeChangeComplete', closeDropdown)
+    }
   }, [isOpen, router.events])
 
   const themeRegistry = '0x9a23AE640040e4d34E9e00E500003000017144F4'
