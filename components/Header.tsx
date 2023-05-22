@@ -7,7 +7,7 @@ import { BigNumber } from 'ethers'
 import { motion, Variants } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Hash } from 'types'
 import { ENV } from 'utils/env'
 import { useContractRead } from 'wagmi'
@@ -96,6 +96,15 @@ function MobileDropdown(props: MobileDropdownProps) {
   const [canEdit, setCanEdit] = useState<boolean>(false)
   const { requestOpen } = useDrawer()
   const router = useRouter()
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  useEffect(() => {
+    const closeDropdown = () => setIsOpen(false)
+    router.events.on('routeChangeComplete', closeDropdown)
+    return () => {
+      router.events.off('routeChangeComplete', closeDropdown)
+    }
+  }, [isOpen, router.events])
 
   const themeRegistry = '0x9a23AE640040e4d34E9e00E500003000017144F4'
 
@@ -111,10 +120,8 @@ function MobileDropdown(props: MobileDropdownProps) {
     },
   })
 
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-
   return (
-    <DropdownMenu.Root onOpenChange={() => setIsOpen(!isOpen)}>
+    <DropdownMenu.Root onOpenChange={() => setIsOpen(!isOpen)} open={isOpen}>
       <DropdownMenu.Trigger asChild>
         <Button size="icon" className="rounded-object" variant="burger">
           {!isOpen ? (
