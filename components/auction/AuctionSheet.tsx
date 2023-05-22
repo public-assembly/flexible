@@ -5,7 +5,7 @@ import {
   Pending,
 } from '@/components/assets/icons'
 import Button from '@/components/base/Button'
-import { Flex } from '@/components/base/Flex'
+import { Grid } from '@/components/base/Grid'
 import {
   Sheet,
   SheetContent,
@@ -79,7 +79,7 @@ export function AuctionSheet({
 
   return (
     <AnimatePresence>
-      <Sheet open={open} onOpenChange={setOpen}>
+      <Sheet open={open} onOpenChange={setOpen} modal={isMobile}>
         <SheetTrigger asChild className="custom-shadow">
           {isMobile ? (
             <MotionButton
@@ -118,8 +118,15 @@ export function AuctionSheet({
           )}
         </SheetTrigger>
         {open && (
-          // onInteractOutside={(e) => e.preventDefault()}
-          <SheetContent position={isMobile ? 'bottom' : 'right'} size="auction">
+          <SheetContent
+            size="auction"
+            position={isMobile ? 'bottom' : 'right'}
+            onInteractOutside={(e) => {
+              if (!isMobile) {
+                e.preventDefault()
+              }
+            }}
+          >
             <SheetHeader>
               <SheetTitle>
                 <Headline>
@@ -134,7 +141,7 @@ export function AuctionSheet({
                   </a>
                 </Headline>
               </SheetTitle>
-              <Flex className="gap-10">
+              <Grid className="grid-cols-2">
                 {!isEnded ? (
                   <>
                     {/* Auction countdown */}
@@ -161,13 +168,17 @@ export function AuctionSheet({
                     {/* Auction ended */}
                     <Stack>
                       <Caption>
-                        <span className="uppercase">{`${format(
-                          fromUnixTime(
-                            tokenData?.mintInfo.mintContext
-                              .blockNumber as number
-                          ),
-                          'MMMM d, yyyy'
-                        )}`}</span>
+                        <span className="uppercase">
+                          {tokenData?.mintInfo
+                            ? `${format(
+                                fromUnixTime(
+                                  tokenData?.mintInfo.mintContext
+                                    .blockNumber as number
+                                ),
+                                'MMMM d, yyyy'
+                              )}`
+                            : 'N/A'}
+                        </span>
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Auction ended
@@ -184,7 +195,7 @@ export function AuctionSheet({
                     </Stack>
                   </>
                 )}
-              </Flex>
+              </Grid>
               {isLastToken ? (
                 isEnded ? (
                   !isConnected ? (
@@ -218,7 +229,7 @@ export function AuctionSheet({
                           event: React.ChangeEvent<HTMLInputElement>
                         ) => updateBidAmount(event.target.value)}
                       />
-                      <label className="absolute ml-72 mt-3 sm:ml-64">
+                      <label className="absolute mt-3 ml-72 sm:ml-64">
                         ETH
                       </label>
                       {!createBidLoading && !createBidSuccess ? (

@@ -12,17 +12,20 @@ const Sheet = SheetPrimitive.Root
 
 const SheetTrigger = SheetPrimitive.Trigger
 
-const portalVariants = cva('fixed inset-0 z-sheet-0 flex group', {
-  variants: {
-    position: {
-      top: 'items-start',
-      bottom: 'items-end',
-      left: 'justify-start',
-      right: 'justify-end',
+const portalVariants = cva(
+  'fixed inset-0 z-sheet-0 flex group pointer-events-none',
+  {
+    variants: {
+      position: {
+        top: 'items-start',
+        bottom: 'items-end',
+        left: 'justify-start',
+        right: 'justify-end',
+      },
     },
-  },
-  defaultVariants: { position: 'right' },
-})
+    defaultVariants: { position: 'right' },
+  }
+)
 
 interface SheetPortalProps
   extends SheetPrimitive.DialogPortalProps,
@@ -51,7 +54,7 @@ const SheetOverlay = React.forwardRef<
         'pointer-events-none fixed inset-0',
         '-z-sheet-1',
         'md:hidden',
-        'bg-black/60 filter backdrop-blur-[24px]',
+        'bg-black/60 filter backdrop-blur-[18px]',
         'group-radix-state-closed:animate-fadeOut group-radix-state-open:animate-fadeIn',
         'data-open:animate-fadeIn data-closed:animate-fadeOut',
       ],
@@ -64,7 +67,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
-  'fixed scale-100 z-sheet-1 gap-4 bg-secondary p-6 opacity-100 border-primary shadow-elevation-small border',
+  'fixed scale-100 z-sheet-1 gap-4 bg-secondary p-6 opacity-100 border-primary shadow-elevation-small border pointer-events-auto',
   {
     variants: {
       position: {
