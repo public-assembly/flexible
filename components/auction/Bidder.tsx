@@ -1,6 +1,8 @@
 import { Flex } from '@/components/base/Flex'
+import { Link } from '@/components/base/Link'
 import { Body } from '@/components/base/Typography'
 import { Zorb } from '@/components/base/Zorb'
+import { buildEtherscanLink } from '@/utils/helpers'
 import { Hash } from 'types'
 import { useEnsAvatar, useEnsName } from 'wagmi'
 import { shortenAddress } from '../../utils/shortenAddress'
@@ -29,7 +31,9 @@ export function Bidder(props: BidderProps) {
       <Body
         className={props.isHighestBidder ? 'text-secondary' : 'text-primary'}
       >
-        {ensName ?? shortenAddress(props.address)}
+        <Link href={buildEtherscanLink('address', props.address)}>
+          {ensName ?? shortenAddress(props.address)}
+        </Link>
       </Body>
     </Flex>
   )

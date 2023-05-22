@@ -187,7 +187,7 @@ export function AuctionSheet({
                     {/* Winning bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        {winningBid}
+                        {winningBid} ETH
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Winning bid
