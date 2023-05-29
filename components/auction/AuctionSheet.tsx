@@ -52,6 +52,7 @@ export function AuctionSheet({
   const { isMobile } = useIsMobile()
 
   const [open, setOpen] = useState<boolean | undefined>()
+  const [timestamp, setTimestamp] = useState<number | undefined>()
 
   const { isConnected } = useAuth()
 
@@ -74,6 +75,21 @@ export function AuctionSheet({
     event.preventDefault()
     createBid()
   }
+
+  useEffect(() => {
+    if (tokenData) {
+      const provider = new ethers.providers.JsonRpcProvider(
+        `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
+      )
+
+      const blockNumber = tokenData.mintInfo.mintContext.blockNumber
+
+      provider.getBlock(blockNumber).then((block) => {
+        setTimestamp(block.timestamp)
+      })
+    }
+    return
+  }, [tokenData])
 
   const externalLinkBaseURI = 'https://nouns.build/dao'
 
@@ -168,17 +184,18 @@ export function AuctionSheet({
                     {/* Auction ended */}
                     <Stack>
                       <Caption>
-                        <span className="uppercase">
-                          {tokenData?.mintInfo
-                            ? `${format(
-                                fromUnixTime(
-                                  tokenData?.mintInfo.mintContext
-                                    .blockNumber as number
-                                ),
-                                'MMMM d, yyyy'
-                              )}`
-                            : 'N/A'}
-                        </span>
+                        {timestamp ? (
+                          <span className="uppercase">
+                            {tokenData?.mintInfo
+                              ? `${format(
+                                  fromUnixTime(timestamp),
+                                  'MMMM d, yyyy'
+                                )}`
+                              : 'N/A'}
+                          </span>
+                        ) : (
+                          <span className="uppercase">Loading...</span>
+                        )}
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Auction ended
