@@ -19,6 +19,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { ENV } from '@/utils/env'
 import { useActiveAuction, useDaoTokenQuery } from '@public-assembly/dao-utils'
+import { ALCHEMY_RPC_URL } from 'constants/rpcEndpoint'
 import { format, fromUnixTime } from 'date-fns'
 import { BigNumber, ethers } from 'ethers'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -52,6 +53,7 @@ export function AuctionSheet({
   const { isMobile } = useIsMobile()
 
   const [open, setOpen] = useState<boolean | undefined>()
+  const [timestamp, setTimestamp] = useState<number | undefined>()
 
   const { isConnected } = useAuth()
 
@@ -74,6 +76,22 @@ export function AuctionSheet({
     event.preventDefault()
     createBid()
   }
+
+  useEffect(() => {
+    if (tokenData) {
+      const provider = new ethers.providers.JsonRpcProvider(
+        `${ALCHEMY_RPC_URL}`
+      )
+
+      const blockNumber = tokenData.mintInfo.mintContext.blockNumber
+      const auctionDuration = auctionState.endTime - auctionState.startTime
+
+      provider.getBlock(blockNumber).then((block) => {
+        setTimestamp(block.timestamp + auctionDuration)
+      })
+    }
+    return
+  }, [tokenData, auctionState])
 
   const externalLinkBaseURI = 'https://nouns.build/dao'
 
@@ -168,17 +186,18 @@ export function AuctionSheet({
                     {/* Auction ended */}
                     <Stack>
                       <Caption>
-                        <span className="uppercase">
-                          {tokenData?.mintInfo
-                            ? `${format(
-                                fromUnixTime(
-                                  tokenData?.mintInfo.mintContext
-                                    .blockNumber as number
-                                ),
-                                'MMMM d, yyyy'
-                              )}`
-                            : 'N/A'}
-                        </span>
+                        {timestamp ? (
+                          <span className="uppercase">
+                            {tokenData?.mintInfo
+                              ? `${format(
+                                  fromUnixTime(timestamp),
+                                  'MMMM d, yyyy'
+                                )}`
+                              : 'N/A'}
+                          </span>
+                        ) : (
+                          <span className="uppercase">Loading...</span>
+                        )}
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Auction ended
