@@ -17,6 +17,7 @@ import { Stack } from '@/components/base/Stack'
 import { BodySmall, Caption, Headline } from '@/components/base/Typography'
 import { useAuth } from '@/hooks/useAuth'
 import { useIsMobile } from '@/hooks/useIsMobile'
+import { useTokenHistory } from '@/hooks/useTokenHistory'
 import { ENV } from '@/utils/env'
 import { useActiveAuction, useDaoTokenQuery } from '@public-assembly/dao-utils'
 import { ALCHEMY_RPC_URL } from 'constants/rpcEndpoint'
@@ -57,6 +58,8 @@ export function AuctionSheet({
 
   const { isConnected } = useAuth()
 
+  const daoAddress = process.env.NEXT_PUBLIC_TOKEN_ADDRESS
+
   const {
     createBid,
     updateBidAmount,
@@ -69,6 +72,9 @@ export function AuctionSheet({
     tokenAddress: ENV.TOKEN_ADDRESS,
     tokenId: currentTokenId.toString(),
   })
+
+  const { tokenHistory } = useTokenHistory(daoAddress, currentTokenId)
+  console.log('tokennn: ', tokenHistory.endTime)
 
   useEffect(() => {}, [createBidSuccess])
 
@@ -188,12 +194,10 @@ export function AuctionSheet({
                       <Caption>
                         {timestamp ? (
                           <span className="uppercase">
-                            {tokenData?.mintInfo
-                              ? `${format(
-                                  fromUnixTime(timestamp),
-                                  'MMMM d, yyyy'
-                                )}`
-                              : 'N/A'}
+                            {format(
+                              fromUnixTime(tokenHistory.endTime),
+                              'MMMM d, yyyy'
+                            )}
                           </span>
                         ) : (
                           <span className="uppercase">Loading...</span>

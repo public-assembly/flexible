@@ -1,7 +1,7 @@
+import { useSWRConfig } from 'swr'
 import { cn } from 'utils/cn'
 import { ArrowLeft, ArrowRight } from '../assets/icons'
 import { Button, Flex } from '../base'
-
 type ExplorerButtonProps = {
   incrementId: any
   decrementId: any
@@ -15,11 +15,16 @@ export function ExplorerButtons({
   isFirstToken,
   isLastToken,
 }: ExplorerButtonProps) {
+  const { mutate } = useSWRConfig()
+
   return (
     <Flex className="gap-4">
       <Button
         variant="tertiary"
-        onClick={decrementId}
+        onClick={() => {
+          decrementId()
+          mutate('tokenChange')
+        }}
         className={cn(
           'custom-shadow z-10 w-fit text-primary',
           isFirstToken && 'pointer-events-none opacity-20'
@@ -29,7 +34,10 @@ export function ExplorerButtons({
       </Button>
       <Button
         variant="tertiary"
-        onClick={incrementId}
+        onClick={() => {
+          incrementId()
+          mutate('tokenChange')
+        }}
         className={cn(
           'custom-shadow z-10 w-fit text-primary',
           isLastToken && 'pointer-events-none opacity-20'
