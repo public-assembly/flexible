@@ -19,6 +19,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { ENV } from '@/utils/env'
 import { useActiveAuction, useDaoTokenQuery } from '@public-assembly/dao-utils'
+import { ALCHEMY_RPC_URL } from 'constants/rpcEndpoint'
 import { format, fromUnixTime } from 'date-fns'
 import { BigNumber, ethers } from 'ethers'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -79,17 +80,18 @@ export function AuctionSheet({
   useEffect(() => {
     if (tokenData) {
       const provider = new ethers.providers.JsonRpcProvider(
-        `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
+        `${ALCHEMY_RPC_URL}`
       )
 
       const blockNumber = tokenData.mintInfo.mintContext.blockNumber
+      const auctionDuration = auctionState.endTime - auctionState.startTime
 
       provider.getBlock(blockNumber).then((block) => {
-        setTimestamp(block.timestamp)
+        setTimestamp(block.timestamp + auctionDuration)
       })
     }
     return
-  }, [tokenData])
+  }, [tokenData, auctionState])
 
   const externalLinkBaseURI = 'https://nouns.build/dao'
 

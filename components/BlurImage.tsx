@@ -16,6 +16,7 @@ export const BlurImage = (props: ImageProps) => {
       )}
     >
       <NextImage
+        priority
         {...props}
         className={cn(
           'duration-700 ease-in-out',

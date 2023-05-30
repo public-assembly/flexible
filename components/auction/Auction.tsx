@@ -36,6 +36,8 @@ const Auction = () => {
     isLastToken,
   } = useTokenExplorer()
 
+  console.log('current: ', currentTokenId)
+
   const { tokenName, tokenThumbnail } = useTokenMetadata(
     currentTokenId.toString()
   )
