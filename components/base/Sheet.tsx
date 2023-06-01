@@ -183,6 +183,7 @@ const SheetContent = React.forwardRef<
   <SheetPortal position={position} forceMount>
     <SheetOverlay />
     <SheetPrimitive.Content
+      onOpenAutoFocus={(event) => event.preventDefault()}
       ref={ref}
       className={cn(sheetVariants({ position, size }), className)}
       {...props}
@@ -251,10 +252,10 @@ SheetDescription.displayName = SheetPrimitive.Description.displayName
 
 export {
   Sheet,
-  SheetTrigger,
   SheetContent,
-  SheetHeader,
-  SheetFooter,
-  SheetTitle,
   SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
 }
