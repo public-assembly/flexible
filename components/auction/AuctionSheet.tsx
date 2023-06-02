@@ -138,7 +138,7 @@ export function AuctionSheet({
         {open && (
           <SheetContent
             size="auction"
-            position={isMobile ? 'bottom' : 'right'}
+            position={isMobile ? 'bottom' : 'right-center'}
             onInteractOutside={(e) => {
               if (!isMobile) {
                 e.preventDefault()
