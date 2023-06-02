@@ -1,5 +1,3 @@
-'use client'
-
 import * as SheetPrimitive from '@radix-ui/react-dialog'
 import { cva, VariantProps } from 'cva'
 import * as React from 'react'
@@ -21,6 +19,7 @@ const portalVariants = cva(
         bottom: 'items-end',
         left: 'justify-start',
         right: 'justify-end',
+        'right-center': 'items-center justify-end',
       },
     },
     defaultVariants: { position: 'right' },
@@ -84,6 +83,10 @@ const sheetVariants = cva(
           'rounded-tr-object rounded-br-object',
         ],
         right: [
+          'rounded-tl-object rounded-bl-object',
+          'animate-in data-[state=open]:animate-slideInFromRight data-[state=open]:delay-500 data-[state=closed]:animate-slideOutToRight h-full duration-300',
+        ],
+        'right-center': [
           'rounded-tl-object rounded-bl-object',
           'animate-in data-[state=open]:animate-slideInFromRight data-[state=open]:delay-500 data-[state=closed]:animate-slideOutToRight h-full duration-300',
         ],
@@ -159,10 +162,13 @@ const sheetVariants = cva(
         size: 'full',
         class: 'w-screen',
       },
+      /**
+       * Size configuration for Auction sheet.
+       */
       {
-        position: ['right', 'left'],
+        position: ['right-center'],
         size: 'auction',
-        class: 'max-h-[640px] top-32',
+        class: 'h-[600px]',
       },
     ],
     defaultVariants: {
@@ -187,11 +193,6 @@ const SheetContent = React.forwardRef<
       ref={ref}
       className={cn(sheetVariants({ position, size }), className)}
       {...props}
-      /**
-       * Allows events to be called outside the bounds of the component
-       * Should be used in conjunction with modal={false} on the Root component
-       * onInteractOutside={(e) => e.preventDefault()}
-       */
     >
       <SheetPrimitive.Close asChild className={cn('mb-10')}>
         <Button
