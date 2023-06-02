@@ -14,7 +14,7 @@ import { useProposalPermissions } from '@/hooks/useProposalPermissions'
 import { buildEtherscanLink } from '@/utils/helpers'
 import { useEffect, useState } from 'react'
 import { NOUNS_PROPOSAL_SUPPORT, PROPOSAL_SUPPORT } from 'types'
-import ProposalVoteButton from '../ProposalVoteButton'
+import VotingDialog from '../VotingDialog'
 
 const voteSupportMessages = {
   for: 'You voted for this proposal',
@@ -232,7 +232,7 @@ export function ProposalVoteStatus({ proposal }) {
             <Label>You are not eligible to vote on this proposal</Label>
           ) : (
             <Flex className="gap-6">
-              <ProposalVoteButton proposal={proposal} />
+              <VotingDialog proposal={proposal} />
               {/* If the user can cancel, render the cancel button */}
               {canCancel ? <Cancel proposal={proposal} /> : null}
             </Flex>

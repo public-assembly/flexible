@@ -23,7 +23,7 @@ import {
 import { Stack } from '../base/Stack'
 import { BodyLarge, Headline } from '../base/Typography'
 
-const ProposalVoteButton = ({ proposal }) => {
+const VotingDialog = ({ proposal }) => {
   const [support, setSupport] = useState<0 | 1 | 2 | undefined>()
   const [reason, setReason] = useState<string | undefined>()
   const [activeButton, setActiveButton] = useState<number>()
@@ -122,7 +122,7 @@ const ProposalVoteButton = ({ proposal }) => {
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             placeholder="Comment (optional)"
-            className="min-h-[167px] w-full py-2 px-3 text-black"
+            className="min-h-[96px] w-full py-2 px-3 text-black"
           ></textarea>
         </Stack>
         <DialogFooter>
@@ -161,4 +161,4 @@ const ProposalVoteButton = ({ proposal }) => {
   )
 }
 
-export default ProposalVoteButton
+export default VotingDialog
