@@ -5,7 +5,7 @@ import {
   useVote,
 } from '@public-assembly/dao-utils'
 import { BigNumber } from 'ethers'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Hash } from 'types'
 import { cn } from 'utils/cn'
 import { useContractRead } from 'wagmi'
@@ -29,6 +29,7 @@ const VotingDialog = ({ proposal }) => {
   const [support, setSupport] = useState<0 | 1 | 2 | undefined>()
   const [reason, setReason] = useState<string | undefined>()
   const [activeButton, setActiveButton] = useState<number>()
+  const [successDialogOpen, setSuccessDialogOpen] = useState(false)
 
   const {
     castVote,
@@ -52,17 +53,17 @@ const VotingDialog = ({ proposal }) => {
     args: [address as Hash, BigNumber.from(proposal?.timeCreated)],
   })
 
-  function renderSuccessDialog() {
+  useEffect(() => {
     if (castVoteSuccess || castVoteWithReasonSuccess) {
       setOpen(false)
-      return <VotingSuccess reason={reason} />
+      setSuccessDialogOpen(true)
     }
-  }
+  }, [castVoteSuccess, castVoteWithReasonSuccess])
 
   if (proposal.status != 'ACTIVE') return null
   return (
     <>
-      {renderSuccessDialog()}
+      {successDialogOpen && <VotingSuccess reason={reason} />}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button className="min-w-[328px]" size="lg">
@@ -141,7 +142,9 @@ const VotingDialog = ({ proposal }) => {
           <DialogFooter>
             {!reason ? (
               <Button
-                onClick={() => castVote?.()}
+                onClick={() => {
+                  castVote?.()
+                }}
                 size="lg"
                 type="submit"
                 className="w-full"

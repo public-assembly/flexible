@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { CheckCircle } from '../assets/icons'
 import { Dialog, DialogContent, DialogFooter } from '../base/Dialog'
 import { Separator } from '../base/Separator'
@@ -5,8 +6,9 @@ import { Stack } from '../base/Stack'
 import { Body, BodyLarge, Headline } from '../base/Typography'
 
 const VotingSuccess = ({ reason }: { reason: string | undefined }) => {
+  const [open, setOpen] = useState(true)
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="gap-y-6 border border-primary sm:max-w-[425px]">
         <Stack className="items-center gap-y-1 py-12">
           <CheckCircle className="h-16 w-16 text-highlight" />
