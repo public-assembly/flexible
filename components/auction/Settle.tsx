@@ -17,13 +17,21 @@ export function Settle() {
   })
   const { data, write: settle } = useContractWrite(config)
 
-  const { isLoading } = useWaitForTransaction({
+  const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   })
 
   return (
-    <Button size="lg" disabled={isLoading} onClick={() => settle?.()}>
-      {!isLoading ? 'Settle auction' : <Pending className="animate-spin" />}
-    </Button>
+    <>
+      {!isSuccess ? (
+        <Button size="lg" disabled={isLoading} onClick={() => settle?.()}>
+          {!isLoading ? 'Settle auction' : <Pending className="animate-spin" />}
+        </Button>
+      ) : (
+        <Button size="lg" disabled={true}>
+          Settled successfully
+        </Button>
+      )}
+    </>
   )
 }
