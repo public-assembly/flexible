@@ -53,7 +53,7 @@ const Auction = () => {
     } else {
       setTokenOwner(tokenData?.owner)
     }
-  })
+  }, [])
 
   const resolvedTokenOwner = useBidder(tokenOwner).bidder
 

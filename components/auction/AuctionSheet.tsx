@@ -70,8 +70,6 @@ export function AuctionSheet({
     tokenId: currentTokenId.toString(),
   })
 
-  useEffect(() => {}, [createBidSuccess])
-
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     createBid()
