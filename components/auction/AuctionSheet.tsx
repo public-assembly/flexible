@@ -215,55 +215,51 @@ export function AuctionSheet({
                   </>
                 )}
               </Grid>
-              {isLastToken ? (
-                isEnded ? (
-                  !isConnected ? (
-                    <ConnectButton />
-                  ) : (
-                    <SettleButton {...settleProps} />
-                  )
+              {isLastToken && isEnded ? (
+                !isConnected ? (
+                  <ConnectButton />
                 ) : (
-                  <div>
-                    <form
-                      onSubmit={handleSubmit}
-                      className="flex flex-col gap-y-4"
-                    >
-                      <input
-                        disabled={createBidLoading}
-                        className="caption rounded-lg border border-primary bg-transparent px-4 py-3 placeholder:text-tertiary focus:text-primary"
-                        type="text"
-                        pattern="[0-9]+(\.[0-9]+)?"
-                        onKeyDown={(event) => {
-                          const pattern = /[0-9\.]/
-                          if (
-                            !pattern.test(event.key) &&
-                            event.key !== 'Backspace' &&
-                            event.key !== 'Delete'
-                          ) {
-                            event.preventDefault()
-                          }
-                        }}
-                        placeholder={`${minBidAmount?.toFixed(4)} OR HIGHER`}
-                        onChange={(
-                          event: React.ChangeEvent<HTMLInputElement>
-                        ) => updateBidAmount(event.target.value)}
-                      />
-                      <label className="absolute mt-3 ml-72 sm:ml-64">
-                        ETH
-                      </label>
-                      {!createBidLoading && !createBidSuccess ? (
-                        <Button disabled={!isValidBid} size="lg">
-                          Enter Bid
-                        </Button>
-                      ) : (
-                        <Button size="lg">
-                          <Pending className="animate-spin" />
-                        </Button>
-                      )}
-                    </form>
-                  </div>
+                  <SettleButton {...settleProps} />
                 )
-              ) : null}
+              ) : (
+                <div>
+                  <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col gap-y-4"
+                  >
+                    <input
+                      disabled={createBidLoading}
+                      className="caption rounded-lg border border-primary bg-transparent px-4 py-3 placeholder:text-tertiary focus:text-primary"
+                      type="text"
+                      pattern="[0-9]+(\.[0-9]+)?"
+                      onKeyDown={(event) => {
+                        const pattern = /[0-9\.]/
+                        if (
+                          !pattern.test(event.key) &&
+                          event.key !== 'Backspace' &&
+                          event.key !== 'Delete'
+                        ) {
+                          event.preventDefault()
+                        }
+                      }}
+                      placeholder={`${minBidAmount?.toFixed(4)} OR HIGHER`}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        updateBidAmount(event.target.value)
+                      }
+                    />
+                    <label className="absolute mt-3 ml-72 sm:ml-64">ETH</label>
+                    {!createBidLoading && !createBidSuccess ? (
+                      <Button disabled={!isValidBid} size="lg">
+                        Enter Bid
+                      </Button>
+                    ) : (
+                      <Button size="lg">
+                        <Pending className="animate-spin" />
+                      </Button>
+                    )}
+                  </form>
+                </div>
+              )}
               {/* Bid History */}
               <BidHistory
                 tokenId={navigatedTokenId}

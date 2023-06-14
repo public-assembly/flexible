@@ -22,6 +22,7 @@ import Label from '../base/Label'
 import { AuctionSheet } from './AuctionSheet'
 import { ExplorerButtons } from './ExplorerButtons'
 
+
 const Auction = () => {
   const [tokenOwner, setTokenOwner] = useState<string | Hash>()
   const { isMobile } = useIsMobile()
@@ -54,9 +55,11 @@ const Auction = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setNavigatedTokenId(navigatedTokenId + 1)
+      setNavigatedTokenId(prevId => prevId + 1)
     }
   }, [isSuccess])
+
+  console.log('Navigated token id', navigatedTokenId)
 
   useEffect(() => {
     if (tokenEvents?.length != 0) {
@@ -127,7 +130,7 @@ const Auction = () => {
                   </Label>
                 </Flex>
               ) : winningBid === 'N/A' &&
-                tokenData?.owner !=
+                tokenData.owner !=
                   '0x0000000000000000000000000000000000000000' ? (
                 <Label
                   variant="row"
@@ -186,7 +189,7 @@ const Auction = () => {
                 </Label>
               </Flex>
             ) : winningBid === 'N/A' &&
-              tokenData?.owner !=
+              tokenData.owner !=
                 '0x0000000000000000000000000000000000000000' ? (
               <Label
                 variant="row"

@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 
 export function useTokenExplorer({ auctionState }: { auctionState: any }) {
   const [navigatedTokenId, setNavigatedTokenId] = useState<number>(
-    auctionState.tokenId
+    Number(auctionState.tokenId)
   )
 
   const incrementId = useCallback(() => {
