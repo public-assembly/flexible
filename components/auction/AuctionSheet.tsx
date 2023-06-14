@@ -32,7 +32,7 @@ import { SettleButton } from './SettleButton'
 const MotionButton = motion(Button)
 
 interface AuctionSheetProps {
-  currentTokenId: string
+  navigatedTokenId: string
   tokenName: string
   winningBid: string
   isEnded: boolean
@@ -43,7 +43,7 @@ interface AuctionSheetProps {
 }
 
 export function AuctionSheet({
-  currentTokenId,
+  navigatedTokenId,
   tokenName,
   winningBid,
   isEnded,
@@ -69,7 +69,7 @@ export function AuctionSheet({
 
   const { tokenData } = useDaoTokenQuery({
     tokenAddress: ENV.TOKEN_ADDRESS,
-    tokenId: currentTokenId.toString(),
+    tokenId: navigatedTokenId.toString(),
   })
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -149,7 +149,7 @@ export function AuctionSheet({
               <SheetTitle>
                 <Headline>
                   <a
-                    href={`${externalLinkBaseURI}/${ENV.TOKEN_ADDRESS}/${currentTokenId}`}
+                    href={`${externalLinkBaseURI}/${ENV.TOKEN_ADDRESS}/${navigatedTokenId}`}
                     target="_blank"
                     rel="noreferrer"
                     className="flex flex-row items-center gap-2 text-[24px] hover:underline"
@@ -160,7 +160,7 @@ export function AuctionSheet({
                 </Headline>
               </SheetTitle>
               <Grid className="grid-cols-2">
-                {!isEnded ? (
+                {isLastToken && !isEnded ? (
                   <>
                     {/* Auction countdown */}
                     <Stack>
@@ -266,7 +266,7 @@ export function AuctionSheet({
               ) : null}
               {/* Bid History */}
               <BidHistory
-                tokenId={currentTokenId}
+                tokenId={navigatedTokenId}
                 tokenAddress={ENV.TOKEN_ADDRESS}
               />
             </SheetHeader>

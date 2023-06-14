@@ -3,6 +3,7 @@ import { Stack } from '@/components/base/Stack'
 import { BlurImage } from '@/components/BlurImage'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { useSettle } from '@/hooks/useSettle'
+import { useTokenExplorer } from '@/hooks/useTokenExplorer'
 import { useTokenMetadata } from '@/hooks/useTokenMetadata'
 import {
   useActiveAuction,
@@ -12,10 +13,8 @@ import {
   useDaoTokenQuery,
   useManagerContext,
   useTokenContext,
-  useTokenExplorer,
 } from '@public-assembly/dao-utils'
 import { motion } from 'framer-motion'
-import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Hash } from 'types'
 import { ENV } from 'utils/env'
@@ -24,41 +23,38 @@ import { AuctionSheet } from './AuctionSheet'
 import { ExplorerButtons } from './ExplorerButtons'
 
 const Auction = () => {
+  const [tokenOwner, setTokenOwner] = useState<string | Hash>()
   const { isMobile } = useIsMobile()
   const { tokenAddress } = useManagerContext()
   const { auctionState, minBidAmount } = useActiveAuction(tokenAddress as Hash)
-  const { isEnded } = useCountdown(auctionState.endTime)
 
   const {
     incrementId,
     decrementId,
-    tokenId,
-    currentTokenId,
+    navigatedTokenId,
+    setNavigatedTokenId,
     isFirstToken,
     isLastToken,
-  } = useTokenExplorer()
+  } = useTokenExplorer({ auctionState })
 
   const { settle, isLoading, isSuccess } = useSettle()
 
   const settleProps = { settle, isLoading, isSuccess }
 
   const { winningBid, winningTx, tokenEvents } = useBid({
-    tokenId: currentTokenId.toString(),
+    tokenId: navigatedTokenId.toString(),
     tokenAddress: tokenAddress as Hash,
   })
 
-  const [tokenOwner, setTokenOwner] = useState<string | Hash>()
-
-  const router = useRouter()
+  const { isEnded } = useCountdown(auctionState.endTime)
 
   const { tokenName, tokenThumbnail } = useTokenMetadata({
-    tokenId: currentTokenId,
+    tokenId: navigatedTokenId,
   })
 
   useEffect(() => {
     if (isSuccess) {
-      incrementId()
-      router.reload()
+      setNavigatedTokenId(navigatedTokenId + 1)
     }
   }, [isSuccess])
 
@@ -74,7 +70,7 @@ const Auction = () => {
 
   const { tokenData } = useDaoTokenQuery({
     tokenAddress: ENV.TOKEN_ADDRESS,
-    tokenId: currentTokenId.toString(),
+    tokenId: navigatedTokenId.toString(),
   })
 
   const { tokenSettings } = useTokenContext()
@@ -89,7 +85,7 @@ const Auction = () => {
                 src={tokenThumbnail}
                 height={600}
                 width={600}
-                alt={`${tokenId}`}
+                alt={`${navigatedTokenId}`}
               />
             )}
           </div>
@@ -153,7 +149,7 @@ const Auction = () => {
 
         {/* Desktop/Tablet Auction button */}
         <AuctionSheet
-          currentTokenId={currentTokenId.toString()}
+          navigatedTokenId={navigatedTokenId.toString()}
           tokenName={tokenName as string}
           winningBid={winningBid as string}
           isEnded={isEnded}
