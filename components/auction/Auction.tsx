@@ -87,22 +87,13 @@ const Auction = () => {
       <Flex className="relative w-full justify-center">
         <Stack className="relative aspect-square h-full max-h-[600px] w-full max-w-[600px] justify-between p-4">
           <div className="absolute inset-0 z-0 aspect-square w-full">
-            {isLastToken ? (
+            {tokenThumbnail && (
               <BlurImage
-                src={json?.image}
+                src={tokenThumbnail}
                 height={600}
                 width={600}
                 alt={`${tokenId}`}
               />
-            ) : (
-              tokenThumbnail && (
-                <BlurImage
-                  src={tokenThumbnail}
-                  height={600}
-                  width={600}
-                  alt={`${tokenId}`}
-                />
-              )
             )}
           </div>
 
