@@ -59,7 +59,6 @@ const Auction = () => {
     }
   }, [isSuccess])
 
-  console.log('Navigated token id', navigatedTokenId)
 
   useEffect(() => {
     if (tokenEvents?.length != 0) {
