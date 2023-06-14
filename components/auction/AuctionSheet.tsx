@@ -27,7 +27,7 @@ import { useEffect, useState } from 'react'
 import ConnectButton from '../ConnectButton'
 import { AuctionCountdown } from './AuctionCountdown'
 import { BidHistory } from './BidHistory'
-import { Settle } from './Settle'
+import { SettleButton } from './SettleButton'
 
 const MotionButton = motion(Button)
 
@@ -39,6 +39,7 @@ interface AuctionSheetProps {
   isLastToken: boolean
   auctionState: any
   minBidAmount: any
+  settleProps: React.ComponentProps<typeof SettleButton>
 }
 
 export function AuctionSheet({
@@ -49,6 +50,7 @@ export function AuctionSheet({
   isLastToken,
   auctionState,
   minBidAmount,
+  settleProps,
 }: AuctionSheetProps) {
   const { isMobile } = useIsMobile()
 
@@ -218,7 +220,7 @@ export function AuctionSheet({
                   !isConnected ? (
                     <ConnectButton />
                   ) : (
-                    <Settle />
+                    <SettleButton {...settleProps} />
                   )
                 ) : (
                   <div>

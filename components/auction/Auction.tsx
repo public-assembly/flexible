@@ -2,6 +2,7 @@ import { Flex } from '@/components/base/Flex'
 import { Stack } from '@/components/base/Stack'
 import { BlurImage } from '@/components/BlurImage'
 import { useIsMobile } from '@/hooks/useIsMobile'
+import { useSettle } from '@/hooks/useSettle'
 import {
   useActiveAuction,
   useBid,
@@ -35,6 +36,10 @@ const Auction = () => {
     isFirstToken,
     isLastToken,
   } = useTokenExplorer()
+
+  const { settle, isLoading, isSuccess } = useSettle()
+
+  const settleProps = { settle, isLoading, isSuccess };
 
   const { tokenName, tokenThumbnail } = useTokenMetadata(
     currentTokenId.toString()
@@ -145,6 +150,7 @@ const Auction = () => {
           isLastToken={isLastToken}
           auctionState={auctionState}
           minBidAmount={minBidAmount}
+          settleProps={settleProps}
         />
       </Flex>
 
