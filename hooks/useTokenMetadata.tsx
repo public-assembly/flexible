@@ -8,10 +8,10 @@ type TokenMetadata = {
   description: string
   image: string
   name: string
-  properties?: string
+  properties: string
 }
 
-export function useTokenImage({ tokenId }: { tokenId: number }) {
+export function useTokenMetadata({ tokenId }: { tokenId: number }) {
   const [json, setJson] = useState<TokenMetadata>()
 
   const { tokenAddress } = useTokenContext()
@@ -30,6 +30,9 @@ export function useTokenImage({ tokenId }: { tokenId: number }) {
   }, [tokenId])
 
   return {
-    json: json as TokenMetadata,
+    tokenDescription: json?.description,
+    tokenThumbnail: json?.image,
+    tokenName: json?.name,
+    tokenProperties: json?.properties,
   }
 }

@@ -3,7 +3,7 @@ import { Stack } from '@/components/base/Stack'
 import { BlurImage } from '@/components/BlurImage'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { useSettle } from '@/hooks/useSettle'
-import { useTokenImage } from '@/hooks/useTokenImage'
+import { useTokenMetadata } from '@/hooks/useTokenMetadata'
 import {
   useActiveAuction,
   useBid,
@@ -13,7 +13,6 @@ import {
   useManagerContext,
   useTokenContext,
   useTokenExplorer,
-  useTokenMetadata,
 } from '@public-assembly/dao-utils'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
@@ -43,10 +42,6 @@ const Auction = () => {
 
   const settleProps = { settle, isLoading, isSuccess }
 
-  const { tokenName, tokenThumbnail } = useTokenMetadata(
-    currentTokenId.toString()
-  )
-
   const { winningBid, winningTx, tokenEvents } = useBid({
     tokenId: currentTokenId.toString(),
     tokenAddress: tokenAddress as Hash,
@@ -56,7 +51,9 @@ const Auction = () => {
 
   const router = useRouter()
 
-  const { json } = useTokenImage({ tokenId })
+  const { tokenName, tokenThumbnail } = useTokenMetadata({
+    tokenId: currentTokenId,
+  })
 
   useEffect(() => {
     if (isSuccess) {
