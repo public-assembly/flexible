@@ -3,6 +3,7 @@ import { Stack } from '@/components/base/Stack'
 import { BlurImage } from '@/components/BlurImage'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { useSettle } from '@/hooks/useSettle'
+import { useTokenImage } from '@/hooks/useTokenImage'
 import {
   useActiveAuction,
   useBid,
@@ -15,6 +16,7 @@ import {
   useTokenMetadata,
 } from '@public-assembly/dao-utils'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Hash } from 'types'
 import { ENV } from 'utils/env'
@@ -39,7 +41,7 @@ const Auction = () => {
 
   const { settle, isLoading, isSuccess } = useSettle()
 
-  const settleProps = { settle, isLoading, isSuccess };
+  const settleProps = { settle, isLoading, isSuccess }
 
   const { tokenName, tokenThumbnail } = useTokenMetadata(
     currentTokenId.toString()
@@ -51,6 +53,17 @@ const Auction = () => {
   })
 
   const [tokenOwner, setTokenOwner] = useState<string | Hash>()
+
+  const router = useRouter()
+
+  const { json } = useTokenImage({ tokenId })
+
+  useEffect(() => {
+    if (isSuccess) {
+      incrementId()
+      router.reload()
+    }
+  }, [isSuccess])
 
   useEffect(() => {
     if (tokenEvents?.length != 0) {
@@ -74,13 +87,22 @@ const Auction = () => {
       <Flex className="relative w-full justify-center">
         <Stack className="relative aspect-square h-full max-h-[600px] w-full max-w-[600px] justify-between p-4">
           <div className="absolute inset-0 z-0 aspect-square w-full">
-            {tokenThumbnail && (
+            {isLastToken ? (
               <BlurImage
-                src={tokenThumbnail}
+                src={json?.image}
                 height={600}
                 width={600}
                 alt={`${tokenId}`}
               />
+            ) : (
+              tokenThumbnail && (
+                <BlurImage
+                  src={tokenThumbnail}
+                  height={600}
+                  width={600}
+                  alt={`${tokenId}`}
+                />
+              )
             )}
           </div>
 
