@@ -22,7 +22,6 @@ import Label from '../base/Label'
 import { AuctionSheet } from './AuctionSheet'
 import { ExplorerButtons } from './ExplorerButtons'
 
-
 const Auction = () => {
   const [tokenOwner, setTokenOwner] = useState<string | Hash>()
   const { isMobile } = useIsMobile()
@@ -38,7 +37,9 @@ const Auction = () => {
     isLastToken,
   } = useTokenExplorer({ auctionState })
 
-  const { settle, isLoading, isSuccess } = useSettle()
+  const { settle, isLoading, isSuccess } = useSettle({
+    onTxConfirmed: () => setNavigatedTokenId((prev) => prev + 1),
+  })
 
   const settleProps = { settle, isLoading, isSuccess }
 
@@ -53,12 +54,12 @@ const Auction = () => {
     tokenId: navigatedTokenId,
   })
 
-  useEffect(() => {
-    if (isSuccess) {
-      setNavigatedTokenId(prevId => prevId + 1)
-    }
-  }, [isSuccess])
+  const resolvedTokenOwner = useBidder(tokenOwner).bidder
 
+  const { tokenData } = useDaoTokenQuery({
+    tokenAddress: ENV.TOKEN_ADDRESS,
+    tokenId: navigatedTokenId.toString(),
+  })
 
   useEffect(() => {
     if (tokenEvents?.length != 0) {
@@ -67,13 +68,6 @@ const Auction = () => {
       setTokenOwner(tokenData?.owner)
     }
   }, [])
-
-  const resolvedTokenOwner = useBidder(tokenOwner).bidder
-
-  const { tokenData } = useDaoTokenQuery({
-    tokenAddress: ENV.TOKEN_ADDRESS,
-    tokenId: navigatedTokenId.toString(),
-  })
 
   const { tokenSettings } = useTokenContext()
 

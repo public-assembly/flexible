@@ -5,7 +5,7 @@ import {
   useWaitForTransaction,
 } from 'wagmi'
 
-export function useSettle() {
+export function useSettle({onTxConfirmed}: {onTxConfirmed?: () => any}) {
   const { auctionAddress } = useAuctionContext()
 
   const { config } = usePrepareContractWrite({
@@ -17,6 +17,9 @@ export function useSettle() {
 
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
+    onSuccess: () => {
+      onTxConfirmed && onTxConfirmed()
+    }
   })
 
   return {
