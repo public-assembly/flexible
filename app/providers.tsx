@@ -1,6 +1,7 @@
+'use client'
+
 import { Drawer } from '@/components/Drawer'
 import { DrawerContextProvider } from '@/components/drawer/DrawerProvider'
-import { Header } from '@/components/Header'
 import { Seo } from '@/components/Seo'
 import { TopProgressBar } from '@/components/TopProgressBar'
 import { ThemeProvider } from '@/context/ThemeProvider'
@@ -10,10 +11,10 @@ import {
   TokenProvider,
 } from '@public-assembly/dao-utils'
 import { ConnectKitProvider, getDefaultClient } from 'connectkit'
-import type { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 import { Space_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
+import React from 'react'
 import { Provider } from 'react-wrap-balancer'
 import { SWRConfig } from 'swr'
 import { ENV } from 'utils/env'
@@ -21,7 +22,6 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { goerli, mainnet } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
-import '../styles/globals.css'
 
 /** Import both default fonts from Figma. This resolves the FOUT (flash of unstyled text): https://nextjs.org/docs/basic-features/font-optimization*/
 export const spaceMono = Space_Mono({
@@ -35,33 +35,33 @@ export const satoshi = localFont({
   variable: '--font-satoshi',
   src: [
     {
-      path: './fonts/Satoshi-Regular.woff2',
+      path: '.././public/fonts/Satoshi-Regular.woff2',
       weight: '400',
       style: 'normal',
     },
     {
-      path: './fonts/Satoshi-Italic.woff2',
+      path: '.././public/fonts/Satoshi-Italic.woff2',
       weight: '400',
       style: 'italic',
     },
     {
-      path: './fonts/Satoshi-Medium.woff2',
+      path: '.././public/fonts/Satoshi-Medium.woff2',
       weight: '500',
       style: 'normal',
     },
     {
-      path: './fonts/Satoshi-MediumItalic.woff2',
+      path: '.././public/fonts/Satoshi-MediumItalic.woff2',
       weight: '500',
       style: 'italic',
     },
     {
-      path: './fonts/Satoshi-Bold.woff2',
+      path: '.././public/fonts/Satoshi-Bold.woff2',
       weight: '700',
       style: 'normal',
     },
 
     {
-      path: './fonts/Satoshi-BoldItalic.woff2',
+      path: '.././public/fonts/Satoshi-BoldItalic.woff2',
       weight: '700',
       style: 'italic',
     },
@@ -71,7 +71,6 @@ export const satoshi = localFont({
 /**
  * Provider configuration
  */
-
 type ManagerProviderProps = {
   tokenAddress: `0x${string}`
   children: React.ReactNode
@@ -122,7 +121,9 @@ const client = createClient(
   })
 )
 
-export default function App({ Component, pageProps }: AppProps) {
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => setMounted(true), [])
   return (
     <>
       <style jsx global>
@@ -168,9 +169,8 @@ export default function App({ Component, pageProps }: AppProps) {
                         <ThemeProvider platformIndex={ENV.PLATFORM_INDEX}>
                           <TopProgressBar />
                           <DrawerContextProvider>
-                            <Header />
                             <Drawer />
-                            <Component {...pageProps} />
+                            {mounted && children}
                           </DrawerContextProvider>
                         </ThemeProvider>
                       </TokenProvider>

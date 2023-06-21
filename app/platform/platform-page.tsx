@@ -24,7 +24,7 @@ import {
 
 const themeRegistry = '0x9a23AE640040e4d34E9e00E500003000017144F4'
 
-export default function Platform() {
+export default function PlatformPage() {
   const router = useRouter()
 
   const { address, isConnected } = useAuth()

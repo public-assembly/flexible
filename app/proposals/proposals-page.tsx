@@ -12,7 +12,7 @@ import { Caption } from '@/components/base/Typography'
 import ProposalEmptyState from '@/components/proposals/ProposalEmptyState'
 import { ProposalList } from '@/components/proposals/ProposalList'
 
-function ProposalsPage() {
+export default function ProposalsPage() {
   const {
     totalProposalCount,
     activeProposals,
@@ -55,8 +55,6 @@ function ProposalsPage() {
     </motion.section>
   )
 }
-
-export default ProposalsPage
 
 function ProposalListStats({ activeProposalCount, totalProposalCount }) {
   return (

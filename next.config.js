@@ -5,7 +5,6 @@ const withTM = require("next-transpile-modules")(["@public-assembly/dao-utils"])
 const nextConfig = {
   transpilePackages: ["@public-assembly/dao-utils"],
   reactStrictMode: true,
-  swcMinify: true,
   experimental: {
     esmExternals: "loose",
   },
