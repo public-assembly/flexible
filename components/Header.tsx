@@ -1,15 +1,14 @@
 import Button from '@/components/base/Button'
 import { Flex } from '@/components/base/Flex'
 import { cn } from '@/utils/cn'
-import { useTokenContext } from '@public-assembly/dao-utils'
+import { useTokenContext } from '@public-assembly/builder-utils'
 import { platformThemeRegistryAbi } from 'abi/platformThemeRegistryAbi'
-import { BigNumber } from 'ethers'
 import { motion, Variants } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { Hash } from 'types'
 import { ENV } from 'utils/env'
+import { Hash } from 'viem'
 import { useContractRead } from 'wagmi'
 import { useAuth } from '../hooks/useAuth'
 import { useIsMobile } from '../hooks/useIsMobile'
@@ -66,11 +65,11 @@ export function Header() {
       {/* Header Logo */}
       <Link href="/">
         <NetworkController.Mainnet>
-          <Headline className="headline">{tokenSettings?.[0]}</Headline>
+          <Headline className="headline">{`${tokenSettings?.[0]}`}</Headline>
         </NetworkController.Mainnet>
         <NetworkController.Testnet>
           <Flex>
-            <Headline className="headline">{tokenSettings?.[0]}</Headline>
+            <Headline className="headline">{`${tokenSettings?.[0]}`}</Headline>
             <Flex className="ml-4 items-center justify-center rounded-lg border border-primary bg-highlight px-6 py-1 hover:cursor-default">
               <Body className="font-medium text-primary">Goerli</Body>
             </Flex>
@@ -112,7 +111,7 @@ function MobileDropdown(props: MobileDropdownProps) {
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     functionName: 'getRole',
-    args: [BigNumber.from(ENV.PLATFORM_INDEX), address as Hash],
+    args: [BigInt(ENV.PLATFORM_INDEX), address as Hash],
     onSuccess(getRole) {
       if (getRole === 1 || getRole === 2) {
         setCanEdit(true)

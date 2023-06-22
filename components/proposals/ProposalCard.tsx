@@ -1,4 +1,3 @@
-/* @ts-ignore */
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
@@ -16,9 +15,8 @@ import {
   BodySmall,
 } from '@/components/base/Typography'
 import { Proposer } from '@/components/proposals/Proposer'
-import { governorAbi, useGovernorContext } from '@public-assembly/dao-utils'
-import { BigNumber } from 'ethers'
-import { Hash } from 'types'
+import { governorAbi, useGovernorContext } from '@public-assembly/builder-utils'
+import { Hex } from 'viem'
 import { useContractRead } from 'wagmi'
 import { ProposalCardVotes } from './ProposalCardVotes'
 import ProposalLabel from './ProposalLabel'
@@ -33,12 +31,12 @@ export default function ProposalCard({ proposal }) {
     address: governorAddress,
     abi: governorAbi,
     functionName: 'getVotes',
-    args: [address as Hash, BigNumber.from(proposal?.timeCreated)],
+    args: [address as Hex, BigInt(proposal?.timeCreated)],
   })
 
   useEffect(() => {
     if (proposal.status != 'ACTIVE') return
-    if (!address || !availableVotes || availableVotes.toNumber() < 1) return
+    if (!address || !availableVotes || Number(availableVotes) < 1) return
     const proposalVotes = proposal.votes
 
     const hasVoted = proposalVotes.some(

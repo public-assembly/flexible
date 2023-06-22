@@ -1,4 +1,4 @@
-import { governorAbi, useGovernorContext } from '@public-assembly/dao-utils'
+import { governorAbi, useGovernorContext } from '@public-assembly/builder-utils'
 import {
   useContractWrite,
   usePrepareContractWrite,
@@ -44,6 +44,7 @@ export function Veto({ proposal }) {
 export function Execute({ proposal }) {
   const { governorAddress } = useGovernorContext()
 
+  // Todo: Check if this execution hook is prepared correctly
   const { config } = usePrepareContractWrite({
     address: governorAddress,
     abi: governorAbi,
@@ -55,6 +56,7 @@ export function Execute({ proposal }) {
       proposal.descriptionHash,
       proposal.proposer,
     ],
+    value: BigInt(proposal.values),
   })
   const { data, write: execute } = useContractWrite(config)
 

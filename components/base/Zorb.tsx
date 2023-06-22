@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { arrayify } from '@ethersproject/bytes'
+import { toBytes } from 'viem'
 import tinycolor, { ColorInput } from 'tinycolor2'
 
 type Hash = `0x${string}`
@@ -120,7 +120,7 @@ const lerpSaturationFn = (optionNum: number) => {
 }
 
 export const gradientForAddress = (address: string) => {
-  const bytes = arrayify(address).reverse()
+  const bytes = toBytes(address).reverse()
   const hueShiftFn = lerpHueFn(bytes[3], bytes[6] % 2)
   const startHue = bscale(bytes[12], 360)
   const startLightness = bScaleRange(bytes[2], 32, 69.5)

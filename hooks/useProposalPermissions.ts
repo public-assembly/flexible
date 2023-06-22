@@ -1,8 +1,7 @@
 import { useAuth } from '@/hooks/useAuth'
-import { governorAbi, useGovernorContext } from '@public-assembly/dao-utils'
-import { BigNumber } from 'ethers'
+import { governorAbi, useGovernorContext } from '@public-assembly/builder-utils'
 import { useState } from 'react'
-import { Hash } from 'types'
+import { Hex } from 'viem'
 import { useContractReads } from 'wagmi'
 
 export function useProposalPermissions(proposal) {
@@ -31,10 +30,12 @@ export function useProposalPermissions(proposal) {
       {
         ...governorContract,
         functionName: 'getVotes',
-        args: [address as Hash, BigNumber.from(proposal?.timeCreated)],
+        args: [address as Hex, BigInt(proposal?.timeCreated)],
       },
     ],
     onSuccess(proposalPermissions) {
+      // Todo: address type safety
+      // @ts-ignore
       if (proposalPermissions[0] === address) {
         setCanVeto(true)
       }

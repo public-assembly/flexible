@@ -1,6 +1,5 @@
 import parseBase64String from '@/utils/parseBase64String'
-import { tokenAbi, useTokenContext } from '@public-assembly/dao-utils'
-import { BigNumber } from 'ethers'
+import { tokenAbi, useTokenContext } from '@public-assembly/builder-utils'
 import { useEffect, useState } from 'react'
 import { useContractRead } from 'wagmi'
 
@@ -20,7 +19,7 @@ export function useTokenImage({ tokenId }: { tokenId: number }) {
     address: tokenAddress,
     abi: tokenAbi,
     functionName: 'tokenURI',
-    args: [BigNumber.from(tokenId)],
+    args: [BigInt(tokenId)],
   })
 
   useEffect(() => {

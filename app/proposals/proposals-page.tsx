@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { useProposals } from '@/hooks/useProposals'
+import { useActiveProposals } from '@/hooks/useActiveProposals'
 import { motion } from 'framer-motion'
 import { isServerSide } from 'utils/helpers'
 
@@ -21,7 +21,7 @@ export default function ProposalsPage() {
     isEmpty,
     hasActiveProposals,
     hasProposals,
-  } = useProposals()
+  } = useActiveProposals()
 
   const [loading, setLoading] = React.useState(false)
   useEffect(() => {

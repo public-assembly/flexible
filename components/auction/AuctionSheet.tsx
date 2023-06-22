@@ -18,10 +18,8 @@ import { BodySmall, Caption, Headline } from '@/components/base/Typography'
 import { useAuth } from '@/hooks/useAuth'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { ENV } from '@/utils/env'
-import { useActiveAuction, useDaoTokenQuery } from '@public-assembly/dao-utils'
-import { ALCHEMY_RPC_URL } from 'constants/rpcEndpoint'
+import { useCreateBid, useMinBidAmount } from '@public-assembly/builder-utils'
 import { format, fromUnixTime } from 'date-fns'
-import { BigNumber, ethers } from 'ethers'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import ConnectButton from '../ConnectButton'
@@ -32,23 +30,21 @@ import { Settle } from './Settle'
 const MotionButton = motion(Button)
 
 interface AuctionSheetProps {
-  currentTokenId: string
+  navigatedTokenId: string
   tokenName: string
   winningBid: string
   isEnded: boolean
   isLastToken: boolean
   auctionState: any
-  minBidAmount: any
 }
 
 export function AuctionSheet({
-  currentTokenId,
+  navigatedTokenId,
   tokenName,
   winningBid,
   isEnded,
   isLastToken,
   auctionState,
-  minBidAmount,
 }: AuctionSheetProps) {
   const { isMobile } = useIsMobile()
 
@@ -57,36 +53,34 @@ export function AuctionSheet({
 
   const { isConnected } = useAuth()
 
+  const { minBidAmount, updateBidAmount, isValidBid } = useMinBidAmount()
+
   const {
     createBid,
-    updateBidAmount,
+
     createBidSuccess,
     createBidLoading,
-    isValidBid,
-  } = useActiveAuction(ENV.TOKEN_ADDRESS)
-
-  const { tokenData } = useDaoTokenQuery({
-    tokenAddress: ENV.TOKEN_ADDRESS,
-    tokenId: currentTokenId.toString(),
-  })
+  } = useCreateBid({ bidAmount: String(minBidAmount) })
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    createBid()
+    createBid?.()
   }
+
+  let tokenData
 
   useEffect(() => {
     if (tokenData) {
-      const provider = new ethers.providers.JsonRpcProvider(
-        `${ALCHEMY_RPC_URL}`
-      )
+      // const provider = new ethers.providers.JsonRpcProvider(
+      //   `${ALCHEMY_RPC_URL}`
+      // )
 
       const blockNumber = tokenData.mintInfo.mintContext.blockNumber
       const auctionDuration = auctionState.endTime - auctionState.startTime
 
-      provider.getBlock(blockNumber).then((block) => {
-        setTimestamp(block.timestamp + auctionDuration)
-      })
+      // provider.getBlock(blockNumber).then((block) => {
+      //   setTimestamp(block.timestamp + auctionDuration)
+      // })
     }
     return
   }, [tokenData, auctionState])
@@ -147,7 +141,7 @@ export function AuctionSheet({
               <SheetTitle>
                 <Headline>
                   <a
-                    href={`${externalLinkBaseURI}/${ENV.TOKEN_ADDRESS}/${currentTokenId}`}
+                    href={`${externalLinkBaseURI}/${ENV.TOKEN_ADDRESS}/${navigatedTokenId}`}
                     target="_blank"
                     rel="noreferrer"
                     className="flex flex-row items-center gap-2 text-[24px] hover:underline"
@@ -170,9 +164,7 @@ export function AuctionSheet({
                     {/* Highest bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        {`${ethers.utils.formatEther(
-                          BigNumber.from(auctionState.highestBid)
-                        )} ETH`}
+                        {`${auctionState.highestBid} ETH`}
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Highest bid
@@ -246,7 +238,7 @@ export function AuctionSheet({
                           event: React.ChangeEvent<HTMLInputElement>
                         ) => updateBidAmount(event.target.value)}
                       />
-                      <label className="absolute mt-3 ml-72 sm:ml-64">
+                      <label className="absolute ml-72 mt-3 sm:ml-64">
                         ETH
                       </label>
                       {!createBidLoading && !createBidSuccess ? (
@@ -264,7 +256,7 @@ export function AuctionSheet({
               ) : null}
               {/* Bid History */}
               <BidHistory
-                tokenId={currentTokenId}
+                tokenId={navigatedTokenId}
                 tokenAddress={ENV.TOKEN_ADDRESS}
               />
             </SheetHeader>

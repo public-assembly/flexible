@@ -3,8 +3,8 @@ import { Link } from '@/components/base/Link'
 import { Body } from '@/components/base/Typography'
 import { Zorb } from '@/components/base/Zorb'
 import { buildEtherscanLink } from '@/utils/helpers'
-import { Hash } from 'types'
 import { useEnsAvatar, useEnsName } from 'wagmi'
+import { Hash } from 'viem'
 import { shortenAddress } from '../../utils/shortenAddress'
 
 type BidderProps = {
@@ -17,7 +17,7 @@ export function Bidder(props: BidderProps) {
     address: props.address,
   })
   const { data: ensAvatar } = useEnsAvatar({
-    address: props.address,
+    name: props.address,
   })
 
   return (

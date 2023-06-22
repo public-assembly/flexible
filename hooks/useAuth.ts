@@ -5,28 +5,28 @@ import {
   useEnsAvatar,
   useEnsName,
   useNetwork,
-  useProvider,
-  useSigner,
+  usePublicClient,
+  useWalletClient,
 } from 'wagmi'
 import { shortenAddress } from '../utils/shortenAddress'
 
 export function useAuth() {
-  const provider = useProvider()
-  const { data: signer } = useSigner()
+  const publicClient = usePublicClient()
+  const { data: walletClient } = useWalletClient()
   const { address, isConnecting, ...rest } = useAccount()
   const { data: ensName } = useEnsName({
-    address: address,
+    address: address
   })
   const { data: ensAvatar } = useEnsAvatar({
-    address: address,
+    name: address,
   })
   const { disconnect } = useDisconnect()
   const { chain } = useNetwork()
   const { data: balance } = useBalance({ address: address })
 
   return {
-    provider,
-    signer,
+    publicClient,
+    walletClient,
     address: address,
     ensName: ensName || shortenAddress(address),
     ensAvatar: ensAvatar,

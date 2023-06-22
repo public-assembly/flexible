@@ -14,7 +14,7 @@ import useCopyText from '@/hooks/useCopyText'
 import { platformThemeRegistryAbi } from 'abi/platformThemeRegistryAbi'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { Hash } from 'types'
+import { Hex } from 'viem'
 import {
   useContractEvent,
   useContractWrite,
@@ -35,7 +35,7 @@ export default function PlatformPage() {
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     functionName: 'newPlatformIndex',
-    args: [address as Hash, ''],
+    args: [address as Hex, ''],
   })
 
   const { data, write: newIndex } = useContractWrite(config)
@@ -46,25 +46,26 @@ export default function PlatformPage() {
 
   const [platformIndex, setPlatformIndex] = useState<number>()
 
-  useContractEvent({
+  const unwatch = useContractEvent({
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     eventName: 'PlatformThemeUpdated',
-    listener(platformIndex, sender, newTheme) {
-      setPlatformIndex(Number(platformIndex))
+    listener(logs) {
+      const { args } = logs[0]
+      setPlatformIndex(Number(args.platformIndex))
       console.log(
         'platformIndex, sender, newTheme:',
-        platformIndex,
-        sender,
-        newTheme
-      )
+        args.platformIndex,
+        args.sender,
+        args.newTheme
+      ),
+        // Receive only a single event, then stop listener
+        unwatch()
     },
-    // Receive only a single event, then stop listener
-    once: true,
   })
 
   return (
-    <Stack className="fixed top-0 left-0 z-50 h-full w-full bg-[#111111] p-6">
+    <Stack className="fixed left-0 top-0 z-50 h-full w-full bg-[#111111] p-6">
       <Flex className="mx-auto my-auto w-auto flex-col rounded-lg border border-[#333333] bg-black p-8 sm:w-[478px]">
         <div>
           <Flex className="items-start gap-x-8">
@@ -75,7 +76,7 @@ export default function PlatformPage() {
               <Exit className="h-8 w-8 text-white hover:cursor-pointer sm:mt-1" />
             </button>
           </Flex>
-          <Separator className="mt-8 mb-6 bg-[#333333]"></Separator>
+          <Separator className="mb-6 mt-8 bg-[#333333]"></Separator>
           {!isConnected ? (
             <>
               <p className="font-satoshi text-base text-[#999999]">
@@ -95,7 +96,7 @@ export default function PlatformPage() {
 
               {!isSuccess ? (
                 <button
-                  className="mt-6 flex min-w-[156px] justify-center rounded border border-[#333333] bg-white py-3 px-8 font-satoshi font-medium hover:bg-opacity-80"
+                  className="mt-6 flex min-w-[156px] justify-center rounded border border-[#333333] bg-white px-8 py-3 font-satoshi font-medium hover:bg-opacity-80"
                   onClick={() => newIndex?.()}
                 >
                   {!isLoading ? (
@@ -111,7 +112,7 @@ export default function PlatformPage() {
 
         {isSuccess ? (
           <div>
-            <Separator className="mt-8 mb-6 bg-[#333333]"></Separator>
+            <Separator className="mb-6 mt-8 bg-[#333333]"></Separator>
             <p className="mb-2 flex gap-4 font-mono text-base uppercase text-[#3291FF]">
               2. Save your index variable {!hasCopied ? null : <CheckCircle />}
             </p>

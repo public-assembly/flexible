@@ -1,5 +1,5 @@
 import { ETHERSCAN_BASE_URL } from 'constants/etherscan'
-import { Hash } from 'types'
+import { Hash, Hex } from 'viem'
 
 export const isServerSide = () => typeof window === 'undefined'
 
@@ -19,7 +19,7 @@ export const hexToRgb = (hex: string) => {
   return `${r} ${g} ${b})`
 }
 
-export const buildEtherscanAddressLink = (address: Hash) => {
+export const buildEtherscanAddressLink = (address: Hex) => {
   return new URL(`/address/${address}`, ETHERSCAN_BASE_URL).toString()
 }
 

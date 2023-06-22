@@ -1,6 +1,6 @@
 import { ArrowUpRight } from '@/components/assets/icons'
 import Button from '@/components/base/Button'
-import { useTokenContext } from '@public-assembly/dao-utils'
+import { useTokenContext } from '@public-assembly/builder-utils'
 import { ENV } from 'utils/env'
 import { buildCreateProposalUrl } from 'utils/helpers'
 import EmptyState from '../EmptyState'

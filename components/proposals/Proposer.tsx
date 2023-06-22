@@ -1,13 +1,13 @@
 import React from 'react'
 
 import { ArrowUpRight } from '@/components/assets/icons'
-import { Hash } from 'types'
+import { Hex } from 'viem'
 import { cn } from 'utils/cn'
 import { shortenAddress } from 'utils/shortenAddress'
 import { useEnsName } from 'wagmi'
 
 type ProposerProps = {
-  proposer: Hash | undefined
+  proposer: Hex | undefined
   className?: string
   showExternalLink?: boolean
   externalLink?: string

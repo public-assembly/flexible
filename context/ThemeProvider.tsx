@@ -1,4 +1,3 @@
-import { BigNumber } from 'ethers'
 import {
   createContext,
   memo,
@@ -136,7 +135,7 @@ export const ThemeProvider = memo(function ThemeProvider({
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     functionName: 'getPlatformTheme',
-    args: [BigNumber.from(platformIndex)],
+    args: [BigInt(Number(platformIndex))],
     onSuccess(data: any) {
       setThemeCID(data.substring('ipfs://'.length))
     },

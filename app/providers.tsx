@@ -2,23 +2,22 @@
 
 import { Drawer } from '@/components/Drawer'
 import { DrawerContextProvider } from '@/components/drawer/DrawerProvider'
-import { Seo } from '@/components/Seo'
 import { TopProgressBar } from '@/components/TopProgressBar'
 import { ThemeProvider } from '@/context/ThemeProvider'
 import {
+  ManagerProvider,
   GovernorProvider,
   MetadataProvider,
   TokenProvider,
-} from '@public-assembly/dao-utils'
-import { ConnectKitProvider, getDefaultClient } from 'connectkit'
-import dynamic from 'next/dynamic'
+} from '@public-assembly/builder-utils'
+import { ConnectKitProvider, getDefaultConfig } from 'connectkit'
 import { Space_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
 import React from 'react'
 import { Provider } from 'react-wrap-balancer'
 import { SWRConfig } from 'swr'
 import { ENV } from 'utils/env'
-import { configureChains, createClient, WagmiConfig } from 'wagmi'
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { goerli, mainnet } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
@@ -68,56 +67,16 @@ export const satoshi = localFont({
   ],
 })
 
-/**
- * Provider configuration
- */
-type ManagerProviderProps = {
-  tokenAddress: `0x${string}`
-  children: React.ReactNode
-}
-
-type AuctionProviderProps = {
-  children: React.ReactNode
-}
-
-interface DynamicManagerProviderProps extends ManagerProviderProps {
-  // Define any additional props that you want to pass to the ManagerProvider
-}
-
-interface DynamicAuctionProviderProps extends AuctionProviderProps {
-  // Define any additional props that you want to pass to the AuctionProvider
-}
-
-const DynamicManagerProvider = dynamic(
-  () =>
-    import('@public-assembly/dao-utils').then(
-      (module) => module.ManagerProvider
-    ),
-  {
-    ssr: false,
-  }
-) as React.FC<DynamicManagerProviderProps>
-
-const DynamicAuctionProvider = dynamic(
-  () =>
-    import('@public-assembly/dao-utils').then(
-      (module) => module.AuctionProvider
-    ),
-  {
-    ssr: false,
-  }
-) as React.FC<DynamicAuctionProviderProps>
-
-const { chains, provider } = configureChains(
+const { chains } = configureChains(
   [ENV.CHAIN === 1 ? mainnet : goerli],
   [alchemyProvider({ apiKey: ENV.ALCHEMY_KEY }), publicProvider()]
 )
 
-const client = createClient(
-  getDefaultClient({
+const config = createConfig(
+  getDefaultConfig({
     appName: 'Flexible',
+    walletConnectProjectId: '',
     chains,
-    provider,
   })
 )
 
@@ -155,29 +114,26 @@ export function Providers({ children }: { children: React.ReactNode }) {
             fetch(resource, init).then((res) => res.json()),
         }}
       >
-        <WagmiConfig client={client}>
+        <WagmiConfig config={config}>
           <ConnectKitProvider theme="web95">
             <Provider>
-              <DynamicManagerProvider
+              <ManagerProvider
                 tokenAddress={ENV.TOKEN_ADDRESS as `0x${string}`}
               >
                 <GovernorProvider>
-                  <DynamicAuctionProvider>
-                    <MetadataProvider>
-                      <TokenProvider>
-                        <Seo />
-                        <ThemeProvider platformIndex={ENV.PLATFORM_INDEX}>
-                          <TopProgressBar />
-                          <DrawerContextProvider>
-                            <Drawer />
-                            {mounted && children}
-                          </DrawerContextProvider>
-                        </ThemeProvider>
-                      </TokenProvider>
-                    </MetadataProvider>
-                  </DynamicAuctionProvider>
+                  <MetadataProvider>
+                    <TokenProvider>
+                      <ThemeProvider platformIndex={ENV.PLATFORM_INDEX}>
+                        <TopProgressBar />
+                        <DrawerContextProvider>
+                          <Drawer />
+                          {mounted && children}
+                        </DrawerContextProvider>
+                      </ThemeProvider>
+                    </TokenProvider>
+                  </MetadataProvider>
                 </GovernorProvider>
-              </DynamicManagerProvider>
+              </ManagerProvider>
             </Provider>
           </ConnectKitProvider>
         </WagmiConfig>
