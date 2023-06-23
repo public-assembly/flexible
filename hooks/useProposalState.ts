@@ -1,5 +1,5 @@
-import { governorAbi, useGovernorContext } from '@public-assembly/builder-utils'
-import { Hash } from 'viem'
+import { governorAbi } from '@public-assembly/builder-utils'
+import { Hash, Hex } from 'viem'
 import { useContractRead } from 'wagmi'
 
 export const PROPOSAL_STATES = {
@@ -18,8 +18,7 @@ function parseState(state: number): string {
   return PROPOSAL_STATES[state]
 }
 
-export function useProposalState({ proposalId }: { proposalId: string }) {
-  const { governorAddress } = useGovernorContext()
+export function useProposalState({ proposalId, governorAddress }: { proposalId: string, governorAddress: Hex }) {
 
   const { data: proposalState } = useContractRead({
     address: governorAddress,
@@ -30,3 +29,15 @@ export function useProposalState({ proposalId }: { proposalId: string }) {
 
   return parseState(Number(proposalState))
 }
+
+// export function useProposalState({ proposalId, governorAddress }: { proposalId: string, governorAddress: Hex }) {
+
+//   const { data: proposalState } = useContractRead({
+//     address: governorAddress,
+//     abi: governorAbi,
+//     functionName: 'state',
+//     args: [proposalId as Hash],
+//   })
+
+//   return parseState(Number(proposalState))
+// }

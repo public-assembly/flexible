@@ -12,7 +12,7 @@ import { Stack } from '@/components/base/Stack'
 import { useAuth } from '@/hooks/useAuth'
 import useCopyText from '@/hooks/useCopyText'
 import { platformThemeRegistryAbi } from 'abi/platformThemeRegistryAbi'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Hex } from 'viem'
 import {

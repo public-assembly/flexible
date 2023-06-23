@@ -13,7 +13,11 @@ interface BidHistoryProps {
 export function BidHistory({ tokenId, tokenAddress }: BidHistoryProps) {
   const { filteredBidEvents } = useHistoricalBids({ tokenId, tokenAddress })
 
-  const reversedBidEvents = filteredBidEvents ? [...filteredBidEvents].reverse() : []
+  console.log(filteredBidEvents)
+
+  const reversedBidEvents = filteredBidEvents
+    ? [...filteredBidEvents].reverse()
+    : []
 
   return (
     <Flex className="max-h-[312px] w-full min-w-[306px] flex-col gap-y-2 overflow-y-auto pt-8">

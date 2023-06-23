@@ -5,7 +5,7 @@ import { useIsMobile } from '@/hooks/useIsMobile'
 import {
   useAuctionState,
   useCountdown,
-  useHistoricalAuctionQuery,
+  useCurrentAuctionQuery,
   useHistoricalTokenQuery,
   useManagerContext,
   useTokenExplorer,
@@ -15,7 +15,7 @@ import Label from '../base/Label'
 import { AuctionSheet } from './AuctionSheet'
 import { ExplorerButtons } from './ExplorerButtons'
 
-const Auction = ({ tokenId }: { tokenId: number }) => {
+const CurrentAuction = ({ tokenId }: { tokenId: number }) => {
   const { isMobile } = useIsMobile()
   const { tokenAddress } = useManagerContext()
   const { auctionState } = useAuctionState()
@@ -41,12 +41,20 @@ const Auction = ({ tokenId }: { tokenId: number }) => {
     router.push(`/${Number(tokenId) - 1}`)
   }
 
-  const { tokenName, tokenImage, tokenOwner } = useHistoricalTokenQuery({
+  const {
+    startTime,
+    endTime,
+    extended,
+    settled,
+    winningBid,
+    winningBidder,
+    highestBid,
+    highestBidder,
+  } = useCurrentAuctionQuery({
     tokenAddress: tokenAddress,
-    tokenId: BigInt(tokenId),
   })
 
-  const { winningBid, winningBidder, endTime } = useHistoricalAuctionQuery({
+  const { tokenName, tokenImage, tokenOwner } = useHistoricalTokenQuery({
     tokenAddress: tokenAddress,
     tokenId: BigInt(tokenId),
   })
@@ -63,9 +71,6 @@ const Auction = ({ tokenId }: { tokenId: number }) => {
     winningBidder,
     endTime,
   }
-
-  console.log(isEnded)
-  console.log(tokenOwner != '0x0000000000000000000000000000000000000000')
 
   return (
     <Stack className="min-h-screen justify-center gap-4 px-4">
@@ -94,18 +99,12 @@ const Auction = ({ tokenId }: { tokenId: number }) => {
               <Label variant="row" className="z-10">
                 {tokenName}
               </Label>
-              {isLastToken && !isEnded ? (
+              {!isEnded ? (
                 <Label variant="row" className="z-10">
-                  {Number(winningBid) > 0
-                    ? `Current bid ${winningBid} ETH`
+                  {Number(highestBid) > 0
+                    ? `Current bid ${highestBid} ETH`
                     : 'No bids'}
                 </Label>
-              ) : isEnded &&
-                tokenOwner != '0x0000000000000000000000000000000000000000' ? (
-                <Label
-                  variant="row"
-                  className="z-10"
-                >{`Allocated to ${tokenOwner}`}</Label>
               ) : (
                 <Flex className="z-10 gap-4">
                   <Label variant="row">{`${winningBid} ETH`}</Label>
@@ -126,18 +125,12 @@ const Auction = ({ tokenId }: { tokenId: number }) => {
             <Label variant="row" className="z-10">
               {tokenName}
             </Label>
-            {isLastToken && !isEnded ? (
+            {!isEnded ? (
               <Label variant="row" className="z-10">
-                {Number(winningBid) > 0
-                  ? `Current bid ${winningBid} ETH`
+                {Number(highestBid) > 0
+                  ? `Current bid ${highestBid} ETH`
                   : 'No bids'}
               </Label>
-            ) : isEnded &&
-              tokenOwner != '0x0000000000000000000000000000000000000000' ? (
-              <Label
-                variant="row"
-                className="z-10"
-              >{`Allocated to ${tokenOwner}`}</Label>
             ) : (
               <Flex className="z-10 gap-4">
                 <Label variant="row">{`${winningBid} ETH`}</Label>
@@ -151,4 +144,4 @@ const Auction = ({ tokenId }: { tokenId: number }) => {
   )
 }
 
-export default Auction
+export default CurrentAuction

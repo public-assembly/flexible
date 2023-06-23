@@ -5,7 +5,7 @@ import { useTokenContext } from '@public-assembly/builder-utils'
 import { platformThemeRegistryAbi } from 'abi/platformThemeRegistryAbi'
 import { motion, Variants } from 'framer-motion'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { ENV } from 'utils/env'
 import { Hash } from 'viem'
@@ -36,9 +36,12 @@ const container: Variants = {
 export function Header() {
   const { isMobile } = useIsMobile()
   const { tokenSettings } = useTokenContext()
-  const router = useRouter()
 
-  const isAuction = router.pathname === '/'
+  const pathname = usePathname()
+  const isAuction =
+    pathname !== '/about' &&
+    pathname !== '/proposals' &&
+    pathname !== '/platform'
 
   return (
     <motion.header
@@ -65,11 +68,13 @@ export function Header() {
       {/* Header Logo */}
       <Link href="/">
         <NetworkController.Mainnet>
-          <Headline className="headline">{`${tokenSettings?.[0]}`}</Headline>
+          <Headline className="headline">{tokenSettings?.[0].result}</Headline>
         </NetworkController.Mainnet>
         <NetworkController.Testnet>
           <Flex>
-            <Headline className="headline">{`${tokenSettings?.[0]}`}</Headline>
+            <Headline className="headline">
+              {tokenSettings?.[0].result}
+            </Headline>
             <Flex className="ml-4 items-center justify-center rounded-lg border border-primary bg-highlight px-6 py-1 hover:cursor-default">
               <Body className="font-medium text-primary">Goerli</Body>
             </Flex>
@@ -99,11 +104,11 @@ function MobileDropdown(props: MobileDropdownProps) {
 
   useEffect(() => {
     const closeDropdown = () => setIsOpen(false)
-    router.events.on('routeChangeComplete', closeDropdown)
-    return () => {
-      router.events.off('routeChangeComplete', closeDropdown)
-    }
-  }, [isOpen, router.events])
+    // router.events.on('routeChangeComplete', closeDropdown)
+    // return () => {
+    //   router.events.off('routeChangeComplete', closeDropdown)
+    // }
+  }, [isOpen])
 
   const themeRegistry = '0x9a23AE640040e4d34E9e00E500003000017144F4'
 

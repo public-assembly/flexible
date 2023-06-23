@@ -16,12 +16,10 @@ import {
 import { Stack } from '@/components/base/Stack'
 import { BodySmall, Caption, Headline } from '@/components/base/Typography'
 import { useAuth } from '@/hooks/useAuth'
-import { useIsMobile } from '@/hooks/useIsMobile'
 import { ENV } from '@/utils/env'
 import { useCreateBid, useMinBidAmount } from '@public-assembly/builder-utils'
-import { format, fromUnixTime } from 'date-fns'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ConnectButton from '../ConnectButton'
 import { AuctionCountdown } from './AuctionCountdown'
 import { BidHistory } from './BidHistory'
@@ -29,69 +27,48 @@ import { Settle } from './Settle'
 
 const MotionButton = motion(Button)
 
-interface AuctionSheetProps {
-  navigatedTokenId: string
-  tokenName: string
-  winningBid: string
-  isEnded: boolean
-  isLastToken: boolean
-  auctionState: any
-}
-
-export function AuctionSheet({
-  navigatedTokenId,
-  tokenName,
-  winningBid,
-  isEnded,
-  isLastToken,
-  auctionState,
-}: AuctionSheetProps) {
-  const { isMobile } = useIsMobile()
-
+export function AuctionSheet(props) {
   const [open, setOpen] = useState<boolean | undefined>()
   const [timestamp, setTimestamp] = useState<number | undefined>()
 
   const { isConnected } = useAuth()
 
-  const { minBidAmount, updateBidAmount, isValidBid } = useMinBidAmount()
+  const { bidAmount, minBidAmount, updateBidAmount, isValidBid } =
+    useMinBidAmount()
 
-  const {
-    createBid,
-
-    createBidSuccess,
-    createBidLoading,
-  } = useCreateBid({ bidAmount: String(minBidAmount) })
+  const { createBid, createBidSuccess, createBidLoading } = useCreateBid({
+    bidAmount: bidAmount,
+  })
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     createBid?.()
   }
 
-  let tokenData
+  // useEffect(() => {
 
-  useEffect(() => {
-    if (tokenData) {
-      // const provider = new ethers.providers.JsonRpcProvider(
-      //   `${ALCHEMY_RPC_URL}`
-      // )
+  //     // const provider = new ethers.providers.JsonRpcProvider(
+  //     //   `${ALCHEMY_RPC_URL}`
+  //     // )
 
-      const blockNumber = tokenData.mintInfo.mintContext.blockNumber
-      const auctionDuration = auctionState.endTime - auctionState.startTime
+  //     const blockNumber = tokenData.mintInfo.mintContext.blockNumber
+  //     const auctionDuration = auctionState.endTime - auctionState.startTime
 
-      // provider.getBlock(blockNumber).then((block) => {
-      //   setTimestamp(block.timestamp + auctionDuration)
-      // })
-    }
-    return
-  }, [tokenData, auctionState])
+  //     // provider.getBlock(blockNumber).then((block) => {
+  //     //   setTimestamp(block.timestamp + auctionDuration)
+  //     // })
 
-  const externalLinkBaseURI = 'https://nouns.build/dao'
+  // }, [tokenData, auctionState])
+
+  const externalLinkBaseURI = `https://${
+    ENV.CHAIN === 5 ? 'goerli.' : ''
+  }nouns.build/dao`
 
   return (
     <AnimatePresence>
-      <Sheet open={open} onOpenChange={setOpen} modal={isMobile}>
+      <Sheet open={open} onOpenChange={setOpen} modal={props.isMobile}>
         <SheetTrigger asChild className="custom-shadow">
-          {isMobile ? (
+          {props.isMobile ? (
             <MotionButton
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
@@ -130,9 +107,9 @@ export function AuctionSheet({
         {open && (
           <SheetContent
             size="auction"
-            position={isMobile ? 'bottom' : 'right-center'}
+            position={props.isMobile ? 'bottom' : 'right-center'}
             onInteractOutside={(e) => {
-              if (!isMobile) {
+              if (!props.isMobile) {
                 e.preventDefault()
               }
             }}
@@ -141,22 +118,22 @@ export function AuctionSheet({
               <SheetTitle>
                 <Headline>
                   <a
-                    href={`${externalLinkBaseURI}/${ENV.TOKEN_ADDRESS}/${navigatedTokenId}`}
+                    href={`${externalLinkBaseURI}/${props.tokenAddress}/${props.navigatedTokenId}`}
                     target="_blank"
                     rel="noreferrer"
                     className="flex flex-row items-center gap-2 text-[24px] hover:underline"
                   >
-                    <span>{tokenName}</span>
+                    <span>{props.tokenName}</span>
                     <ArrowUpRight size={24} className="text-tertiary" />
                   </a>
                 </Headline>
               </SheetTitle>
               <Grid className="grid-cols-2">
-                {!isEnded ? (
+                {!props.isEnded ? (
                   <>
                     {/* Auction countdown */}
                     <Stack>
-                      <AuctionCountdown auctionState={auctionState} />
+                      <AuctionCountdown auctionState={props.auctionState} />
                       <BodySmall className="text-tertiary">
                         Auction ends in
                       </BodySmall>
@@ -164,7 +141,7 @@ export function AuctionSheet({
                     {/* Highest bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        {`${auctionState.highestBid} ETH`}
+                        {`${props.auctionState.highestBid} ETH`}
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Highest bid
@@ -176,18 +153,7 @@ export function AuctionSheet({
                     {/* Auction ended */}
                     <Stack>
                       <Caption>
-                        {timestamp ? (
-                          <span className="uppercase">
-                            {tokenData?.mintInfo
-                              ? `${format(
-                                  fromUnixTime(timestamp),
-                                  'MMMM d, yyyy'
-                                )}`
-                              : 'N/A'}
-                          </span>
-                        ) : (
-                          <span className="uppercase">Loading...</span>
-                        )}
+                        <span className="uppercase">props.endTime</span>
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Auction ended
@@ -196,7 +162,7 @@ export function AuctionSheet({
                     {/* Winning bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        {winningBid} ETH
+                        {props.winningBid} ETH
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Winning bid
@@ -205,8 +171,8 @@ export function AuctionSheet({
                   </>
                 )}
               </Grid>
-              {isLastToken ? (
-                isEnded ? (
+              {props.isLastToken ? (
+                props.isEnded ? (
                   !isConnected ? (
                     <ConnectButton />
                   ) : (
@@ -256,8 +222,8 @@ export function AuctionSheet({
               ) : null}
               {/* Bid History */}
               <BidHistory
-                tokenId={navigatedTokenId}
-                tokenAddress={ENV.TOKEN_ADDRESS}
+                tokenId={props.navigatedTokenId}
+                tokenAddress={props.tokenAddress}
               />
             </SheetHeader>
           </SheetContent>

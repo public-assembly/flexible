@@ -1,12 +1,14 @@
+'use client'
+
 import './styles/globals.css'
 
-import { Metadata } from 'next'
+import { Header } from '@/components/Header'
 import { Providers } from './providers'
 
-export const metadata: Metadata = {
-  title: 'Flexible',
-  description: 'Create your own DAO interface.',
-}
+// export const metadata: Metadata = {
+//   title: 'Flexible',
+//   description: 'Create your own DAO interface.',
+// }
 
 export default function RootLayout({
   children,
@@ -16,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   )

@@ -2,7 +2,7 @@
 
 import { useActiveProposals } from '@/hooks/useActiveProposals'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import Balancer from 'react-wrap-balancer'
 
 import { ArrowLeft } from '@/components/assets/icons'
@@ -11,20 +11,18 @@ import { Flex } from '@/components/base/Flex'
 import { RichText } from '@/components/base/Richtext'
 import { Stack } from '@/components/base/Stack'
 import { Body } from '@/components/base/Typography'
-import { ProposalTimestamp } from '@/components/proposals/ProposalCard'
 import {
   DecodedTransactions,
   ProposalVoteStatus,
   VotesSection,
 } from '@/components/proposals/ProposalDescription'
-import ProposalLabel from '@/components/proposals/ProposalLabel'
 import { Proposer } from '@/components/proposals/Proposer'
-import { BodyLarge, Headline } from '../../components/base/Typography'
 import { Hex } from 'viem'
+import { BodyLarge, Headline } from '../../components/base/Typography'
 
 function ProposalDetailPage() {
   const { allProposals } = useActiveProposals()
-  const { pid } = useRouter().query
+  const pid = usePathname()
 
   if (!allProposals) return null
 
@@ -112,7 +110,7 @@ function ProposalDetailPage() {
       <section id="Proposal Transactions">
         <BodyLarge className="py-10">Proposed Transactions</BodyLarge>
         <DecodedTransactions
-          calldatas={(proposal.calldatas as unknown) as string[]}
+          calldatas={proposal.calldatas as unknown as string[]}
           targets={proposal.targets}
           values={proposal.values}
         />

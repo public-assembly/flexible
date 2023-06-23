@@ -1,14 +1,14 @@
 'use client'
 
-import { Header } from '@/components/Header'
-import Auction from '@/components/auction/Auction'
+import { useAuctionState } from '@public-assembly/builder-utils'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
-export default function HomePage() {
-  const tokenId = 21
-  return (
-    <>
-      <Header />
-      <Auction tokenId={tokenId} />
-    </>
-  )
+export default function Page() {
+  const router = useRouter()
+  const { auctionState } = useAuctionState()
+
+  useEffect(() => router.push(`/${auctionState.tokenId}`), [])
+
+  return
 }

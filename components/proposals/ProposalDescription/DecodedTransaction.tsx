@@ -4,8 +4,8 @@ import axios from 'axios'
 import { ETHERSCAN_BASE_URL, ETHER_ACTOR_BASE_URL } from 'constants/etherscan'
 import React, { Fragment } from 'react'
 import useSWR from 'swr'
+import { formatEther } from 'viem'
 import { shortenAddress } from '../../../utils/shortenAddress'
-import { formatEther} from 'viem'
 
 interface DecodedTransactionProps {
   targets: string[]
@@ -17,11 +17,7 @@ export const DecodedTransactions: React.FC<DecodedTransactionProps> = ({
   calldatas,
   values,
 }) => {
-  /*
-  
-    format in shape defined in ethers actor
-  
-   */
+  //  format in shape defined by ether actor
   const formatSendEth = (value: string) => {
     const amount = formatEther(BigInt(value))
     return {
@@ -38,7 +34,7 @@ export const DecodedTransactions: React.FC<DecodedTransactionProps> = ({
     calldata: string,
     value: string
   ) => {
-    /* if calldata is '0x' */
+    // if calldata is '0x'
     const isTransfer = calldata === '0x'
 
     if (isTransfer) {
