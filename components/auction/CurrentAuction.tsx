@@ -6,6 +6,7 @@ import {
   useAuctionState,
   useCountdown,
   useCurrentAuctionQuery,
+  useHistoricalAuctionQuery,
   useHistoricalTokenQuery,
   useManagerContext,
   useTokenExplorer,
@@ -59,17 +60,25 @@ const CurrentAuction = ({ tokenId }: { tokenId: number }) => {
     tokenId: BigInt(tokenId),
   })
 
+  const { bids } = useHistoricalAuctionQuery({
+    tokenAddress: tokenAddress,
+    tokenId: BigInt(tokenId),
+  })
+
   const auctionProps = {
+    isMobile,
     tokenAddress,
     auctionState,
     router,
     isEnded,
+    isLastToken,
     navigatedTokenId,
     tokenName,
     tokenOwner,
     winningBid,
     winningBidder,
     endTime,
+    bids,
   }
 
   return (

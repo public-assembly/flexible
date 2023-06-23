@@ -17,9 +17,15 @@ import { Stack } from '@/components/base/Stack'
 import { BodySmall, Caption, Headline } from '@/components/base/Typography'
 import { useAuth } from '@/hooks/useAuth'
 import { ENV } from '@/utils/env'
-import { useCreateBid, useMinBidAmount } from '@public-assembly/builder-utils'
+import {
+  AuctionState,
+  useCreateBid,
+  useMinBidAmount,
+} from '@public-assembly/builder-utils'
 import { AnimatePresence, motion } from 'framer-motion'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 import { useState } from 'react'
+import { Hex } from 'viem'
 import ConnectButton from '../ConnectButton'
 import { AuctionCountdown } from './AuctionCountdown'
 import { BidHistory } from './BidHistory'
@@ -27,7 +33,28 @@ import { Settle } from './Settle'
 
 const MotionButton = motion(Button)
 
-export function AuctionSheet(props) {
+interface AuctionProps {
+  isMobile: boolean
+  tokenAddress: Hex
+  auctionState: AuctionState
+  router: AppRouterInstance
+  isEnded: boolean
+  isLastToken: boolean
+  navigatedTokenId: number
+  tokenName: string | undefined
+  tokenOwner: string | undefined
+  winningBid: string
+  winningBidder: string | undefined
+  endTime: string | undefined
+  bids:
+    | {
+        bidder: any
+        amount: string
+      }[]
+    | undefined
+}
+
+export function AuctionSheet(props: AuctionProps) {
   const [open, setOpen] = useState<boolean | undefined>()
   const [timestamp, setTimestamp] = useState<number | undefined>()
 
@@ -221,10 +248,7 @@ export function AuctionSheet(props) {
                 )
               ) : null}
               {/* Bid History */}
-              <BidHistory
-                tokenId={props.navigatedTokenId}
-                tokenAddress={props.tokenAddress}
-              />
+              <BidHistory bids={props.bids} />
             </SheetHeader>
           </SheetContent>
         )}

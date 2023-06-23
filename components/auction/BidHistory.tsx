@@ -1,27 +1,22 @@
 import { Bidder } from '@/components/auction/Bidder'
 import { cn } from '@/utils/cn'
-import { useHistoricalBids } from '@public-assembly/builder-utils'
 import { Hash } from 'viem'
 import { Flex } from '../base/Flex'
 import { Caption } from '../base/Typography'
 
-interface BidHistoryProps {
-  tokenId: string
-  tokenAddress: `0x${string}`
+interface Bids {
+  bids:
+    | {
+        bidder: any
+        amount: string
+      }[]
+    | undefined
 }
 
-export function BidHistory({ tokenId, tokenAddress }: BidHistoryProps) {
-  const { filteredBidEvents } = useHistoricalBids({ tokenId, tokenAddress })
-
-  console.log(filteredBidEvents)
-
-  const reversedBidEvents = filteredBidEvents
-    ? [...filteredBidEvents].reverse()
-    : []
-
+export function BidHistory(bids: Bids) {
   return (
     <Flex className="max-h-[312px] w-full min-w-[306px] flex-col gap-y-2 overflow-y-auto pt-8">
-      {reversedBidEvents?.map((event, index) => {
+      {bids?.bids?.map((event, index) => {
         const isFirstChild = index === 0
         return (
           <Flex
