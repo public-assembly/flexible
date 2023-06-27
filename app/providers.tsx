@@ -1,12 +1,10 @@
 'use client'
 
-import { Drawer } from '@/components/Drawer'
 import { DrawerContextProvider } from '@/components/drawer/DrawerProvider'
-import { TopProgressBar } from '@/components/TopProgressBar'
 import { ThemeProvider } from '@/context/ThemeProvider'
 import {
-  ManagerProvider,
   GovernorProvider,
+  ManagerProvider,
   MetadataProvider,
   TokenProvider,
 } from '@public-assembly/builder-utils'
@@ -17,7 +15,7 @@ import React from 'react'
 import { Provider } from 'react-wrap-balancer'
 import { SWRConfig } from 'swr'
 import { ENV } from 'utils/env'
-import { configureChains, createConfig, WagmiConfig } from 'wagmi'
+import { WagmiConfig, configureChains, createConfig } from 'wagmi'
 import { goerli, mainnet } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
@@ -124,9 +122,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
                   <MetadataProvider>
                     <TokenProvider>
                       <ThemeProvider platformIndex={ENV.PLATFORM_INDEX}>
-                        <TopProgressBar />
                         <DrawerContextProvider>
-                          <Drawer />
                           {mounted && children}
                         </DrawerContextProvider>
                       </ThemeProvider>

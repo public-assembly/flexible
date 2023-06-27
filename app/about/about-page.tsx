@@ -6,8 +6,8 @@ import { Stack } from '@/components/base/Stack'
 import { H2Heading } from '@/components/base/Typography'
 import { buildEtherscanAddressLink } from '@/utils/helpers'
 import {
+  useDaoDetailsQuery,
   useManagerContext,
-  useMetadataContext,
   useTokenContext,
 } from '@public-assembly/builder-utils'
 import { aggregatorAbi } from 'abi/aggregatorAbi'
@@ -18,15 +18,10 @@ import { Hex } from 'viem'
 import { useBalance, useContractRead } from 'wagmi'
 
 export default function AboutPage() {
-  const { metadataSettings } = useMetadataContext()
-  const { tokenSettings } = useTokenContext()
+  const { tokenSettings, tokenAddress } = useTokenContext()
   const { treasuryAddress } = useManagerContext()
 
-  // Todo: Replace with separate logic
-  // const { ownerCount } = useDaoCollectionQuery({
-  //   // @ts-ignore
-  //   tokenAddress: metadataSettings?.token,
-  // })
+  const { daoDetails } = useDaoDetailsQuery({ tokenAddress: tokenAddress })
 
   const { data } = useBalance({
     address: treasuryAddress as Hex,
@@ -45,25 +40,25 @@ export default function AboutPage() {
       <IconButton
         icon={<Globe />}
         tooltip="website"
-        href={`${metadataSettings?.[1]}`}
+        href={`${daoDetails.projectURI}`}
       />
       <Flex className="body max-w-xl">
         {HtmlReactParser(
-          String(metadataSettings?.[2]).replace(/\\n/g, '<br />')
+          String(daoDetails.description).replace(/\\n/g, '<br />')
         )}
       </Flex>
 
       <Flex className="gap-6">
         <Card className="rounded-object bg-secondary px-6 py-4">
           <Stack>
-            {/* <H2Heading>{ownerCount}</H2Heading> */}
+            <H2Heading>{daoDetails.ownerCount}</H2Heading>
             <div className="text-black">Owners</div>
           </Stack>
         </Card>
         <Card className="rounded-object bg-secondary px-6 py-4">
           <Stack>
             {tokenSettings ? (
-              <H2Heading>{Number(tokenSettings?.[2]) - 1}</H2Heading>
+              <H2Heading>{Number(daoDetails.totalSupply) - 1}</H2Heading>
             ) : null}
             <div className="text-black">Total Supply</div>
           </Stack>
