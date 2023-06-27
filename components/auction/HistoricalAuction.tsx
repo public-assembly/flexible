@@ -3,8 +3,6 @@ import { Flex } from '@/components/base/Flex'
 import { Stack } from '@/components/base/Stack'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import {
-  useAuctionState,
-  useCountdown,
   useHistoricalAuctionQuery,
   useHistoricalTokenQuery,
   useManagerContext,
@@ -12,16 +10,13 @@ import {
 } from '@public-assembly/builder-utils'
 import { useRouter } from 'next/navigation'
 import Label from '../base/Label'
-import { AuctionSheet } from './AuctionSheet'
 import { ExplorerButtons } from './ExplorerButtons'
+import { HistoricalAuctionSheet } from './HistoricalAuctionSheet'
 
 const HistoricalAuction = ({ tokenId }: { tokenId: number }) => {
   const { isMobile } = useIsMobile()
   const { tokenAddress } = useManagerContext()
-  const { auctionState } = useAuctionState()
   const router = useRouter()
-
-  const { isEnded } = useCountdown(auctionState.endTime)
 
   const {
     incrementId,
@@ -55,9 +50,7 @@ const HistoricalAuction = ({ tokenId }: { tokenId: number }) => {
   const auctionProps = {
     isMobile,
     tokenAddress,
-    auctionState,
     router,
-    isEnded,
     isLastToken,
     navigatedTokenId,
     tokenName,
@@ -95,23 +88,22 @@ const HistoricalAuction = ({ tokenId }: { tokenId: number }) => {
               <Label variant="row" className="z-10">
                 {tokenName}
               </Label>
-              {winningBid === '0' &&
-              tokenOwner != '0x0000000000000000000000000000000000000000' ? (
-                <Label
-                  variant="row"
-                  className="z-10"
-                >{`Allocated to ${tokenOwner}`}</Label>
-              ) : (
+              {Number(winningBid) > 0 ? (
                 <Flex className="z-10 gap-4">
                   <Label variant="row">{`${winningBid} ETH`}</Label>
                   <Label variant="row">{`${winningBidder}`}</Label>
                 </Flex>
+              ) : (
+                <Label
+                  variant="row"
+                  className="z-10"
+                >{`Allocated to ${tokenOwner}`}</Label>
               )}
             </Flex>
           )}
         </Stack>
 
-        <AuctionSheet {...auctionProps} />
+        <HistoricalAuctionSheet {...auctionProps} />
       </Flex>
 
       {/* Mobile */}
@@ -121,23 +113,16 @@ const HistoricalAuction = ({ tokenId }: { tokenId: number }) => {
             <Label variant="row" className="z-10">
               {tokenName}
             </Label>
-            {isLastToken && !isEnded ? (
-              <Label variant="row" className="z-10">
-                {Number(winningBid) > 0
-                  ? `Current bid ${winningBid} ETH`
-                  : 'No bids'}
-              </Label>
-            ) : isEnded &&
-              tokenOwner != '0x0000000000000000000000000000000000000000' ? (
-              <Label
-                variant="row"
-                className="z-10"
-              >{`Allocated to ${tokenOwner}`}</Label>
-            ) : (
+            {Number(winningBid) > 0 ? (
               <Flex className="z-10 gap-4">
                 <Label variant="row">{`${winningBid} ETH`}</Label>
                 <Label variant="row">{`${winningBidder}`}</Label>
               </Flex>
+            ) : (
+              <Label
+                variant="row"
+                className="z-10"
+              >{`Allocated to ${tokenOwner}`}</Label>
             )}
           </Stack>
         </Stack>

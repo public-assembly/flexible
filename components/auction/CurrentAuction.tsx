@@ -6,14 +6,13 @@ import {
   useAuctionState,
   useCountdown,
   useCurrentAuctionQuery,
-  useHistoricalAuctionQuery,
   useHistoricalTokenQuery,
   useManagerContext,
   useTokenExplorer,
 } from '@public-assembly/builder-utils'
 import { useRouter } from 'next/navigation'
 import Label from '../base/Label'
-import { AuctionSheet } from './AuctionSheet'
+import { CurrentAuctionSheet } from './CurrentAuctionSheet'
 import { ExplorerButtons } from './ExplorerButtons'
 
 const CurrentAuction = ({ tokenId }: { tokenId: number }) => {
@@ -51,16 +50,12 @@ const CurrentAuction = ({ tokenId }: { tokenId: number }) => {
     winningBidder,
     highestBid,
     highestBidder,
+    bids,
   } = useCurrentAuctionQuery({
     tokenAddress: tokenAddress,
   })
 
   const { tokenName, tokenImage, tokenOwner } = useHistoricalTokenQuery({
-    tokenAddress: tokenAddress,
-    tokenId: BigInt(tokenId),
-  })
-
-  const { bids } = useHistoricalAuctionQuery({
     tokenAddress: tokenAddress,
     tokenId: BigInt(tokenId),
   })
@@ -124,7 +119,7 @@ const CurrentAuction = ({ tokenId }: { tokenId: number }) => {
           )}
         </Stack>
 
-        <AuctionSheet {...auctionProps} />
+        <CurrentAuctionSheet {...auctionProps} />
       </Flex>
 
       {/* Mobile */}

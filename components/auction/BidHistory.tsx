@@ -5,18 +5,17 @@ import { Flex } from '../base/Flex'
 import { Caption } from '../base/Typography'
 
 interface Bids {
-  bids:
+  bids?:
     | {
         bidder: any
         amount: string
       }[]
-    | undefined
 }
 
 export function BidHistory(bids: Bids) {
   return (
     <Flex className="max-h-[312px] w-full min-w-[306px] flex-col gap-y-2 overflow-y-auto pt-8">
-      {bids?.bids?.map((event, index) => {
+      {bids.bids?.map((event, index) => {
         const isFirstChild = index === 0
         return (
           <Flex

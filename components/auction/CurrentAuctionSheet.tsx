@@ -54,9 +54,8 @@ interface AuctionProps {
     | undefined
 }
 
-export function AuctionSheet(props: AuctionProps) {
+export function CurrentAuctionSheet(props: AuctionProps) {
   const [open, setOpen] = useState<boolean | undefined>()
-  const [timestamp, setTimestamp] = useState<number | undefined>()
 
   const { isConnected } = useAuth()
 
@@ -71,21 +70,6 @@ export function AuctionSheet(props: AuctionProps) {
     event.preventDefault()
     createBid?.()
   }
-
-  // useEffect(() => {
-
-  //     // const provider = new ethers.providers.JsonRpcProvider(
-  //     //   `${ALCHEMY_RPC_URL}`
-  //     // )
-
-  //     const blockNumber = tokenData.mintInfo.mintContext.blockNumber
-  //     const auctionDuration = auctionState.endTime - auctionState.startTime
-
-  //     // provider.getBlock(blockNumber).then((block) => {
-  //     //   setTimestamp(block.timestamp + auctionDuration)
-  //     // })
-
-  // }, [tokenData, auctionState])
 
   const externalLinkBaseURI = `https://${
     ENV.CHAIN === 5 ? 'goerli.' : ''
@@ -156,7 +140,7 @@ export function AuctionSheet(props: AuctionProps) {
                 </Headline>
               </SheetTitle>
               <Grid className="grid-cols-2">
-                {!props.isEnded ? (
+                {props.isLastToken ? (
                   <>
                     {/* Auction countdown */}
                     <Stack>
@@ -180,7 +164,7 @@ export function AuctionSheet(props: AuctionProps) {
                     {/* Auction ended */}
                     <Stack>
                       <Caption>
-                        <span className="uppercase">props.endTime</span>
+                        <span className="uppercase">{`${props.endTime}`}</span>
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Auction ended
