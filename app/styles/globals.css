@@ -100,7 +100,6 @@ a {
 div[data-radix-popper-content-wrapper] .content-outer .content-inner {
   width: 100%;
   max-width: 100%;
-
   padding-top: 24px;
   padding-bottom: 24px;
 }
@@ -133,11 +132,11 @@ div[data-radix-popper-content-wrapper] {
 }
 
 /* Disable default input styling for file inputs */
-input[type="file"] {
+input[type='file'] {
   display: none;
 }
 
 /* Disable default input styling for range inputs */
-input[type="range"] {
+input[type='range'] {
   display: none;
 }

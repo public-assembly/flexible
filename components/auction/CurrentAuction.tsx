@@ -111,8 +111,16 @@ const CurrentAuction = ({ tokenId }: { tokenId: number }) => {
                 </Label>
               ) : (
                 <Flex className="z-10 gap-4">
-                  <Label variant="row">{`${winningBid} ETH`}</Label>
-                  <Label variant="row">{`${winningBidder}`}</Label>
+                  {Number(winningBid) > 0 ? (
+                    <>
+                      <Label variant="row">{`${winningBid} ETH`}</Label>
+                      <Label variant="row">{`${winningBidder}`}</Label>
+                    </>
+                  ) : (
+                    <Label variant="row" className="z-10">
+                      No bids
+                    </Label>
+                  )}
                 </Flex>
               )}
             </Flex>
@@ -137,8 +145,16 @@ const CurrentAuction = ({ tokenId }: { tokenId: number }) => {
               </Label>
             ) : (
               <Flex className="z-10 gap-4">
-                <Label variant="row">{`${winningBid} ETH`}</Label>
-                <Label variant="row">{`${winningBidder}`}</Label>
+                {Number(winningBid) > 0 ? (
+                  <>
+                    <Label variant="row">{`${winningBid} ETH`}</Label>
+                    <Label variant="row">{`${winningBidder}`}</Label>
+                  </>
+                ) : (
+                  <Label variant="row" className="z-10">
+                    No bids
+                  </Label>
+                )}
               </Flex>
             )}
           </Stack>

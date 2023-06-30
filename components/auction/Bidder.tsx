@@ -3,12 +3,12 @@ import { Link } from '@/components/base/Link'
 import { Body } from '@/components/base/Typography'
 import { Zorb } from '@/components/base/Zorb'
 import { buildEtherscanLink } from '@/utils/helpers'
+import { Hex } from 'viem'
 import { useEnsAvatar, useEnsName } from 'wagmi'
-import { Hash } from 'viem'
 import { shortenAddress } from '../../utils/shortenAddress'
 
 type BidderProps = {
-  address: Hash
+  address: Hex
   isHighestBidder?: boolean
 }
 

@@ -90,25 +90,19 @@ export function Header() {
   )
 }
 
-/* Mobile burger navigation */
-type MobileDropdownProps = {
-  isConnected?: boolean
-}
-
-function MobileDropdown(props: MobileDropdownProps) {
-  const { address, logout, isConnected, chain } = useAuth()
-  const [canEdit, setCanEdit] = useState<boolean>(false)
-  const { requestOpen } = useDrawer()
-  const router = useRouter()
+function MobileDropdown() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [canEdit, setCanEdit] = useState<boolean>(false)
+  const { address, logout, isConnected, chain } = useAuth()
+  const { requestOpen } = useDrawer()
+  const pathname = usePathname()
+  const router = useRouter()
+  
 
   useEffect(() => {
     const closeDropdown = () => setIsOpen(false)
-    // router.events.on('routeChangeComplete', closeDropdown)
-    // return () => {
-    //   router.events.off('routeChangeComplete', closeDropdown)
-    // }
-  }, [isOpen])
+    closeDropdown()
+  }, [pathname])
 
   const themeRegistry = '0x9a23AE640040e4d34E9e00E500003000017144F4'
 
