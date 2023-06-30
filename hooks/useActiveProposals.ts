@@ -1,16 +1,15 @@
-import { useGovernorContext } from '@public-assembly/dao-utils'
+import { useGovernorContext } from '@public-assembly/builder-utils'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
-import { NOUNS_PROPOSAL_STATUS } from '../types/index'
 
-export const useProposals = () => {
+export const useActiveProposals = () => {
   const { proposals } = useGovernorContext()
 
-  const [activeProposals, setActiveProposals] = useState<any[] | null>(null)
-  const [restProposals, setRestProposals] = useState<any[] | null>(null)
-  const [activeProposalCount, setActiveProposalCount] = useState(0)
-  const [totalProposalCount, setTotalProposalCount] = useState(0)
-  const [isEmpty, setIsEmpty] = useState(false)
+  const [activeProposals, setActiveProposals] = useState<typeof proposals>()
+  const [restProposals, setRestProposals] = useState<typeof proposals>()
+  const [activeProposalCount, setActiveProposalCount] = useState<number>(0)
+  const [totalProposalCount, setTotalProposalCount] = useState<number>(0)
+  const [isEmpty, setIsEmpty] = useState<boolean>(false)
 
   useEffect(() => {
     if (!proposals) return
@@ -22,7 +21,7 @@ export const useProposals = () => {
     // Split proposals into active and rest of proposals
     const splitProposals = _.partition(
       proposals,
-      (proposal) => proposal.status === NOUNS_PROPOSAL_STATUS.ACTIVE
+      (proposal) => proposal.state === 'Active'
     )
 
     setTotalProposalCount(proposals.length)
@@ -41,7 +40,6 @@ export const useProposals = () => {
     totalProposalCount,
     activeProposals,
     proposals: restProposals,
-    allProposals: proposals,
     isEmpty,
     hasActiveProposals: activeProposalCount > 0,
     hasProposals: totalProposalCount > 0,

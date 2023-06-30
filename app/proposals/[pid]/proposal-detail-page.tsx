@@ -1,8 +1,3 @@
-import { useProposals } from '@/hooks/useProposals'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import Balancer from 'react-wrap-balancer'
-
 import { ArrowLeft } from '@/components/assets/icons'
 import { Divider } from '@/components/base/Divider'
 import { Flex } from '@/components/base/Flex'
@@ -17,38 +12,44 @@ import {
 } from '@/components/proposals/ProposalDescription'
 import ProposalLabel from '@/components/proposals/ProposalLabel'
 import { Proposer } from '@/components/proposals/Proposer'
-import { BodyLarge, Headline } from '../../components/base/Typography'
-import { Hash } from '../../types/index'
+import { useGovernorContext } from '@public-assembly/builder-utils'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import Balancer from 'react-wrap-balancer'
+import { Hex } from 'viem'
+import { BodyLarge, Headline } from '../../../components/base/Typography'
 
-function ProposalDetailPage() {
-  const { allProposals } = useProposals()
-  const { pid } = useRouter().query
+export default function ProposalDetailPage() {
+  const { proposals } = useGovernorContext()
+  const pid = usePathname()
 
-  if (!allProposals) return null
+  if (!proposals) return null
 
-  const proposal = allProposals.find((proposal) => proposal.proposalId === pid)
+  const proposal = proposals.find(
+    (proposal) => `/proposals/${proposal.proposalId}` === pid
+  )
 
   if (!proposal) return null
   return (
-    <Stack className="w-full px-4 md:px-10">
+    <Stack className="w-full px-4 md:px-10 md:pt-16">
       <Stack className="w-full gap-10 pt-10">
         <ProposalNavigation />
         <Flex className="h-full w-full justify-between">
           {/* Header section */}
           <Stack className="w-fit gap-4">
             <Flex className="items-center gap-6">
-              {proposal.status === 'ACTIVE' ? (
-                <ProposalLabel>{proposal.status}</ProposalLabel>
-              ) : proposal.status === 'PENDING' ||
-                proposal.status === 'QUEUED' ||
-                proposal.status === 'EXECUTED' ||
-                proposal.status === 'SUCCEEDED' ? (
+              {proposal.state === 'Active' ? (
+                <ProposalLabel>{proposal.state}</ProposalLabel>
+              ) : proposal.state === 'Pending' ||
+                proposal.state === 'Queued' ||
+                proposal.state === 'Executed' ||
+                proposal.state === 'Succeeded' ? (
                 <ProposalLabel variant="secondary">
-                  {proposal.status}
+                  {proposal.state}
                 </ProposalLabel>
               ) : (
                 <ProposalLabel variant="tertiary">
-                  {proposal.status}
+                  {proposal.state}
                 </ProposalLabel>
               )}
               <ProposalTimestamp proposal={proposal} size="sm" />
@@ -58,7 +59,7 @@ function ProposalDetailPage() {
                 <Headline>{proposal.title}</Headline>
               </Balancer>
               <p className="body text-primary/50">
-                By <Proposer proposer={proposal.proposer as Hash} />
+                By <Proposer proposer={proposal.proposer as Hex} />
               </p>
             </Stack>
 
@@ -73,8 +74,7 @@ function ProposalDetailPage() {
               abstainVotes={proposal.abstainVotes}
               againstVotes={proposal.againstVotes}
               votingThreshold={proposal.quorumVotes}
-              // @ts-ignore - TODO: Update dao-utils gql.ts
-              transactionHash={proposal.transactionInfo.transactionHash}
+              transactionHash={proposal.transactionHash}
             />
           </Stack>
 
@@ -85,22 +85,21 @@ function ProposalDetailPage() {
             abstainVotes={proposal.abstainVotes}
             againstVotes={proposal.againstVotes}
             votingThreshold={proposal.quorumVotes}
-            // @ts-ignore - TODO: Update dao-utils gql.ts
-            transactionHash={proposal.transactionInfo.transactionHash}
+            transactionHash={proposal.transactionHash}
           />
         </Flex>
       </Stack>
       <Divider className="bg-primary/50" />
 
       {/* Proposal description */}
-      <RichText html={proposal.description} className="w-full" />
+      <RichText html={String(proposal.description)} className="w-full" />
 
       {/* Proposer */}
       <section id="Proposer">
         <BodyLarge className="py-10">Proposer</BodyLarge>
         <Flex className="items-center">
           <Proposer
-            proposer={proposal.proposer as Hash}
+            proposer={proposal.proposer as Hex}
             className="text-primary"
           />
         </Flex>
@@ -110,7 +109,7 @@ function ProposalDetailPage() {
       <section id="Proposal Transactions">
         <BodyLarge className="py-10">Proposed Transactions</BodyLarge>
         <DecodedTransactions
-          calldatas={proposal.calldatas}
+          calldatas={proposal.calldatas as unknown as string[]}
           targets={proposal.targets}
           values={proposal.values}
         />
@@ -118,8 +117,6 @@ function ProposalDetailPage() {
     </Stack>
   )
 }
-
-export default ProposalDetailPage
 
 function ProposalNavigation() {
   return (

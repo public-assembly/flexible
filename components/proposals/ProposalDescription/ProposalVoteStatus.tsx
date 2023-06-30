@@ -1,8 +1,8 @@
+import ConnectButton from '@/components/ConnectButton'
 import { Check, Exit, Minus } from '@/components/assets/icons'
 import { Flex } from '@/components/base/Flex'
 import Label from '@/components/base/Label'
 import { Stack } from '@/components/base/Stack'
-import ConnectButton from '@/components/ConnectButton'
 import {
   Cancel,
   Execute,
@@ -10,8 +10,8 @@ import {
   Veto,
 } from '@/components/proposals/ProposalActions'
 import { useAuth } from '@/hooks/useAuth'
-import { useProposalPermissions } from '@/hooks/useProposalPermissions'
 import { buildEtherscanLink } from '@/utils/helpers'
+import { useProposalPermissions } from '@public-assembly/builder-utils'
 import { useEffect, useState } from 'react'
 import { NOUNS_PROPOSAL_SUPPORT, PROPOSAL_SUPPORT } from 'types'
 import VotingDialog from '../VotingDialog'
@@ -97,21 +97,21 @@ export function ProposalVoteStatus({ proposal }) {
         <ConnectButton />
       </div>
     )
-  } else if (proposal.status == 'EXECUTED') {
+  } else if (proposal.state == 'Executed') {
     if (!hasVoted) {
       return (
         <>
           {!canVote ? (
             <Label>You were not eligible to vote on this proposal</Label>
           ) : (
-            <Label>You did not vote on this proposal </Label>
+            <Label>You did not vote on this proposal</Label>
           )}
         </>
       )
     } else {
       return <ProposalVoteBadge voteSupport={voteSupport} txHash={txHash} />
     }
-  } else if (proposal.status == 'EXECUTABLE') {
+  } else if (proposal.state == 'Executable') {
     if (!hasVoted) {
       return (
         <Stack className={'gap-6'}>
@@ -145,7 +145,7 @@ export function ProposalVoteStatus({ proposal }) {
         </Stack>
       )
     }
-  } else if (proposal.status == 'QUEUED') {
+  } else if (proposal.state == 'Queued') {
     if (!hasVoted) {
       return (
         <Stack className={canVeto || canCancel ? 'gap-6' : ''}>
@@ -179,7 +179,7 @@ export function ProposalVoteStatus({ proposal }) {
         </Stack>
       )
     }
-  } else if (proposal.status == 'SUCCEEDED') {
+  } else if (proposal.state == 'Succeeded') {
     if (!hasVoted) {
       return (
         <Stack className={canCancel ? 'gap-6' : ''}>
@@ -206,7 +206,7 @@ export function ProposalVoteStatus({ proposal }) {
         </Stack>
       )
     }
-  } else if (proposal.status == 'DEFEATED') {
+  } else if (proposal.state == 'Defeated') {
     if (!hasVoted) {
       return (
         <Stack>
@@ -224,7 +224,7 @@ export function ProposalVoteStatus({ proposal }) {
         </Stack>
       )
     }
-  } else if (proposal.status == 'ACTIVE') {
+  } else if (proposal.state == 'Active') {
     if (!hasVoted) {
       return (
         <Stack className={canCancel ? 'gap-6' : ''}>
@@ -254,7 +254,7 @@ export function ProposalVoteStatus({ proposal }) {
         </Stack>
       )
     }
-  } else if (proposal.status == 'PENDING') {
+  } else if (proposal.state == 'Pending') {
     return (
       <Flex className="gap-6">
         {/* If the user can cancel, render the cancel button */}

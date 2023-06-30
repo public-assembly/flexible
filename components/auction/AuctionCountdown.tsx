@@ -1,4 +1,4 @@
-import { useCountdown } from '@public-assembly/dao-utils'
+import { useCountdown } from '@public-assembly/builder-utils'
 import { Caption } from '../base/Typography'
 
 export function AuctionCountdown({ auctionState }: { auctionState: any }) {

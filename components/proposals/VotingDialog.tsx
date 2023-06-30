@@ -3,11 +3,10 @@ import {
   governorAbi,
   useGovernorContext,
   useVote,
-} from '@public-assembly/dao-utils'
-import { BigNumber } from 'ethers'
+} from '@public-assembly/builder-utils'
 import { useEffect, useState } from 'react'
-import { Hash } from 'types'
 import { cn } from 'utils/cn'
+import { Hash } from 'viem'
 import { useContractRead } from 'wagmi'
 import { Check, Exit, Minus, Pending } from '../assets/icons'
 import { Button } from '../base/Button'
@@ -50,7 +49,7 @@ const VotingDialog = ({ proposal }) => {
     address: governorAddress,
     abi: governorAbi,
     functionName: 'getVotes',
-    args: [address as Hash, BigNumber.from(proposal?.timeCreated)],
+    args: [address as Hash, proposal.timeCreated],
   })
 
   useEffect(() => {
@@ -60,7 +59,7 @@ const VotingDialog = ({ proposal }) => {
     }
   }, [castVoteSuccess, castVoteWithReasonSuccess])
 
-  if (proposal.status != 'ACTIVE') return null
+  if (proposal.state != 'Active') return null
   return (
     <>
       {successDialogOpen && <VotingSuccess reason={reason} />}
@@ -136,7 +135,7 @@ const VotingDialog = ({ proposal }) => {
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               placeholder="Comment (optional)"
-              className="min-h-[96px] w-full py-2 px-3 text-black"
+              className="min-h-[96px] w-full px-3 py-2 text-black"
             ></textarea>
           </Stack>
           <DialogFooter>

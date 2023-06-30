@@ -1,23 +1,24 @@
 /** @type {import('next').NextConfig} */
 
-const withTM = require("next-transpile-modules")(["@public-assembly/dao-utils"])
-
 const nextConfig = {
-  transpilePackages: ["@public-assembly/dao-utils"],
-  reactStrictMode: true,
-  swcMinify: true,
+  transpilePackages: ['@public-assembly/builder-utils'],
   experimental: {
-    esmExternals: "loose",
+    esmExternals: 'loose',
   },
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false, net: false, tls: false }
+    return config
+  },
+  reactStrictMode: true,
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "api.zora.co",
-        port: "",
+        protocol: 'https',
+        hostname: 'api.zora.co',
+        port: '',
       },
     ],
   },
 }
 
-module.exports = withTM(nextConfig)
+module.exports = nextConfig

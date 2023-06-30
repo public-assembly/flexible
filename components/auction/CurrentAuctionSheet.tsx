@@ -16,14 +16,16 @@ import {
 import { Stack } from '@/components/base/Stack'
 import { BodySmall, Caption, Headline } from '@/components/base/Typography'
 import { useAuth } from '@/hooks/useAuth'
-import { useIsMobile } from '@/hooks/useIsMobile'
 import { ENV } from '@/utils/env'
-import { useActiveAuction, useDaoTokenQuery } from '@public-assembly/dao-utils'
-import { ALCHEMY_RPC_URL } from 'constants/rpcEndpoint'
-import { format, fromUnixTime } from 'date-fns'
-import { BigNumber, ethers } from 'ethers'
+import {
+  AuctionState,
+  useCreateBid,
+  useMinBidAmount,
+} from '@public-assembly/builder-utils'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
+import { useState } from 'react'
+import { Hex } from 'viem'
 import ConnectButton from '../ConnectButton'
 import { AuctionCountdown } from './AuctionCountdown'
 import { BidHistory } from './BidHistory'
@@ -31,73 +33,53 @@ import { Settle } from './Settle'
 
 const MotionButton = motion(Button)
 
-interface AuctionSheetProps {
-  currentTokenId: string
-  tokenName: string
-  winningBid: string
+interface AuctionProps {
+  isMobile: boolean
+  tokenAddress: Hex
+  auctionState: AuctionState
+  router: AppRouterInstance
   isEnded: boolean
   isLastToken: boolean
-  auctionState: any
-  minBidAmount: any
+  navigatedTokenId: number
+  tokenName: string | undefined
+  tokenOwner: string | undefined
+  winningBid: string
+  winningBidder: string | undefined
+  endTime: string | undefined
+  bids:
+    | {
+        bidder: any
+        amount: string
+      }[]
+    | undefined
 }
 
-export function AuctionSheet({
-  currentTokenId,
-  tokenName,
-  winningBid,
-  isEnded,
-  isLastToken,
-  auctionState,
-  minBidAmount,
-}: AuctionSheetProps) {
-  const { isMobile } = useIsMobile()
-
+export function CurrentAuctionSheet(props: AuctionProps) {
   const [open, setOpen] = useState<boolean | undefined>()
-  const [timestamp, setTimestamp] = useState<number | undefined>()
 
   const { isConnected } = useAuth()
 
-  const {
-    createBid,
-    updateBidAmount,
-    createBidSuccess,
-    createBidLoading,
-    isValidBid,
-  } = useActiveAuction(ENV.TOKEN_ADDRESS)
+  const { bidAmount, minBidAmount, updateBidAmount, isValidBid } =
+    useMinBidAmount()
 
-  const { tokenData } = useDaoTokenQuery({
-    tokenAddress: ENV.TOKEN_ADDRESS,
-    tokenId: currentTokenId.toString(),
+  const { createBid, createBidSuccess, createBidLoading } = useCreateBid({
+    bidAmount: bidAmount,
   })
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    createBid()
+    createBid?.()
   }
 
-  useEffect(() => {
-    if (tokenData) {
-      const provider = new ethers.providers.JsonRpcProvider(
-        `${ALCHEMY_RPC_URL}`
-      )
-
-      const blockNumber = tokenData.mintInfo.mintContext.blockNumber
-      const auctionDuration = auctionState.endTime - auctionState.startTime
-
-      provider.getBlock(blockNumber).then((block) => {
-        setTimestamp(block.timestamp + auctionDuration)
-      })
-    }
-    return
-  }, [tokenData, auctionState])
-
-  const externalLinkBaseURI = 'https://nouns.build/dao'
+  const externalLinkBaseURI = `https://${
+    ENV.CHAIN === 5 ? 'goerli.' : ''
+  }nouns.build/dao`
 
   return (
     <AnimatePresence>
-      <Sheet open={open} onOpenChange={setOpen} modal={isMobile}>
+      <Sheet open={open} onOpenChange={setOpen} modal={props.isMobile}>
         <SheetTrigger asChild className="custom-shadow">
-          {isMobile ? (
+          {props.isMobile ? (
             <MotionButton
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
@@ -136,9 +118,9 @@ export function AuctionSheet({
         {open && (
           <SheetContent
             size="auction"
-            position={isMobile ? 'bottom' : 'right-center'}
+            position={props.isMobile ? 'bottom' : 'right-center'}
             onInteractOutside={(e) => {
-              if (!isMobile) {
+              if (!props.isMobile) {
                 e.preventDefault()
               }
             }}
@@ -147,22 +129,22 @@ export function AuctionSheet({
               <SheetTitle>
                 <Headline>
                   <a
-                    href={`${externalLinkBaseURI}/${ENV.TOKEN_ADDRESS}/${currentTokenId}`}
+                    href={`${externalLinkBaseURI}/${props.tokenAddress}/${props.navigatedTokenId}`}
                     target="_blank"
                     rel="noreferrer"
                     className="flex flex-row items-center gap-2 text-[24px] hover:underline"
                   >
-                    <span>{tokenName}</span>
+                    <span>{props.tokenName}</span>
                     <ArrowUpRight size={24} className="text-tertiary" />
                   </a>
                 </Headline>
               </SheetTitle>
               <Grid className="grid-cols-2">
-                {!isEnded ? (
+                {props.isLastToken ? (
                   <>
                     {/* Auction countdown */}
                     <Stack>
-                      <AuctionCountdown auctionState={auctionState} />
+                      <AuctionCountdown auctionState={props.auctionState} />
                       <BodySmall className="text-tertiary">
                         Auction ends in
                       </BodySmall>
@@ -170,9 +152,7 @@ export function AuctionSheet({
                     {/* Highest bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        {`${ethers.utils.formatEther(
-                          BigNumber.from(auctionState.highestBid)
-                        )} ETH`}
+                        {`${props.auctionState.highestBid} ETH`}
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Highest bid
@@ -184,18 +164,7 @@ export function AuctionSheet({
                     {/* Auction ended */}
                     <Stack>
                       <Caption>
-                        {timestamp ? (
-                          <span className="uppercase">
-                            {tokenData?.mintInfo
-                              ? `${format(
-                                  fromUnixTime(timestamp),
-                                  'MMMM d, yyyy'
-                                )}`
-                              : 'N/A'}
-                          </span>
-                        ) : (
-                          <span className="uppercase">Loading...</span>
-                        )}
+                        <span className="uppercase">{`${props.endTime}`}</span>
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Auction ended
@@ -204,7 +173,7 @@ export function AuctionSheet({
                     {/* Winning bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        {winningBid} ETH
+                        {props.winningBid} ETH
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Winning bid
@@ -213,8 +182,8 @@ export function AuctionSheet({
                   </>
                 )}
               </Grid>
-              {isLastToken ? (
-                isEnded ? (
+              {props.isLastToken ? (
+                props.isEnded ? (
                   !isConnected ? (
                     <ConnectButton />
                   ) : (
@@ -246,7 +215,7 @@ export function AuctionSheet({
                           event: React.ChangeEvent<HTMLInputElement>
                         ) => updateBidAmount(event.target.value)}
                       />
-                      <label className="absolute mt-3 ml-72 sm:ml-64">
+                      <label className="absolute ml-72 mt-3 sm:ml-64">
                         ETH
                       </label>
                       {!createBidLoading && !createBidSuccess ? (
@@ -263,10 +232,7 @@ export function AuctionSheet({
                 )
               ) : null}
               {/* Bid History */}
-              <BidHistory
-                tokenId={currentTokenId}
-                tokenAddress={ENV.TOKEN_ADDRESS}
-              />
+              <BidHistory bids={props.bids} />
             </SheetHeader>
           </SheetContent>
         )}

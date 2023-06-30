@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,15 +21,41 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/context/*": ["context/*"],
-      "@/hooks/*": ["hooks/*"],
-      "@/lib/*": ["lib/*"],
-      "@/utils/*": ["utils/*"],
-      "@/docs/*": ["docs/*"]
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/context/*": [
+        "context/*"
+      ],
+      "@/hooks/*": [
+        "hooks/*"
+      ],
+      "@/lib/*": [
+        "lib/*"
+      ],
+      "@/utils/*": [
+        "utils/*"
+      ],
+      "@/docs/*": [
+        "docs/*"
+      ]
     },
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.mdx", "**/*.md"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.mdx",
+    "**/*.md",
+    ".next/types/**/*.ts"
+, "app/proposals/[pid]"  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,31 +1,19 @@
-import { auctionAbi, useAuctionContext } from '@public-assembly/dao-utils'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useWaitForTransaction,
-} from 'wagmi'
+import { useSettle } from '@public-assembly/builder-utils'
 import { Pending } from '../assets/icons'
 import Button from '../base/Button'
 
 export function Settle() {
-  const { auctionAddress } = useAuctionContext()
-
-  const { config } = usePrepareContractWrite({
-    address: auctionAddress,
-    abi: auctionAbi,
-    functionName: 'settleCurrentAndCreateNewAuction',
-  })
-  const { data, write: settle } = useContractWrite(config)
-
-  const { isLoading, isSuccess } = useWaitForTransaction({
-    hash: data?.hash,
-  })
+  const { settle, settleSuccess, settleLoading } = useSettle()
 
   return (
     <>
-      {!isSuccess ? (
-        <Button size="lg" disabled={isLoading} onClick={() => settle?.()}>
-          {!isLoading ? 'Settle auction' : <Pending className="animate-spin" />}
+      {!settleSuccess ? (
+        <Button size="lg" disabled={settleLoading} onClick={() => settle?.()}>
+          {!settleLoading ? (
+            'Settle auction'
+          ) : (
+            <Pending className="animate-spin" />
+          )}
         </Button>
       ) : (
         <Button size="lg" disabled={true}>

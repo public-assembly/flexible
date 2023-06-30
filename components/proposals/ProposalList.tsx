@@ -1,10 +1,11 @@
-import { variants } from '@/components/proposals/animations'
 import ProposalCard from '@/components/proposals/ProposalCard'
+import { variants } from '@/components/proposals/animations'
 import { cn } from '@/utils/cn'
+import { StatefulProposal } from '@public-assembly/builder-utils'
 import { motion } from 'framer-motion'
 
 type ProposalListProps = {
-  proposals: any
+  proposals: StatefulProposal[]
   // Grouping the proposals by active versus not-active uses a different page layout
   type: 'active' | 'not-active'
 }

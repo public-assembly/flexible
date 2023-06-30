@@ -1,8 +1,7 @@
 import { useAuth } from '@/hooks/useAuth'
 import { ENV } from '@/utils/env'
-import { BigNumber } from 'ethers'
 import * as React from 'react'
-import { Hash } from 'types'
+import { Hex } from 'viem'
 import {
   useContractRead,
   useContractWrite,
@@ -35,7 +34,7 @@ export function Save() {
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     functionName: 'getRole',
-    args: [BigNumber.from(ENV.PLATFORM_INDEX), address as Hash],
+    args: [BigInt(ENV.PLATFORM_INDEX), address as Hex],
     onSuccess(getRole) {
       if (getRole === 1 || getRole === 2) {
         setCanEdit(true)
@@ -47,7 +46,7 @@ export function Save() {
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     functionName: 'setPlatformTheme',
-    args: [BigNumber.from(ENV.PLATFORM_INDEX), uri],
+    args: [BigInt(ENV.PLATFORM_INDEX), uri],
     enabled: Boolean(uri),
     onSuccess() {
       setThemeReady(true)

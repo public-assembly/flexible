@@ -1,13 +1,3 @@
-/* @ts-ignore */
-import * as React from 'react'
-import { useEffect, useState } from 'react'
-
-import { useAuth } from '@/hooks/useAuth'
-import { formatDuration, intervalToDuration } from 'date-fns'
-import Link from 'next/link'
-import Balancer from 'react-wrap-balancer'
-import { cn } from 'utils/cn'
-
 import { Flex } from '@/components/base/Flex'
 import { Stack } from '@/components/base/Stack'
 import {
@@ -16,14 +6,28 @@ import {
   BodySmall,
 } from '@/components/base/Typography'
 import { Proposer } from '@/components/proposals/Proposer'
-import { governorAbi, useGovernorContext } from '@public-assembly/dao-utils'
-import { BigNumber } from 'ethers'
-import { Hash } from 'types'
+import { useAuth } from '@/hooks/useAuth'
+import {
+  StatefulProposal,
+  governorAbi,
+  useGovernorContext,
+} from '@public-assembly/builder-utils'
+import { formatDuration, intervalToDuration } from 'date-fns'
+import Link from 'next/link'
+import * as React from 'react'
+import { useEffect, useState } from 'react'
+import Balancer from 'react-wrap-balancer'
+import { cn } from 'utils/cn'
+import { Hex } from 'viem'
 import { useContractRead } from 'wagmi'
 import { ProposalCardVotes } from './ProposalCardVotes'
 import ProposalLabel from './ProposalLabel'
 
-export default function ProposalCard({ proposal }) {
+export default function ProposalCard({
+  proposal,
+}: {
+  proposal: StatefulProposal
+}) {
   const { address } = useAuth()
   const [needsAction, setNeedsAction] = React.useState<boolean>(false)
 
@@ -33,12 +37,12 @@ export default function ProposalCard({ proposal }) {
     address: governorAddress,
     abi: governorAbi,
     functionName: 'getVotes',
-    args: [address as Hash, BigNumber.from(proposal?.timeCreated)],
+    args: [address as Hex, proposal.timeCreated],
   })
 
   useEffect(() => {
-    if (proposal.status != 'ACTIVE') return
-    if (!address || !availableVotes || availableVotes.toNumber() < 1) return
+    if (proposal.state !== 'Active') return
+    if (!address || !availableVotes || Number(availableVotes) < 1) return
     const proposalVotes = proposal.votes
 
     const hasVoted = proposalVotes.some(
@@ -59,21 +63,21 @@ export default function ProposalCard({ proposal }) {
             'hover:border-primary'
           )}
         >
-          {/* Statuses */}
+          {/* States */}
           <Flex className="flex-wrap items-center justify-between gap-2 self-stretch">
             <Flex className="gap-2">
-              {proposal.status === 'ACTIVE' ? (
-                <ProposalLabel>{proposal.status}</ProposalLabel>
-              ) : proposal.status === 'PENDING' ||
-                proposal.status === 'QUEUED' ||
-                proposal.status === 'EXECUTED' ||
-                proposal.status === 'SUCCEEDED' ? (
+              {proposal.state === 'Active' ? (
+                <ProposalLabel>{proposal.state}</ProposalLabel>
+              ) : proposal.state === 'Pending' ||
+                proposal.state === 'Queued' ||
+                proposal.state === 'Executed' ||
+                proposal.state === 'Succeeded' ? (
                 <ProposalLabel variant="secondary">
-                  {proposal.status}
+                  {proposal.state}
                 </ProposalLabel>
               ) : (
                 <ProposalLabel variant="tertiary">
-                  {proposal.status}
+                  {proposal.state}
                 </ProposalLabel>
               )}
               {needsAction ? <ProposalLabel>Needs vote</ProposalLabel> : null}
@@ -111,10 +115,10 @@ export function ProposalTimestamp({
   proposal,
   size = 'sm',
 }: {
-  proposal: any
+  proposal: StatefulProposal
   size?: 'sm' | 'xs'
 }) {
-  const [timestampBadge, setTimestampBadge] = useState<string>('')
+  const [timestampBadge, setTimestampBadge] = useState<string>()
 
   const pastDateFormat: [string, Intl.DateTimeFormatOptions] = [
     'en-us',
@@ -157,22 +161,22 @@ export function ProposalTimestamp({
   )
 
   useEffect(() => {
-    function getTimestampBadge(proposal) {
-      if (proposal.status === 'ACTIVE') {
+    function getTimestampBadge(proposal: StatefulProposal) {
+      if (proposal.state === 'Active') {
         setTimestampBadge(`Voting ends in ${voteEndFormatted}`)
-      } else if (proposal.status === 'PENDING') {
+      } else if (proposal.state === 'Pending') {
         setTimestampBadge(`Voting starts in ${voteStartFormatted}`)
-      } else if (proposal.status === 'EXECUTABLE') {
+      } else if (proposal.state === 'Executable') {
         setTimestampBadge(`Expires in ${expiresAtFormatted}`)
-      } else if (proposal.status === 'QUEUED') {
+      } else if (proposal.state === 'Queued') {
         setTimestampBadge(`Expires in ${expiresAtFormatted}`)
-      } else if (proposal.status === 'EXECUTED') {
+      } else if (proposal.state === 'Executed') {
         setTimestampBadge(`Ended ${pastDateFormatted}`)
-      } else if (proposal.status === 'CANCELED') {
+      } else if (proposal.state === 'Canceled') {
         setTimestampBadge(`Ended ${pastDateFormatted}`)
-      } else if (proposal.status === 'DEFEATED') {
+      } else if (proposal.state === 'Defeated') {
         setTimestampBadge(`Ended ${pastDateFormatted}`)
-      } else if (proposal.status === 'VETOED') {
+      } else if (proposal.state === 'Vetoed') {
         setTimestampBadge(`Ended ${pastDateFormatted}`)
       }
     }

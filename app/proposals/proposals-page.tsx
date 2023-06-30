@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react'
-
-import { useProposals } from '@/hooks/useProposals'
+import { useActiveProposals } from '@/hooks/useActiveProposals'
 import { motion } from 'framer-motion'
-import { isServerSide } from 'utils/helpers'
 
 import CountingNumbers from '@/components/base/CountingNumbers'
 import { Divider } from '@/components/base/Divider'
@@ -11,8 +8,9 @@ import { Stack } from '@/components/base/Stack'
 import { Caption } from '@/components/base/Typography'
 import ProposalEmptyState from '@/components/proposals/ProposalEmptyState'
 import { ProposalList } from '@/components/proposals/ProposalList'
+import { StatefulProposal } from '@public-assembly/builder-utils'
 
-function ProposalsPage() {
+export default function ProposalsPage() {
   const {
     totalProposalCount,
     activeProposals,
@@ -21,15 +19,7 @@ function ProposalsPage() {
     isEmpty,
     hasActiveProposals,
     hasProposals,
-  } = useProposals()
-
-  const [loading, setLoading] = React.useState(false)
-  useEffect(() => {
-    setLoading(true)
-  }, [])
-
-  if (isServerSide()) return null
-  if (!loading) return null
+  } = useActiveProposals()
 
   return (
     <motion.section className="m-auto flex min-h-full max-w-7xl grow flex-col items-center justify-center gap-8 px-4 pb-10">
@@ -43,20 +33,24 @@ function ProposalsPage() {
 
         {hasActiveProposals ? (
           <>
-            <ProposalList proposals={activeProposals} type="active" />
+            <ProposalList
+              proposals={activeProposals as StatefulProposal[]}
+              type="active"
+            />
             <Divider className="bg-tertiary" />
           </>
         ) : null}
 
         {hasProposals && (
-          <ProposalList proposals={proposals} type="not-active" />
+          <ProposalList
+            proposals={proposals as StatefulProposal[]}
+            type="not-active"
+          />
         )}
       </Stack>
     </motion.section>
   )
 }
-
-export default ProposalsPage
 
 function ProposalListStats({ activeProposalCount, totalProposalCount }) {
   return (

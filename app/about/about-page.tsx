@@ -6,29 +6,25 @@ import { Stack } from '@/components/base/Stack'
 import { H2Heading } from '@/components/base/Typography'
 import { buildEtherscanAddressLink } from '@/utils/helpers'
 import {
-  useDaoCollectionQuery,
+  useDaoDetailsQuery,
   useManagerContext,
-  useMetadataContext,
   useTokenContext,
-} from '@public-assembly/dao-utils'
+} from '@public-assembly/builder-utils'
 import { aggregatorAbi } from 'abi/aggregatorAbi'
 import clsx from 'clsx'
 import HtmlReactParser from 'html-react-parser'
 import { PropsWithChildren } from 'react'
-import { Hash } from 'types'
+import { Hex } from 'viem'
 import { useBalance, useContractRead } from 'wagmi'
 
 export default function AboutPage() {
-  const { metadataSettings } = useMetadataContext()
-  const { tokenSettings } = useTokenContext()
-  const { daoAddresses } = useManagerContext()
-  const { ownerCount } = useDaoCollectionQuery({
-    // @ts-ignore
-    tokenAddress: metadataSettings?.token,
-  })
+  const { tokenSettings, tokenAddress } = useTokenContext()
+  const { treasuryAddress } = useManagerContext()
+
+  const { daoDetails } = useDaoDetailsQuery({ tokenAddress: tokenAddress })
 
   const { data } = useBalance({
-    address: daoAddresses?.treasuryAddress as Hash,
+    address: treasuryAddress as Hex,
   })
 
   const { data: latestRoundData } = useContractRead({
@@ -37,32 +33,32 @@ export default function AboutPage() {
     functionName: 'latestRoundData',
   })
 
-  const ethUsd = Number(latestRoundData?.answer.toString().substring(0, 4))
+  const ethUsd = Number(latestRoundData?.[1].toString().substring(0, 4))
 
   return (
     <Stack className="gap-10 px-4 pt-10 lg:px-10">
       <IconButton
         icon={<Globe />}
         tooltip="website"
-        href={`${metadataSettings?.projectURI}`}
+        href={`${daoDetails.projectURI}`}
       />
       <Flex className="body max-w-xl">
         {HtmlReactParser(
-          String(metadataSettings?.description).replace(/\\n/g, '<br />')
+          String(daoDetails.description).replace(/\\n/g, '<br />')
         )}
       </Flex>
 
       <Flex className="gap-6">
         <Card className="rounded-object bg-secondary px-6 py-4">
           <Stack>
-            <H2Heading>{ownerCount}</H2Heading>
+            <H2Heading>{daoDetails.ownerCount}</H2Heading>
             <div className="text-black">Owners</div>
           </Stack>
         </Card>
         <Card className="rounded-object bg-secondary px-6 py-4">
           <Stack>
             {tokenSettings ? (
-              <H2Heading>{tokenSettings[2]?.toNumber() - 1}</H2Heading>
+              <H2Heading>{Number(daoDetails.totalSupply) - 1}</H2Heading>
             ) : null}
             <div className="text-black">Total Supply</div>
           </Stack>
@@ -71,9 +67,7 @@ export default function AboutPage() {
       <Flex className="w-full flex-wrap gap-6 text-black">
         <Label
           showExternalLinkIcon
-          externalLink={buildEtherscanAddressLink(
-            daoAddresses?.treasuryAddress as Hash
-          )}
+          externalLink={buildEtherscanAddressLink(treasuryAddress as Hex)}
         >
           {`Treasury balance ${Number(data?.formatted).toFixed(3)} ETH`}
         </Label>

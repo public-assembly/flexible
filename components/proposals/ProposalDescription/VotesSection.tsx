@@ -8,7 +8,7 @@ import { Stack } from '@/components/base/Stack'
 import { Body, Caption } from '@/components/base/Typography'
 import { buildEtherscanLink } from '@/utils/helpers'
 import Link from 'next/link'
-import { Hash } from 'types'
+import { Hash } from 'viem'
 
 type VotesSectionProps = {
   forVotes: number
