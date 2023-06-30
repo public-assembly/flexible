@@ -5,7 +5,7 @@ import { cn } from 'utils/cn'
 
 const buttonVariants = cva(
   [
-    'inline-flex items-center justify-center text-base font-medium transition-colors border-s body',
+    'inline-flex items-center justify-center text-base font-medium transition-colors body',
     'focus:outline-none focus:ring-2',
     'dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-offset-slate-900',
     'disabled:opacity-50 disabled:pointer-events-none',
@@ -44,8 +44,9 @@ const buttonVariants = cva(
           'focus:ring-primary focus:ring-offset-1',
         ],
         link: 'bg-transparent underline-offset-4 hover:underline text-slate-900 dark:text-slate-100 hover:bg-transparent dark:hover:bg-transparent',
+
         burger:
-          'hover:bg-primary/50 data-[state=open]:bg-primary bg-transparent data-[state=open]:text-secondary focus:ring-2 active:ring-primary focus:ring-primary',
+          'hover:bg-primary/50  data-[state=open]:bg-primary data-[state=open]:text-secondary bg-transparent focus:ring-2 active:ring-primary focus:ring-primary',
       },
       icon: {
         true: '',

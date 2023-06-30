@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from 'utils/cn'
 
-import { useState } from 'react'
 import styles from './Navigation.module.css'
 import { Flex } from './base/Flex'
 import { Headline } from './base/Typography'
@@ -36,26 +35,11 @@ export function Navigation() {
     </Flex>
   )
 }
-// Todo: Figure out the logic for isCurrentPath given a dynamic segment
+// TODO: Figure out the logic for isCurrentPath given a dynamic segment
 function NavLink({ slug, title }: NavLinkProps) {
-  const [currentPath, setCurrentPath] = useState<boolean>(false)
-
   const pathname = usePathname()
 
-  // useEffect(() => {
-  //   if (pathname === slug) {
-  //     setCurrentPath(true)
-  //   }
-  //   // Check if the pathname is a number between 1 and 1000
-  //   else if (pathname !== slug) {
-  //     try {
-  //       parseInt(pathname.substring(1)) >= 1 &&
-  //         parseInt(pathname.substring(1)) <= 1000
-  //     } finally {
-  //       setCurrentPath(true)
-  //     }
-  //   }
-  // }, [pathname])
+  const currentPath = pathname === slug
 
   return (
     <Link

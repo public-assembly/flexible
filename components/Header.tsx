@@ -5,7 +5,7 @@ import { useTokenContext } from '@public-assembly/builder-utils'
 import { platformThemeRegistryAbi } from 'abi/platformThemeRegistryAbi'
 import { motion, Variants } from 'framer-motion'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { ENV } from 'utils/env'
 import { Hash } from 'viem'
@@ -90,17 +90,14 @@ export function Header() {
   )
 }
 
-/* Mobile burger navigation */
-type MobileDropdownProps = {
-  isConnected?: boolean
-}
-
-function MobileDropdown(props: MobileDropdownProps) {
-  const { address, logout, isConnected, chain } = useAuth()
+function MobileDropdown() {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [canEdit, setCanEdit] = useState<boolean>(false)
+  const { address, logout, isConnected, chain } = useAuth()
   const { requestOpen } = useDrawer()
   const pathname = usePathname()
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const router = useRouter()
+  
 
   useEffect(() => {
     const closeDropdown = () => setIsOpen(false)
