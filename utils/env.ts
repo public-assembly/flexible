@@ -15,6 +15,7 @@ const PROCESS = {
    */
   PLATFORM_INDEX: Number(process.env.NEXT_PUBLIC_PLATFORM_INDEX),
   WEB3STORAGE_TOKEN: process.env.NEXT_PUBLIC_WEB3STORAGE_TOKEN,
+  WALLET_CONNECT: process.env.NEXT_PUBLIC_WALLET_CONNECT
 }
 
 // Checks that run in all environments
@@ -51,6 +52,7 @@ export const ENV = {
   TOKEN_ADDRESS: PROCESS.TOKEN_ADDRESS as `0x${string}`,
   PLATFORM_INDEX: PROCESS.PLATFORM_INDEX,
   WEB3STORAGE_TOKEN: PROCESS.WEB3STORAGE_TOKEN,
+  WALLET_CONNECT: process.env.NEXT_PUBLIC_WALLET_CONNECT,
 } as const
 
 export const isDev = ENV.VERCEL_ENV === 'development'

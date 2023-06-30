@@ -73,7 +73,7 @@ const { chains } = configureChains(
 const config = createConfig(
   getDefaultConfig({
     appName: 'Flexible',
-    walletConnectProjectId: '',
+    walletConnectProjectId: ENV.WALLET_CONNECT as string,
     chains,
   })
 )
