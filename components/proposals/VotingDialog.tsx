@@ -6,8 +6,8 @@ import {
 } from '@public-assembly/builder-utils'
 import { useEffect, useState } from 'react'
 import { cn } from 'utils/cn'
-import { useContractRead } from 'wagmi'
 import { Hash } from 'viem'
+import { useContractRead } from 'wagmi'
 import { Check, Exit, Minus, Pending } from '../assets/icons'
 import { Button } from '../base/Button'
 import {
@@ -49,7 +49,7 @@ const VotingDialog = ({ proposal }) => {
     address: governorAddress,
     abi: governorAbi,
     functionName: 'getVotes',
-    args: [address as Hash, BigInt(proposal?.timeCreated)],
+    args: [address as Hash, proposal.timeCreated],
   })
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const VotingDialog = ({ proposal }) => {
     }
   }, [castVoteSuccess, castVoteWithReasonSuccess])
 
-  if (proposal.status != 'ACTIVE') return null
+  if (proposal.state != 'Active') return null
   return (
     <>
       {successDialogOpen && <VotingSuccess reason={reason} />}

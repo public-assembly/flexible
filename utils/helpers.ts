@@ -1,5 +1,5 @@
 import { ETHERSCAN_BASE_URL } from 'constants/etherscan'
-import { Hash, Hex } from 'viem'
+import { Hex } from 'viem'
 
 export const isServerSide = () => typeof window === 'undefined'
 

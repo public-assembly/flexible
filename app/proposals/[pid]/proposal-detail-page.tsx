@@ -1,58 +1,59 @@
-'use client'
-
-import { useActiveProposals } from '@/hooks/useActiveProposals'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import Balancer from 'react-wrap-balancer'
-
 import { ArrowLeft } from '@/components/assets/icons'
 import { Divider } from '@/components/base/Divider'
 import { Flex } from '@/components/base/Flex'
 import { RichText } from '@/components/base/Richtext'
 import { Stack } from '@/components/base/Stack'
 import { Body } from '@/components/base/Typography'
+import { ProposalTimestamp } from '@/components/proposals/ProposalCard'
 import {
   DecodedTransactions,
   ProposalVoteStatus,
   VotesSection,
 } from '@/components/proposals/ProposalDescription'
+import ProposalLabel from '@/components/proposals/ProposalLabel'
 import { Proposer } from '@/components/proposals/Proposer'
+import { useGovernorContext } from '@public-assembly/builder-utils'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import Balancer from 'react-wrap-balancer'
 import { Hex } from 'viem'
-import { BodyLarge, Headline } from '../../components/base/Typography'
+import { BodyLarge, Headline } from '../../../components/base/Typography'
 
-function ProposalDetailPage() {
-  const { allProposals } = useActiveProposals()
+export default function ProposalDetailPage() {
+  const { proposals } = useGovernorContext()
   const pid = usePathname()
 
-  if (!allProposals) return null
+  if (!proposals) return null
 
-  const proposal = allProposals.find((proposal) => proposal.id === pid)
+  const proposal = proposals.find(
+    (proposal) => `/proposals/${proposal.proposalId}` === pid
+  )
 
   if (!proposal) return null
   return (
-    <Stack className="w-full px-4 md:px-10">
+    <Stack className="w-full px-4 md:px-10 md:pt-16">
       <Stack className="w-full gap-10 pt-10">
         <ProposalNavigation />
         <Flex className="h-full w-full justify-between">
           {/* Header section */}
           <Stack className="w-fit gap-4">
-            {/* <Flex className="items-center gap-6">
-              {proposal.status === 'ACTIVE' ? (
-                <ProposalLabel>{proposal.status}</ProposalLabel>
-              ) : proposal.status === 'PENDING' ||
-                proposal.status === 'QUEUED' ||
-                proposal.status === 'EXECUTED' ||
-                proposal.status === 'SUCCEEDED' ? (
+            <Flex className="items-center gap-6">
+              {proposal.state === 'Active' ? (
+                <ProposalLabel>{proposal.state}</ProposalLabel>
+              ) : proposal.state === 'Pending' ||
+                proposal.state === 'Queued' ||
+                proposal.state === 'Executed' ||
+                proposal.state === 'Succeeded' ? (
                 <ProposalLabel variant="secondary">
-                  {proposal.status}
+                  {proposal.state}
                 </ProposalLabel>
               ) : (
                 <ProposalLabel variant="tertiary">
-                  {proposal.status}
+                  {proposal.state}
                 </ProposalLabel>
               )}
               <ProposalTimestamp proposal={proposal} size="sm" />
-            </Flex> */}
+            </Flex>
             <Stack className="w-full gap-2">
               <Balancer>
                 <Headline>{proposal.title}</Headline>
@@ -73,8 +74,7 @@ function ProposalDetailPage() {
               abstainVotes={proposal.abstainVotes}
               againstVotes={proposal.againstVotes}
               votingThreshold={proposal.quorumVotes}
-              // @ts-ignore - TODO: Update dao-utils gql.ts
-              transactionHash={proposal.transactionInfo.transactionHash}
+              transactionHash={proposal.transactionHash}
             />
           </Stack>
 
@@ -85,8 +85,7 @@ function ProposalDetailPage() {
             abstainVotes={proposal.abstainVotes}
             againstVotes={proposal.againstVotes}
             votingThreshold={proposal.quorumVotes}
-            // @ts-ignore - TODO: Update dao-utils gql.ts
-            transactionHash={proposal.transactionInfo.transactionHash}
+            transactionHash={proposal.transactionHash}
           />
         </Flex>
       </Stack>
@@ -118,8 +117,6 @@ function ProposalDetailPage() {
     </Stack>
   )
 }
-
-export default ProposalDetailPage
 
 function ProposalNavigation() {
   return (

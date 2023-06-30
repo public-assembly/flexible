@@ -54,7 +54,7 @@
     "**/*.mdx",
     "**/*.md",
     ".next/types/**/*.ts"
-  ],
+, "app/proposals/[pid]"  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,16 +1,20 @@
 import { ArrowUpRight } from '@/components/assets/icons'
 import Button from '@/components/base/Button'
-import { useTokenContext } from '@public-assembly/builder-utils'
+import {
+  useDaoDetailsQuery,
+  useTokenContext,
+} from '@public-assembly/builder-utils'
 import { ENV } from 'utils/env'
 import { buildCreateProposalUrl } from 'utils/helpers'
 import EmptyState from '../EmptyState'
 
 const ProposalEmptyState = () => {
-  const { tokenSettings } = useTokenContext()
+  const { tokenAddress } = useTokenContext()
+  const { daoDetails } = useDaoDetailsQuery({ tokenAddress: tokenAddress })
 
   return (
     <EmptyState
-      heading={`${tokenSettings?.[0]} has not created any proposals yet.`}
+      heading={`${daoDetails.name} has not created any proposals yet.`}
       actions={
         <a
           target="_blank"
