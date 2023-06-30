@@ -5,7 +5,7 @@ import { useTokenContext } from '@public-assembly/builder-utils'
 import { platformThemeRegistryAbi } from 'abi/platformThemeRegistryAbi'
 import { motion, Variants } from 'framer-motion'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { ENV } from 'utils/env'
 import { Hash } from 'viem'
@@ -99,16 +99,13 @@ function MobileDropdown(props: MobileDropdownProps) {
   const { address, logout, isConnected, chain } = useAuth()
   const [canEdit, setCanEdit] = useState<boolean>(false)
   const { requestOpen } = useDrawer()
-  const router = useRouter()
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   useEffect(() => {
     const closeDropdown = () => setIsOpen(false)
-    // router.events.on('routeChangeComplete', closeDropdown)
-    // return () => {
-    //   router.events.off('routeChangeComplete', closeDropdown)
-    // }
-  }, [isOpen])
+    closeDropdown()
+  }, [pathname])
 
   const themeRegistry = '0x9a23AE640040e4d34E9e00E500003000017144F4'
 

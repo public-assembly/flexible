@@ -2,15 +2,10 @@
 
 import './styles/globals.css'
 
-import { Header } from '@/components/Header'
 import { Drawer } from '@/components/Drawer'
+import { Header } from '@/components/Header'
 import { TopProgressBar } from '@/components/TopProgressBar'
 import { Providers } from './providers'
-
-// export const metadata: Metadata = {
-//   title: 'Flexible',
-//   description: 'Create your own DAO interface.',
-// }
 
 export default function RootLayout({
   children,

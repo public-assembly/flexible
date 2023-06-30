@@ -140,7 +140,7 @@ export function CurrentAuctionSheet(props: AuctionProps) {
                 </Headline>
               </SheetTitle>
               <Grid className="grid-cols-2">
-                {props.isLastToken ? (
+                {!props.isEnded ? (
                   <>
                     {/* Auction countdown */}
                     <Stack>
@@ -173,7 +173,7 @@ export function CurrentAuctionSheet(props: AuctionProps) {
                     {/* Winning bid */}
                     <Stack>
                       <Caption className="uppercase text-primary">
-                        {props.winningBid} ETH
+                        {Number(props.winningBid) > 0 ? props.winningBid + ' ETH' : 'No bids'} 
                       </Caption>
                       <BodySmall className="text-tertiary">
                         Winning bid
