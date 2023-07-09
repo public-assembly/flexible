@@ -1,9 +1,19 @@
 import { useSettle } from '@public-assembly/builder-utils'
+import { usePathname, useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import { Pending } from '../assets/icons'
 import Button from '../base/Button'
 
 export function Settle() {
   const { settle, settleSuccess, settleLoading } = useSettle()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  useEffect(() => {
+    if (settleSuccess) {
+      router.push(`/${parseInt(pathname.substring(1)) + 1}`)
+    }
+  }, [settleSuccess])
 
   return (
     <>
