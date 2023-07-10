@@ -109,7 +109,12 @@ export default function ProposalDetailPage() {
       <section id="Proposal Transactions">
         <BodyLarge className="py-10">Proposed Transactions</BodyLarge>
         <DecodedTransactions
-          calldatas={proposal.calldatas as unknown as string[]}
+          // @ts-expect-error
+          calldatas={
+            Array.isArray(proposal.calldatas)
+              ? proposal.calldatas
+              : [proposal.calldatas]
+          }
           targets={proposal.targets}
           values={proposal.values}
         />
