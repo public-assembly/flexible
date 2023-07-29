@@ -19,12 +19,12 @@ const PROCESS = {
 }
 
 // Checks that run in all environments
-if (PROCESS.CHAIN !== 1 && PROCESS.CHAIN !== 5) {
+if (PROCESS.CHAIN !== 1 && PROCESS.CHAIN !== 5 && PROCESS.CHAIN !== 999) {
   throw new Error(
-    `${PROCESS.CHAIN} is not supported. Supported values are 1 (mainnet) and 5 (goerli)`
+    `${PROCESS.CHAIN} is not supported. Supported values are 1 (mainnet), 5 (goerli), and 999 (zoraGoerli)`
   )
 }
-if (!PROCESS.ALCHEMY_KEY) {
+if (!PROCESS.ALCHEMY_KEY && PROCESS.CHAIN !== 999) {
   throw new Error('PROCESS.ALCHEMY_KEY is not set')
 }
 if (!PROCESS.TOKEN_ADDRESS) {
