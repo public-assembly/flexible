@@ -41,8 +41,6 @@ const HistoricalAuction = ({ tokenId }: { tokenId: number }) => {
     tokenId: BigInt(tokenId),
   })
 
-  console.log("token name: ", tokenImage)
-
   const { winningBid, winningBidder, endTime, bids } =
     useHistoricalAuctionQuery({
       tokenAddress: tokenAddress,
