@@ -21,7 +21,6 @@ import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
-
 /** Import both default fonts from Figma. This resolves the FOUT (flash of unstyled text): https://nextjs.org/docs/basic-features/font-optimization*/
 export const spaceMono = Space_Mono({
   variable: '--font-space-mono',
@@ -74,7 +73,7 @@ const { chains } = configureChains(
     ? jsonRpcProvider({
         rpc: (chain) => ({
           http: `https://testnet.rpc.zora.co/`,
-        }),
+        })
       })
     : alchemyProvider({ apiKey: ENV.ALCHEMY_KEY }), publicProvider()
   ]

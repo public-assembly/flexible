@@ -60,6 +60,7 @@ const CurrentAuction = ({ tokenId }: { tokenId: number }) => {
     tokenId: BigInt(tokenId),
   })
 
+
   const auctionProps = {
     isMobile,
     tokenAddress,
@@ -75,6 +76,7 @@ const CurrentAuction = ({ tokenId }: { tokenId: number }) => {
     endTime,
     bids,
   }
+
 
   return (
     <Stack className="min-h-screen justify-center gap-4 px-4">

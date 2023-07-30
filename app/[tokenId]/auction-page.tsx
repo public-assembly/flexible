@@ -7,6 +7,8 @@ export default function AuctionPage({ tokenId }: { tokenId: number }) {
   const pathname = usePathname()
   const { auctionState } = useAuctionState()
 
+  console.log("auction staet: ", auctionState)
+
   return pathname.substring(1) === String(auctionState.tokenId) ? (
     <CurrentAuction tokenId={tokenId} />
   ) : (

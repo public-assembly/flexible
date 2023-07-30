@@ -13,7 +13,7 @@ import { useWeb3Storage } from '../hooks/useWeb3Storage'
 
 type ThemeProviderProps = {
   children?: ReactNode
-  platformIndex?: number
+  platformIndex?: bigint
 }
 
 /**
@@ -128,6 +128,9 @@ export const ThemeProvider = memo(function ThemeProvider({
       .getPropertyValue('--border-radius-button')
       .slice(0, -2)
   )
+
+  console.log("platform theme index: ", platformIndex)
+
   /**
    * Read the desired ipfs string from the registry contract
    */
@@ -135,7 +138,8 @@ export const ThemeProvider = memo(function ThemeProvider({
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     functionName: 'getPlatformTheme',
-    args: [BigInt(Number(platformIndex))],
+    args: [platformIndex as bigint],
+    enabled: false,
     onSuccess(data: any) {
       setThemeCID(data.substring('ipfs://'.length))
     },

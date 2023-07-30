@@ -6,7 +6,7 @@ import {
   useHistoricalAuctionQuery,
   useHistoricalTokenQuery,
   useManagerContext,
-  useTokenExplorer,
+  useTokenExplorer
 } from '@public-assembly/builder-utils'
 import { useRouter } from 'next/navigation'
 import Label from '../base/Label'

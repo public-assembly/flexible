@@ -6,7 +6,10 @@ import { useAuth } from '../hooks/useAuth'
  */
 
 export function Avatar() {
-  const { ensName, ensAvatar } = useAuth()
+  // const { ensName, ensAvatar } = useAuth()
+
+  const ensAvatar = false;
+  const ensName = "";
 
   if (!ensAvatar) return null
 
