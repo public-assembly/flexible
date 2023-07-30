@@ -129,8 +129,6 @@ export const ThemeProvider = memo(function ThemeProvider({
       .slice(0, -2)
   )
 
-  console.log("platform theme index: ", platformIndex)
-
   /**
    * Read the desired ipfs string from the registry contract
    */
