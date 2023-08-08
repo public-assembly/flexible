@@ -86,10 +86,30 @@ export function Header() {
               {tokenSettings?.[0].result}
             </Headline>
             <Flex className="ml-4 items-center justify-center rounded-lg border border-primary bg-highlight px-6 py-1 hover:cursor-default">
-              <Body className="font-medium text-primary">ZORA Testnet</Body>
+              <Body className="font-medium text-primary">Zora Testnet</Body>
             </Flex>
           </Flex>
         </NetworkController.ZORA_Testnet>        
+        <NetworkController.ZORA_Mainnet>
+          <Flex>
+            <Headline className="headline">
+              {tokenSettings?.[0].result}
+            </Headline>
+            <Flex className="ml-4 items-center justify-center rounded-lg border border-primary bg-highlight px-6 py-1 hover:cursor-default">
+              <Body className="font-medium text-primary">Zora</Body>
+            </Flex>
+          </Flex>
+        </NetworkController.ZORA_Mainnet>         
+        <NetworkController.Base_Mainnet>
+          <Flex>
+            <Headline className="headline">
+              {tokenSettings?.[0].result}
+            </Headline>
+            <Flex className="ml-4 items-center justify-center rounded-lg border border-primary bg-highlight px-6 py-1 hover:cursor-default">
+              <Body className="font-medium text-primary">Base</Body>
+            </Flex>
+          </Flex>
+        </NetworkController.Base_Mainnet>              
       </Link>
 
       <Flex className="items-center gap-6">

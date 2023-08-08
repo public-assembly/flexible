@@ -14,21 +14,37 @@ const ProposalEmptyState = () => {
   const NOUNS_BUILDER_BASE_URL = 'https://nouns.build'
   const TESTNET_NOUNS_BUILDER_BASE_URL = 'https://testnet.nouns.build'
 
-  const url: string =
-    ENV.CHAIN == 1
-      ? new URL(
+  function getURL() {
+    switch (ENV.CHAIN) {
+      case 1:
+        return new URL(
           `/dao/ethereum/${ENV.TOKEN_ADDRESS}/proposal/create`,
           NOUNS_BUILDER_BASE_URL
-        ).toString()
-      : ENV.CHAIN == 5
-      ? new URL(
+        ).toString();
+      case 5:
+        return new URL(
           `/dao/goerli/${ENV.TOKEN_ADDRESS}/proposal/create`,
           TESTNET_NOUNS_BUILDER_BASE_URL
-        ).toString()
-      : new URL(
+        ).toString();
+      case 999:
+        return new URL(
           `/dao/zora-goerli/${ENV.TOKEN_ADDRESS}/proposal/create`,
           TESTNET_NOUNS_BUILDER_BASE_URL
-        ).toString()
+        ).toString();
+      case 7777777:
+        return new URL(
+          `/dao/zora/${ENV.TOKEN_ADDRESS}/proposal/create`,
+          NOUNS_BUILDER_BASE_URL
+        ).toString();
+      case 8453:
+        return new URL(
+          `/dao/base/${ENV.TOKEN_ADDRESS}/proposal/create`,
+          NOUNS_BUILDER_BASE_URL
+        ).toString();
+      default:
+        throw new Error('Invalid chain value');
+    }
+  }
 
   return (
     <EmptyState
@@ -37,7 +53,7 @@ const ProposalEmptyState = () => {
         <a
           target="_blank"
           rel="noreferrer"
-          href={url}
+          href={getURL()}
           className="focus:outline-none"
         >
           <Button

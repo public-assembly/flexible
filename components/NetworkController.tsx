@@ -31,6 +31,17 @@ const FeatureZoraTestnet = ({ children }: FeatureContainerProps) => {
   return null
 }
 
+const FeatureZoraMainnet = ({ children }: FeatureContainerProps) => {
+  if (showFeature(7777777)) return <>{children}</>
+  return null
+}
+
+const FeatureBaseMainnet = ({ children }: FeatureContainerProps) => {
+  if (showFeature(8453)) return <>{children}</>
+  return null
+}
+
+
 export const NetworkController = ({ children }: NetworkControllerProps) => {
   return <>{children}</>
 }
@@ -38,3 +49,5 @@ export const NetworkController = ({ children }: NetworkControllerProps) => {
 NetworkController.Mainnet = FeatureMainnet
 NetworkController.Testnet = FeatureTestnet
 NetworkController.ZORA_Testnet = FeatureZoraTestnet
+NetworkController.ZORA_Mainnet = FeatureZoraMainnet
+NetworkController.Base_Mainnet = FeatureBaseMainnet

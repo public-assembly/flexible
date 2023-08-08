@@ -27,8 +27,6 @@ export default function AboutPage() {
     address: treasuryAddress as Hex,
   })
 
-  console.log("data from usebalance: ", data)
-
   const { data: latestRoundData } = useContractRead({
     address: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
     abi: aggregatorAbi,
