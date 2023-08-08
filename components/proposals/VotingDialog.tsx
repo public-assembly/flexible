@@ -38,7 +38,7 @@ const VotingDialog = ({ proposal }) => {
     castVoteLoading,
     castVoteWithReasonLoading,
   } = useVote({
-    proposal,
+    proposalId: proposal.id,
     support,
     reason,
   })
