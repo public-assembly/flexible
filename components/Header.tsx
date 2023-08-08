@@ -80,6 +80,16 @@ export function Header() {
             </Flex>
           </Flex>
         </NetworkController.Testnet>
+        <NetworkController.ZORA_Testnet>
+          <Flex>
+            <Headline className="headline">
+              {tokenSettings?.[0].result}
+            </Headline>
+            <Flex className="ml-4 items-center justify-center rounded-lg border border-primary bg-highlight px-6 py-1 hover:cursor-default">
+              <Body className="font-medium text-primary">ZORA Testnet</Body>
+            </Flex>
+          </Flex>
+        </NetworkController.ZORA_Testnet>        
       </Link>
 
       <Flex className="items-center gap-6">
@@ -110,7 +120,7 @@ function MobileDropdown() {
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     functionName: 'getRole',
-    args: [BigInt(ENV.PLATFORM_INDEX), address as Hash],
+    args: [ENV.PLATFORM_INDEX as bigint, address as Hash],
     onSuccess(getRole) {
       if (getRole === 1 || getRole === 2) {
         setCanEdit(true)

@@ -34,7 +34,7 @@ export function Save() {
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     functionName: 'getRole',
-    args: [BigInt(ENV.PLATFORM_INDEX), address as Hex],
+    args: [ENV.PLATFORM_INDEX as bigint, address as Hex],
     onSuccess(getRole) {
       if (getRole === 1 || getRole === 2) {
         setCanEdit(true)
@@ -46,7 +46,7 @@ export function Save() {
     address: themeRegistry,
     abi: platformThemeRegistryAbi,
     functionName: 'setPlatformTheme',
-    args: [BigInt(ENV.PLATFORM_INDEX), uri],
+    args: [ENV.PLATFORM_INDEX as bigint, uri],
     enabled: Boolean(uri),
     onSuccess() {
       setThemeReady(true)

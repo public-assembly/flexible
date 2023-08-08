@@ -16,9 +16,10 @@ import { Provider } from 'react-wrap-balancer'
 import { SWRConfig } from 'swr'
 import { ENV } from 'utils/env'
 import { WagmiConfig, configureChains, createConfig } from 'wagmi'
-import { goerli, mainnet } from 'wagmi/chains'
+import { goerli, mainnet, zoraTestnet } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
 /** Import both default fonts from Figma. This resolves the FOUT (flash of unstyled text): https://nextjs.org/docs/basic-features/font-optimization*/
 export const spaceMono = Space_Mono({
@@ -66,8 +67,16 @@ export const satoshi = localFont({
 })
 
 const { chains } = configureChains(
-  [ENV.CHAIN === 1 ? mainnet : goerli],
-  [alchemyProvider({ apiKey: ENV.ALCHEMY_KEY }), publicProvider()]
+  [ENV.CHAIN === 1 ? mainnet : (ENV.CHAIN === 5 ? goerli : zoraTestnet)],
+  [
+    ENV.CHAIN === 999 // if zoraTestnet, use custom jsonRpcProvider, else use alchemy + public fallback
+    ? jsonRpcProvider({
+        rpc: (chain) => ({
+          http: `https://testnet.rpc.zora.co/`,
+        })
+      })
+    : alchemyProvider({ apiKey: ENV.ALCHEMY_KEY }), publicProvider()
+  ]
 )
 
 const config = createConfig(

@@ -13,18 +13,18 @@ const PROCESS = {
   /**
    * Environment variables necessary for onchain theming
    */
-  PLATFORM_INDEX: Number(process.env.NEXT_PUBLIC_PLATFORM_INDEX),
+  PLATFORM_INDEX: process.env.NEXT_PUBLIC_PLATFORM_INDEX ? BigInt(Number(process.env.NEXT_PUBLIC_PLATFORM_INDEX)) : undefined,
   WEB3STORAGE_TOKEN: process.env.NEXT_PUBLIC_WEB3STORAGE_TOKEN,
   WALLET_CONNECT: process.env.NEXT_PUBLIC_WALLET_CONNECT
 }
 
 // Checks that run in all environments
-if (PROCESS.CHAIN !== 1 && PROCESS.CHAIN !== 5) {
+if (PROCESS.CHAIN !== 1 && PROCESS.CHAIN !== 5 && PROCESS.CHAIN !== 999) {
   throw new Error(
-    `${PROCESS.CHAIN} is not supported. Supported values are 1 (mainnet) and 5 (goerli)`
+    `${PROCESS.CHAIN} is not supported. Supported values are 1 (mainnet), 5 (goerli), and 999 (zora testnet)`
   )
 }
-if (!PROCESS.ALCHEMY_KEY) {
+if (!PROCESS.ALCHEMY_KEY && PROCESS.CHAIN !== 999) {
   throw new Error('PROCESS.ALCHEMY_KEY is not set')
 }
 if (!PROCESS.TOKEN_ADDRESS) {

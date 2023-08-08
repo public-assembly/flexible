@@ -5,7 +5,8 @@ import { Headline } from './base/Typography'
 import { Zorb } from './base/Zorb'
 
 export default function AltConnectButton() {
-  const { address, ensName } = useAuth()
+  const { address } = useAuth()
+  const ensName = false // hardcoded as not available until crosschain ens resolution implemented
 
   return (
     <ConnectKitButton.Custom>

@@ -16,16 +16,18 @@ export function Bidder(props: BidderProps) {
   const { data: ensName } = useEnsName({
     address: props.address,
   })
-  const { data: ensAvatar } = useEnsAvatar({
-    name: props.address,
-  })
+
+  // hardcoded as not available until crosschain ens resolution implemented
+  // const { data: ensAvatar } = useEnsAvatar({
+  //   name: props.address,
+  // })
 
   return (
     <Flex className="flex-nowrap items-center gap-2">
       <Zorb
         address={props.address}
-        ensImage={ensAvatar}
         size={16}
+        // ensImage={ensAvatar} hardcoded not available until crosschain ens resolution implemented
         radius={999}
       />
       <Body
