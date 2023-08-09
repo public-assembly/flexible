@@ -137,7 +137,7 @@ export const ThemeProvider = memo(function ThemeProvider({
     abi: platformThemeRegistryAbi,
     functionName: 'getPlatformTheme',
     args: [platformIndex as bigint],
-    enabled: false,
+    enabled: true,
     onSuccess(data: any) {
       setThemeCID(data.substring('ipfs://'.length))
     },
